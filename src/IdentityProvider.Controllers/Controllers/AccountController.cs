@@ -12,6 +12,7 @@ using IdentityProvider.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using StructureMap;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -23,7 +24,7 @@ namespace IdentityProvider.Controllers.Controllers
         private readonly IWebSecurity _webSecurity;
         private IAuthenticationManager _authenticationManager;
         private ApplicationSignInManager _signInManager;
-
+        [DefaultConstructor]
         public AccountController(
             IWebSecurity webSecurity
             , ICookieStorageService cookieStorageService

@@ -1,4 +1,5 @@
 
+using System.ComponentModel.Design;
 using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.Certificates.ExpiryValidation;
 using IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource;
@@ -14,6 +15,8 @@ using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Services;
 using IdentityProvider.Services.ApplicationRoleService;
+using IdentityProvider.Services.OperationsService;
+using IdentityProvider.Services.ResourceService;
 using Module.Repository.EF.SimpleAudit;
 using StructureMap.Pipeline;
 
@@ -124,8 +127,8 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             // ================================================================================
           
             For<IApplicationRoleService>().Use<ApplicationRoleService>().LifecycleIs<UniquePerRequestLifecycle>();
-
-
+            For<IOperationService>().Use<OperationsService>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IResourcesService>().Use<ResourceService>().LifecycleIs<UniquePerRequestLifecycle>();
 
             //For(typeof(IService<>)).Use(typeof(Service<>));
 

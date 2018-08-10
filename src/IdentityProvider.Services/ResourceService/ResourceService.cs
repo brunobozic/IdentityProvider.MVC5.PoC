@@ -4,11 +4,12 @@ using AutoMapper;
 using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Models.Domain.Account;
 using Module.Repository.EF.UnitOfWorkInterfaces;
+using Module.ServicePattern;
 
 namespace IdentityProvider.Services.ResourceService
 {
 
-    public class ResourceService
+    public class ResourceService : Service<Resource>, IResourcesService
     {
         private readonly ILog4NetLoggingService _loggingService;
         private readonly IMapper _mapper;
@@ -23,7 +24,7 @@ namespace IdentityProvider.Services.ResourceService
             , IMapper mapper
             , ApplicationSignInManager signInManager
             , ApplicationUserManager userManager
-        )
+        ) : base(unitOfWorkAsync.RepositoryAsync<Resource>())
         {
             _unitOfWorkAsync = unitOfWorkAsync;
             _loggingService = loggingService;
@@ -47,7 +48,6 @@ namespace IdentityProvider.Services.ResourceService
             return resource.Id;
         }
 
-
         public bool FoundResource(int id)
         {
             var resource = _unitOfWorkAsync.RepositoryAsync<Resource>().Queryable().Single(i => i.Id.Equals(id));
@@ -57,8 +57,8 @@ namespace IdentityProvider.Services.ResourceService
 
 
 
-    
 
-   
+
+
     }
 }

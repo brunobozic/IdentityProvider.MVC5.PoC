@@ -83,352 +83,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="admin-lte\css\AdminLTE.css" />
-    <Content Include="admin-lte\css\AdminLTE.min.css" />
-    <Content Include="admin-lte\css\alt\AdminLTE-bootstrap-social.css" />
-    <Content Include="admin-lte\css\alt\AdminLTE-bootstrap-social.min.css" />
-    <Content Include="admin-lte\css\alt\AdminLTE-fullcalendar.css" />
-    <Content Include="admin-lte\css\alt\AdminLTE-fullcalendar.min.css" />
-    <Content Include="admin-lte\css\alt\AdminLTE-select2.css" />
-    <Content Include="admin-lte\css\alt\AdminLTE-select2.min.css" />
-    <Content Include="admin-lte\css\alt\AdminLTE-without-plugins.css" />
-    <Content Include="admin-lte\css\alt\AdminLTE-without-plugins.min.css" />
-    <Content Include="admin-lte\css\skins\skin-black-light.css" />
-    <Content Include="admin-lte\css\skins\skin-black-light.min.css" />
-    <Content Include="admin-lte\css\skins\skin-black.css" />
-    <Content Include="admin-lte\css\skins\skin-black.min.css" />
-    <Content Include="admin-lte\css\skins\skin-blue-light.css" />
-    <Content Include="admin-lte\css\skins\skin-blue-light.min.css" />
-    <Content Include="admin-lte\css\skins\skin-blue.css" />
-    <Content Include="admin-lte\css\skins\skin-blue.min.css" />
-    <Content Include="admin-lte\css\skins\skin-green-light.css" />
-    <Content Include="admin-lte\css\skins\skin-green-light.min.css" />
-    <Content Include="admin-lte\css\skins\skin-green.css" />
-    <Content Include="admin-lte\css\skins\skin-green.min.css" />
-    <Content Include="admin-lte\css\skins\skin-purple-light.css" />
-    <Content Include="admin-lte\css\skins\skin-purple-light.min.css" />
-    <Content Include="admin-lte\css\skins\skin-purple.css" />
-    <Content Include="admin-lte\css\skins\skin-purple.min.css" />
-    <Content Include="admin-lte\css\skins\skin-red-light.css" />
-    <Content Include="admin-lte\css\skins\skin-red-light.min.css" />
-    <Content Include="admin-lte\css\skins\skin-red.css" />
-    <Content Include="admin-lte\css\skins\skin-red.min.css" />
-    <Content Include="admin-lte\css\skins\skin-yellow-light.css" />
-    <Content Include="admin-lte\css\skins\skin-yellow-light.min.css" />
-    <Content Include="admin-lte\css\skins\skin-yellow.css" />
-    <Content Include="admin-lte\css\skins\skin-yellow.min.css" />
-    <Content Include="admin-lte\css\skins\_all-skins.css" />
-    <Content Include="admin-lte\css\skins\_all-skins.min.css" />
-    <Content Include="admin-lte\img\avatar.png" />
-    <Content Include="admin-lte\img\avatar04.png" />
-    <Content Include="admin-lte\img\avatar2.png" />
-    <Content Include="admin-lte\img\avatar3.png" />
-    <Content Include="admin-lte\img\avatar5.png" />
-    <Content Include="admin-lte\img\boxed-bg.jpg" />
-    <Content Include="admin-lte\img\boxed-bg.png" />
-    <Content Include="admin-lte\img\credit\american-express.png" />
-    <Content Include="admin-lte\img\credit\cirrus.png" />
-    <Content Include="admin-lte\img\credit\mastercard.png" />
-    <Content Include="admin-lte\img\credit\mestro.png" />
-    <Content Include="admin-lte\img\credit\paypal.png" />
-    <Content Include="admin-lte\img\credit\paypal2.png" />
-    <Content Include="admin-lte\img\credit\visa.png" />
-    <Content Include="admin-lte\img\default-50x50.gif" />
-    <Content Include="admin-lte\img\icons.png" />
-    <Content Include="admin-lte\img\photo1.png" />
-    <Content Include="admin-lte\img\photo2.png" />
-    <Content Include="admin-lte\img\photo3.jpg" />
-    <Content Include="admin-lte\img\photo4.jpg" />
-    <Content Include="admin-lte\img\user1-128x128.jpg" />
-    <Content Include="admin-lte\img\user2-160x160.jpg" />
-    <Content Include="admin-lte\img\user3-128x128.jpg" />
-    <Content Include="admin-lte\img\user4-128x128.jpg" />
-    <Content Include="admin-lte\img\user5-128x128.jpg" />
-    <Content Include="admin-lte\img\user6-128x128.jpg" />
-    <Content Include="admin-lte\img\user7-128x128.jpg" />
-    <Content Include="admin-lte\img\user8-128x128.jpg" />
-    <Content Include="admin-lte\js\adminlte.js" />
-    <Content Include="admin-lte\js\adminlte.min.js" />
-    <Content Include="admin-lte\js\demo.js" />
-    <Content Include="admin-lte\js\pages\dashboard.js" />
-    <Content Include="admin-lte\js\pages\dashboard2.js" />
-    <Content Include="assets\css\AdminLTE.min.css" />
-    <Content Include="assets\css\bootstrap.min.css" />
-    <Content Include="assets\css\font-awesome.min.css" />
-    <Content Include="assets\css\Fontes.css" />
-    <Content Include="assets\css\please-wait.css" />
-    <Content Include="assets\css\skin-blue.min.css" />
-    <Content Include="assets\fonts\fontawesome-webfont.svg" />
-    <Content Include="assets\img\logo.jpg" />
-    <Content Include="assets\js\AdminLTE.js" />
-    <Content Include="assets\js\app.min.js" />
-    <Content Include="assets\js\bootstrap.min.js" />
-    <Content Include="assets\js\demo.js" />
-    <Content Include="assets\js\html5shiv.min.js" />
-    <Content Include="assets\js\jquery.js" />
-    <Content Include="assets\js\jquery.validate.min.js" />
-    <Content Include="assets\js\jquery.validate.unobtrusive.min.js" />
-    <Content Include="assets\js\modernizr.js" />
-    <Content Include="assets\js\please-wait.min.js" />
-    <Content Include="assets\js\respond.min.js" />
-    <Content Include="assets\plugins\datatables\dataTables.bootstrap.css" />
-    <Content Include="assets\plugins\datatables\dataTables.bootstrap.js" />
-    <Content Include="assets\plugins\datatables\dataTables.bootstrap.min.js" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\css\dataTables.autoFill.css" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\css\dataTables.autoFill.min.css" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\examples\columns.html" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\examples\complete-callback.html" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\examples\fill-both.html" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\examples\fill-horizontal.html" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\examples\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\examples\scrolling.html" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\examples\simple.html" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\examples\step-callback.html" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\images\filler.png" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\js\dataTables.autoFill.js" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\js\dataTables.autoFill.min.js" />
-    <Content Include="assets\plugins\datatables\extensions\AutoFill\Readme.txt" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\css\dataTables.colReorder.css" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\css\dataTables.colReorder.min.css" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\alt_insert.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\colvis.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\col_filter.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\fixedcolumns.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\fixedheader.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\jqueryui.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\new_init.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\predefined.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\realtime.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\reset.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\scrolling.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\server_side.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\simple.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\examples\state_save.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\images\insert.png" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\js\dataTables.colReorder.js" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\js\dataTables.colReorder.min.js" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\License.txt" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\css\dataTables.colVis.css" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\css\dataTables.colvis.jqueryui.css" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\css\dataTables.colVis.min.css" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\button_order.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\exclude_columns.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\group_columns.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\jqueryui.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\mouseover.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\new_init.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\restore.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\simple.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\text.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\title_callback.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\two_tables.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\examples\two_tables_identical.html" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\js\dataTables.colVis.js" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\js\dataTables.colVis.min.js" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\License.txt" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\css\dataTables.fixedColumns.css" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\css\dataTables.fixedColumns.min.css" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\bootstrap.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\colvis.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\col_filter.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\css_size.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\index_column.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\left_right_columns.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\right_column.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\rowspan.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\server-side-processing.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\simple.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\size_fixed.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\size_fluid.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\examples\two_columns.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\js\dataTables.fixedColumns.js" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\js\dataTables.fixedColumns.min.js" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\License.txt" />
-    <Content Include="assets\plugins\datatables\extensions\FixedHeader\css\dataTables.fixedHeader.css" />
-    <Content Include="assets\plugins\datatables\extensions\FixedHeader\css\dataTables.fixedHeader.min.css" />
-    <Content Include="assets\plugins\datatables\extensions\FixedHeader\examples\header_footer.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedHeader\examples\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedHeader\examples\simple.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedHeader\examples\top_left_right.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedHeader\examples\two_tables.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedHeader\examples\zIndexes.html" />
-    <Content Include="assets\plugins\datatables\extensions\FixedHeader\js\dataTables.fixedHeader.js" />
-    <Content Include="assets\plugins\datatables\extensions\FixedHeader\js\dataTables.fixedHeader.min.js" />
-    <Content Include="assets\plugins\datatables\extensions\FixedHeader\Readme.txt" />
-    <Content Include="assets\plugins\datatables\extensions\KeyTable\css\dataTables.keyTable.css" />
-    <Content Include="assets\plugins\datatables\extensions\KeyTable\css\dataTables.keyTable.min.css" />
-    <Content Include="assets\plugins\datatables\extensions\KeyTable\examples\events.html" />
-    <Content Include="assets\plugins\datatables\extensions\KeyTable\examples\html.html" />
-    <Content Include="assets\plugins\datatables\extensions\KeyTable\examples\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\KeyTable\examples\scrolling.html" />
-    <Content Include="assets\plugins\datatables\extensions\KeyTable\examples\simple.html" />
-    <Content Include="assets\plugins\datatables\extensions\KeyTable\js\dataTables.keyTable.js" />
-    <Content Include="assets\plugins\datatables\extensions\KeyTable\js\dataTables.keyTable.min.js" />
-    <Content Include="assets\plugins\datatables\extensions\KeyTable\Readme.txt" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\css\dataTables.responsive.css" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\child-rows\column-control.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\child-rows\custom-renderer.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\child-rows\disable-child-rows.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\child-rows\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\child-rows\right-column.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\child-rows\whole-row-control.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\display-control\auto.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\display-control\classes.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\display-control\complexHeader.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\display-control\fixedHeader.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\display-control\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\display-control\init-classes.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\initialisation\ajax.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\initialisation\className.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\initialisation\default.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\initialisation\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\initialisation\new.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\initialisation\option.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\styling\bootstrap.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\styling\compact.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\styling\foundation.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\styling\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\examples\styling\scrolling.html" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\js\dataTables.responsive.js" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\js\dataTables.responsive.min.js" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\License.txt" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\css\dataTables.scroller.css" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\css\dataTables.scroller.min.css" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\examples\api_scrolling.html" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\examples\data\2500.txt" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\examples\data\ssp.php" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\examples\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\examples\large_js_source.html" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\examples\server-side_processing.html" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\examples\simple.html" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\examples\state_saving.html" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\images\loading-background.png" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\js\dataTables.scroller.js" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\js\dataTables.scroller.min.js" />
-    <Content Include="assets\plugins\datatables\extensions\Scroller\Readme.txt" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\css\dataTables.tableTools.css" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\css\dataTables.tableTools.min.css" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\ajax.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\alter_buttons.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\bootstrap.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\button_text.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\collection.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\defaults.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\index.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\jqueryui.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\multiple_tables.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\multi_instance.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\new_init.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\pdf_message.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\plug-in.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\select_column.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\select_multi.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\select_os.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\select_single.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\simple.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\examples\swf_path.html" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\collection.png" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\collection_hover.png" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\copy.png" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\copy_hover.png" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\csv.png" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\csv_hover.png" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\pdf.png" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\pdf_hover.png" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\print.png" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\print_hover.png" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\xls.png" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\xls_hover.png" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\js\dataTables.tableTools.js" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\js\dataTables.tableTools.min.js" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\swf\copy_csv_xls.swf" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\swf\copy_csv_xls_pdf.swf" />
-    <Content Include="assets\plugins\datatables\images\sort_asc.png" />
-    <Content Include="assets\plugins\datatables\images\sort_asc_disabled.png" />
-    <Content Include="assets\plugins\datatables\images\sort_both.png" />
-    <Content Include="assets\plugins\datatables\images\sort_desc.png" />
-    <Content Include="assets\plugins\datatables\images\sort_desc_disabled.png" />
-    <Content Include="assets\plugins\datatables\jquery.dataTables.css" />
-    <Content Include="assets\plugins\datatables\jquery.dataTables.js" />
-    <Content Include="assets\plugins\datatables\jquery.dataTables.min.css" />
-    <Content Include="assets\plugins\datatables\jquery.dataTables.min.js" />
-    <Content Include="assets\plugins\datatables\jquery.dataTables_themeroller.css" />
-    <Content Include="assets\plugins\fastclick\fastclick.js" />
-    <Content Include="assets\plugins\fastclick\fastclick.min.js" />
-    <Content Include="assets\plugins\iCheck\flat\blue%402x.png" />
-    <Content Include="assets\plugins\iCheck\flat\blue.css" />
-    <Content Include="assets\plugins\iCheck\flat\blue.png" />
-    <Content Include="assets\plugins\iCheck\icheck.js" />
-    <Content Include="assets\plugins\iCheck\icheck.min.js" />
-    <Content Include="assets\plugins\PleaseWait\please-wait.css" />
-    <Content Include="assets\plugins\PleaseWait\please-wait.js" />
-    <Content Include="assets\plugins\PleaseWait\please-wait.min.js" />
-    <Content Include="assets\plugins\PNotify\pnotify.animate.js" />
-    <Content Include="assets\plugins\PNotify\pnotify.brighttheme.css" />
-    <Content Include="assets\plugins\PNotify\pnotify.buttons.css" />
-    <Content Include="assets\plugins\PNotify\pnotify.buttons.js" />
-    <Content Include="assets\plugins\PNotify\pnotify.callbacks.js" />
-    <Content Include="assets\plugins\PNotify\pnotify.confirm.js" />
-    <Content Include="assets\plugins\PNotify\pnotify.css" />
-    <Content Include="assets\plugins\PNotify\pnotify.desktop.js" />
-    <Content Include="assets\plugins\PNotify\pnotify.history.css" />
-    <Content Include="assets\plugins\PNotify\pnotify.history.js" />
-    <Content Include="assets\plugins\PNotify\pnotify.js" />
-    <Content Include="assets\plugins\PNotify\pnotify.mobile.css" />
-    <Content Include="assets\plugins\PNotify\pnotify.mobile.js" />
-    <Content Include="assets\plugins\PNotify\pnotify.nonblock.js" />
-    <Content Include="assets\plugins\slimScroll\jquery.slimscroll.js" />
-    <Content Include="assets\plugins\slimScroll\jquery.slimscroll.min.js" />
-    <Content Include="assets\plugins\SweetAlert2\sweetalert2.css" />
-    <Content Include="assets\plugins\SweetAlert2\sweetalert2.js" />
-    <Content Include="assets\plugins\SweetAlert2\sweetalert2.min.css" />
-    <Content Include="assets\plugins\SweetAlert2\sweetalert2.min.js" />
-    <Content Include="Content\AdminLTE\AdminLTE.css" />
-    <Content Include="Content\AdminLTE\AdminLTE.min.css" />
-    <Content Include="Content\AdminLTE\img\avatar.png" />
-    <Content Include="Content\AdminLTE\img\avatar04.png" />
-    <Content Include="Content\AdminLTE\img\avatar2.png" />
-    <Content Include="Content\AdminLTE\img\avatar3.png" />
-    <Content Include="Content\AdminLTE\img\avatar5.png" />
-    <Content Include="Content\AdminLTE\img\boxed-bg.jpg" />
-    <Content Include="Content\AdminLTE\img\boxed-bg.png" />
-    <Content Include="Content\AdminLTE\img\credit\american-express.png" />
-    <Content Include="Content\AdminLTE\img\credit\cirrus.png" />
-    <Content Include="Content\AdminLTE\img\credit\mastercard.png" />
-    <Content Include="Content\AdminLTE\img\credit\mestro.png" />
-    <Content Include="Content\AdminLTE\img\credit\paypal.png" />
-    <Content Include="Content\AdminLTE\img\credit\paypal2.png" />
-    <Content Include="Content\AdminLTE\img\credit\visa.png" />
-    <Content Include="Content\AdminLTE\img\default-50x50.gif" />
-    <Content Include="Content\AdminLTE\img\icons.png" />
-    <Content Include="Content\AdminLTE\img\photo1.png" />
-    <Content Include="Content\AdminLTE\img\photo2.png" />
-    <Content Include="Content\AdminLTE\img\user1-128x128.jpg" />
-    <Content Include="Content\AdminLTE\img\user2-160x160.jpg" />
-    <Content Include="Content\AdminLTE\img\user3-128x128.jpg" />
-    <Content Include="Content\AdminLTE\img\user4-128x128.jpg" />
-    <Content Include="Content\AdminLTE\img\user5-128x128.jpg" />
-    <Content Include="Content\AdminLTE\img\user6-128x128.jpg" />
-    <Content Include="Content\AdminLTE\img\user7-128x128.jpg" />
-    <Content Include="Content\AdminLTE\img\user8-128x128.jpg" />
-    <Content Include="Content\AdminLTE\skins\skin-black.css" />
-    <Content Include="Content\AdminLTE\skins\skin-black.min.css" />
-    <Content Include="Content\AdminLTE\skins\skin-blue.css" />
-    <Content Include="Content\AdminLTE\skins\skin-blue.min.css" />
-    <Content Include="Content\AdminLTE\skins\skin-green.css" />
-    <Content Include="Content\AdminLTE\skins\skin-green.min.css" />
-    <Content Include="Content\AdminLTE\skins\skin-purple.css" />
-    <Content Include="Content\AdminLTE\skins\skin-purple.min.css" />
-    <Content Include="Content\AdminLTE\skins\skin-red.css" />
-    <Content Include="Content\AdminLTE\skins\skin-red.min.css" />
-    <Content Include="Content\AdminLTE\skins\skin-yellow.css" />
-    <Content Include="Content\AdminLTE\skins\skin-yellow.min.css" />
-    <Content Include="Content\AdminLTE\skins\_all-skins.css" />
-    <Content Include="Content\AdminLTE\skins\_all-skins.min.css" />
     <Content Include="Content\css\Fontes.css" />
     <Content Include="Content\css\please-wait.css" />
     <Content Include="Content\img\abstract-grey-geometric-background-01.jpg" />
@@ -486,16 +140,6 @@
     <Content Include="Content\css\bootstrap-theme.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\css\AdminLTE.css" />
-    <Content Include="Content\css\AdminLTE.min.css" />
-    <Content Include="Content\css\alt\AdminLTE-bootstrap-social.css" />
-    <Content Include="Content\css\alt\AdminLTE-bootstrap-social.min.css" />
-    <Content Include="Content\css\alt\AdminLTE-fullcalendar.css" />
-    <Content Include="Content\css\alt\AdminLTE-fullcalendar.min.css" />
-    <Content Include="Content\css\alt\AdminLTE-select2.css" />
-    <Content Include="Content\css\alt\AdminLTE-select2.min.css" />
-    <Content Include="Content\css\alt\AdminLTE-without-plugins.css" />
-    <Content Include="Content\css\alt\AdminLTE-without-plugins.min.css" />
     <Content Include="Content\css\skins\skin-black-light.css" />
     <Content Include="Content\css\skins\skin-black-light.min.css" />
     <Content Include="Content\css\skins\skin-black.css" />
@@ -574,30 +218,6 @@
     <Content Include="Content\css\bootstrap-theme.min.css.map" />
     <Content Include="Content\css\bootstrap-theme.css.map" />
     <Content Include="App_Data\BowerBundlesBackup.json" />
-    <Content Include="assets\fonts\fontawesome-webfont.eot" />
-    <Content Include="assets\fonts\fontawesome-webfont.ttf" />
-    <Content Include="assets\fonts\fontawesome-webfont.woff" />
-    <Content Include="assets\fonts\fontawesome-webfont.woff2" />
-    <Content Include="assets\fonts\FontAwesome.otf" />
-    <Content Include="assets\fonts\SourceSansPro-Bold.woff2" />
-    <Content Include="assets\fonts\SourceSansPro-It.woff2" />
-    <Content Include="assets\fonts\SourceSansPro-Light.woff2" />
-    <Content Include="assets\fonts\SourceSansPro-LightIt.woff2" />
-    <Content Include="assets\fonts\SourceSansPro-Regular.woff2" />
-    <Content Include="assets\fonts\SourceSansPro-Semibold.woff2" />
-    <Content Include="assets\fonts\SourceSansPro-SemiboldIt.woff2" />
-    <Content Include="assets\plugins\datatables\extensions\ColReorder\Readme.md" />
-    <Content Include="assets\plugins\datatables\extensions\ColVis\Readme.md" />
-    <Content Include="assets\plugins\datatables\extensions\FixedColumns\Readme.md" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\css\dataTables.responsive.scss" />
-    <Content Include="assets\plugins\datatables\extensions\Responsive\Readme.md" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\psd\collection.psd" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\psd\copy document.psd" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\psd\file_types.psd" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\images\psd\printer.psd" />
-    <Content Include="assets\plugins\datatables\extensions\TableTools\Readme.md" />
-    <Content Include="admin-lte\css\adminlte.css.map" />
-    <Content Include="admin-lte\css\adminlte.min.css.map" />
     <None Include="App.config" />
     <None Include="fonts\fontawesome-webfont.eot" />
     <None Include="fonts\fontawesome-webfont.svg" />
@@ -688,8 +308,6 @@
     <Folder Include="Content\img\image-gallery\thumb\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\adminlte.min.css.map" />
-    <Content Include="Content\css\adminlte.css.map" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -748,6 +366,27 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.7.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.7.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.7.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.7.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.7.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.7.1\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.7.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.ApplicationInsights.Web.2.7.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.7.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.ApplicationInsights.WindowsServer.2.7.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.7.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.ApplicationInsights.2.7.1\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -759,6 +398,9 @@
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.3\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -819,8 +461,11 @@
       <HintPath>..\..\packages\Scrutor.2.1.2\lib\net451\Scrutor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
-      <HintPath>..\..\..\..\Users\bruno.bozic\.nuget\packages\serilog\2.0.0\lib\net45\Serilog.dll</HintPath>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Serilog.2.5.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Serilog.Sinks.File.4.0.1-dev-00796\lib\net45\Serilog.Sinks.File.dll</HintPath>
     </Reference>
     <Reference Include="ServiceLocator, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\packages\ServiceLocator.1.0.2\lib\netstandard2.0\ServiceLocator.dll</HintPath>
@@ -876,6 +521,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>

@@ -9,6 +9,7 @@ using IdentityProvider.Models.ViewModels.Account;
 using IdentityProvider.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using StructureMap;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -18,7 +19,7 @@ namespace IdentityProvider.Controllers.Controllers
         private readonly ApplicationSignInManager _signInManager;
         private IAuthenticationManager _authenticationManager;
         private ApplicationUserManager _userManager;
-
+        [DefaultConstructor]
         public ManageController(
             ApplicationSignInManager signInManager
             , ApplicationUserManager userManager

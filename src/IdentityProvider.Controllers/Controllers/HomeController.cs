@@ -4,11 +4,13 @@ using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Services;
 using IdentityProvider.Services.ApplicationRoleService;
 using IdentityProvider.Services.DbSeed;
+using StructureMap;
 
 namespace IdentityProvider.Controllers.Controllers
 {
     public class HomeController : BaseController
     {
+        [DefaultConstructor]
         public HomeController(ICookieStorageService cookieStorageService, IErrorLogService errorLogService) : base(
             cookieStorageService, errorLogService)
         {

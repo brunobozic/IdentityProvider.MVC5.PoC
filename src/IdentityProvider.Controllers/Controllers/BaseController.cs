@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using IdentityProvider.Infrastructure.ControllerAlertHelpers;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
+using StructureMap;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -11,7 +12,7 @@ namespace IdentityProvider.Controllers.Controllers
         private readonly ICookieStorageService _cookieStorageService;
         protected IErrorLogService _errorLogService;
         private ICookieStorageService cookieStorageService;
-
+        [DefaultConstructor]
         public BaseController(
             ICookieStorageService cookieStorageService
             , IErrorLogService errorLogService

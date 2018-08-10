@@ -9,7 +9,7 @@ using TrackableEntities;
 namespace IdentityProvider.Models.Domain.Account
 {
     [Table("Operations", Schema = "Account")]
-    public class Operation : DomainEntity<int>, IActive, ITrackable
+    public class Operation : DomainEntity<int>, IActive
     {
         public Operation()
         {
@@ -24,13 +24,9 @@ namespace IdentityProvider.Models.Domain.Account
         public DateTime? ActiveTo { get; set; }
         public ICollection<Resource> Resources { get; set; }
 
-
-
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             throw new NotImplementedException();
         }
-
-        public TrackingState TrackingState { get; set; }
     }
 }

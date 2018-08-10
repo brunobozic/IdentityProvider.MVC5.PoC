@@ -141,6 +141,7 @@
     <Compile Include="DbSeed\DoSeed.cs" />
     <Compile Include="DbSeed\IDoSeed.cs" />
     <Compile Include="OperationsService\IOperationService.cs" />
+    <Compile Include="ResourceService\IResourcesService.cs" />
     <Compile Include="UserProfileService\IUserProfileAdministrationService.cs" />
     <Compile Include="IWebSecurity.cs" />
     <Compile Include="OperationsService\OperationsService.cs" />

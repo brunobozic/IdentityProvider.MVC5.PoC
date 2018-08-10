@@ -1,8 +1,6 @@
-﻿@*@model List<IdentityProvider.Controllers.Controllers.OperationVm>*@
-@model PagedList.IPagedList<IdentityProvider.Controllers.Controllers.OperationPagedVm>
+﻿@model PagedList.IPagedList<IdentityProvider.Controllers.Controllers.OperationPagedVm>
 @using IdentityProvider.UI.Web.MVC5.Extensions
 @using PagedList.Mvc;
-
 
 @{
     ViewBag.Title = "title";
@@ -15,80 +13,197 @@
         currentSort = "Created_Date_Desc";
     }
 }
+
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<script src="~/bower_components/sweetalert2/dist/sweetalert2.all.js"></script>
+<link href="~/bower_components/sweetalert2/dist/sweetalert2.css" rel="stylesheet" />
+<script src="~/bower_components/sweetalert2/dist/sweetalert2.js"></script>
 
-<h2>Operations</h2>
-
-<div class="wrapper">
-    <div class="search-box">
-        <form class="form-inline">
-            <div class="form-group">
-                <input type="text" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Search..." />
-            </div>
-            <button type="submit" class="btn btn-info">Search</button>
-        </form>
-        @using (Html.BeginForm("OperationsGetAllPaged", "Operation", FormMethod.Get))
-        {
-            <p>
-                Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-                <input type="submit" name="q" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Search..." />
-            </p>
-        }
-    </div>
-    <div class="table-responsive">
-        <table class="table table-striped table-condensed table-hover">
-            <tr>
-                <th>
-                    @Html.ActionLink("Name", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.NameSortParam))
-                    @Html.SortIdentifier(currentSort, "Name")
-                </th>
-                <th>
-                    @Html.ActionLink("Description", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DescriptionSortParam))
-                    @Html.SortIdentifier(currentSort, "Description")
-                </th>
-                <th>
-                    @Html.ActionLink("Created_Date", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DateCreatedSortParam))
-                    @Html.SortIdentifier(currentSort, "Created_Date")
-                </th>
-                <th>
-                    @Html.ActionLink("Modified_Date", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DateModifiedSortParam))
-                    @Html.SortIdentifier(currentSort, "Modified_Date")
-                </th>
-            </tr>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Active)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Deleted)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "OperationEdit", new { id = item.Id }) |
-                            @Html.ActionLink("Details", "OperationDetails", new { id = item.Id }) |
-                            @Html.ActionLink("Delete", "OperationDelete", new { id = item.Id })
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    @if (Model.PageCount > 1)
-    {
-        <div class="pager">
-            @Html.PagedListPager(Model, page => Url.Action("OperationsGetAllPaged", new
-       {
-           page, sortOrder = ViewBag.currentSort,q = ViewBag.currentSearch
-       }))
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-        </div>
+<style>
+    span label p {
+        font-family: "Montserrat", sans-serif;
     }
+
+    .cool-text {
+        font-family: "Montserrat", sans-serif;
+    }
+
+    table {
+        table-layout: auto !important;
+        border-collapse: collapse !important;
+        width: 100% !important;
+    }
+
+        table td {
+            border: 0.5px solid lightgray !important;
+        }
+
+        table .absorbing-column {
+            width: 100% !important;
+        }
+
+        table td {
+            white-space: nowrap; /** added **/
+        }
+
+            table td:last-child {
+                width: 9% !important;
+            }
+</style>
+
+<script type="text/javascript">
+    $(".deleteBtn").click(function (e) {
+        //whenever our button is clicked
+        e.preventDefault();
+        // stop the default behavior(navigation)
+        var _form = $(this).closest("form");
+        //get a reference to the container form
+
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function () {
+            //user selected "Yes", Let's submit the form
+            _form.submit();
+        });
+
+    });
+</script>
+
+<div class="container-fluid">
+
+    <div class="block-header"></div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 card">
+
+        <div classs="header cool-text">
+            <em style="font-size: 2.7em">
+                Operations
+            </em>
+            <em style="font-size: 0.9em"><small>Create or delete allowed operations</small></em>
+        </div>
+        &nbsp;
+
+        <div class="">
+            <div class="" style="padding: 9px">
+                @using (Html.BeginForm("OperationsGetAllPaged", "Operation", FormMethod.Get))
+                {
+                    <div class="form-line">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Search", @value = ViewBag.CurrentFilter })
+                        @Html.ValidationMessage("Search")
+                        <button class="btn bg-purple waves-effect btn-xs" type="submit" name="submit"><i class="material-icons">search</i></button>
+                    </div>
+                }
+            </div>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th style="width: 5%">
+                        @Html.ActionLink("Name", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.NameSortParam))
+                        @Html.SortIdentifier(currentSort, "Name")
+                    </th>
+                    <th style="width: 10%">
+                        @Html.ActionLink("Description", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DescriptionSortParam))
+                        @Html.SortIdentifier(currentSort, "Description")
+                    </th>
+                    <th style="text-align: center; width: 5%">
+                        @Html.ActionLink("Active", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.ActiveSortParam))
+                        @Html.SortIdentifier(currentSort, "Active")
+                    </th>
+                    <th style="text-align: center; width: 5%">
+                        @Html.ActionLink("Deleted", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DeletedSortParam))
+                        @Html.SortIdentifier(currentSort, "Deleted")
+                    </th>
+                    <th style="width: 15%">
+                        @Html.ActionLink("Created_Date", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DateCreatedSortParam))
+                        @Html.SortIdentifier(currentSort, "Created_Date")
+                    </th>
+                    <th style="width: 15%">
+                        @Html.ActionLink("Modified_Date", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DateModifiedSortParam))
+                        @Html.SortIdentifier(currentSort, "Modified_Date")
+                    </th>
+                    <th style="text-align: center">
+                        <p>Actions</p>
+                    </th>
+                </tr>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="font-bold">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td style="text-align: center">
+                                @if (item.Active)
+                                {
+                                    <i class="material-icons align-center" style="cursor: not-allowed; color: green" title="Active">check_circle_outline</i>
+                                }
+                                else
+                                {
+                                    <i class="material-icons align-center" style="cursor: not-allowed; color: darkred" title="Inactive">domain_disabled</i>
+                                }
+                            </td>
+                            <td style="text-align: center">
+                                @if (item.Deleted)
+                                {
+                                    <i class="material-icons align-center" style="cursor: not-allowed; color: red" title="Deleted">delete_forever</i>
+                                }
+                                else
+                                {
+                                    @*<i class="material-icons align-center" style="cursor: not-allowed; color:darkmagenta" vtitle="Active">check_circle_outline</i>*@
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateCreated)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateModified)
+                            </td>
+                            <td style="text-align: center">
+                                <a href="@Url.Action("OperationEdit", "Operation")" class="btn bg-purple waves-effect btn-xs">
+                                    <i class="material-icons">edit</i>
+                                    <span>
+                                        New
+                                    </span>
+                                </a>
+
+                                <a href="@Url.Action("OperationDetails", "Operation")" class="btn bg-purple waves-effect btn-xs">
+                                    <i class="material-icons">view_list</i>
+                                    <span>
+                                        Details
+                                    </span>
+                                </a>
+
+                                @using (Html.BeginForm("OperationDelete", "Operation", FormMethod.Post, new { @class = "form-inline", style = "margin: 0; padding: 0; display:inline-block !important; float: left, width: 0px" }))
+                                {
+                                    <input style="display: inline !important; float: left" type="hidden" name="operationToDelete" value="@item.Id" />
+                                    <button id="deleteBtn" type="submit" class="btn bg-purple waves-effect btn-xs" >
+                                        <i class="material-icons">delete_forever</i>
+                                    </button>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+@if (Model.PageCount > 1)
+{
+    <div class="pager">
+        @Html.PagedListPager(Model, page => Url.Action("OperationsGetAllPaged", new
+        {
+            page, sortOrder = ViewBag.currentSort, q = ViewBag.currentSearch
+        }))
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </div>
+}

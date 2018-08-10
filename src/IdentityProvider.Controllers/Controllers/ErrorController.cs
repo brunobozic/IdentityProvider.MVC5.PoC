@@ -2,13 +2,14 @@
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.ViewModels.Error;
+using StructureMap;
 
 namespace IdentityProvider.Controllers.Controllers
 {
     public class ErrorController : BaseController
     {
         private ICookieStorageService _cookieStorageService;
-
+        [DefaultConstructor]
         public ErrorController(ICookieStorageService cookieStorageService) : base(cookieStorageService, null)
         {
             _cookieStorageService = cookieStorageService;

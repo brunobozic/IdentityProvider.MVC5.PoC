@@ -220,23 +220,24 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                 var allErrors = new List<ValidationResult>();
 
                 foreach (var error in errors)
-                    foreach (var validationError in error.ValidationErrors)
-                    {
-                        result.AppendFormat(
-                            "\r\n  Entity of type {0} has validation error \"{1}\" for property {2}.\r\n",
-                            error.Entry.Entity.GetType(), validationError.ErrorMessage, validationError.PropertyName);
-                        var domainEntity = error.Entry.Entity as DomainEntity<int>;
-                        if (domainEntity != null)
-                            result.Append(domainEntity.IsTransient()
-                                ? "  This entity was added in this session.\r\n"
-                                : $"  The Id of the entity is {domainEntity.Id}.\r\n");
-                        allErrors.Add(new ValidationResult(validationError.ErrorMessage,
-                            new[] { validationError.PropertyName }));
-                    }
+                foreach (var validationError in error.ValidationErrors)
+                {
+                    result.AppendFormat(
+                        "\r\n  Entity of type {0} has validation error \"{1}\" for property {2}.\r\n",
+                        error.Entry.Entity.GetType(), validationError.ErrorMessage, validationError.PropertyName);
+                    var domainEntity = error.Entry.Entity as DomainEntity<int>;
+                    if (domainEntity != null)
+                        result.Append(domainEntity.IsTransient()
+                            ? "  This entity was added in this session.\r\n"
+                            : $"  The Id of the entity is {domainEntity.Id}.\r\n");
+                    allErrors.Add(new ValidationResult(validationError.ErrorMessage,
+                        new[] {validationError.PropertyName}));
+                }
 
                 throw new ModelValidationException(result.ToString(), entityException, allErrors);
             }
-            catch (DbUpdateConcurrencyException ex) // This will fire only for entities that have the [RowVersion] property implemented...
+            catch (DbUpdateConcurrencyException ex
+            ) // This will fire only for entities that have the [RowVersion] property implemented...
             {
                 var entry = ex.Entries.Single();
                 var clientValues = entry.Entity;
@@ -282,6 +283,11 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                               + "have been displayed.");
 
                 throw new DbUpdateConcurrencyException(result.ToString(), ex);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                Debug.WriteLine(ex);
             }
 
             return changes;

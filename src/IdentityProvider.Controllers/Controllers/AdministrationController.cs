@@ -3,6 +3,7 @@ using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Services;
 using IdentityProvider.Services.UserProfileService;
+using StructureMap;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -10,7 +11,7 @@ namespace IdentityProvider.Controllers.Controllers
     {
         private readonly IUserProfileAdministrationService _administrationService;
         private readonly IWebSecurity _webSecurity;
-
+        [DefaultConstructor]
         public AdministrationController(IWebSecurity webSecurity,
             IUserProfileAdministrationService administrationService
             , ICookieStorageService cookieStorageService

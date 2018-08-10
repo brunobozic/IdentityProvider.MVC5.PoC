@@ -11,6 +11,8 @@ using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations;
 using IdentityProvider.Services.OperationsService;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using PagedList;
+using StructureMap;
+using TrackableEntities;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -21,6 +23,7 @@ namespace IdentityProvider.Controllers.Controllers
         private readonly IOperationService _operationService;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
 
+        [DefaultConstructor]
         public OperationController(
             ICookieStorageService cookieStorageService
             , IErrorLogService errorLogService
@@ -104,6 +107,7 @@ namespace IdentityProvider.Controllers.Controllers
                     query = query.OrderByDescending(x => x.DateCreated);
                     break;
                 default:
+                    query = query.OrderBy(x => x.Name);
                     break;
             }
 
@@ -129,14 +133,27 @@ namespace IdentityProvider.Controllers.Controllers
             return View(retVal);
         }
 
-        public async Task<ActionResult> OperationDelete(int operationToDelete)
+        [HttpPost]
+        public ActionResult OperationDelete(string operationToDelete)
         {
             var retVal = new OperationDeletedVm();
 
-            var returnValue = await _operationService.DeleteAsync(operationToDelete);
-            var deleted = _unitOfWorkAsync.SaveChanges();
+            if (!string.IsNullOrEmpty(operationToDelete))
+            {
+                // _operationService.Delete(int.Parse(operationToDelete));
 
-            retVal.WasDeleted = deleted;
+                var op = _operationService.Find(int.Parse(operationToDelete));
+                op.TrackingState = TrackingState.Deleted;
+                _operationService.ApplyChanges(op);
+
+                var deleted = _unitOfWorkAsync.SaveChanges();
+
+                if (deleted > 0) retVal.WasDeleted = true;
+            }
+            else
+            {
+                retVal.WasDeleted = false;
+            }
 
             return View(retVal);
         }
@@ -170,7 +187,7 @@ namespace IdentityProvider.Controllers.Controllers
 
     public class OperationDeletedVm
     {
-        public int WasDeleted { get; set; }
+        public bool WasDeleted { get; set; }
     }
 
     public class OperationVm

@@ -3,6 +3,7 @@ using System.Web.Routing;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Services.DbSeed;
+using StructureMap;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -11,7 +12,7 @@ namespace IdentityProvider.Controllers.Controllers
         private readonly IDoSeed _doSeed;
         private readonly ICookieStorageService _cookieStorageService;
         private readonly IErrorLogService _errorLogService;
-
+        [DefaultConstructor]
         public SeedController(
             IDoSeed doSeed
             , ICookieStorageService cookieStorageService
