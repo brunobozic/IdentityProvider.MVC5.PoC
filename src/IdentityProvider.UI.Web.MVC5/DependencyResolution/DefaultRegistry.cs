@@ -113,7 +113,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             For<IMemoryCacheProvider>().Use<MemoryCacheProvider>().LifecycleIs<UniquePerRequestLifecycle>();
 
             For<IdentityProvider.Infrastructure.ConfigurationProvider.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<IEmailSender>().Use<EmailSender>().LifecycleIs<UniquePerRequestLifecycle>();
+         
             For<IAddLoggingContextProvider>().Use<LoggingContextProvider>().LifecycleIs<UniquePerRequestLifecycle>();
 
             For<ISerilogLoggingFactory>().Use<LoggingFactory>().LifecycleIs<UniquePerRequestLifecycle>();

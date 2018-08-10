@@ -83,13 +83,11 @@
     <Compile Include="SessionStorageFactories\ThreadLoggingStorageContainer.cs" />
     <Compile Include="Domain\DomainEntityOfT.cs" />
     <Compile Include="Email\AuthMessageSenderOptions.cs" />
-    <Compile Include="Email\EmailSender.cs" />
     <Compile Include="Email\EmailSenderExtensions.cs" />
     <Compile Include="Email\EmailService.cs" />
     <Compile Include="Email\EmailServiceFactory.cs" />
     <Compile Include="Email\IEmailSender.cs" />
     <Compile Include="Email\IEmailService.cs" />
-    <Compile Include="Email\SendGridEmailService.cs" />
     <Compile Include="Email\SMTPService.cs" />
     <Compile Include="Email\TextLoggingEmailService.cs" />
     <Compile Include="Enums\CertificateTypeEnum.cs" />
@@ -195,6 +193,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Win32.Primitives.4.0.1\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -205,6 +206,12 @@
     <Reference Include="SendGrid.SmtpApi, Version=1.3.3.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\packages\SendGrid.SmtpApi.1.3.3\lib\SendGrid.SmtpApi.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGridClient, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SendGridClient.1.2.0\lib\netstandard1.5\SendGridClient.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGridMail">
+      <HintPath>..\IdentityProvider.UI.Web.MVC5\Bin\SendGridMail.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
       <HintPath>..\..\..\..\Users\bruno.bozic\.nuget\packages\serilog\2.0.0\lib\net45\Serilog.dll</HintPath>
@@ -221,16 +228,64 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.AppContext.4.1.0\lib\net46\System.AppContext.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Console, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Console.4.0.0\lib\net46\System.Console.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.108.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139">
-      <HintPath>..\IdentityProvider.UI.Web.MVC5\Bin\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.103\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tracing, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Diagnostics.Tracing.4.1.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Globalization.Calendars.4.0.1\lib\net46\System.Globalization.Calendars.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.4.1.0\lib\net462\System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.Compression.4.1.0\lib\net46\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.Compression.ZipFile.4.0.1\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.FileSystem.4.0.1\lib\net46\System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Net.Sockets.4.1.0\lib\net46\System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reflection, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Reflection.4.1.0\lib\net462\System.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.4.1.0\lib\net462\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.Extensions.4.1.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.InteropServices.4.1.0\lib\net462\System.Runtime.InteropServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -258,6 +313,8 @@
     <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="TrackableEntities.Common, Version=2.5.0.0, Culture=neutral, PublicKeyToken=b10b51e7b9be6a2e">
       <HintPath>..\IdentityProvider.Services.Logging.WCF\bin\TrackableEntities.Common.dll</HintPath>
     </Reference>
@@ -275,6 +332,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\..\packages\System.Data.SQLite.Core.1.0.103\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Data.SQLite.Core.1.0.103\build\net46\System.Data.SQLite.Core.targets'))" />
   </Target>
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Import Project="..\..\packages\System.Data.SQLite.Core.1.0.103\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\..\packages\System.Data.SQLite.Core.1.0.103\build\net46\System.Data.SQLite.Core.targets')" />
 </Project>
