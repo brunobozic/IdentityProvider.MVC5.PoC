@@ -9,7 +9,7 @@ using TrackableEntities;
 namespace IdentityProvider.Models.Domain.Account
 {
     [Table("Operations", Schema = "Account")]
-    public class Operation : DomainEntity<int>, IActive
+    public class Operation : DomainEntity<int>, IActive, ITrackable
     {
         public Operation()
         {
@@ -28,5 +28,8 @@ namespace IdentityProvider.Models.Domain.Account
         {
             throw new NotImplementedException();
         }
+
+        [NotMapped]
+        public new TrackingState TrackingState { get; set; }
     }
 }

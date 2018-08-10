@@ -134,13 +134,19 @@ namespace IdentityProvider.Controllers.Controllers
         }
 
         [HttpPost]
-        public ActionResult OperationDelete(string operationToDelete)
+        public async Task<ActionResult> OperationDeleteAsync(string operationToDelete)
         {
             var retVal = new OperationDeletedVm();
 
             if (!string.IsNullOrEmpty(operationToDelete))
             {
                 // _operationService.Delete(int.Parse(operationToDelete));
+
+                var x = await _unitOfWorkAsync.RepositoryAsync<Operation>().DeleteAsync(int.Parse(operationToDelete));
+                var z = _unitOfWorkAsync.SaveChangesAsync();
+
+
+
 
                 var op = _operationService.Find(int.Parse(operationToDelete));
                 op.TrackingState = TrackingState.Deleted;
