@@ -1,0 +1,20 @@
+﻿@*@model List<IdentityProvider.Controllers.Controllers.OperationVm>*@
+@model PagedList.IPagedList<IdentityProvider.Controllers.Controllers.OperationVm>
+@using IdentityProvider.UI.Web.MVC5.Extensions
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_LayOutBSB.cshtml";
+
+    string currentFilter = ViewBag.CurrentFilter;
+    string currentSort = ViewBag.CurrentSort;
+    if (string.IsNullOrEmpty(currentSort))
+    {
+        currentSort = "Created_Date_Desc";
+    }
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<h2>Operations</h2>

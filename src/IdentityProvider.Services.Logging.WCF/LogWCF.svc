@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="HAC.Helpdesk.Services.Logging.WCF.LogWcfService" CodeBehind="LogWCF.svc.cs" Factory="HAC.Helpdesk.Services.Logging.WCF.StructureMap.StructureMapServiceHostFactory"%>

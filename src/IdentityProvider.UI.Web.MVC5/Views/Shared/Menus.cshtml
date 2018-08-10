@@ -1,0 +1,78 @@
+﻿<section class="sidebar">
+    <ul class="sidebar-menu">
+        <li class="header">Navigation Menu</li>
+        <li>
+            <a href="@(Url.Action("Index", "Home"))">
+                <i class="fa fa-home fa-fw"></i> <span>Home</span>
+            </a>
+        </li>
+       
+        @if (User.IsInRole("Role"))
+        {
+           
+        }
+    </ul>
+</section>
+
+@*
+     <li>
+        <a href="@(Url.Action("","",new{ Area = ""}))">
+            <i class="fa fa-th fa-fw"></i> <span>Widgets</span>
+        </a>
+    </li>
+
+    <li>
+        <a href="@(Url.Action("","",new{ Area = ""}))">
+            <i class="fa fa-th fa-fw"></i> <span>Widgets</span>
+            <span class="pull-right-container">
+                <small class="label pull-right bg-green">new</small>
+            </span>
+        </a>
+    </li>
+
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-files-o fa-fw"></i>
+            <span>Layout Options</span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@(Url.Action("","",new{ Area = ""}))"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
+        </ul>
+    </li>
+
+    <li class="treeview">
+            <a href="#">
+                <i class="fa fa-share"></i> <span>Multilevel</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-circle-o"></i> Level One
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-circle-o"></i> Level Two
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+            </ul>
+        </li>
+*@

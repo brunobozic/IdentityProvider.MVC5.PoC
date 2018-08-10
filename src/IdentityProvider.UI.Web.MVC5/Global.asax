@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="IdentityProvider.UI.Web.MVC5.MvcApplication" Language="C#" %>

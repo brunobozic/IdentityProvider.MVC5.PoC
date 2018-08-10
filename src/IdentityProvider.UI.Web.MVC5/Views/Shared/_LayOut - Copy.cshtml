@@ -1,0 +1,521 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- dev -->
+
+    <script src="~/bower_components/jquery/dist/jquery.js"></script>
+    <script src="~/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+
+    <script src="~/bower_components/iCheck/icheck.min.js"></script>
+    <link href="~/bower_components/iCheck/skins/futurico/futurico.css" rel="stylesheet"/>
+
+    <!-- Push -->
+    <script src="~/bower_components/push.js/bin/push.js"></script>
+    <script src="~/bower_components/push.js/bin/serviceWorker.js"></script>
+    <script src="~/bower_components/push.js/bin/push.min.js"></script>
+
+    <link href="~/bower_components/please-wait/build/please-wait.css" rel="stylesheet"/>
+    <script src="~/bower_components/please-wait/build/please-wait.js"></script>
+
+    <link href="~/bower_components/pretty-checkbox/dist/pretty-checkbox.css" rel="stylesheet"/>
+
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"></script>
+
+    <script src="~/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="~/bower_components/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="~/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <script src="~/bower_components/bootstrap/js/alert.js"></script>
+    <script src="~/bower_components/bootstrap/js/button.js"></script>
+    <script src="~/bower_components/bootstrap/js/carousel.js"></script>
+    <script src="~/bower_components/bootstrap/js/collapse.js"></script>
+    <script src="~/bower_components/bootstrap/js/dropdown.js"></script>
+    <script src="~/bower_components/bootstrap/js/modal.js"></script>
+    <script src="~/bower_components/bootstrap/js/popover.js"></script>
+    <script src="~/bower_components/bootstrap/js/scrollspy.js"></script>
+    <script src="~/bower_components/bootstrap/js/tab.js"></script>
+    <script src="~/bower_components/bootstrap/js/tooltip.js"></script>
+    <script src="~/bower_components/bootstrap/js/transition.js"></script>
+    <link href="~/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css" rel="stylesheet"/>
+    <script src="~/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script>
+    <link href="~/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet"/>
+    <script src="~/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+    <script src="~/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.hr.min.js"></script>
+    <link href="~/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"/>
+    <script src="~/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <link href="~/bower_components/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet"/>
+    <script src="~/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+    <script src="~/bower_components/bootstrap-slider/bootstrap-slider.js"></script>
+    <link href="~/bower_components/bootstrap-slider/slider.css" rel="stylesheet"/>
+    <script src="~/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+
+
+    @*<link href="~/bower_components/Waves/dist/waves.css" rel="stylesheet" />
+        <script src="~/bower_components/Waves/dist/waves.js"></script>
+        <script src="~/bower_components/modernizr/modernizr.js"></script>*@
+
+
+    <!-- Chart.js -->
+    <script src="~/bower_components/chart.js/Chart.js"></script>
+
+
+    @*<script src="~/bower_components/toastr/toastr.js"></script>
+        <link href="~/bower_components/toastr/toastr.css" rel="stylesheet" />
+        <script src="~/bower_components/sweetalert2/dist/sweetalert2.all.js"></script>*@
+    @*<link href="~/bower_components/sweetalert2/dist/sweetalert2.css" rel="stylesheet" />
+        <script src="~/bower_components/sweetalert2/dist/sweetalert2.js"></script>
+        <script src="~/bower_components/signalr/jquery.signalR.js"></script>
+        <link href="~/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
+        <script src="~/bower_components/select2/dist/js/select2.full.js"></script>
+        <script src="~/bower_components/select2/dist/js/select2.js"></script>
+        <script src="~/bower_components/select2/dist/js/i18n/hr.js"></script>
+        <script src="~/bower_components/raphael/dev/raphael.core.js"></script>
+        <script src="~/bower_components/raphael/dev/raphael.amd.js"></script>
+        <script src="~/bower_components/raphael/dev/raphael.svg.js"></script>
+        <script src="~/bower_components/raphael/dev/raphael.vml.js"></script>*@
+
+    @*<script src="~/bower_components/PACE/pace.js"></script>
+        <link href="~/bower_components/PACE/themes/blue/pace-theme-loading-bar.css" rel="stylesheet" />
+        <script src="~/bower_components/morris.js/morris.js"></script>
+        <link href="~/bower_components/morris.js/morris.css" rel="stylesheet" />
+        <script src="~/bower_components/moment/src/moment.js"></script>
+        <script src="~/bower_components/moment/src/locale/hr.js"></script>*@
+    <script src="~/bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
+    <script src="~/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="~/bower_components/jquery-knob/js/jquery.knob.js"></script>
+    <script src="~/bower_components/jquery-countTo/jquery.countTo.js"></script>
+    @*<link href="~/bower_components/Ionicons/css/ionicons.css" rel="stylesheet" />
+        <script src="~/bower_components/ion.rangeSlider/js/ion.rangeSlider.js"></script>
+        <link href="~/bower_components/ion.rangeSlider/css/ion.rangeSlider.skinModern.css" rel="stylesheet" />
+        <link href="~/bower_components/ion.rangeSlider/css/normalize.css" rel="stylesheet" />
+        <script src="~/bower_components/inputmask/dist/inputmask/jquery.inputmask.js"></script>
+        <script src="~/bower_components/inputmask/dist/inputmask/inputmask.js"></script>
+        <script src="~/bower_components/inputmask/dist/inputmask/inputmask.extensions.js"></script>
+        <script src="~/bower_components/inputmask/dist/inputmask/inputmask.date.extensions.js"></script>
+        <script src="~/bower_components/inputmask/dist/inputmask/inputmask.numeric.extensions.js"></script>
+        <script src="~/bower_components/inputmask/dist/inputmask/inputmask.phone.extensions.js"></script>
+        <script src="~/bower_components/inputmask/dist/inputmask/inputmask.regex.extensions.js"></script>
+        <script src="~/bower_components/fullcalendar/dist/fullcalendar.js"></script>
+        <link href="~/bower_components/fullcalendar/dist/fullcalendar.css" rel="stylesheet" />
+        <link href="~/bower_components/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" />
+        <script src="~/bower_components/fullcalendar/dist/gcal.js"></script>
+        <script src="~/bower_components/fullcalendar/dist/locale-all.js"></script>*@
+    <link href="~/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    @*<script src="~/bower_components/Flot/excanvas.js"></script>
+        <script src="~/bower_components/Flot/jquery.colorhelpers.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.canvas.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.categories.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.crosshair.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.errorbars.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.fillbetween.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.image.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.navigate.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.pie.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.resize.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.selection.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.stack.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.symbol.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.threshold.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.time.js"></script>
+        <script src="~/bower_components/eve-raphael/eve.js"></script>
+        <link href="~/bower_components/datatables/media/css/jquery.dataTables.css" rel="stylesheet" />
+        <link href="~/bower_components/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet" />
+        <link href="~/bower_components/datatables/media/css/dataTables.foundation.css" rel="stylesheet" />
+        <link href="~/bower_components/datatables/media/css/dataTables.jqueryui.css" rel="stylesheet" />
+        <script src="~/bower_components/datatables/media/js/dataTables.bootstrap.js"></script>
+        <script src="~/bower_components/datatables/media/js/jquery.dataTables.js"></script>*@
+
+    <!-- admin-lte -->
+    <link href="~/bower_components/admin-lte/dist/css/AdminLTE.css" rel="stylesheet"/>
+    <link href="~/bower_components/admin-lte/dist/css/skins/skin-blue-light.css" rel="stylesheet"/>
+    @*<script src="~/bower_components/admin-lte/dist/js/demo.js"></script>*@
+
+
+    <!-- prod -->
+
+    @Html.HtmlCssCached("mainCss")
+    <!--[if lt IE 9]>
+
+        <script src="~/Scripts/html5shiv.min.js"></script>
+
+        <script src="~/Scripts/respond.min.js"></script>
+
+    <![endif]-->
+</head>
+<!-- ADD THE CLASS fixed TO GET A FIXED HEADER AND SIDEBAR LAYOUT -->
+<!-- the fixed layout is not compatible with sidebar-mini -->
+<body class="skin-blue  sidebar-mini-expand-feature">
+<script type="text/javascript">
+                        //function Splash() {
+    //    var splash = window.pleaseWait({
+    //        logo: "/Content/img/avatar5.png",
+    //        backgroundColor: '#3c8dbc',
+    //        loadingHtml: "<h1 class='loading-message'>Identity Provider</h1>" +
+    //        '<div class="sk-folding-cube"><div class="sk-cube1 sk-cube" ></div><div class="sk-cube2 sk-cube"></div><div class="sk-cube4 sk-cube"></div><div class="sk-cube3 sk-cube"></div></div>'
+    //    });
+
+    //    return splash;
+    //}
+
+    //waiter = Splash();
+    //$(document)
+    //    .ready(function () {
+    //        setTimeout(function () {
+    //            waiter.finish();
+    //        }, 2000);
+    //    });
+</script>
+<!-- Site wrapper -->
+<div class="wrapper">
+<header class="main-header">
+    <!-- Logo -->
+    <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini">
+            <b>ID</b>
+        </span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>ID</b>&nbsp;Identity Provider</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                @Html.Partial("Profile")
+                <li>
+                    <a href="#" data-toggle="control-sidebar">
+                        <i class="fa fa-gears"></i>
+                    </a>
+                    <a href="#" data-toggle="sidebar-toggle">
+                        <i class="fa fa-gears"></i>
+                    </a>
+                </li>
+            </ul>
+            @*<ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>*@
+        </div>
+        @*@Html.Partial("_LoginPartial")*@
+        <!-- Control Sidebar Toggle Button -->
+
+
+    </nav>
+</header>
+<!-- =============================================== -->
+<aside class="main-sidebar">
+    @Html.Partial("Menus")
+</aside>
+<!-- =============================================== -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+            <small>@ViewBag.Subtitle</small>
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        @RenderBody()
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+        <b>Version</b> @ViewContext.Controller.GetType().Assembly.GetName().Version
+    </div>
+    <strong>Copyright &copy; @DateTime.Now.Year <a href="">Identity Provider</a>.</strong>
+</footer>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li>
+            <a href="#control-sidebar-home-tab" data-toggle="tab">
+                <i class="fa fa-home"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#control-sidebar-settings-tab" data-toggle="tab">
+                <i class="fa fa-gears"></i>
+            </a>
+        </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!-- Home tab content -->
+        <div class="tab-pane" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                            <p>Will be 23 on April 24th</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                            <p>New phone +1(800)555-1234</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                            <p>nora@example.com</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                            <p>Execution time 5 seconds</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.control-sidebar-menu -->
+
+            <h3 class="control-sidebar-heading">Tasks Progress</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript:void(0)">
+                        <h4 class="control-sidebar-subheading">
+                            Custom Template Design
+                            <span class="label label-danger pull-right">70%</span>
+                        </h4>
+
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <h4 class="control-sidebar-subheading">
+                            Update Resume
+                            <span class="label label-success pull-right">95%</span>
+                        </h4>
+
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <h4 class="control-sidebar-subheading">
+                            Laravel Integration
+                            <span class="label label-warning pull-right">50%</span>
+                        </h4>
+
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <h4 class="control-sidebar-subheading">
+                            Back End Framework
+                            <span class="label label-primary pull-right">68%</span>
+                        </h4>
+
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.control-sidebar-menu -->
+
+        </div>
+        <!-- /.tab-pane -->
+        <!-- Settings tab content -->
+        <div class="tab-pane" id="control-sidebar-settings-tab">
+            <form method="post">
+                <h3 class="control-sidebar-heading">General Settings</h3>
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Report panel usage
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+
+                    <p>
+                        Some information about this general settings option
+                    </p>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Allow mail redirect
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+
+                    <p>
+                        Other sets of options are available
+                    </p>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Expose author name in posts
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+
+                    <p>
+                        Allow the user to show his name in blog posts
+                    </p>
+                </div>
+                <!-- /.form-group -->
+
+                <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Show me as online
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Turn off notifications
+                        <input type="checkbox" class="pull-right">
+                    </label>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Delete chat history
+                        <a href="javascript:void(0)" class="text-red pull-right">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </label>
+                </div>
+                <!-- /.form-group -->
+            </form>
+        </div>
+        <!-- /.tab-pane -->
+    </div>
+</aside>
+<!-- /.control-sidebar -->
+<!-- Add the sidebar's background. This div must be placed
+immediately after the control sidebar -->
+<div class="control-sidebar-bg"></div>
+
+
+</div>
+<!-- ./wrapper -->
+@*<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />*@
+<link href="~/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+@*<link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />*@
+<link href="~/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+@*<link href="~/Content/css/AdminLTE.min.css" rel="stylesheet" />*@
+<link href="~/bower_components/admin-lte/dist/css/AdminLTE.css" rel="stylesheet"/>
+@*<link href="~/Content/css/skins/skin-blue.min.css" rel="stylesheet" />*@
+<link href="~/bower_components/admin-lte/dist/css/skins/skin-blue.css" rel="stylesheet"/>
+
+@*<script src="~/Scripts/bootstrap.js"></script>*@
+<script src="~/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+@*<script src="~/Scripts/slimScroll/jquery.slimscroll.js"></script>*@
+@*<script src="~/Scripts/fastclick/fastclick.js"></script>*@
+<script src="~/bower_components/fastclick/lib/fastclick.js"></script>
+@*<script src="~/Scripts/app.min.js"></script>
+        <script src="~/Scripts/demo.js"></script>*@
+@*<script src="~/bower_components/admin-lte/dist/js/demo.js"></script>
+        <script src="~/Scripts/adminlte.js"></script>
+        <script src="~/bower_components/admin-lte/dist/js/adminlte.js"></script>*@
+@*<script src="~/Scripts/iCheck/icheck.js"></script>*@
+
+
+<!-- We can choose to deliver a standard library directly from the application or via CND -->
+@*@Html.HtmlScriptsCached("standardLibsJs")*@
+@Html.HtmlScriptsCached("standardLibsCndJs")
+@*@Html.HtmlScriptsCached("appLibsJs")*@
+@RenderSection("scripts", false)
+@{
+    if (ViewBag.Erro != null)
+    {
+        foreach (var m in (List<string>) ViewBag.Erro)
+        {
+            <script>
+                MsgErro('@m');
+            </script>
+        }
+    }
+
+    if (ViewBag.Ok != null)
+    {
+        foreach (var m in (List<string>) ViewBag.Ok)
+        {
+            <script>
+                MsgOk('@m');
+            </script>
+        }
+    }
+
+    if (ViewBag.Info != null)
+    {
+        foreach (var m in (List<string>) ViewBag.Info)
+        {
+            <script>
+                MsgInfo('@m');
+            </script>
+        }
+    }
+
+    if (ViewBag.Alerta != null)
+    {
+        foreach (var m in (List<string>) ViewBag.Alerta)
+        {
+            <script>
+                MsgAlerta('@m');
+            </script>
+        }
+    }
+}
+</body>
+</html>
