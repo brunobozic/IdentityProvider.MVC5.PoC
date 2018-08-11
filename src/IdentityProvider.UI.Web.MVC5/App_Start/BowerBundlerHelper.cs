@@ -20,6 +20,7 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using B4BCore;
 
+
 namespace IdentityProvider.UI.Web.MVC5
 {
     /// <summary>
