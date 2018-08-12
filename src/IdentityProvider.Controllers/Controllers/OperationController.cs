@@ -30,7 +30,7 @@ namespace IdentityProvider.Controllers.Controllers
             , IUnitOfWorkAsync unitOfWorkAsync
             , IOperationService operationService
             )
-            : base(cookieStorageService, errorLogService)
+            : base(cookieStorageService , errorLogService)
         {
             _unitOfWorkAsync = unitOfWorkAsync;
             _operationService = operationService;
@@ -40,26 +40,25 @@ namespace IdentityProvider.Controllers.Controllers
             string sortOrder
             , string currentFilter
             , string searchString
-            , int pageNumber = 1
-            , int pageSize = 25
+            , int? page
             )
         {
 
             ViewBag.searchQuery = string.IsNullOrEmpty(searchString) ? "" : searchString;
 
-            pageNumber = pageNumber > 0 ? pageNumber : 1;
-            pageSize = pageSize > 0 ? pageSize : 25;
+            page = page > 0 ? page : 1;
+            
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParam = sortOrder == "Name" ? "Name_Desc" : "Name";
             ViewBag.ActiveSortParam = sortOrder == "Active" ? "Active_Desc" : "Active";
-            ViewBag.ActiveSortParam = sortOrder == "Deleted" ? "Deleted_Desc" : "Deleted";
+            ViewBag.DeletedSortParam = sortOrder == "Deleted" ? "Deleted_Desc" : "Deleted";
             ViewBag.DescriptionSortParam = sortOrder == "Description" ? "Description_Desc" : "Description";
             ViewBag.DateCreatedSortParam = sortOrder == "Date_Created" ? "Date_Created_Desc" : "Date_Created";
             ViewBag.DateModifiedSortParam = sortOrder == "Date_Modified" ? "Date_Modified_Desc" : "Date_Modified";
 
             if (searchString != null)
             {
-                pageNumber = 1;
+                page = 1;
             }
             else
             {
@@ -72,12 +71,12 @@ namespace IdentityProvider.Controllers.Controllers
             var query = _operationService.Queryable().Where(o => o.Active && !o.IsDeleted).Select(i =>
                 new OperationPagedVm
                 {
-                    Active = i.Active,
-                    Name = i.Name,
-                    Description = i.Description,
-                    Deleted = i.IsDeleted,
-                    DateCreated = i.CreatedDate,
-                    DateModified = i.ModifiedDate,
+                    Active = i.Active ,
+                    Name = i.Name ,
+                    Description = i.Description ,
+                    Deleted = i.IsDeleted ,
+                    DateCreated = i.CreatedDate ,
+                    DateModified = i.ModifiedDate ,
                     Id = i.Id
                 });
 
@@ -91,14 +90,26 @@ namespace IdentityProvider.Controllers.Controllers
                 case "Name":
                     query = query.OrderBy(x => x.Name);
                     break;
+                case "Name_Desc":
+                    query = query.OrderByDescending(x => x.Name);
+                    break;
                 case "Description":
                     query = query.OrderBy(x => x.Description);
                     break;
+                case "Description_Desc":
+                    query = query.OrderByDescending(x => x.Description);
+                    break;
                 case "Active":
+                    query = query.OrderBy(x => x.Active);
+                    break;
+                case "Active_Desc":
                     query = query.OrderByDescending(x => x.Active);
                     break;
                 case "Deleted":
                     query = query.OrderBy(x => x.Deleted);
+                    break;
+                case "Deleted_Desc":
+                    query = query.OrderByDescending(x => x.Deleted);
                     break;
                 case "Date_Created":
                     query = query.OrderBy(x => x.DateCreated);
@@ -106,22 +117,31 @@ namespace IdentityProvider.Controllers.Controllers
                 case "Date_Created_Desc":
                     query = query.OrderByDescending(x => x.DateCreated);
                     break;
+                case "Date_Modified":
+                    query = query.OrderBy(x => x.DateModified);
+                    break;
+                case "Date_Modified_Desc":
+                    query = query.OrderByDescending(x => x.DateModified);
+                    break;
                 default:
                     query = query.OrderBy(x => x.Name);
                     break;
             }
 
-            return View(query.ToPagedList(pageNumber, pageSize));
+            int pageSize = 4;
+            int pageNumber = ( page ?? 1 );
+
+            return View(query.ToPagedList(pageNumber , pageSize));
         }
 
-        public ActionResult OperationInsert(OperationDto operationToInsert)
+        public ActionResult OperationInsert( OperationDto operationToInsert )
         {
             OperationInsertedVm retVal = new OperationInsertedVm();
             var op = new Operation
             {
-                Active = true,
-                IsDeleted = false,
-                Description = operationToInsert.Description,
+                Active = true ,
+                IsDeleted = false ,
+                Description = operationToInsert.Description ,
                 Name = operationToInsert.Name
             };
 
@@ -133,46 +153,49 @@ namespace IdentityProvider.Controllers.Controllers
             return View(retVal);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> OperationDeleteAsync(string operationToDelete)
-        {
-            var retVal = new OperationDeletedVm();
 
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult OperationDelete( string operationToDelete )
+        {
+            var retVal = new OperationDeletedVm {WasDeleted = false};
             if (!string.IsNullOrEmpty(operationToDelete))
             {
                 // _operationService.Delete(int.Parse(operationToDelete));
 
-                var x = await _unitOfWorkAsync.RepositoryAsync<Operation>().DeleteAsync(int.Parse(operationToDelete));
-                var z = _unitOfWorkAsync.SaveChangesAsync();
+                try
+                {
+                    var repo = _unitOfWorkAsync.Repository<Operation>();
+                    repo.Delete(int.Parse(operationToDelete));
+                    var result = _unitOfWorkAsync.SaveChanges();
 
+                    if (result >0)
+                    retVal.WasDeleted = true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
 
-
-
-                var op = _operationService.Find(int.Parse(operationToDelete));
-                op.TrackingState = TrackingState.Deleted;
-                _operationService.ApplyChanges(op);
-
-                var deleted = _unitOfWorkAsync.SaveChanges();
-
-                if (deleted > 0) retVal.WasDeleted = true;
             }
             else
             {
                 retVal.WasDeleted = false;
             }
 
-            return View(retVal);
+            return Json(retVal.WasDeleted , JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult OperationEdit(object id)
+        public ActionResult OperationEdit( object id )
         {
             throw new NotImplementedException();
         }
 
-        public ActionResult OperationDetails(object id)
+        public ActionResult OperationDetails( object id )
         {
             throw new NotImplementedException();
         }
+
     }
 
     public class OperationPagedVm

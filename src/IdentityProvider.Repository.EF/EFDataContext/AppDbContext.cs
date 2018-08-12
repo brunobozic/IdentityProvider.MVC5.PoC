@@ -20,7 +20,6 @@ using IdentityProvider.Repository.EF.Migrations;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Module.Repository.EF.SimpleAudit;
 using StructureMap;
-using WebMatrix.Data;
 using Database = System.Data.Entity.Database;
 using ModelValidationException = IdentityProvider.Infrastructure.ModelValidationException;
 
