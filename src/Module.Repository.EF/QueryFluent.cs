@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using IdentityProvider.Infrastructure.Domain;
 using Module.Repository.EF.Repositories;
 using TrackableEntities;
 
 namespace Module.Repository.EF
 {
-    public sealed class QueryFluent<TEntity> : IQueryFluent<TEntity> where TEntity : class, ITrackable
+    public sealed class QueryFluent<TEntity> : IQueryFluent<TEntity> where TEntity : DomainEntity<int>
     {
         private readonly Expression<Func<TEntity, bool>> _expression;
         private readonly List<Expression<Func<TEntity, object>>> _includes;

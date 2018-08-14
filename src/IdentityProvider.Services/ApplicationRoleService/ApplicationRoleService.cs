@@ -93,7 +93,7 @@ namespace IdentityProvider.Services.ApplicationRoleService
 
         public IEnumerable<RoleOperationResourceDto> FetchUserRoleReasourseAndOperationsGraph()
         {
-            var context = (AppDbContext)DependencyResolver.Current.GetService(typeof(IAuditedDbContext<ApplicationUser>));
+            var context = (AppDbContext)DependencyResolver.Current.GetService(typeof(AppDbContext));
             var q = new RoleOperationResourceQuery(context);
 
             return q.Execute();
@@ -101,7 +101,7 @@ namespace IdentityProvider.Services.ApplicationRoleService
 
         public IEnumerable<UserRoleResourcesOperationsDto> FetchReasourseAndOperationsGraph()
         {
-            var context = (AppDbContext)DependencyResolver.Current.GetService(typeof(IAuditedDbContext<ApplicationUser>));
+            var context = (AppDbContext)DependencyResolver.Current.GetService(typeof(AppDbContext));
             var q = new UserRoleResourcesOperationsQuery(context);
 
             return q.Execute();

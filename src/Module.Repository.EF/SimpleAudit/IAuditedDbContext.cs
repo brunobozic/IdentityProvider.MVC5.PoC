@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using IdentityProvider.Infrastructure.DatabaseAudit;
 using IdentityProvider.Infrastructure.DatabaseLog.Model;
 using IdentityProvider.Models.Domain.Account;
+using TrackableEntities;
 
 namespace Module.Repository.EF.SimpleAudit
 {
@@ -39,5 +40,6 @@ namespace Module.Repository.EF.SimpleAudit
         Task<int> SaveChangesAsync();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         DbSet<T> Set<T>() where T : class;
+        void ApplyChanges(ITrackable entity);
     }
 }

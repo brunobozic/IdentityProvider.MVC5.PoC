@@ -12,17 +12,17 @@ namespace IdentityProvider.Repository.EF.Factories
         public static void ClearDataContext()
         {
             var dataContextStorageContainer =
-                DataContextStorageFactory<IAuditedDbContext<ApplicationUser>>.CreateStorageContainer();
+                DataContextStorageFactory<AppDbContext>.CreateStorageContainer();
             dataContextStorageContainer.Clear();
         }
 
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public static IAuditedDbContext<ApplicationUser> GetDataContextAsync()
+        public static AppDbContext GetDataContextAsync()
         {
             var dataContextStorageContainer =
-                DataContextStorageFactory<IAuditedDbContext<ApplicationUser>>.CreateStorageContainer();
+                DataContextStorageFactory<AppDbContext>.CreateStorageContainer();
 
             var contactManagerContext = dataContextStorageContainer.GetDataContext();
 

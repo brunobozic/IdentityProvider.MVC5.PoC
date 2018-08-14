@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -17,7 +18,7 @@ using TrackableEntities;
 namespace IdentityProvider.Controllers.Controllers
 {
 
-    public class OperationController : BaseController, IController
+    public class OperationController : BaseController
     {
 
         private readonly IOperationService _operationService;
@@ -47,7 +48,7 @@ namespace IdentityProvider.Controllers.Controllers
             ViewBag.searchQuery = string.IsNullOrEmpty(searchString) ? "" : searchString;
 
             page = page > 0 ? page : 1;
-            
+
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParam = sortOrder == "Name" ? "Name_Desc" : "Name";
             ViewBag.ActiveSortParam = sortOrder == "Active" ? "Active_Desc" : "Active";
@@ -136,10 +137,11 @@ namespace IdentityProvider.Controllers.Controllers
 
         public ActionResult OperationInsert( OperationDto operationToInsert )
         {
-            OperationInsertedVm retVal = new OperationInsertedVm();
+            var retVal = new OperationInsertedVm();
             var op = new Operation
             {
                 Active = true ,
+                ActiveFrom = DateTime.Now ,
                 IsDeleted = false ,
                 Description = operationToInsert.Description ,
                 Name = operationToInsert.Name
@@ -148,6 +150,7 @@ namespace IdentityProvider.Controllers.Controllers
             _operationService.Insert(op);
 
             var inserted = _unitOfWorkAsync.SaveChanges();
+
             retVal.WasInserted = inserted;
 
             return View(retVal);
@@ -155,25 +158,31 @@ namespace IdentityProvider.Controllers.Controllers
 
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public ActionResult OperationDelete( string operationToDelete )
+        public async Task<ActionResult> OperationDeleteAsync( string operationToDelete )
         {
-            var retVal = new OperationDeletedVm {WasDeleted = false};
+            var retVal = new OperationDeletedVm { WasDeleted = false };
             if (!string.IsNullOrEmpty(operationToDelete))
             {
-                // _operationService.Delete(int.Parse(operationToDelete));
+                
 
                 try
                 {
-                    var repo = _unitOfWorkAsync.Repository<Operation>();
-                    repo.Delete(int.Parse(operationToDelete));
-                    var result = _unitOfWorkAsync.SaveChanges();
 
-                    if (result >0)
-                    retVal.WasDeleted = true;
+                    //await _operationService.DeleteAsync(int.Parse(operationToDelete));
+                    
+                    //var result = await _unitOfWorkAsync.SaveChangesAsync();
+
+                    var repo = _unitOfWorkAsync.RepositoryAsync<Operation>();
+                    await repo.DeleteAsyncSoftDeleted(true, int.Parse(operationToDelete));
+                    var result = await _unitOfWorkAsync.SaveChangesAsync();
+
+                    if (result > 0)
+                        retVal.WasDeleted = true;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
+                    Debug.WriteLine(e);
                     throw;
                 }
 

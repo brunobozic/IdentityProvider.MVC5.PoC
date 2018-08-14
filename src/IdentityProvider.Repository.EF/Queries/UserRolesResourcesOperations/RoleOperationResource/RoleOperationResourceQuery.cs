@@ -8,7 +8,7 @@ namespace IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.Ro
 {
     public class RoleOperationResourceQuery : ISimpleQueryObject<RoleOperationResourceDto>
     {
-        private readonly IAuditedDbContext<ApplicationUser> _context;
+        private readonly AppDbContext _context;
         public bool OnlyActiveRoles { get; set; }
         public bool OnlyActiveOperations { get; set; }
         public bool OnlyActiveResources { get; set; }
@@ -16,7 +16,7 @@ namespace IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.Ro
         public string OperationNameLike { get; set; }
         public string ResourceNameLike { get; set; }
 
-        public RoleOperationResourceQuery(IAuditedDbContext<ApplicationUser> context)
+        public RoleOperationResourceQuery( AppDbContext context )
         {
             _context = context;
         }

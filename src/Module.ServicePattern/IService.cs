@@ -34,7 +34,11 @@ namespace Module.ServicePattern
         Task<TEntity> FindAsync(params object[] keyValues);
         Task<TEntity> FindAsync(CancellationToken cancellationToken, params object[] keyValues);
         Task<bool> DeleteAsync(params object[] keyValues);
+
+
+
         Task<bool> DeleteAsync(CancellationToken cancellationToken, params object[] keyValues);
+        Task<bool> DeleteAsyncSoftDeletedAsync( CancellationToken cancellationToken , bool softDeleted, params object[] keyValues );
         IQueryable<TEntity> Queryable();
     }
 }

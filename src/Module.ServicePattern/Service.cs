@@ -107,6 +107,11 @@ namespace Module.ServicePattern
             return await _repository.DeleteAsync(cancellationToken, keyValues);
         }
 
+        public async Task<bool> DeleteAsyncSoftDeletedAsync(CancellationToken cancellationToken, bool softDeleted, params object[] keyValues)
+        {
+            return await _repository.DeleteAsync(cancellationToken , true,keyValues );
+        }
+
         public IQueryable<TEntity> Queryable()
         {
             return _repository.Queryable();

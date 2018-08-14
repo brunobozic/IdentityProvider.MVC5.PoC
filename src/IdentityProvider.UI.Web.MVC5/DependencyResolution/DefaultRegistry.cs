@@ -148,7 +148,8 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             For<IPerformanceLogger>().Use<PerformanceLogger>().LifecycleIs<UniquePerRequestLifecycle>();
 
             // This is how we pass a primitive value into class constructor
-            For<IAuditedDbContext<ApplicationUser>>().Use(i => new IdentityProvider.Repository.EF.EFDataContext.AppDbContext("SimpleMembership")).LifecycleIs<UniquePerRequestLifecycle>();
+            //For<IAuditedDbContext<ApplicationUser>>().Use(i => new IdentityProvider.Repository.EF.EFDataContext.AppDbContext("SimpleMembership")).LifecycleIs<UniquePerRequestLifecycle>();
+
             For<DbContext>().Use(i => new IdentityProvider.Repository.EF.EFDataContext.AppDbContext("SimpleMembership")).LifecycleIs<UniquePerRequestLifecycle>();
 
             For(typeof(IRoleStore<ApplicationRole, string>)).Use(typeof(RoleStore<ApplicationRole>))

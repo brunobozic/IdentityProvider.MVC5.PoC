@@ -20,12 +20,13 @@ using IdentityProvider.Repository.EF.Migrations;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Module.Repository.EF.SimpleAudit;
 using StructureMap;
+using TrackableEntities;
 using Database = System.Data.Entity.Database;
 using ModelValidationException = IdentityProvider.Infrastructure.ModelValidationException;
 
 namespace IdentityProvider.Repository.EF.EFDataContext
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser>, IAuditedDbContext<ApplicationUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         private readonly List<DbAuditTrail> _auditList = new List<DbAuditTrail>();
         private readonly List<DbEntityEntry> _list = new List<DbEntityEntry>();
@@ -594,6 +595,11 @@ namespace IdentityProvider.Repository.EF.EFDataContext
             }
 
             return changes;
+        }
+
+        public void ApplyChanges(ITrackable entity)
+        {
+            throw new NotImplementedException();
         }
 
 
