@@ -1,0 +1,59 @@
+﻿@model IdentityProvider.Controllers.Controllers.OperationPagedVm
+
+<tbody>
+    @foreach (var item in Model.Operations)
+    {
+        <tr>
+            <td class="font-bold">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td style="text-align: left">
+                @if (item.Active)
+                {
+                    <i class="material-icons align-center" style="cursor: not-allowed; color: green" title="Active">check_circle_outline</i>
+                }
+                else
+                {
+                    <i class="material-icons align-center" style="cursor: not-allowed; color: darkred" title="Inactive">domain_disabled</i>
+                }
+            </td>
+            @*<td style="text-align: center">
+                    @if (item.Deleted)
+                    {
+                        <i class="material-icons align-center" style="cursor: not-allowed; color: red" title="Deleted">delete_forever</i>
+                    }
+                    else
+                    {
+                        <i class="material-icons align-center" style="cursor: not-allowed; color:darkmagenta" vtitle="Active">check_circle_outline</i>
+                    }
+                </td>*@
+            <td style="text-align: left">
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td style="text-align: left">
+                @Html.DisplayFor(modelItem => item.DateModified)
+            </td>
+            <td style="text-align: left">
+                <a href="@Url.Action("OperationEdit", "Operation")" class="btn bg-purple waves-effect btn-xs" data-toggle="tooltip" data-placement="left" title="" data-original-title="Edit existing record">
+                    <i class="material-icons">edit</i>
+                    <span>
+                        Edit
+                    </span>
+                </a>
+                <a href="@Url.Action("OperationDetails", "Operation")" class="btn bg-purple waves-effect btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="View details">
+                    <i class="material-icons">view_list</i>
+                    <span>
+                        Details
+                    </span>
+                </a>
+                <button id="deleteBtn" type="submit" class="btn bg-purple waves-effect btn-xs delete" onclick="deleteOperation('@item.Id');" data-toggle="tooltip" data-placement="right" title="" data-original-title="Delete the record">
+                    <i class="material-icons">delete_forever</i>
+                </button>
+            </td>
+            @*<td class="filler" style="border: none !important; border-color: white !important; border-width: 0px !important"></td>*@
+        </tr>
+    }
+</tbody>

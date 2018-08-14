@@ -1,8 +1,5 @@
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution {
     using System.Web;
-
-    using IdentityProvider.UI.Web.MVC5.App_Start;
-
     using StructureMap.Web.Pipeline;
 
     public class StructureMapScopeModule : IHttpModule {

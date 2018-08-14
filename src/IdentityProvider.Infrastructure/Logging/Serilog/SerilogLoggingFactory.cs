@@ -108,7 +108,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog
                         {
                             _logConfiguration = new LoggerConfiguration().WriteTo.Graylog(new GraylogSinkOptions
                             {
-                                HostnameOrAddress = graylogIP,
+                                HostnameOrAdress = graylogIP,
                                 Port = Convert.ToInt32(graylogPort)
                             });
 

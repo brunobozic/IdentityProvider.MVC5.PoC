@@ -16,9 +16,11 @@ using IdentityProvider.Infrastructure.DatabaseAudit;
 using IdentityProvider.Infrastructure.DatabaseLog.Model;
 using IdentityProvider.Infrastructure.Domain;
 using IdentityProvider.Models.Domain.Account;
+using IdentityProvider.Repository.EF.Migrations;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Module.Repository.EF.SimpleAudit;
 using StructureMap;
+using Database = System.Data.Entity.Database;
 using ModelValidationException = IdentityProvider.Infrastructure.ModelValidationException;
 
 namespace IdentityProvider.Repository.EF.EFDataContext
@@ -298,7 +300,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public Database GetDatabase()
+        public System.Data.Entity.Database GetDatabase()
         {
             return Database;
         }
@@ -634,7 +636,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                 modelBuilder.Configurations.Add(configurationInstance);
             }
 
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating((System.Data.Entity.DbModelBuilder) modelBuilder);
         }
 
         //private class DbInitializer<T> : DropCreateDatabaseAlways<DataContextAsync>

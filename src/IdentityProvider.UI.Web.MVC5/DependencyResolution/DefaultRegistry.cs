@@ -18,6 +18,7 @@ using IdentityProvider.Services.ApplicationRoleService;
 using IdentityProvider.Services.OperationsService;
 using IdentityProvider.Services.ResourceService;
 using Module.Repository.EF.SimpleAudit;
+using StructureMap.Graph;
 using StructureMap.Pipeline;
 
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
