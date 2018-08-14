@@ -1,7 +1,7 @@
-﻿@model PagedList.IPagedList<IdentityProvider.Controllers.Controllers.OperationPagedVm>
+﻿@model IdentityProvider.Controllers.Controllers.OperationPagedVm
 
 <tbody>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Operations)
     {
         <tr>
             <td class="font-bold">

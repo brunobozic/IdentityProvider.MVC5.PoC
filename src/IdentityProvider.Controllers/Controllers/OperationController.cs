@@ -1,9 +1,9 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
@@ -13,14 +13,11 @@ using IdentityProvider.Services.OperationsService;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using PagedList;
 using StructureMap;
-using TrackableEntities;
 
 namespace IdentityProvider.Controllers.Controllers
 {
-
     public class OperationController : BaseController
     {
-
         private readonly IOperationService _operationService;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
 
@@ -31,23 +28,24 @@ namespace IdentityProvider.Controllers.Controllers
             , IUnitOfWorkAsync unitOfWorkAsync
             , IOperationService operationService
             )
-            : base(cookieStorageService , errorLogService)
+            : base(cookieStorageService, errorLogService)
         {
             _unitOfWorkAsync = unitOfWorkAsync;
             _operationService = operationService;
         }
 
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult OperationsGetAllPaged(
             string sortOrder
             , string currentFilter
             , string searchString
-            , int? page
+            , int? pageNumber = 1
+            , int pageSize = 10
             )
         {
-
             ViewBag.searchQuery = string.IsNullOrEmpty(searchString) ? "" : searchString;
 
-            page = page > 0 ? page : 1;
+            pageNumber = pageNumber > 0 ? pageNumber : 1;
 
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParam = sortOrder == "Name" ? "Name_Desc" : "Name";
@@ -59,7 +57,7 @@ namespace IdentityProvider.Controllers.Controllers
 
             if (searchString != null)
             {
-                page = 1;
+                pageNumber = 1;
             }
             else
             {
@@ -70,14 +68,14 @@ namespace IdentityProvider.Controllers.Controllers
             ViewBag.CurrentSort = sortOrder;
 
             var query = _operationService.Queryable().Where(o => o.Active && !o.IsDeleted).Select(i =>
-                new OperationPagedVm
+                new OperationVm
                 {
-                    Active = i.Active ,
-                    Name = i.Name ,
-                    Description = i.Description ,
-                    Deleted = i.IsDeleted ,
-                    DateCreated = i.CreatedDate ,
-                    DateModified = i.ModifiedDate ,
+                    Active = i.Active,
+                    Name = i.Name,
+                    Description = i.Description,
+                    Deleted = i.IsDeleted,
+                    DateCreated = i.CreatedDate,
+                    DateModified = i.ModifiedDate,
                     Id = i.Id
                 });
 
@@ -129,13 +127,60 @@ namespace IdentityProvider.Controllers.Controllers
                     break;
             }
 
-            int pageSize = 4;
-            int pageNumber = ( page ?? 1 );
+            var pageNo = (pageNumber ?? 1);
 
-            return View(query.ToPagedList(pageNumber , pageSize));
+            //Create the select list item you want to add
+            var selListItem = new SelectListItem
+            {
+                Text = "2",
+                Value = "1",
+                Selected = false
+            };
+
+            var selListItem2 = new SelectListItem
+            {
+                Text = "10",
+                Value = "2",
+                Selected = false
+            };
+
+            var selListItem3 = new SelectListItem
+            {
+                Text = "20",
+                Value = "3",
+                Selected = false
+            };
+
+            var selListItem4 = new SelectListItem
+            {
+                Text = "50",
+                Value = "4",
+                Selected = false
+            };
+
+            //Create a list of select list items - this will be returned as your select list
+            var newList = new List<SelectListItem> { selListItem, selListItem2, selListItem3, selListItem4 };    //Add select list item to list of selectlistitems
+
+            // Based on the incoming parameter, set one of the list items to selected equals true
+            var selectedOne = newList.Single(i => i.Text == pageSize.ToString());
+            selectedOne.Selected = true;
+
+            //Return the list of selectlistitems as a selectlist
+            var list = new SelectList(newList, "Value", "Text", null);
+
+            var returnValue = new OperationPagedVm
+            {
+                Operations = query.ToPagedList(pageNo, Int32.Parse(selectedOne.Text)),
+                PageSize = Int32.Parse(selectedOne.Text),
+                PageSizeList = list,
+                SearchString = searchString,
+                SortOrder = sortOrder
+            };
+
+            return View(returnValue);
         }
 
-        public ActionResult OperationInsert( OperationDto operationToInsert )
+        public ActionResult OperationInsert(OperationDto operationToInsert)
         {
             var retVal = new OperationInsertedVm();
             var op = new Operation
@@ -192,15 +237,15 @@ namespace IdentityProvider.Controllers.Controllers
                 retVal.WasDeleted = false;
             }
 
-            return Json(retVal.WasDeleted , JsonRequestBehavior.AllowGet);
+            return Json(retVal.WasDeleted, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult OperationEdit( object id )
+        public ActionResult OperationEdit(object id)
         {
             throw new NotImplementedException();
         }
 
-        public ActionResult OperationDetails( object id )
+        public ActionResult OperationDetails(object id)
         {
             throw new NotImplementedException();
         }
@@ -209,13 +254,15 @@ namespace IdentityProvider.Controllers.Controllers
 
     public class OperationPagedVm
     {
-        public bool Active { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public bool Deleted { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateModified { get; set; }
-        public int Id { get; set; }
+        [Display(Name = "Find by")]
+        public string SearchString { get; set; }
+        public string SortOrder { get; set; }
+        [Display(Name = "Select page size")]
+        public int PageSize { get; set; }
+        public int PageCount { get; set; }
+        public int PageNumber { get; set; }
+        public SelectList PageSizeList { get; set; }
+        public IPagedList<OperationVm> Operations { get; set; }
     }
 
     public class OperationInsertedVm
@@ -234,6 +281,8 @@ namespace IdentityProvider.Controllers.Controllers
         public string Name { get; set; }
         public string Description { get; set; }
         public bool Deleted { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateModified { get; set; }
         public int Id { get; set; }
     }
 }
