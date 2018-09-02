@@ -1,7 +1,6 @@
 ﻿using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.EFDataContext;
 using Microsoft.AspNet.Identity;
-using Module.Repository.EF.SimpleAudit;
 
 namespace IdentityProvider.Services
 {

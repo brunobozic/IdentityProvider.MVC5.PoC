@@ -1,17 +1,17 @@
-﻿@model IdentityProvider.Controllers.Controllers.OperationPagedVm
+﻿@model IdentityProvider.Models.ViewModels.Operations.OperationPagedVm
 
 <tbody>
     @foreach (var item in Model.Operations)
     {
         <tr>
-            <td class="font-bold">
-                @Html.DisplayFor(modelItem => item.Name)
+            <td class="font-bold" style="word-wrap: break-word;">
+                @Html.DisplayFor(modelItem => item.Operation.Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
+            <td style="word-wrap: break-word;">
+                @Html.DisplayFor(modelItem => item.Operation.Description)
             </td>
-            <td style="text-align: left">
-                @if (item.Active)
+            <td style="text-align: left; width: 50px; word-wrap: break-word;">
+                @if (item.Operation.Active)
                 {
                     <i class="material-icons align-center" style="cursor: not-allowed; color: green" title="Active">check_circle_outline</i>
                 }
@@ -30,28 +30,14 @@
                         <i class="material-icons align-center" style="cursor: not-allowed; color:darkmagenta" vtitle="Active">check_circle_outline</i>
                     }
                 </td>*@
-            <td style="text-align: left">
-                @Html.DisplayFor(modelItem => item.DateCreated)
+            <td style="text-align: left; width: 148px; word-wrap: break-word;">
+                @Html.DisplayFor(modelItem => item.Operation.DateCreated)
             </td>
-            <td style="text-align: left">
-                @Html.DisplayFor(modelItem => item.DateModified)
+            <td style="text-align: left; width: 148px; word-wrap: break-word;">
+                @Html.DisplayFor(modelItem => item.Operation.DateModified)
             </td>
-            <td style="text-align: left">
-                <a href="@Url.Action("OperationEdit", "Operation")" class="btn bg-purple waves-effect btn-xs" data-toggle="tooltip" data-placement="left" title="" data-original-title="Edit existing record">
-                    <i class="material-icons">edit</i>
-                    <span>
-                        Edit
-                    </span>
-                </a>
-                <a href="@Url.Action("OperationDetails", "Operation")" class="btn bg-purple waves-effect btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="View details">
-                    <i class="material-icons">view_list</i>
-                    <span>
-                        Details
-                    </span>
-                </a>
-                <button id="deleteBtn" type="submit" class="btn bg-purple waves-effect btn-xs delete" onclick="deleteOperation('@item.Id');" data-toggle="tooltip" data-placement="right" title="" data-original-title="Delete the record">
-                    <i class="material-icons">delete_forever</i>
-                </button>
+            <td style="text-align: left; width: 190px; word-wrap: break-word;">
+                @Html.Partial("Partial/_actionButtonsPartial" , item)
             </td>
             @*<td class="filler" style="border: none !important; border-color: white !important; border-width: 0px !important"></td>*@
         </tr>

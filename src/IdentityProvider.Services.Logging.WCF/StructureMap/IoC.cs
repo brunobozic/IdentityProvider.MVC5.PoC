@@ -1,18 +1,12 @@
-﻿
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.DatabaseLog;
 using IdentityProvider.Infrastructure.Email;
 using IdentityProvider.Infrastructure.Logging.Log4Net;
-using IdentityProvider.Models.Domain.Account;
-using IdentityProvider.Repository.EF.EFDataContext;
 using Module.Repository.EF;
-using Module.Repository.EF.DataContextInterfaces;
 using Module.Repository.EF.Repositories;
-using Module.Repository.EF.SimpleAudit;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using StructureMap;
-using StructureMap.Pipeline;
 
 namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
 {
@@ -24,8 +18,6 @@ namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
 			{
 				c.Scan(scan =>
 				{
-					scan.Assembly("HAC.Helpdesk.Services.Logging.WCF");
-					scan.Assembly("HAC.Helpdesk.SimpleMembership.Repository.EF");
 					scan.WithDefaultConventions();
 				});
 
@@ -49,12 +41,6 @@ namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
 				c.For<IWcfAppenderService>().Use<WcfAppenderService>();
 
 				c.For<ILogWcf>().Use<LogWcfService>();
-
-				c.For<IAuditedDbContext<ApplicationUser>>()
-					.LifecycleIs(new UniquePerRequestLifecycle())
-					.Use(i => new AppDbContext("SimpleMembership"));
-
-
 			});
 		}
 	}

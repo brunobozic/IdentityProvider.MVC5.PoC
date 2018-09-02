@@ -38,8 +38,8 @@ namespace IdentityProvider.Repository.EF.Mapping
                 .Map(m =>
                 {
                     m.ToTable("ResourcesHaveOperations", "Account");
-                    m.MapLeftKey("OperationId");
-                    m.MapRightKey("ResourceId");
+                    m.MapLeftKey("ResourceId");
+                    m.MapRightKey("OperationId");
                 });
         }
     }

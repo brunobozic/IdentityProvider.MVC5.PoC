@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,12 +8,10 @@ using AutoMapper;
 using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.EFDataContext;
-using IdentityProvider.Repository.EF.Queries;
 using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.RoleOperationResource;
 using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.UserRoleResourcesOperations;
 using Microsoft.AspNet.Identity;
 using Module.Repository.EF.Repositories;
-using Module.Repository.EF.SimpleAudit;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using Module.ServicePattern;
 using StructureMap;

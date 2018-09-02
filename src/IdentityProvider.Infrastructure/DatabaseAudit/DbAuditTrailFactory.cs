@@ -21,12 +21,13 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
             var audit = new DbAuditTrail
             {
                 UserId =
-                    1, // System.Web.HttpContext.Current.User.Identity.Name; //Change this line according to your needs
+                    1, 
+                // System.Web.HttpContext.Current.User.Identity.Name; 
+                // TODO: Change this line according to your needs
                 TableName = GetTableName(entry),
                 UpdatedAt = DateTime.Now,
                 TableIdValue = GetKeyValue(entry)
             };
-
 
             switch (entry.State)
             {

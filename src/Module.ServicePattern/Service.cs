@@ -28,9 +28,9 @@ namespace Module.ServicePattern
             return _repository.SelectQuery(query, parameters).AsQueryable();
         }
 
-        public virtual void Insert(TEntity entity)
+        public virtual void Insert(TEntity entity, bool traverseGraph = true)
         {
-            _repository.Insert(entity);
+            _repository.Insert(entity, traverseGraph);
         }
 
         public virtual void ApplyChanges(TEntity entity)

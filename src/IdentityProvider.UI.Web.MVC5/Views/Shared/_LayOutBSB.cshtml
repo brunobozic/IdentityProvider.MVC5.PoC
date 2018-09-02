@@ -18,7 +18,6 @@
     | Stylesheets here |
     -------------------------->
     <!-- Bootstrap Core Css -->
-
     <link href="~/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
     <!-- Waves Effect Css -->
@@ -32,13 +31,15 @@
     <link href="~/bower_components/morris.js/morris.css" rel="stylesheet" />
 
     <!-- Custom Css -->
-    <link href="~/bower_components/adminbsb-materialdesign/css/style.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+
+    <link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
- 
-    <link href="~/bower_components/adminbsb-materialdesign/css/themes/theme-red.css" rel="stylesheet" />
+    <link href="~/bower_components/adminbsb-materialdesign/css/themes/all-themes.css" rel="stylesheet" />
     <link href="~/bower_components/adminbsb-materialdesign/css/style.css" rel="stylesheet" />
     <link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />
+
     <!------------------------------
     | Very important scripts here |
     ------------------------------->
@@ -46,82 +47,105 @@
     <script src="~/bower_components/jQuery/dist/jquery.js"></script>
     <!-- Slim scroll Js -->
     <script src="~/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="~/bower_components/sweetalert2/dist/sweetalert2.all.js"></script>
+    <link href="~/bower_components/sweetalert2/dist/sweetalert2.css" rel="stylesheet" />
+    <script src="~/bower_components/sweetalert2/dist/sweetalert2.js"></script>
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/makeTableResponsive.js"></script>
+    <link href="~/Content/MakeTableResponsive.css" rel="stylesheet" />
+    <script src="~/bower_components/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>
+    <link href="~/Content/popover-overrides.css" rel="stylesheet" />
+    <link href="~/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
+    <script src="~/bower_components/select2/dist/js/select2.full.js"></script>
 </head>
 
 <body class="theme-red">
-<!-- Page Loader -->
-@Html.Partial("_AdminBSBPageLoader");
-<!-- #END# Page Loader -->
-<!-- Overlay For Sidebars -->
-<div class="overlay"></div>
-<!-- #END# Overlay For Sidebars -->
-<!-- Search Bar -->
-@Html.Partial("_AdminBSBSearchBar");
-<!-- #END# Search Bar -->
-<!-- Top Bar -->
-@Html.Partial("_AdminBSBTopBar");
-<!-- #Top Bar -->
+    <!-- Page Loader -->
+    @Html.Partial("_AdminBSBPageLoader");
+    <!-- #END# Page Loader -->
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    <!-- Search Bar -->
+    @Html.Partial("_AdminBSBSearchBar");
+    <!-- #END# Search Bar -->
+    <!-- Top Bar -->
+    @Html.Partial("_AdminBSBTopBar");
+    <!-- #Top Bar -->
 
-<section>
-    <!-- Left Sidebar -->
-    @Html.Partial("_AdminBSBLeftSidebar");
-    <!-- #END# Left Sidebar -->
-    <!-- Right Sidebar -->
-    @Html.Partial("_AdminBSBRightSidebar");
-    <!-- #END# Right Sidebar -->
-</section>
+    <section>
+        <!-- Left Sidebar -->
+        @Html.Partial("_AdminBSBLeftSidebar");
+        <!-- #END# Left Sidebar -->
+        <!-- Right Sidebar -->
+        @Html.Partial("_AdminBSBRightSidebar");
+        <!-- #END# Right Sidebar -->
+    </section>
+    <div class="clearfix">
+        <section class="content" style="margin-top:35px !important">
 
-<section class="content">
-    @*@Html.Partial("_AdminBSBMain");*@
+            @*@Html.Partial("_AdminBSBMain");*@
 
+            <!--------------------------
+            | Your Page Content Here |
+            -------------------------->
+
+            @RenderBody()
+
+        </section>
+    </div>
     <!--------------------------
-    | Your Page Content Here |
+    | Javascript here |
     -------------------------->
+    <!-- Jquery Core Js -->
+    <script src="~/bower_components/jquery/dist/jquery.js"></script>
 
-    @RenderBody()
-</section>
+    <!-- Bootstrap Core Js -->
+    <script src="~/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
-<!--------------------------
-| Javascript here |
--------------------------->
-<!-- Bootstrap Core Js -->
-<script src="~/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- Select Plugin Js -->
+    <script src="~/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
 
-<!-- Select Plugin Js -->
-<script src="~/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+    <!-- Slimscroll Plugin Js -->
+    <script src="~/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
 
-<!-- Slimscroll Plugin Js -->
-<script src="~/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <!-- Waves Effect Plugin Js -->
+    <script src="~/bower_components/Waves/dist/waves.js"></script>
 
-<!-- Waves Effect Plugin Js -->
-<script src="~/bower_components/Waves/dist/waves.js"></script>
+    <!-- Jquery CountTo Plugin Js -->
 
-<!-- Jquery CountTo Plugin Js -->
+    <script src="~/bower_components/jquery-countTo/jquery.countTo.js"></script>
 
-<script src="~/bower_components/jquery-countTo/jquery.countTo.js"></script>
+    <!-- Morris Plugin Js -->
+    <script src="~/bower_components/raphael/raphael.js"></script>
+    <script src="~/bower_components/morris.js/morris.js"></script>
 
-<!-- Morris Plugin Js -->
-<script src="~/bower_components/raphael/raphael.js"></script>
-<script src="~/bower_components/morris.js/morris.js"></script>
+    <!-- ChartJs -->
+    <script src="~/bower_components/Chart.js/Chart.js"></script>
 
-<!-- ChartJs -->
-<script src="~/bower_components/Chart.js/Chart.js"></script>
-
-<!-- Flot Charts Plugin Js -->
-@*<script src="~/bower_components/Flot/jquery.flot.js"></script>
+    <!-- Flot Charts Plugin Js -->
+    @*<script src="~/bower_components/Flot/jquery.flot.js"></script>
         <script src="~/bower_components/Flot/jquery.flot.resize.js"></script>
         <script src="~/bower_components/Flot/jquery.flot.pie.js"></script>
         <script src="~/bower_components/Flot/jquery.flot.categories.js"></script>
         <script src="~/bower_components/Flot/jquery.flot.time.js"></script>*@
 
-<!-- Sparkline Chart Plugin Js -->
-<script src="~/bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="~/bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
 
-<!-- Custom Js -->
-<script src="~/bower_components/adminbsb-materialdesign/js/admin.js"></script>
-<script src="~/bower_components/adminbsb-materialdesign/js/pages/index.js"></script>
+    <!-- Custom Js -->
+    <script src="~/bower_components/adminbsb-materialdesign/js/admin.js"></script>
+    <script src="~/bower_components/adminbsb-materialdesign/js/pages/index.js"></script>
+    <script src="~/bower_components/adminbsb-materialdesign/js/demo.js"></script>
 
-<!-- Sparkline Js -->
-<script src="~/bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
+    <!-- Sparkline Js -->
+    <script src="~/bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
+
+    <!-- Select2 Js -->
+    <script src="~/bower_components/select2/dist/js/select2.js"></script>
+    <link href="~/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
+
+    <!-- Boolean checkboxes jQuery override -->
+    <script src="~/Scripts/jQueryOverride-boolean-checkboxes.js"></script>
 </body>
 </html>

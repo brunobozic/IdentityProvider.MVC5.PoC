@@ -141,17 +141,19 @@
     <Compile Include="DbSeed\DoSeed.cs" />
     <Compile Include="DbSeed\IDoSeed.cs" />
     <Compile Include="OperationsService\IOperationService.cs" />
-    <Compile Include="ResourceService\IResourcesService.cs" />
+    <Compile Include="ResourceService\IApplicationResourceService.cs" />
     <Compile Include="UserProfileService\IUserProfileAdministrationService.cs" />
     <Compile Include="IWebSecurity.cs" />
     <Compile Include="OperationsService\OperationsService.cs" />
-    <Compile Include="ResourceService\ResourceService.cs" />
+    <Compile Include="ResourceService\ApplicationResourceService.cs" />
     <Compile Include="ApplicationRoleService\ApplicationRoleService.cs" />
     <Compile Include="WebSecurity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

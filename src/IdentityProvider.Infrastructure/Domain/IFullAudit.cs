@@ -4,11 +4,11 @@ namespace IdentityProvider.Infrastructure.Domain
 {
     public interface IFullAudit
     {
-        Guid ModifiedById { get; set; }
+        string ModifiedById { get; set; }
         DateTime? ModifiedDate { get; set; }
-        Guid DeletedById { get; set; }
+        string DeletedById { get; set; }
         DateTime? DeletedDate { get; set; }
-        Guid CreatedById { get; set; }
+        string CreatedById { get; set; }
         DateTime? CreatedDate { get; set; }
     }
 

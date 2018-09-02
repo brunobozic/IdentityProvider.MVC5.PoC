@@ -16,5 +16,6 @@ namespace Module.Repository.EF.Repositories
 
         Task<IEnumerable<TEntity>> SelectQueryAsync(string query, CancellationToken cancellationToken,
             params object[] parameters);
+
     }
 }

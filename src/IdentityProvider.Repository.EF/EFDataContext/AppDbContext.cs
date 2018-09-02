@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
@@ -16,17 +17,14 @@ using IdentityProvider.Infrastructure.DatabaseAudit;
 using IdentityProvider.Infrastructure.DatabaseLog.Model;
 using IdentityProvider.Infrastructure.Domain;
 using IdentityProvider.Models.Domain.Account;
-using IdentityProvider.Repository.EF.Migrations;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Module.Repository.EF.SimpleAudit;
 using StructureMap;
-using TrackableEntities;
 using Database = System.Data.Entity.Database;
 using ModelValidationException = IdentityProvider.Infrastructure.ModelValidationException;
 
 namespace IdentityProvider.Repository.EF.EFDataContext
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser>, IDisposable
     {
         private readonly List<DbAuditTrail> _auditList = new List<DbAuditTrail>();
         private readonly List<DbEntityEntry> _list = new List<DbEntityEntry>();
@@ -99,11 +97,37 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                 foreach (var deletableEntity in ChangeTracker.Entries<ISoftDeletable>())
                 {
                     if (deletableEntity.State != EntityState.Deleted) continue;
-                    //Deleted - set the deleted flag
+
+                    // We need to set this to unchanged here, because setting it to modified seems to set ALL of its fields to modified
                     deletableEntity.State = EntityState.Unchanged;
-                    //We need to set this to unchanged here, because setting it to modified seems to set ALL of its fields to modified
+
+                    // This will set the entity's state to modified for the next time we query the ChangeTracker
                     deletableEntity.Entity.IsDeleted = true;
-                    //This will set the entity's state to modified for the next time we query the ChangeTracker
+
+                    // Now, add soft deleted entity to full audit list...
+                    var audit = _auditFactory.GetAudit(deletableEntity);
+                    _auditList.Add(audit);
+                    _list.Add(deletableEntity);
+
+                }
+
+
+                // Deal with the "made active" / "made inactive" / "will expire at datetime" entities here...
+                foreach (var activeItem in ChangeTracker.Entries<IActive>())
+                {
+                    if (activeItem.State != EntityState.Deleted) continue;
+
+                    if (activeItem.Entity.Active)
+                    {
+                        if (activeItem.Entity.ActiveFrom == null || activeItem.Entity.ActiveFrom == DateTime.MinValue)
+                        {
+                            activeItem.Entity.ActiveFrom = DateTime.Now;
+                        }
+                        if (activeItem.Entity.ActiveTo == null || activeItem.Entity.ActiveFrom == DateTime.MinValue)
+                        {
+                            // do not set in advance !!
+                        }
+                    }
                 }
 
                 // Do the audit trails
@@ -120,8 +144,9 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                 {
                     var entityList =
                         ChangeTracker.Entries<IAuditTrail>()
-                            .Where(p => p.State == EntityState.Added || p.State == EntityState.Deleted ||
-                                        p.State == EntityState.Modified);
+                            .Where(p => p.State == EntityState.Added 
+                            || p.State == EntityState.Deleted 
+                            || p.State == EntityState.Modified);
 
                     foreach (var entity in entityList)
                     {
@@ -147,7 +172,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
 
                     // Adding or modifying - update the edited audit trails
                     auditableEntity.Entity.ModifiedDate = currentDateTime;
-                    auditableEntity.Entity.ModifiedById = currentApplicationUserId;
+                    auditableEntity.Entity.ModifiedById = currentApplicationUserId.ToString();
 
                     switch (auditableEntity.State)
                     {
@@ -155,7 +180,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
 
                             // Adding - set the created audit trails
                             auditableEntity.Entity.CreatedDate = currentDateTime;
-                            auditableEntity.Entity.CreatedById = currentApplicationUserId;
+                            auditableEntity.Entity.CreatedById = currentApplicationUserId.ToString();
 
                             break;
 
@@ -165,10 +190,10 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                             var fullName = auditableEntity.Entity.GetType().Name;
                             if (fullName != null && !fullName.Equals("ApplicationUser"))
                             {
-                                if (auditableEntity.Property(p => p.CreatedDate).IsModified ||
-                                    auditableEntity.Property(p => p.CreatedById).IsModified)
-                                    throw new DbEntityValidationException(
-                                        $"Attempt to change created audit trails on a modified {auditableEntity.Entity.GetType().FullName}");
+                                //if (auditableEntity.Property(p => p.CreatedDate).IsModified ||
+                                //    auditableEntity.Property(p => p.CreatedById).IsModified)
+                                //    throw new DbEntityValidationException(
+                                //        $"Attempt to change created audit trails on a modified {auditableEntity.Entity.GetType().FullName}");
                             }
                             else
                             {
@@ -223,19 +248,19 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                 var allErrors = new List<ValidationResult>();
 
                 foreach (var error in errors)
-                foreach (var validationError in error.ValidationErrors)
-                {
-                    result.AppendFormat(
-                        "\r\n  Entity of type {0} has validation error \"{1}\" for property {2}.\r\n",
-                        error.Entry.Entity.GetType(), validationError.ErrorMessage, validationError.PropertyName);
-                    var domainEntity = error.Entry.Entity as DomainEntity<int>;
-                    if (domainEntity != null)
-                        result.Append(domainEntity.IsTransient()
-                            ? "  This entity was added in this session.\r\n"
-                            : $"  The Id of the entity is {domainEntity.Id}.\r\n");
-                    allErrors.Add(new ValidationResult(validationError.ErrorMessage,
-                        new[] {validationError.PropertyName}));
-                }
+                    foreach (var validationError in error.ValidationErrors)
+                    {
+                        result.AppendFormat(
+                            "\r\n  Entity of type {0} has validation error \"{1}\" for property {2}.\r\n",
+                            error.Entry.Entity.GetType(), validationError.ErrorMessage, validationError.PropertyName);
+                        var domainEntity = error.Entry.Entity as DomainEntity<int>;
+                        if (domainEntity != null)
+                            result.Append(domainEntity.IsTransient()
+                                ? "  This entity was added in this session.\r\n"
+                                : $"  The Id of the entity is {domainEntity.Id}.\r\n");
+                        allErrors.Add(new ValidationResult(validationError.ErrorMessage,
+                            new[] { validationError.PropertyName }));
+                    }
 
                 throw new ModelValidationException(result.ToString(), entityException, allErrors);
             }
@@ -406,11 +431,36 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                 foreach (var deletableEntity in ChangeTracker.Entries<ISoftDeletable>())
                 {
                     if (deletableEntity.State != EntityState.Deleted) continue;
-                    //Deleted - set the deleted flag
+
+                    // We need to set this to unchanged here, because setting it to modified seems to set ALL of its fields to modified
                     deletableEntity.State = EntityState.Unchanged;
-                    //We need to set this to unchanged here, because setting it to modified seems to set ALL of its fields to modified
+
+                    // This will set the entity's state to modified for the next time we query the ChangeTracker
                     deletableEntity.Entity.IsDeleted = true;
-                    //This will set the entity's state to modified for the next time we query the ChangeTracker
+
+                    // Now, add soft deleted entity to full audit list...
+                    var audit = _auditFactory.GetAudit(deletableEntity);
+                    _auditList.Add(audit);
+                    _list.Add(deletableEntity);
+
+                }
+
+                // Deal with the "made active" / "made inactive" / "will expire at datetime" entities here...
+                foreach (var activeItem in ChangeTracker.Entries<IActive>())
+                {
+                    if (activeItem.State != EntityState.Deleted) continue;
+
+                    if (activeItem.Entity.Active)
+                    {
+                        if (activeItem.Entity.ActiveFrom == null || activeItem.Entity.ActiveFrom == DateTime.MinValue)
+                        {
+                            activeItem.Entity.ActiveFrom = DateTime.Now;
+                        }
+                        if (activeItem.Entity.ActiveTo == null || activeItem.Entity.ActiveFrom == DateTime.MinValue)
+                        {
+                            // do not set in advance !!
+                        }
+                    }
                 }
 
                 // Do the audit trails
@@ -427,8 +477,9 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                 {
                     var entityList =
                         ChangeTracker.Entries<IAuditTrail>()
-                            .Where(p => p.State == EntityState.Added || p.State == EntityState.Deleted ||
-                                        p.State == EntityState.Modified);
+                            .Where(p => p.State == EntityState.Added 
+                            || p.State == EntityState.Deleted 
+                            || p.State == EntityState.Modified);
 
                     foreach (var entity in entityList)
                     {
@@ -454,7 +505,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
 
                     // Adding or modifying - update the edited audit trails
                     auditableEntity.Entity.ModifiedDate = currentDateTime;
-                    auditableEntity.Entity.ModifiedById = currentApplicationUserId;
+                    auditableEntity.Entity.ModifiedById = currentApplicationUserId.ToString();
 
                     switch (auditableEntity.State)
                     {
@@ -462,7 +513,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
 
                             // Adding - set the created audit trails
                             auditableEntity.Entity.CreatedDate = currentDateTime;
-                            auditableEntity.Entity.CreatedById = currentApplicationUserId;
+                            auditableEntity.Entity.CreatedById = currentApplicationUserId.ToString();
 
                             break;
 
@@ -597,12 +648,6 @@ namespace IdentityProvider.Repository.EF.EFDataContext
             return changes;
         }
 
-        public void ApplyChanges(ITrackable entity)
-        {
-            throw new NotImplementedException();
-        }
-
-
         /// <inheritdoc />
         /// <summary>
         /// </summary>
@@ -642,7 +687,10 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                 modelBuilder.Configurations.Add(configurationInstance);
             }
 
-            base.OnModelCreating((System.Data.Entity.DbModelBuilder) modelBuilder);
+            // Disable this default EF behaviour (we dont want to cascade delete many to many)
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            base.OnModelCreating((System.Data.Entity.DbModelBuilder)modelBuilder);
         }
 
         //private class DbInitializer<T> : DropCreateDatabaseAlways<DataContextAsync>
@@ -652,5 +700,9 @@ namespace IdentityProvider.Repository.EF.EFDataContext
         //        base.Seed(context);
         //    }
         //}
+        public void Dispose()
+        {
+        
+        }
     }
 }

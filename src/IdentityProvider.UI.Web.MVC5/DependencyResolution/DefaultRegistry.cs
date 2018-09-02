@@ -1,4 +1,3 @@
-
 using System.ComponentModel.Design;
 using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.Certificates.ExpiryValidation;
@@ -17,8 +16,6 @@ using IdentityProvider.Services;
 using IdentityProvider.Services.ApplicationRoleService;
 using IdentityProvider.Services.OperationsService;
 using IdentityProvider.Services.ResourceService;
-using Module.Repository.EF.SimpleAudit;
-using StructureMap.Graph;
 using StructureMap.Pipeline;
 
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
@@ -30,13 +27,11 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
     using IdentityProvider.Infrastructure.DatabaseLog;
     using IdentityProvider.Infrastructure.Email;
     using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;
-    using IdentityProvider.Repository.EF.Queries;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Module.Repository.EF;
     using Module.Repository.EF.Repositories;
     using Module.Repository.EF.UnitOfWorkInterfaces;
-    using Module.ServicePattern;
     using StructureMap;
     using System;
     using System.Data.Entity;
@@ -129,7 +124,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
           
             For<IApplicationRoleService>().Use<ApplicationRoleService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IOperationService>().Use<OperationsService>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<IResourcesService>().Use<ResourceService>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IApplicationResourceService>().Use<ApplicationResourceService>().LifecycleIs<UniquePerRequestLifecycle>();
 
             //For(typeof(IService<>)).Use(typeof(Service<>));
 

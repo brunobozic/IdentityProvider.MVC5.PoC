@@ -20,6 +20,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Module.Repository.EF;
+using Module.Repository.EF.RowLevelSecurity;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using TrackableEntities;
 
@@ -871,7 +872,7 @@ namespace IdentityProvider.Services
                 if (_loggingService == null)
                     _loggingService = Log4NetLoggingFactory.GetLogger();
 
-                _unitOfWorkAsync = new UnitOfWork(dbContextAsync);
+                _unitOfWorkAsync = new UnitOfWork(dbContextAsync , new RowAuthPoliciesContainer());
                 // UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_dbContextAsync as DbContext));
             }
             catch (Exception ex)

@@ -139,6 +139,7 @@ namespace IdentityProvider.UI.Web.MVC5
             var routeData = new RouteData();
 
             var httpContext = ExtractContextFromSender(sender);
+
             if (ex != null)
                 if (ex is HttpException)
                 {

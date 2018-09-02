@@ -1,0 +1,56 @@
+﻿@model IdentityProvider.Models.ViewModels.Operations.OperationVm
+
+<style type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    table, table td {
+        border: 0 solid #fff;
+    }
+</style>
+
+<table class="table-light table-hover table-borderless">
+    <tbody>
+        <tr>
+            <td valign="top">
+                <b>@Html.DisplayNameFor(item => item.Name):</b>
+            </td>
+            <td>
+
+
+                @Html.DisplayFor(item => item.Description)
+                <br />
+                @Html.DisplayFor(item => item.Active)
+                <br />
+
+                @if (Model.UserMayViewDeletedProp)
+                {
+                    @Html.DisplayFor(item => item.Deleted)
+                    <br />
+                    @Html.DisplayFor(item => item.DateDeleted)
+                    <br />
+                    @Html.DisplayFor(item => item.DeletedBy)
+                    <br />
+                }
+
+                @if (Model.UserMayViewCreatedProp)
+                {
+                    @Html.DisplayFor(item => item.DateCreated)
+                    <br />
+                    @Html.DisplayFor(item => item.CreatedBy)
+                    <br />
+                }
+
+                @if (Model.UserMayViewLastModifieddProp)
+                {
+                    @Html.DisplayFor(item => item.DateModified)
+                    <br />
+                    @Html.DisplayFor(item => item.ModifiedBy)
+                    <br />
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>

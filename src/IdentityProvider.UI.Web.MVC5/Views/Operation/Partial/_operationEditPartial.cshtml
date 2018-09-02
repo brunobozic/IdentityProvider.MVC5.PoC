@@ -1,0 +1,269 @@
+﻿@model IdentityProvider.Models.ViewModels.Operations.OperationVm
+
+<style type="text/css">
+
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    table {
+        table-layout: auto !important;
+        border-collapse: collapse !important;
+        width: 100% !important;
+    }
+
+        table .absorbing-column {
+            width: 100% !important;
+        }
+
+        table td {
+            white-space: nowrap;
+        }
+
+        table, table td {
+            border: 0 solid #fff;
+            background-color: #ffffff
+        }
+
+            table, table th {
+                border: 0 solid #fff;
+                background-color: #ffffff
+            }
+
+    .cool-text {
+        font-family: "Montserrat", sans-serif;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="header cool-text">
+            <em style="font-size: 1.7em">
+                Operations
+            </em>
+            <em style="font-size: 0.9em">
+                <small>Details</small>
+            </em>
+        </div>
+        <div class="body" style="width:100% !important">
+            <table class="table-light">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td valign="top">
+                            <b>@Html.DisplayNameFor(item => item.Operation.Name)</b>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(item => item.Operation.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>@Html.DisplayNameFor(item => item.Operation.Description)</b>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(item => item.Operation.Description)
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>@Html.DisplayNameFor(item => item.Operation.Active)</b>
+                        </td>
+                        <td>
+                            @if (Model.Operation.Active)
+                            {
+                                <i class="material-icons align-center" style="cursor: not-allowed; color: green" title="Active">check_circle_outline</i>
+                            }
+                            else
+                            {
+                                <i class="material-icons align-center" style="cursor: not-allowed; color: darkred" title="Inactive">domain_disabled</i>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>@Html.DisplayNameFor(item => item.Operation.ActiveFrom)</b>
+                        </td>
+                        <td>
+                            @if (Model.Operation.ActiveFrom != DateTime.MinValue)
+                            {
+                                @Html.DisplayFor(item => item.Operation.ActiveFrom)
+
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>@Html.DisplayNameFor(item => item.Operation.ActiveTo)</b>
+                        </td>
+                        <td>
+                            @if (Model.Operation.ActiveTo != DateTime.MinValue)
+                            {
+                                @Html.DisplayFor(item => item.Operation.ActiveTo)
+
+                            }
+                        </td>
+                    </tr>
+                    @if (Model.Operation.UserMayViewDeletedProp)
+                    {
+                        <tr>
+                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.Deleted)</b>
+                            </td>
+                            <td>
+                                @if (Model.Operation.Deleted)
+                                {
+                                    <i class="material-icons align-center" style="cursor: not-allowed; color: red" title="Deleted">delete_forever</i>
+                                }
+                                else
+                                {
+                                    <i class="material-icons align-center" style="cursor: not-allowed; color: darkmagenta" vtitle="Active">check_circle_outline</i>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <b>@Html.DisplayNameFor(item => item.Operation.DateDeleted)</b>
+                            </td>
+                            <td>
+                                @if (Model.Operation.DateDeleted != DateTime.MinValue)
+                                {
+                                    @Html.DisplayFor(item => item.Operation.DateDeleted)
+
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.DeletedBy)</b>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(item => item.Operation.DeletedBy)
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        // may not view deletion related audit data...
+                        <tr>
+                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.Deleted)</b>
+                            </td>
+                            <td>No permission to view this data</td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <b>@Html.DisplayNameFor(item => item.Operation.DateDeleted)</b>
+                            </td>
+                            <td>No permission to view this data</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.DeletedBy)</b>
+                            </td>
+                            <td>No permission to view this data</td>
+                        </tr>
+                    }
+
+                    @if (Model.Operation.UserMayViewCreatedProp)
+                    {
+                        <tr>
+                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.DateCreated)</b>
+                            </td>
+                            <td>
+                                @if (Model.Operation.DateCreated != DateTime.MinValue)
+                                {
+                                    @Html.DisplayFor(item => item.Operation.DateCreated)
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.CreatedBy)</b>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(item => item.Operation.CreatedBy)
+                            </td>
+                        </tr>
+
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.DateCreated)</b>
+                            </td>
+                            <td>
+                                No permission to view this data
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.CreatedBy)</b>
+                            </td>
+                            <td>
+                                No permission to view this data
+                            </td>
+                        </tr>
+
+                    }
+
+                    @if (Model.Operation.UserMayViewLastModifieddProp)
+                    {
+                        <tr>
+                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.DateModified)</b>
+                            </td>
+                            <td>
+                                @if (Model.Operation.DateModified != DateTime.MinValue)
+                                {
+                                    @Html.DisplayFor(item => item.Operation.DateModified)
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.ModifiedBy)</b>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(item => item.Operation.ModifiedBy)
+                            </td>
+                        </tr>
+
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.DateModified)</b>
+                            </td>
+                            <td>
+                                No permission to view this data
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.ModifiedBy)</b>
+                            </td>
+                            <td>
+                                No permission to view this data
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

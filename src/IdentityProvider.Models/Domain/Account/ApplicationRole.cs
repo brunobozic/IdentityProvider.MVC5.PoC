@@ -38,11 +38,11 @@ namespace IdentityProvider.Models.Domain.Account
         public bool Active { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
-        public Guid ModifiedById { get; set; }
+        public string ModifiedById { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public Guid DeletedById { get; set; }
+        public string DeletedById { get; set; }
         public DateTime? DeletedDate { get; set; }
-        public Guid CreatedById { get; set; }
+        public string CreatedById { get; set; }
         public DateTime? CreatedDate { get; set; }
         public bool IsDeleted { get; set; }
         public byte[] RowVersion { get; set; }

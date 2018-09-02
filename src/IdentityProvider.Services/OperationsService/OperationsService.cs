@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using IdentityProvider.Models.Domain.Account;
-using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations;
+﻿using IdentityProvider.Models.Domain.Account;
 using Module.Repository.EF.Repositories;
 using Module.ServicePattern;
 

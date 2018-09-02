@@ -6,6 +6,7 @@ using IdentityProvider.Infrastructure.DatabaseLog.Model.ExtensionMethods;
 using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Repository.EF.Factories;
 using Module.Repository.EF;
+using Module.Repository.EF.RowLevelSecurity;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 
 namespace HAC.Helpdesk.Services.Logging.WCF
@@ -26,7 +27,7 @@ namespace HAC.Helpdesk.Services.Logging.WCF
             {
                 var ctx = DataContextFactory.GetDataContextAsync();
 
-                _uow = new UnitOfWork(ctx);
+                _uow = new UnitOfWork(ctx, new RowAuthPoliciesContainer());
             }
         }
 

@@ -1,7 +1,5 @@
 ﻿using IdentityProvider.Infrastructure.SessionStorageFactories;
-using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.EFDataContext;
-using Module.Repository.EF.SimpleAudit;
 
 namespace IdentityProvider.Repository.EF.Factories
 {

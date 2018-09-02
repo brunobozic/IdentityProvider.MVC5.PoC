@@ -1,0 +1,119 @@
+﻿@model IdentityProvider.Models.ViewModels.Operations.OperationVm
+
+<style type="text/css">
+
+    /*body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    table {
+        table-layout: auto !important;
+        border-collapse: collapse !important;
+        width: 100% !important;
+    }
+
+        table .absorbing-column {
+            width: 100% !important;
+        }
+
+        table td {
+            white-space: nowrap;
+        }
+
+        table, table td {
+            border: 0 solid #fff;
+            background-color: #ffffff
+        }
+
+            table, table th {
+                border: 0 solid #fff;
+                background-color: #ffffff
+            }
+
+    .cool-text {
+        font-family: "Montserrat", sans-serif;
+    }*/
+
+</style>
+
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="header cool-text">
+            <em style="font-size: 1.7em">
+                Operations
+            </em>
+            <em style="font-size: 0.9em">
+                <small>Edit</small>
+            </em>
+        </div>
+        <div class="body" style="width:100% !important">
+            <table class="table-light">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td valign="top">
+                            <b>@Html.DisplayNameFor(item => item.Operation.Name)</b>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(item => item.Operation.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>@Html.DisplayNameFor(item => item.Operation.Description)</b>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(item => item.Operation.Description)
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="word-wrap: break-word !important;">
+                            <b>@Html.DisplayNameFor(item => item.Operation.Active)</b>
+                        </td>
+                        <td>
+                            @if (Model.Operation.Active)
+                            {
+                                <i class="material-icons align-center" style="cursor: not-allowed; color: green" title="Active">check_circle_outline</i>
+                            }
+                            else
+                            {
+                                <i class="material-icons align-center" style="cursor: not-allowed; color: darkred" title="Inactive">domain_disabled</i>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="word-wrap: break-word !important;">
+                            <b>@Html.DisplayNameFor(item => item.Operation.ActiveFrom)</b>
+                        </td>
+                        <td>
+                            @if (Model.Operation.ActiveFrom != DateTime.MinValue)
+                            {
+                                @Html.DisplayFor(item => item.Operation.ActiveFrom)
+
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>@Html.DisplayNameFor(item => item.Operation.ActiveTo)</b>
+                        </td>
+                        <td>
+                            @if (Model.Operation.ActiveTo != DateTime.MinValue)
+                            {
+                                @Html.DisplayFor(item => item.Operation.ActiveTo)
+
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

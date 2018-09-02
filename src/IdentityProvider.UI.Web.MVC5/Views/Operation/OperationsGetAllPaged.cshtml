@@ -1,4 +1,5 @@
-﻿@model IdentityProvider.Controllers.Controllers.OperationPagedVm
+﻿@model IdentityProvider.Models.ViewModels.Operations.OperationPagedVm
+
 @using IdentityProvider.UI.Web.MVC5.Extensions
 @using PagedList.Mvc
 
@@ -14,100 +15,99 @@
     }
 }
 
-<script src="~/bower_components/sweetalert2/dist/sweetalert2.all.js"></script>
-<link href="~/bower_components/sweetalert2/dist/sweetalert2.css" rel="stylesheet" />
-<script src="~/bower_components/sweetalert2/dist/sweetalert2.js"></script>
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-<script src="~/Scripts/makeTableResponsive.js"></script>
-<link href="~/Content/MakeTableResponsive.css" rel="stylesheet" />
-<script src="~/bower_components/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>
-<link href="~/Content/popover-overrides.css" rel="stylesheet" />
-<link href="~/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
-<script src="~/bower_components/select2/dist/js/select2.full.js"></script>
-
-
-
 <style>
-    span label p {
-        font-family: "Montserrat", sans-serif;
-    }
 
     .cool-text {
         font-family: "Montserrat", sans-serif;
     }
 
-    table {
+    .my-auto-layout-table {
         table-layout: auto !important;
         border-collapse: collapse !important;
         width: 100% !important;
     }
 
-        table .absorbing-column {
-            width: 100% !important;
-        }
+    .my-fixed-layout-table {
+        table-layout: fixed !important;
+        border-collapse: collapse !important;
+        width: 100% !important;
+    }
 
-        table td {
-            white-space: nowrap;
-        }
+    table .absorbing-column {
+        width: 100% !important;
+    }
+
+    /*table td {
+        white-space: nowrap;
+        word-wrap: break-word;
+    }*/
+
+    .createNewDialog {
+    }
 
     /*table td:last-child {
         width: 9% !important;
     }*/
-
-    .filler {
-    }
-
-    .delete {
-    }
-
-    hr {
-        display: block;
-        position: relative;
-        padding: 0px !important;
-        margin: 25px auto;
-        height: 0;
-        width: 80%;
-        max-height: 0;
-        font-size: 1px;
-        line-height: 0;
-        clear: both;
-        border: none;
-        border-top: 1px solid white;
-        border-bottom: 1px solid white;
-    }
-
-    .js-select2-enabled {
-    }
 </style>
+
 
 <script>
 
-
-
+    // Fetch number of active/deleted/inactivated operations from backend to be used in widgets
     $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Operation/FetchInfoOnOperations",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $("#activeOpsWidget").attr('data-to', response.ActiveItemCount);
+                $("#activeOpsWidget").text(response.ActiveItemCount);
+                $("#deletedOpsWidget").attr('data-to', response.DeletedItemCount);
+                $("#deletedOpsWidget").text(response.DeletedItemCount);
+                $("#inactiveOpsWidget").attr('data-to', response.InactiveItemCount);
+                $("#inactiveOpsWidget").text(response.InactiveItemCount);
+            },
+            failure: function (response) {
+                alert(response);
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    });
+
+    // Submit the form on changing the dropbox selected item value (paging: items per page)
+    $(document).ready(function () {
+        $("#PageSizeList").select2({
+            // theme: "classic"
+        });
+
         $('#PageSizeList').on('select2:select', function (event) {
             var form = $(event.target).closest("form");;
             form.submit();
         });
-
-        var onAjaxRequestSuccess = function (result) {
-            if (result.EnableError) {
-                // Setting.
-                alert(result.ErrorMsg);
-            } else if (result.EnableSuccess) {
-                // Setting.
-                alert(result.SuccessMsg);
-                // Resetting form.
-                $('#searchAndPageSizeForm').get(0).reset();
-            }
-        }
     });
 
+    // Delete item from grid
     $(document).ready(function () {
-        $('#PageSizeList').select2();
+        $(".deleteDialog").click(function (event) {
+            event.preventDefault();
+            var color = $(this).data('color');
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id-value');
+            var name = $buttonClicked.attr('data-name');
+            deleteOperation(id);
+        });
     });
 
+    // Delete item from grid
     function deleteOperation(operationId) {
+        swal.setDefaults({
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-success w-25 mr-05',
+            cancelButtonClass: 'btn btn-secondary w-25 ml-05'
+        });
         swal({
             title: "Are you sure?",
             text: "Are you sure that you want to delete this operation?",
@@ -124,8 +124,8 @@
                         "operationToDelete": operationId
                     },
                     type: "POST",
-                    // contentType: "application/json; charset=utf-8",
-                    // dataType: "json",
+                    //contentType: "application/json; charset=utf-8",
+                    //dataType: "json",
                     success: successFunc,
                     error: errorFunc
                 });
@@ -135,135 +135,385 @@
                         'Deleted!',
                         'Your item has been deleted.',
                         'success'
-                    );
+                    ).then(function () {
+                        location.reload();
+                    });;
+
                 }
                 function errorFunc() {
 
                     swal(
                         'Nothing changed!',
                         'Your item has not been deleted.',
-                        'failure'
-                    );
+                        'error'
+                    ).then(function () {
+                        location.reload();
+                    });;
                 }
 
             } else {
                 swal(
                     'Nothing changed!',
                     'Your item has not been deleted.',
-                    'failure'
+                    'error'
                 );
             }
         });
     }
 
+    // Item details modal
+    var toolTipUrl = '/Operation/OperationDetails';
+
+    // Item details modal, close modal button
+    $('closebtn').on('click',
+        function () {
+            $('#mdModal').modal('hide');
+        });
+
+    // Item details modal
+    $(document).ready(function () {
+        $(".detailsDialog").click(function (event) {
+            event.preventDefault();
+            var color = $(this).data('color');
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id-value');
+
+            var name = $buttonClicked.attr('data-name');
+            var options = { /*'backdrop': 'static',*/ keyboard: true, focus: true };
+            $.ajax({
+                type: "POST",
+                url: "/Operation/OperationDetails",
+                data: '{id: "' + id + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    // $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+
+                    $('#mdModal').modal(options);
+
+                    $('#mdModal').modal('show');
+
+                    $('#mdModal').on('shown.bs.modal', function () {
+                        $('#mdModal').find('.modal-body').html(response);
+                        // $('#mdModal').find('.modal-title').html("Operation details");
+                    });
+                },
+                failure: function (response) {
+                    $('#mdModal').modal(options);
+
+                    $('#mdModal').modal('show');
+
+                    $('#mdModal').on('shown.bs.modal', function () {
+                        $('#mdModal').find('.modal-body').html("Problem loading your data...");
+                    });
+                },
+                error: function (response) {
+                    $('#mdModal').modal(options);
+
+                    $('#mdModal').modal('show');
+
+                    $('#mdModal').on('shown.bs.modal', function () {
+                        $('#mdModal').find('.modal-body').html("Problem loading your data...");
+                    });
+                }
+            });
+        });
+    });
+
+    // Create a new item modal
+    $(document).ready(function () {
+        $(".createNewDialog").click(function (event) {
+            event.preventDefault();
+            var color = $(this).data('color');
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id-value');
+            var name = $buttonClicked.attr('data-name');
+            var options = { keyboard: true, focus: true };
+            $.ajax({
+                type: "GET",
+                url: "/Operation/OperationInsert",
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    // $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+
+                    $('#mdModal').modal(options);
+
+                    $('#mdModal').modal('show');
+
+                    $('#mdModal').on('shown.bs.modal', function () {
+                        $('#mdModal').find('.modal-body').html(response);
+                        // $('#mdModal').find('.modal-title').html("Operation details");
+                    });
+                },
+                failure: function (response) {
+                    $('#mdModal').modal(options);
+
+                    $('#mdModal').modal('show');
+
+                    $('#mdModal').on('shown.bs.modal', function () {
+                        $('#mdModal').find('.modal-body').html("Problem loading your data...");
+                    });
+                },
+                error: function (response) {
+                    $('#mdModal').modal(options);
+
+                    $('#mdModal').modal('show');
+
+                    $('#mdModal').on('shown.bs.modal', function () {
+                        $('#mdModal').find('.modal-body').html("Problem loading your data...");
+                    });
+                }
+            });
+        });
+    });
 </script>
 
 <div class="container-fluid">
+
     <div class="block-header">
-
+        <h2>DASHBOARD</h2>
     </div>
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 
+    <!-- Widgets -->
+    <div class="row clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-green hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">playlist_add_check</i>
+                </div>
+                <div class="content">
+                    <div class="text">ACTIVE OPERATIONS</div>
+                    <div class="number count-to" id="activeOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-red hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">delete_forever</i>
+                </div>
+                <div class="content">
+                    <div class="text">DELETED OPERATIONS</div>
+                    <div class="number count-to" id="deletedOpsWidget" data-from="0" data-to="0" data-speed="1000" data-fresh-interval="20">2</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-light-blue hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">domain_disabled</i>
+                </div>
+                <div class="content">
+                    <div class="text">INACTIVE OPERATIONS</div>
+                    <div class="number count-to" id="inactiveOpsWidget" data-from="0" data-to="0" data-speed="1000" data-fresh-interval="20">2</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #END# Widgets -->
+
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header cool-text">
                     <em style="font-size: 2.7em">
                         Operations
                     </em>
                     <em style="font-size: 0.9em">
-                        <small>Create or delete allowed operations</small>
+                        <small>Manipulate operations</small>
                     </em>
                 </div>
-
-                <div class="container">
-
-
-                    @using (Html.BeginForm("OperationsGetAllPaged", "Operation", FormMethod.Get, new { id = "searchAndPageSizeForm" }))
+                <div class="body container-fluid">
+                    @using (Html.BeginForm("OperationsGetAllPaged" , "Operation" , FormMethod.Get , new { id = "searchAndPageSizeForm" }))
                     {
-                        <div class="col-xs-8">
-                            <div class="form-line">
-                                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Search", @value = ViewBag.CurrentFilter, @data_toggle = "tooltip", @data_placement = "top", @title = "", @data_original_title = "Enter search criteria" })
+                        <div class="col-xs-10">
+                            <div class="form-line" style="margin-left: 5px">
+                                @Html.TextBox("SearchString" , ViewBag.CurrentFilter as string , new { @placeholder = "Search" , @value = ViewBag.CurrentFilter , @data_toggle = "tooltip" , @data_placement = "top" , @title = "" , @data_original_title = "Enter search criteria" })
                                 @Html.ValidationMessage("Search")
                                 <button class="btn bg-purple waves-effect btn-xs" id="submitSearch" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
                             </div>
                         </div>
-                        <div class="col-xs-4" style="padding: 0">
+
+                        <div class="col-xs-2">
                             @*<input name="showinactive" id="showinactive" class="filled-in chk-col-pink" type="checkbox">
                                 <label for="showinactive">Only active</label>*@
 
-                            <div class="form-line">
-                                @Html.DropDownListFor(m => m.PageSizeList, Model.PageSizeList, new { id = "PageSizeList", @class = "js-select2-enabled" })
+                            <div class="form-line" style="float: right; margin-right: 8px">
+                                @Html.DropDownListFor(m => m.PageSize , Model.PageSizeList , new { id = "PageSizeList" , @class = "js-select2-enabled" , @style = "padding: 5px; width: 55px" })
                             </div>
-                            @*@Html.DropDownListFor(x => Model.PageSize, Model.PageSizeList, null, new { onchange = "this.form.submit();", @class = "bootstrap-select" })*@
+
                         </div>
 
+                        <div class="body" style="width: 100% !important">
 
+                            <div class="col-xs-2 form-line" style="padding-left:0 !important">
+                                <button type="submit" class="btn bg-purple waves-effect btn-xs createNewDialog" data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Create a new operation">
+                                    <i class="material-icons">create</i> <span>
+                                        Create
+                                    </span>
+                                </button>
+                            </div>
 
-                        <div class="body" style="width:100% !important">
-                            <table class="table table-striped table-light table-responsive">
+                            <table class="table table-striped table-light table-condensed my-fixed-layout-table" Id="operationsGrid">
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th style="">
                                             <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by name">
-                                                @Html.ActionLink("Name", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.NameSortParam))
-                                                @Html.SortIdentifier(currentSort, "Name")
+                                                @Html.ActionLink("Name" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.NameSortParam))
+                                                @Html.SortIdentifier(currentSort , "Name")
                                             </span>
                                         </th>
-                                        <th>
+                                        <th style="">
                                             <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by description">
-                                                @Html.ActionLink("Description", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DescriptionSortParam))
-                                                @Html.SortIdentifier(currentSort, "Description")
+                                                @Html.ActionLink("Description" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DescriptionSortParam))
+                                                @Html.SortIdentifier(currentSort , "Description")
                                             </span>
                                         </th>
-                                        <th>
+                                        <th style="width:50px">
                                             <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by active status">
-                                                @Html.ActionLink("Active", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.ActiveSortParam))
-                                                @Html.SortIdentifier(currentSort, "Active")
+                                                @Html.ActionLink("Active" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.ActiveSortParam))
+                                                @Html.SortIdentifier(currentSort , "Active")
                                             </span>
                                         </th>
-                                        @*<th style="text-align: center;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by deleted status">
-                                                @Html.ActionLink("Deleted" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DeletedSortParam))
-                                                @Html.SortIdentifier(currentSort , "Deleted")
-                                            </th>*@
-                                        <th>
+                                        <th style="width:148px">
                                             <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by created date">
-                                                @Html.ActionLink("Created_Date", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DateCreatedSortParam))
-                                                @Html.SortIdentifier(currentSort, "Created_Date")
+                                                @Html.ActionLink("Created_Date" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DateCreatedSortParam))
+                                                @Html.SortIdentifier(currentSort , "Created_Date")
                                             </span>
                                         </th>
-                                        <th>
+                                        <th style="width:148px">
                                             <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by modified date">
-                                                @Html.ActionLink("Modified_Date", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DateModifiedSortParam))
-                                                @Html.SortIdentifier(currentSort, "Modified_Date")
+                                                @Html.ActionLink("Modified_Date" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DateModifiedSortParam))
+                                                @Html.SortIdentifier(currentSort , "Modified_Date")
                                             </span>
                                         </th>
-                                        <th>
-                                            <span style="text-align: left; " data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions available on selected item">
-
+                                        <th style="width:190px">
+                                            <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions available on selected item">
                                                 <span>
                                                     Actions
-                                                </span><i class="material-icons" style="font-size: 1em; color: purple" , title="Actions">build</i>
+                                                </span>
+                                                <i class="material-icons" style="font-size: 1em; color: purple" , title="Actions">build</i>
                                             </span>
                                         </th>
                                         @*<th class="filler" style="width: 10%; text-align: center; border: none; border-color: white; border-width: 0px">
                                             </th>*@
                                     </tr>
                                 </thead>
-                                @Html.Partial("Partial/_OperationsPartial", Model)
+                                @Html.Partial("Partial/_operationsPartial" , Model)
                             </table>
-
                         </div>
-                        if (Model.Operations.PageCount > 1)
+                    }
+                </div>
+                <div class="footer">
+                    @if (Model.Operations.PageCount > 1)
+                    {
+                        <div class="pager">
+                            @Html.PagedListPager(Model.Operations , page => Url.Action("OperationsGetAllPaged" , new
+                       {
+                           page ,
+                           sortOrder = Model.SortOrder,
+                           currentFilter = Model.SearchString,
+                           pageNumber = page ,
+                           pageSize = Model.PageSize
+                       }))
+                            Page @(Model.Operations.PageCount < Model.Operations.PageNumber ? 0 : Model.Operations.PageNumber) of @Model.Operations.PageCount
+                        </div>
+                    }
+                    else
+                    {
+                        <div><hr /></div>
+                    }
+                </div>
+            </div>
+
+            <!-- Audit trail card -->
+            <div class="card">
+                <div class="header cool-text">
+                    <em style="font-size: 2.7em">
+                        Audit trail
+                    </em>
+                    <em style="font-size: 0.9em">
+                        <small>View the audit trail</small>
+                    </em>
+                </div>
+                @*<div class="body container-fluid">
+                        @using (Html.BeginForm("OperationsAuditTrail" , "Operation" , FormMethod.Get , new { id = "searchAndPageSizeForm" }))
+                        {
+                            <div class="col-xs-10">
+                                <div class="form-line" style="margin-left: 5px">
+                                    @Html.TextBox("SearchString" , ViewBag.CurrentFilter as string , new { @placeholder = "Search" , @value = ViewBag.CurrentFilter , @data_toggle = "tooltip" , @data_placement = "top" , @title = "" , @data_original_title = "Enter search criteria" })
+                                    @Html.ValidationMessage("Search")
+                                    <button class="btn bg-purple waves-effect btn-xs" id="submitSearch" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-2">
+                                <div class="form-line" style="float: right; margin-right: 5px">
+                                    @Html.DropDownListFor(m => m.PageSize , Model.PageSizeList , new { id = "PageSizeList" , @class = "js-select2-enabled" , @style = "padding: 5px; width: 55px" })
+                                </div>
+                            </div>
+
+                            <div class="body" style="width: 100% !important">
+                                <table class="table table-striped table-light table-condensed table-responsive-sm" Id="operationsAuditTrailGrid">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by name">
+                                                    @Html.ActionLink("TimeStamp" , "OperationsAuditTrail" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.NameSortParam))
+                                                    @Html.SortIdentifier(currentSort , "Name")
+                                                </span>
+                                            </th>
+                                            <th>
+                                                <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by description">
+                                                    @Html.ActionLink("Action" , "OperationsAuditTrail" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DescriptionSortParam))
+                                                    @Html.SortIdentifier(currentSort , "Description")
+                                                </span>
+                                            </th>
+                                            <th>
+                                                <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by active status">
+                                                    @Html.ActionLink("User" , "OperationsAuditTrail" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.ActiveSortParam))
+                                                    @Html.SortIdentifier(currentSort , "Active")
+                                                </span>
+                                            </th>
+                                            <th>
+                                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by created date">
+                                                    @Html.ActionLink("Old_Value" , "OperationsAuditTrail" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DateCreatedSortParam))
+                                                    @Html.SortIdentifier(currentSort , "Old_Value")
+                                                </span>
+                                            </th>
+                                            <th>
+                                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by modified date">
+                                                    @Html.ActionLink("New_Value" , "OperationsAuditTrail" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DateModifiedSortParam))
+                                                    @Html.SortIdentifier(currentSort , "New_Value")
+                                                </span>
+                                            </th>
+                                            <th>
+                                                <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions available on selected item">
+                                                    <span>
+                                                        Actions
+                                                    </span><i class="material-icons" style="font-size: 1em; color: purple" , title="Actions">build</i>
+                                                </span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    @Html.Partial("Partial/_operationsAuditTrailPartial" , Model)
+                                </table>
+                            </div>
+                        }
+                    </div>
+                    <div class="footer">
+                        @if (Model.Operations.PageCount > 1)
                         {
                             <div class="pager">
-                                @Html.PagedListPager(Model.Operations , page => Url.Action("OperationsGetAllPaged" , new
-                           {
-                               page ,
-                               sortOrder = Model.SortOrder,
-                               currentFilter = Model.SearchString,
-                               pageNumber = Model.PageNumber,
-                               pageSize = Model.PageSizeList.Single(i => i.Selected).Text
-                           }))
+                                @Html.PagedListPager(Model.Operations , page => Url.Action("OperationsAuditTrail" , new
+                                {
+                                    page ,
+                                    sortOrder = Model.SortOrder,
+                                    currentFilter = Model.SearchString,
+                                    pageNumber = page ,
+                                    pageSize = Model.PageSize
+                                }))
                                 Page @(Model.Operations.PageCount < Model.Operations.PageNumber ? 0 : Model.Operations.PageNumber) of @Model.Operations.PageCount
                             </div>
                         }
@@ -271,10 +521,26 @@
                         {
                             <div><hr /></div>
                         }
-                    }
-                </div>
+                    </div>*@
             </div>
+            <!-- #END# Audit trail card -->
         </div>
     </div>
 </div>
 
+
+<div class="modal fade in" id="mdModal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="largeModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                @*guess what, this is where you put your ajax fetched content*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>

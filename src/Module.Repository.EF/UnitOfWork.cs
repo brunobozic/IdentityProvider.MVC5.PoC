@@ -6,10 +6,9 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
-using IdentityProvider.Models.Domain.Account;
-using Microsoft.Practices.ServiceLocation;
+using CommonServiceLocator;
 using Module.Repository.EF.Repositories;
-using Module.Repository.EF.SimpleAudit;
+using Module.Repository.EF.RowLevelSecurity;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using TrackableEntities;
 
@@ -18,19 +17,23 @@ namespace Module.Repository.EF
     public class UnitOfWork : IUnitOfWorkAsync
     {
         private readonly DbContext _context;
-        protected Dictionary<string , dynamic> Repositories;
+        private readonly IRowAuthPoliciesContainer _rowAuthPoliciesContainer;
         protected DbTransaction Transaction;
+        protected Dictionary<string , dynamic> Repositories;
 
-        public UnitOfWork( DbContext context )
+        public UnitOfWork( DbContext context , IRowAuthPoliciesContainer rowAuthPoliciesContainer )
         {
             _context = context;
+            _rowAuthPoliciesContainer = rowAuthPoliciesContainer;
             Repositories = new Dictionary<string , dynamic>();
         }
 
         public virtual IRepository<TEntity> Repository<TEntity>() where TEntity : class, ITrackable
         {
             if (ServiceLocator.IsLocationProviderSet)
+            {
                 return ServiceLocator.Current.GetInstance<IRepository<TEntity>>();
+            }
 
             return RepositoryAsync<TEntity>();
         }
@@ -41,10 +44,7 @@ namespace Module.Repository.EF
             set => _context.Database.CommandTimeout = value;
         }
 
-        public virtual int SaveChanges()
-        {
-            return _context.SaveChanges();
-        }
+        public virtual int SaveChanges() => _context.SaveChanges();
 
         public Task<int> SaveChangesAsync()
         {
@@ -59,20 +59,27 @@ namespace Module.Repository.EF
         public virtual IRepositoryAsync<TEntity> RepositoryAsync<TEntity>() where TEntity : class, ITrackable
         {
             if (ServiceLocator.IsLocationProviderSet)
+            {
                 return ServiceLocator.Current.GetInstance<IRepositoryAsync<TEntity>>();
+            }
 
             if (Repositories == null)
+            {
                 Repositories = new Dictionary<string , dynamic>();
+            }
 
             var type = typeof(TEntity).Name;
 
             if (Repositories.ContainsKey(type))
+            {
                 return ( IRepositoryAsync<TEntity> ) Repositories[ type ];
+            }
 
             var repositoryType = typeof(Repository<>);
 
-            Repositories.Add(type ,
-                Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)) , _context , this));
+            var genericType = repositoryType.MakeGenericType(typeof(TEntity));
+
+            Repositories.Add(type , Activator.CreateInstance(genericType , _context , this , _rowAuthPoliciesContainer));
 
             return Repositories[ type ];
         }
@@ -87,8 +94,7 @@ namespace Module.Repository.EF
             return await _context.Database.ExecuteSqlCommandAsync(sql , parameters);
         }
 
-        public virtual async Task<int> ExecuteSqlCommandAsync( string sql , CancellationToken cancellationToken ,
-            params object[] parameters )
+        public virtual async Task<int> ExecuteSqlCommandAsync( string sql , CancellationToken cancellationToken , params object[] parameters )
         {
             return await _context.Database.ExecuteSqlCommandAsync(sql , cancellationToken , parameters);
         }
@@ -97,7 +103,9 @@ namespace Module.Repository.EF
         {
             var objectContext = ( ( IObjectContextAdapter ) _context ).ObjectContext;
             if (objectContext.Connection.State != ConnectionState.Open)
+            {
                 objectContext.Connection.Open();
+            }
             Transaction = objectContext.Connection.BeginTransaction(isolationLevel);
         }
 

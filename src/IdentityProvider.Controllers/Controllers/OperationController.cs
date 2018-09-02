@@ -1,14 +1,16 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
-using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations;
+using IdentityProvider.Models.ViewModels.Operations;
+using IdentityProvider.Models.ViewModels.Operations.Extensions;
 using IdentityProvider.Services.OperationsService;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using PagedList;
@@ -27,8 +29,8 @@ namespace IdentityProvider.Controllers.Controllers
             , IErrorLogService errorLogService
             , IUnitOfWorkAsync unitOfWorkAsync
             , IOperationService operationService
-            )
-            : base(cookieStorageService, errorLogService)
+        )
+            : base(cookieStorageService , errorLogService)
         {
             _unitOfWorkAsync = unitOfWorkAsync;
             _operationService = operationService;
@@ -41,7 +43,7 @@ namespace IdentityProvider.Controllers.Controllers
             , string searchString
             , int? pageNumber = 1
             , int pageSize = 10
-            )
+        )
         {
             ViewBag.searchQuery = string.IsNullOrEmpty(searchString) ? "" : searchString;
 
@@ -67,222 +69,356 @@ namespace IdentityProvider.Controllers.Controllers
             ViewBag.CurrentFilter = searchString;
             ViewBag.CurrentSort = sortOrder;
 
+            // TODO: if user can see Inactive items and perhaps reactivate?
+            // TODO: if user has rights to view deleted items and undelete them?
             var query = _operationService.Queryable().Where(o => o.Active && !o.IsDeleted).Select(i =>
                 new OperationVm
                 {
-                    Active = i.Active,
-                    Name = i.Name,
-                    Description = i.Description,
-                    Deleted = i.IsDeleted,
-                    DateCreated = i.CreatedDate,
-                    DateModified = i.ModifiedDate,
-                    Id = i.Id
+                    Operation = new OperationDto
+                    {
+                        Active = i.Active ,
+                        Name = i.Name ,
+                        Description = i.Description ,
+                        Deleted = i.IsDeleted ,
+                        DateCreated = i.CreatedDate ,
+                        DateModified = i.ModifiedDate ,
+                        Id = i.Id
+                    }
                 });
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                query = query.Where(s => s.Name.Contains(searchString) || s.Description.Contains(searchString));
+                query = query.Where(s => s.Operation.Name.Contains(searchString) || s.Operation.Description.Contains(searchString));
             }
 
             switch (sortOrder)
             {
                 case "Name":
-                    query = query.OrderBy(x => x.Name);
+                    query = query.OrderBy(x => x.Operation.Name);
                     break;
                 case "Name_Desc":
-                    query = query.OrderByDescending(x => x.Name);
+                    query = query.OrderByDescending(x => x.Operation.Name);
                     break;
                 case "Description":
-                    query = query.OrderBy(x => x.Description);
+                    query = query.OrderBy(x => x.Operation.Description);
                     break;
                 case "Description_Desc":
-                    query = query.OrderByDescending(x => x.Description);
+                    query = query.OrderByDescending(x => x.Operation.Description);
                     break;
                 case "Active":
-                    query = query.OrderBy(x => x.Active);
+                    query = query.OrderBy(x => x.Operation.Active);
                     break;
                 case "Active_Desc":
-                    query = query.OrderByDescending(x => x.Active);
+                    query = query.OrderByDescending(x => x.Operation.Active);
                     break;
                 case "Deleted":
-                    query = query.OrderBy(x => x.Deleted);
+                    query = query.OrderBy(x => x.Operation.Deleted);
                     break;
                 case "Deleted_Desc":
-                    query = query.OrderByDescending(x => x.Deleted);
+                    query = query.OrderByDescending(x => x.Operation.Deleted);
                     break;
                 case "Date_Created":
-                    query = query.OrderBy(x => x.DateCreated);
+                    query = query.OrderBy(x => x.Operation.DateCreated);
                     break;
                 case "Date_Created_Desc":
-                    query = query.OrderByDescending(x => x.DateCreated);
+                    query = query.OrderByDescending(x => x.Operation.DateCreated);
                     break;
                 case "Date_Modified":
-                    query = query.OrderBy(x => x.DateModified);
+                    query = query.OrderBy(x => x.Operation.DateModified);
                     break;
                 case "Date_Modified_Desc":
-                    query = query.OrderByDescending(x => x.DateModified);
+                    query = query.OrderByDescending(x => x.Operation.DateModified);
                     break;
                 default:
-                    query = query.OrderBy(x => x.Name);
+                    query = query.OrderBy(x => x.Operation.Name);
                     break;
             }
 
-            var pageNo = (pageNumber ?? 1);
+            var pageNo = ( pageNumber ?? 1 );
 
-            //Create the select list item you want to add
-            var selListItem = new SelectListItem
-            {
-                Text = "2",
-                Value = "1",
-                Selected = false
-            };
+            var selListItem = CreateListOfDefaultForPaginator(out var selListItem2 , out var selListItem3 , out var selListItem4);
 
-            var selListItem2 = new SelectListItem
-            {
-                Text = "10",
-                Value = "2",
-                Selected = false
-            };
-
-            var selListItem3 = new SelectListItem
-            {
-                Text = "20",
-                Value = "3",
-                Selected = false
-            };
-
-            var selListItem4 = new SelectListItem
-            {
-                Text = "50",
-                Value = "4",
-                Selected = false
-            };
-
-            //Create a list of select list items - this will be returned as your select list
-            var newList = new List<SelectListItem> { selListItem, selListItem2, selListItem3, selListItem4 };    //Add select list item to list of selectlistitems
+            // Create a list of select list items - this will be returned as your select list
+            var newList =
+                new List<SelectListItem>
+                {
+                    selListItem,
+                    selListItem2,
+                    selListItem3,
+                    selListItem4
+                }; //Add select list item to list of selectlistitems
 
             // Based on the incoming parameter, set one of the list items to selected equals true
             var selectedOne = newList.Single(i => i.Text == pageSize.ToString());
             selectedOne.Selected = true;
 
-            //Return the list of selectlistitems as a selectlist
-            var list = new SelectList(newList, "Value", "Text", null);
+            // Return the list of selectlistitems as a selectlist
+            var list = new SelectList(newList , "Value" , "Text" , null);
 
             var returnValue = new OperationPagedVm
             {
-                Operations = query.ToPagedList(pageNo, Int32.Parse(selectedOne.Text)),
-                PageSize = Int32.Parse(selectedOne.Text),
-                PageSizeList = list,
-                SearchString = searchString,
+                Operations = query.ToPagedList(pageNo , int.Parse(selectedOne.Text)) ,
+                PageSize = int.Parse(selectedOne.Value) ,
+                PageSizeList = list ,
+                SearchString = searchString ,
                 SortOrder = sortOrder
             };
 
             return View(returnValue);
         }
 
-        public ActionResult OperationInsert(OperationDto operationToInsert)
+        private static SelectListItem CreateListOfDefaultForPaginator( out SelectListItem selListItem2 ,
+            out SelectListItem selListItem3 , out SelectListItem selListItem4 )
         {
-            var retVal = new OperationInsertedVm();
-            var op = new Operation
+            // Create the select list item you want to add
+            var selListItem = new SelectListItem
             {
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                IsDeleted = false ,
-                Description = operationToInsert.Description ,
-                Name = operationToInsert.Name
+                Text = "2" ,
+                Value = "2" ,
+                Selected = false
             };
 
-            _operationService.Insert(op);
+            selListItem2 = new SelectListItem
+            {
+                Text = "10" ,
+                Value = "10" ,
+                Selected = false
+            };
 
-            var inserted = _unitOfWorkAsync.SaveChanges();
+            selListItem3 = new SelectListItem
+            {
+                Text = "20" ,
+                Value = "20" ,
+                Selected = false
+            };
+
+            selListItem4 = new SelectListItem
+            {
+                Text = "50" ,
+                Value = "50" ,
+                Selected = false
+            };
+
+            return selListItem;
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public async Task<JsonResult> FetchInfoOnOperations()
+        {
+            var retVal = new InfoOnOperationsVm
+            {
+                ActiveItemCount = 0 ,
+                DeletedItemCount = 0 ,
+                InactiveItemCount = 0 ,
+                Success = false ,
+                Message = string.Empty
+            };
+
+            try
+            {
+              var queryResult = _unitOfWorkAsync.RepositoryAsync<Operation>().Queryable().AsNoTracking().Select(i => new OperationCountsDto
+                {
+                    Name = i.Name,
+                    DeletedItemCount = 4,
+                    InactiveItemCount = 5
+                });
+
+                retVal.ActiveItemCount = await _unitOfWorkAsync.RepositoryAsync<Operation>().Queryable().AsNoTracking().CountAsync(op => op.Active && !op.IsDeleted);
+                retVal.DeletedItemCount = await _unitOfWorkAsync.RepositoryAsync<Operation>().Queryable().AsNoTracking().CountAsync(op => op.IsDeleted); // might conflict with row based access security
+                retVal.InactiveItemCount = await _unitOfWorkAsync.RepositoryAsync<Operation>().Queryable().AsNoTracking().CountAsync(op => !op.Active);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Debug.WriteLine(e);
+                _errorLogService.LogError(this , e.Message , e);
+                retVal.Message = e.Message ?? "";
+            }
+
+            retVal.Success = true;
+
+            return Json(retVal , JsonRequestBehavior.AllowGet);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult OperationInsert()
+        {
+            return PartialView("Partial/_operationInsertPartial");
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public async Task<JsonResult> OperationInsert( OperationToInsertVm operationToInsert )
+        {
+            var retVal = new OperationInsertedVm { Success = false };
+
+            if (ModelState.IsValid)
+            {
+                if (ModelState.Values.Any(i => i.Errors.Count > 0))
+                {
+                    var problems = ModelState.Values.Where(i => i.Errors.Count > 0).ToList();
+                }
+            }
+
+            var op = new Operation
+            {
+                Name = operationToInsert.Name ,
+                Description = operationToInsert.Description ,
+                Active = operationToInsert.MakeActive ,
+                ActiveFrom = DateTime.Now ,
+                ActiveTo = operationToInsert.ActiveUntil
+            };
+
+            var validationResults = op.Validate();
+
+            if (validationResults != null && validationResults.Any())
+            {
+                retVal.Success = false;
+
+                var sb = new StringBuilder();
+
+                foreach (var validation in validationResults)
+                {
+                    sb.Append(validation.ErrorMessage);
+                }
+
+                ModelState.AddModelError("Name" , sb.ToString());
+                retVal.ValidationIssues = sb.ToString();
+
+                return Json(retVal , JsonRequestBehavior.AllowGet);
+            }
+
+            var inserted = -1;
+
+            try
+            {
+                _unitOfWorkAsync.RepositoryAsync<Operation>().Insert(op);
+                inserted = await _unitOfWorkAsync.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Debug.WriteLine(e);
+                _errorLogService.LogError(this , e.Message , e);
+                retVal.Message = e.Message ?? "";
+            }
 
             retVal.WasInserted = inserted;
+            retVal.Success = true;
 
-            return View(retVal);
+            return Json(retVal , JsonRequestBehavior.AllowGet);
         }
 
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public async Task<ActionResult> OperationDeleteAsync( string operationToDelete )
+        public async Task<JsonResult> OperationDeleteAsync( string operationToDelete )
         {
             var retVal = new OperationDeletedVm { WasDeleted = false };
-            if (!string.IsNullOrEmpty(operationToDelete))
+
+            if (string.IsNullOrEmpty(operationToDelete))
             {
-                
+                throw new ArgumentNullException(nameof(operationToDelete));
+            }
 
-                try
-                {
+            try
+            {
+                var repo = _unitOfWorkAsync.RepositoryAsync<Operation>();
+                await repo.DeleteAsync(int.Parse(operationToDelete));
+                var result = await _unitOfWorkAsync.SaveChangesAsync();
 
-                    //await _operationService.DeleteAsync(int.Parse(operationToDelete));
-                    
-                    //var result = await _unitOfWorkAsync.SaveChangesAsync();
+                if (result > 0)
+                    retVal.WasDeleted = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Debug.WriteLine(e);
+                _errorLogService.LogError(this , e.Message , e);
+                retVal.Error = e.Message ?? "";
+            }
 
-                    var repo = _unitOfWorkAsync.RepositoryAsync<Operation>();
-                    await repo.DeleteAsyncSoftDeleted(true, int.Parse(operationToDelete));
-                    var result = await _unitOfWorkAsync.SaveChangesAsync();
+            return Json(retVal.WasDeleted , JsonRequestBehavior.AllowGet);
+        }
 
-                    if (result > 0)
-                        retVal.WasDeleted = true;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    Debug.WriteLine(e);
-                    throw;
-                }
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public PartialViewResult OperationEdit( int id )
+        {
+            var retVal = new OperationVm
+            {
+                Success = false ,
+                Message = ""
+            };
 
+            if (id <= 0)
+            {
+                retVal.Message = "Please provide an id.";
+                return PartialView("Partial/_operationEditPartial" , retVal);
+            }
+
+            var result = _operationService.Find(id);
+
+            if (result != null)
+            {
+                retVal.Success = true;
+                retVal.Operation = result.ConvertToViewModel();
             }
             else
             {
-                retVal.WasDeleted = false;
+                retVal.Message = "Item with requested Id was not found.";
             }
 
-            return Json(retVal.WasDeleted, JsonRequestBehavior.AllowGet);
+            return PartialView("Partial/_operationEditPartial" , retVal);
+
         }
 
-        public ActionResult OperationEdit(object id)
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public async Task<PartialViewResult> OperationDetails( int id )
         {
-            throw new NotImplementedException();
+            var retVal = new OperationVm
+            {
+                Success = false ,
+                Message = ""
+            };
+
+            if (id <= 0)
+            {
+                retVal.Message = "Please provide an id.";
+                return PartialView("Partial/_operationDetailsPartial" , retVal);
+            }
+
+            var result = await _operationService.FindAsync(id);
+
+            if (result != null)
+            {
+                retVal.Success = true;
+
+                if (Request.IsAjaxRequest())
+                {
+                    retVal.Operation = result.ConvertToViewModel();
+                }
+            }
+            else
+            {
+                retVal.Message = "Item with requested Id was not found.";
+            }
+
+            return PartialView("Partial/_operationDetailsPartial" , retVal);
         }
-
-        public ActionResult OperationDetails(object id)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 
-    public class OperationPagedVm
+    public class OperationCountsDto
     {
-        [Display(Name = "Find by")]
-        public string SearchString { get; set; }
-        public string SortOrder { get; set; }
-        [Display(Name = "Select page size")]
-        public int PageSize { get; set; }
-        public int PageCount { get; set; }
-        public int PageNumber { get; set; }
-        public SelectList PageSizeList { get; set; }
-        public IPagedList<OperationVm> Operations { get; set; }
+        public int ActiveItemCount { get; set; }
+        public int DeletedItemCount { get; set; }
+        public int InactiveItemCount { get; set; }
     }
 
-    public class OperationInsertedVm
+    public class InfoOnOperationsVm
     {
-        public int WasInserted { get; set; }
-    }
-
-    public class OperationDeletedVm
-    {
-        public bool WasDeleted { get; set; }
-    }
-
-    public class OperationVm
-    {
-        public bool Active { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public bool Deleted { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateModified { get; set; }
-        public int Id { get; set; }
+        public int ActiveItemCount { get; set; }
+        public int DeletedItemCount { get; set; }
+        public int InactiveItemCount { get; set; }
+        public bool Success { get; set; }
+        public string Message { get; set; }
     }
 }
+

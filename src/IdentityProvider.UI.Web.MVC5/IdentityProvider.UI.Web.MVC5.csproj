@@ -81,6 +81,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <None Include="Views\Operation\Partial\_actionButtonsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -146,6 +147,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jQueryOverride-boolean-checkboxes.js" />
     <Content Include="Scripts\makeTableResponsive.js" />
     <Content Include="Scripts\modernizr.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -295,10 +297,6 @@
     <Content Include="Views\Shared\_AccountLayoutPage.cshtml" />
     <Content Include="Views\Shared\_LayOut - Copy.cshtml" />
     <Content Include="Views\Shared\_LayOutBSB.cshtml" />
-    <Content Include="Views\Shared\_AdminLteBreadcrumb.cshtml" />
-    <Content Include="Views\Shared\_AdminLteLayout.cshtml" />
-    <Content Include="Views\Shared\_AdminLteLeftMenu.cshtml" />
-    <Content Include="Views\Shared\_AdminLteTopMenu.cshtml" />
     <Content Include="Views\Shared\_AdminBSBBreadcrumb.cshtml" />
     <Content Include="Views\Shared\_AdminBSBLayout.cshtml" />
     <Content Include="Views\Shared\_AdminBSBLeftSidebar.cshtml" />
@@ -314,24 +312,35 @@
     <Content Include="Views\Account\LoginBootstrap.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Shared\Alert.cshtml" />
-    <Content Include="Views\Shared\_LayOutBSB - Copy.cshtml" />
     <Content Include="Views\Error\UserFriendlyError.cshtml" />
     <Content Include="Views\Home\Seed.cshtml" />
     <Content Include="Views\Seed\Index.cshtml" />
     <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Home\ProtectedActionForTesting.cshtml" />
     <Content Include="Views\Home\TestRepostoryQueries.cshtml" />
-    <Content Include="Views\Operation\OperationDelete.cshtml" />
-    <Content Include="Views\Operation\OperationInsert.cshtml" />
     <Content Include="Views\Operation\OperationsGetAllPaged.cshtml" />
-    <Content Include="Views\Operation\OperationDeleteAsync.cshtml" />
-    <Content Include="Views\Operation\Partial\_OperationsPartial.cshtml" />
+    <Content Include="Views\Operation\Partial\_operationsPartial.cshtml" />
+    <Content Include="Views\Operation\Partial\_operationDetailsPartial.cshtml" />
+    <Content Include="Views\Operation\Partial\_operationEditPartial.cshtml" />
+    <Content Include="Views\Resource\ResourceGetAllPaged.cshtml" />
+    <Content Include="Views\Resource\Partial\_failedToInsertResourcePartial.cshtml" />
+    <Content Include="Views\Resource\Partial\_resourceDetailsPartial.cshtml" />
+    <Content Include="Views\Resource\Partial\_resourceEditPartial.cshtml" />
+    <Content Include="Views\Resource\Partial\_resourcePartial.cshtml" />
+    <Content Include="Views\Resource\Partial\_resourceNotFoundPartial.cshtml" />
+    <Content Include="Views\Resource\ResourceInsert.cshtml" />
+    <Content Include="Views\Resource\ResourceDeleteAsync.cshtml" />
+    <Content Include="Views\Operation\Partial\_operationInsertPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\img\image-gallery\thumb\" />
+    <Folder Include="Scripts\Operations\Dashboard\" />
+    <Folder Include="Scripts\Operations\Partials\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdentityProvider.Controllers\IdentityProvider.Controllers.csproj">
@@ -383,12 +392,8 @@
     <Reference Include="B4BCore, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Bundler4Bower.1.0.0\lib\net451\B4BCore.dll</HintPath>
     </Reference>
-    <Reference Include="CommonServiceLocator, Version=2.0.3.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\CommonServiceLocator.dll</HintPath>
-    </Reference>
-    <Reference Include="CommonServiceLocator.StructureMapAdapter.Unofficial, Version=3.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CommonServiceLocator.StructureMapAdapter.Unofficial.3.0.5.0\lib\Net40\CommonServiceLocator.StructureMapAdapter.Unofficial.dll</HintPath>
+    <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CommonServiceLocator.2.0.4\lib\net46\CommonServiceLocator.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -486,6 +491,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\StructureMap.4.7.0\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core">
       <Private>True</Private>
     </Reference>
@@ -515,12 +527,6 @@
     <Reference Include="ServiceLocator, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\packages\ServiceLocator.1.0.2\lib\netstandard2.0\ServiceLocator.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="StructureMap, Version=4.1.1.372, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CommonServiceLocator.StructureMapAdapter.Unofficial.3.0.5.0\lib\Net40\StructureMap.dll</HintPath>
-    </Reference>
-    <Reference Include="StructureMap.Net4, Version=4.1.1.372, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CommonServiceLocator.StructureMapAdapter.Unofficial.3.0.5.0\lib\Net40\StructureMap.Net4.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\packages\structuremap.web.4.0.0.315\lib\net40\StructureMap.Web.dll</HintPath>

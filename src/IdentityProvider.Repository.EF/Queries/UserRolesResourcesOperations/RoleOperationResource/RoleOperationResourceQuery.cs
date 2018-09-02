@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.EFDataContext;
-using Module.Repository.EF.SimpleAudit;
 
 namespace IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.RoleOperationResource
 {

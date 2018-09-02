@@ -6,6 +6,7 @@ using StructureMap.Graph.Scanning;
 using StructureMap.Pipeline;
 using StructureMap.TypeRules;
 
+
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 {
     public class ControllerConventionOld : IRegistrationConvention

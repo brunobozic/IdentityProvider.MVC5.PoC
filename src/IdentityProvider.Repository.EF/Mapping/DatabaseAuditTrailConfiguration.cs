@@ -17,15 +17,6 @@ namespace IdentityProvider.Repository.EF.Mapping
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(t => t.UserId)
-                .IsRequired();
-
-            Property(t => t.CreatedDate)
-                .IsRequired();
-
-            Property(t => t.ModifiedDate)
-                .IsRequired();
-
-            Property(t => t.DeletedDate)
                 .IsOptional();
 
             Property(t => t.TableName)
@@ -39,7 +30,7 @@ namespace IdentityProvider.Repository.EF.Mapping
                 .IsVariableLength();
 
             Property(t => t.UserName)
-                .IsRequired();
+                .IsOptional();
 
             Property(t => t.OldData)
                 .IsOptional()
@@ -57,20 +48,9 @@ namespace IdentityProvider.Repository.EF.Mapping
             Property(t => t.UpdatedAt)
                 .IsOptional();
 
-            //this.Property(t => t.RegionDescription)
-            //	.IsRequired()
-            //	.IsFixedLength()
-            //	.HasMaxLength(50).HasColumnAnnotation(
-            //		IndexAnnotation.AnnotationName,
-            //		new IndexAnnotation(
-            //			new IndexAttribute("IX_RegionDescription", 1) { IsUnique = true })); ;
-
             // Table & Column Mappings
             ToTable("DbAuditTrail", "Audit");
             Property(t => t.UserId).HasColumnName("UserId");
-            Property(t => t.CreatedDate).HasColumnName("CreatedDate");
-            Property(t => t.ModifiedDate).HasColumnName("ModifiedDate");
-            Property(t => t.DeletedDate).HasColumnName("DeletedDate");
 
             Property(t => t.TableName).HasColumnName("TableName");
             Property(t => t.Actions).HasColumnName("Actions");
@@ -78,7 +58,7 @@ namespace IdentityProvider.Repository.EF.Mapping
             Property(t => t.OldData).HasColumnName("OldData");
             Property(t => t.NewData).HasColumnName("NewData");
             Property(t => t.UpdatedAt).HasColumnName("UpdatedAt");
-            Property(t => t.RowVersion).IsRowVersion().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
+          
         }
     }
 }

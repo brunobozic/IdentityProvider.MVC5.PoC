@@ -73,6 +73,7 @@
     <Compile Include="DatabaseLog\Model\IDbLog.cs" />
     <Compile Include="DatabaseLog\WcfAppenderService.cs" />
     <Compile Include="DatabaseLog\WcfLogFactory.cs" />
+    <Compile Include="Domain\IActive.cs" />
     <Compile Include="IAuditTrail.cs" />
     <Compile Include="SessionStorageFactories\DataContextStorageFactory.cs" />
     <Compile Include="SessionStorageFactories\HttpDataContextStorageContainer.cs" />

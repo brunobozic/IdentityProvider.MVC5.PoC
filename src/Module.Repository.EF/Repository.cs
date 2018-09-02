@@ -6,12 +6,9 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using IdentityProvider.Infrastructure.Domain;
-using IdentityProvider.Infrastructure.Logging.Serilog.AuditLog;
-using IdentityProvider.Models.Domain.Account;
 using LinqKit;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Module.Repository.EF.Repositories;
-using Module.Repository.EF.SimpleAudit;
+using Module.Repository.EF.RowLevelSecurity;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using TrackableEntities;
 using TrackableEntities.EF6;
@@ -19,17 +16,38 @@ using TrackableEntities.EF6;
 namespace Module.Repository.EF
 {
     /// <inheritdoc />
-    public class Repository<TEntity> : IRepositoryAsync<TEntity> where TEntity : DomainEntity<int>, ITrackable, ISoftDeletable
+    public class Repository<TEntity> : IRepositoryAsync<TEntity> where TEntity : class, ITrackable, ISoftDeletable
     {
         protected readonly DbContext Context;
         protected readonly DbSet<TEntity> Set;
+        protected readonly IQueryable<TEntity> _innerSet;
         protected readonly IUnitOfWorkAsync UnitOfWork;
+        private readonly IRowAuthPoliciesContainer _container;
+        private readonly Expression<Func<TEntity , bool>> authFilter;
 
-        public Repository( DbContext context , IUnitOfWorkAsync unitOfWork )
+        public Repository( DbContext context , IUnitOfWorkAsync unitOfWork , IRowAuthPoliciesContainer rowAuthPoliciesContainer )
         {
             UnitOfWork = unitOfWork;
             Context = context;
             Set = context.Set<TEntity>();
+            _container = rowAuthPoliciesContainer;
+            _innerSet = context.Set<TEntity>();
+            authFilter = BuildWhereExpression<TEntity>();
+            _innerSet = _innerSet.Where(authFilter);
+        }
+
+        private Expression<Func<T , bool>> BuildWhereExpression<T>()
+        {
+            if (_container.HasPolicy<T>())
+            {
+                var policy = _container.GetPolicy<T>();
+                return policy.BuildAuthFilterExpression();
+            }
+            else
+            {
+                Expression<Func<T , bool>> trueExpression = entity => true;
+                return trueExpression;
+            }
         }
 
         public virtual TEntity Find( params object[] keyValues )
@@ -37,15 +55,32 @@ namespace Module.Repository.EF
             return Set.Find(keyValues);
         }
 
+        public virtual TEntity FindWithRowLevelSecurity( params object[] keyValues )
+        {
+            var isString = keyValues[ 0 ] as string;
+            var isInt = keyValues[ 0 ] is int i1 ? i1 : -1;
+
+
+            // var entityFound = isInt > 0 ? _innerSet.SingleOrDefault(i => i.Id.Equals(isInt)) : _innerSet.SingleOrDefault(i => i.Id.Equals(isString));
+            // var entityFound = _innerSet.SingleOrDefault(i => i.Id == isInt);
+            // return entityFound;
+
+            return null;
+        }
+
         public virtual IQueryable<TEntity> SelectQuery( string query , params object[] parameters )
         {
             return Set.SqlQuery(query , parameters).AsQueryable();
         }
 
-        public virtual void Insert( TEntity entity )
+        public virtual void Insert( TEntity entity , bool traverseGraph = true )
         {
             entity.TrackingState = TrackingState.Added;
-            Context.ApplyChanges(entity);
+
+            if (traverseGraph)
+                Context.ApplyChanges(entity);
+            else
+                Context.Entry(entity).State = EntityState.Added;
         }
 
         public void ApplyChanges( TEntity entity )
@@ -53,10 +88,12 @@ namespace Module.Repository.EF
             Context.ApplyChanges(entity);
         }
 
-        public virtual void InsertRange( IEnumerable<TEntity> entities )
+        public virtual void InsertRange( IEnumerable<TEntity> entities , bool traverseGraph = true )
         {
             foreach (var entity in entities)
-                Insert(entity);
+            {
+                Insert(entity , traverseGraph);
+            }
         }
 
         [Obsolete(
@@ -66,15 +103,25 @@ namespace Module.Repository.EF
             InsertRange(entities);
         }
 
-        public virtual void Update( TEntity entity )
+        public virtual void Update( TEntity entity , bool traverseGraph = true )
         {
             entity.TrackingState = TrackingState.Modified;
-            Context.ApplyChanges(entity);
+
+            if (traverseGraph)
+                Context.ApplyChanges(entity);
+            else
+                Context.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete( params object[] keyValues )
         {
             var entity = Set.Find(keyValues);
+            Delete(entity);
+        }
+
+        public void DeleteWithRowLevelSecurity( params object[] keyValues )
+        {
+            var entity = FindWithRowLevelSecurity(keyValues);
             Delete(entity);
         }
 
@@ -104,6 +151,11 @@ namespace Module.Repository.EF
             return Set;
         }
 
+        public IQueryable<TEntity> QueryableWithRowLevelSecurity()
+        {
+            return _innerSet;
+        }
+
         public IRepository<T> GetRepository<T>() where T : class, ITrackable
         {
             return UnitOfWork.Repository<T>();
@@ -124,16 +176,16 @@ namespace Module.Repository.EF
             if (await DeleteAsync(CancellationToken.None , keyValues)) return true;
             return false;
         }
-        public virtual async Task<bool> DeleteAsyncSoftDeleted(bool softDeleted = true , params object[] keyValues )
+        public virtual async Task<bool> DeleteAsyncSoftDeleted( bool softDeleted = true , params object[] keyValues )
         {
-            int kv = (int)keyValues[0];
-            var entity = await Queryable().Where(i => i.IsDeleted == false && i.Id.Equals(kv)).SingleAsync();
-           
-            if (entity == null)
-                return false;
+            //int kv = ( int ) keyValues[ 0 ];
+            //var entity = await Queryable().Where(i => i.IsDeleted == false && i.Id.Equals(kv)).SingleAsync();
 
-            entity.TrackingState = TrackingState.Deleted;
-            Context.ApplyChanges(entity);
+            //if (entity == null)
+            //    return false;
+
+            //entity.TrackingState = TrackingState.Deleted;
+            //Context.ApplyChanges(entity);
             return true;
         }
         public virtual async Task<bool> DeleteAsync( CancellationToken cancellationToken , params object[] keyValues )
@@ -145,6 +197,7 @@ namespace Module.Repository.EF
 
             entity.TrackingState = TrackingState.Deleted;
             Context.ApplyChanges(entity);
+
             return true;
         }
 
@@ -164,12 +217,6 @@ namespace Module.Repository.EF
         public virtual void InsertOrUpdateGraph( TEntity entity )
         {
             ApplyChanges(entity);
-        }
-
-        public virtual void Delete( object id )
-        {
-            var entity = Set.Find(id);
-            Delete(entity);
         }
 
         internal IQueryable<TEntity> Select(

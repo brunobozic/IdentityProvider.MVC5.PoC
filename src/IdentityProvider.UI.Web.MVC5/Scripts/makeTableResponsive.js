@@ -32,7 +32,8 @@
 
     function createTables(tableHeadings, tableRowValues) {
         return tableRowValues.map(function (i, values) {
-            var table = $(document.createElement("table")).addClass("mobile-table"),
+            // the "mobile" table needs to have table-layout style of "auto" applied, it wont work its set to "fixed"!
+            var table = $(document.createElement("table")).addClass("mobile-table").addClass("my-auto-layout-table"),
                 rows = buildMobileTableRows(tableHeadings, values);
 
             $.each(rows, function (i, row) {

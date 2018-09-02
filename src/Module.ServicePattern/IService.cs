@@ -13,10 +13,9 @@ namespace Module.ServicePattern
     {
         TEntity Find(params object[] keyValues);
         IQueryable<TEntity> SelectQuery(string query, params object[] parameters);
-        void Insert(TEntity entity);
+        void Insert(TEntity entity , bool traverseGraph = true );
         void InsertRange(IEnumerable<TEntity> entities);
         void ApplyChanges(TEntity entity);
-
         [Obsolete(
             "InsertOrUpdateGraph has been deprecated.  Instead set TrackingState to Added or Modified and call ApplyChanges.")]
         void InsertOrUpdateGraph(TEntity entity);
@@ -24,7 +23,6 @@ namespace Module.ServicePattern
         [Obsolete(
             "InsertGraphRange has been deprecated. Instead call Insert to set TrackingState on enttites in a graph.")]
         void InsertGraphRange(IEnumerable<TEntity> entities);
-
         void Update(TEntity entity);
         void Delete(object id);
         void Delete(TEntity entity);
@@ -34,9 +32,6 @@ namespace Module.ServicePattern
         Task<TEntity> FindAsync(params object[] keyValues);
         Task<TEntity> FindAsync(CancellationToken cancellationToken, params object[] keyValues);
         Task<bool> DeleteAsync(params object[] keyValues);
-
-
-
         Task<bool> DeleteAsync(CancellationToken cancellationToken, params object[] keyValues);
         Task<bool> DeleteAsyncSoftDeletedAsync( CancellationToken cancellationToken , bool softDeleted, params object[] keyValues );
         IQueryable<TEntity> Queryable();

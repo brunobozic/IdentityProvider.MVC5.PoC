@@ -44,7 +44,8 @@
     "feather-icons-sass": "*",
     "Chart.js": "v1.0.2",
     "jquery": "3.3.1",
-    "jQuery": "3.3.1"
+    "jQuery": "3.3.1",
+    "bootstrap-datepicker": "v1.8.0"
   },
   "resolutions": {
     "bootstrap": "v3.3.7",

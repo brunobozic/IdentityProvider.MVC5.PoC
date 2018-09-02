@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using IdentityProvider.Infrastructure.Domain;
-using TrackableEntities;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    [Table("Resources", Schema = "Account")]
-    public class Resource : DomainEntity<int>, IActive, ITrackable
+    [Table("Resources" , Schema = "Account")]
+    public class Resource : DomainEntity<int>, IActive
     {
         public Resource()
         {
             Roles = new HashSet<ApplicationRole>();
-            Operations= new HashSet<Operation>();
+            Operations = new HashSet<Operation>();
+            Active = true;
+            ActiveFrom = DateTime.UtcNow;
         }
 
         [Required]
@@ -26,12 +26,40 @@ namespace IdentityProvider.Models.Domain.Account
         public virtual ICollection<Operation> Operations { get; set; }
         public virtual ICollection<ApplicationRole> Roles { get; set; }
 
-        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        public void AssignOperationsToThisResource( List<Operation> operations )
         {
-            return null;
+            foreach (var op in operations)
+            {
+                Operations.Add(op);
+            }
         }
 
+        public void AssignOperationToThisResource( Operation operation )
+        {
+            Operations.Add(operation);
+        }
 
-        public TrackingState TrackingState { get; set; }
+        public void AssignRolesToThisResource( List<ApplicationRole> roles )
+        {
+            foreach (var role in roles)
+            {
+                Roles.Add(role);
+            }
+        }
+
+        public void AssignRoleToThisResource( ApplicationRole role )
+        {
+            Roles.Add(role);
+        }
+
+        public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
+        {
+            var name = new[] { "Name" };
+
+            if (string.IsNullOrEmpty(Name) && name.Length > 0)
+            {
+                yield return new ValidationResult("Operation name is required." , name);
+            }
+        }
     }
 }

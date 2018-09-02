@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Infrastructure.DatabaseAudit
 {
     [Table("DbAuditTrail", Schema = "Audit")]
-    public class DbAuditTrail : DomainEntity<int>
+    public class DbAuditTrail
     {
         public string TableName { get; set; }
         public int UserId { get; set; }
@@ -17,10 +14,6 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
         public long? TableIdValue { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string Actions { get; set; }
-
-        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            return null;
-        }
+        public int Id { get; set; }
     }
 }

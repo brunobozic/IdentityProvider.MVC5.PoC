@@ -119,6 +119,7 @@
     <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\SeedController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -133,7 +134,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <Content Include="Views\Operation\OperationDeleteAsync.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdentityProvider.Repository.EF\IdentityProvider.Repository.EF.csproj">
@@ -161,6 +161,9 @@
       <Name>Module.ServicePattern</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Operation\" />
+    <Folder Include="Views\Resource\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
