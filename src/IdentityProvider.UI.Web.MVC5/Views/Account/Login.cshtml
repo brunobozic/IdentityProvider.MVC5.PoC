@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Log in";
-    // Layout = "~/Views/Shared/_LayOutBSB.cshtml";
     Layout = null;
 }
 <!DOCTYPE html>
@@ -20,83 +19,88 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="~/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="~/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
     <!-- Waves Effect Css -->
-    <link href="~/bower_components/Waves/dist/waves.css" rel="stylesheet"/>
+    <link href="~/bower_components/Waves/dist/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="~/bower_components/adminbsb-materialdesign/plugins/animate-css/animate.css" rel="stylesheet"/>
+    <link href="~/bower_components/adminbsb-materialdesign/plugins/animate-css/animate.css" rel="stylesheet" />
 
     <!-- Custom Css -->
-    <link href="~/Content/site.css" rel="stylesheet"/>
+    <link href="~/Content/site.css" rel="stylesheet" />
 
-    <link href="~/bower_components/adminbsb-materialdesign/css/themes/all-themes.css" rel="stylesheet"/>
-    <link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet"/>
+    <link href="~/bower_components/adminbsb-materialdesign/css/themes/all-themes.css" rel="stylesheet" />
+    <link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />
 </head>
 
 
 <body class="login-page">
-<div class="login-box">
-    <div class="logo">
-        <a href="javascript:void(0);">Material Design<b>MD</b></a>
-        <small>Material Design Proof of Concept</small>
-    </div>
-    <div class="card">
-        <div class="body">
-            <form id="sign_in" method="POST" novalidate="novalidate">
-                <div class="msg">Sign in to start your session</div>
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="material-icons">person</i>
-                    </span>
-                    <div class="form-line">
-                        <input class="form-control" name="username" placeholder="Username" required="" autofocus="" aria-required="true" type="text">
+    <div class="login-box">
+        <div class="logo">
+            <a href="javascript:void(0);">Material Design<b>MD</b></a>
+            <small>Material Design Proof of Concept</small>
+        </div>
+        <div class="card">
+            <div class="body">
+                <form id="sign_in" method="POST" novalidate="novalidate">
+                    @Html.AntiForgeryToken()
+                    <div class="msg">Sign in to start your session</div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input class="form-control" name="username" placeholder="Username" required="" autofocus="" aria-required="true" type="text">
+                        </div>
                     </div>
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        <i class="material-icons">lock</i>
-                    </span>
-                    <div class="form-line">
-                        <input class="form-control" name="password" placeholder="Password" required="" aria-required="true" type="password">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input class="form-control" name="password" placeholder="Password" required="" aria-required="true" type="password">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-8 p-t-5">
-                        <input name="rememberme" id="rememberme" class="filled-in chk-col-pink" type="checkbox">
-                        <label for="rememberme">Remember Me</label>
+                    <div class="row">
+                        <div class="col-xs-8 p-t-5">
+                            <input type="hidden" name="rememberme" value="false"/>
+                            <input name="rememberme" id="rememberme" class="filled-in chk-col-pink" type="checkbox">
+                            <label for="rememberme">Remember Me</label>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+                        </div>
                     </div>
-                    <div class="col-xs-4">
-                        <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+                    <div class="row m-t-15 m-b--20">
+                        <div class="col-xs-6">
+                            @Html.ActionLink("Sign up for an account." , "Register" , new { style = "padding: 1px" })
+                        </div>
+                        <div class="col-xs-6 align-right">
+                            @Html.ActionLink("Forgot your password?" , "ForgotPassword" , new { style = "padding: 1px" })
+                        </div>
                     </div>
-                </div>
-                <div class="row m-t-15 m-b--20">
-                    <div class="col-xs-6">
-                        <a href="sign-up.html">Register Now!</a>
-                    </div>
-                    <div class="col-xs-6 align-right">
-                        <a href="forgot-password.html">Forgot Password?</a>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<!-- Jquery Core Js -->
-<script src="~/bower_components/jquery/dist/jquery.js"></script>
 
-<!-- Bootstrap Core Js -->
-<script src="~/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- Jquery Core Js -->
+    <script src="~/bower_components/jquery/dist/jquery.js"></script>
+    <script src="~/Scripts/jQueryOverride-boolean-checkboxes.js"></script>
 
-<!-- Waves Effect Plugin Js -->
-<script src="~/bower_components/Waves/dist/waves.js"></script>
+    <!-- Jquery client side validation Js -->
+    <script src="~/bower_components/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
-<!-- Validation Plugin Js -->
-<script src="../../plugins/jquery-validation/jquery.validate.js"></script>
+    <!-- Bootstrap Core Js -->
+    <script src="~/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
-<!-- Custom Js -->
-<script src="~/bower_components/adminbsb-materialdesign/js/admin.js"></script>
-<script src="~/bower_components/adminbsb-materialdesign/js/demo.js"></script>
+    <!-- Waves Effect Plugin Js -->
+    <script src="~/bower_components/Waves/dist/waves.js"></script>
+
+    <!-- Custom Js -->
+    <script src="~/bower_components/adminbsb-materialdesign/js/admin.js"></script>
+    <script src="~/bower_components/adminbsb-materialdesign/js/demo.js"></script>
 </body>
 </html>

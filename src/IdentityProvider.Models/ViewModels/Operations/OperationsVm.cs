@@ -21,6 +21,8 @@ namespace IdentityProvider.Models.ViewModels.Operations
         public int? NumberOfActiveItems { get; set; }
         public SelectList PageSizeList { get; set; }
         public IPagedList<OperationVm> Operations { get; set; }
+        public string HeaderBigText { get; set; }
+        public string HeaderSmallText { get; set; }
     }
 
     public class OperationInsertedVm

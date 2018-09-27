@@ -135,7 +135,7 @@ namespace IdentityProvider.UI.Web.MVC5
 
             var ex = Server.GetLastError();
 
-            var controller = new ErrorController(_cookieStorage);
+            var controller = new ErrorController(_cookieStorage, null, null);
             var routeData = new RouteData();
 
             var httpContext = ExtractContextFromSender(sender);
@@ -181,9 +181,7 @@ namespace IdentityProvider.UI.Web.MVC5
 
         #region Global.asax helpers
 
-        private IAuthenticationManager AuthenticationManager => Context.GetOwinContext().Authentication;
-
-        private bool CurrentUserAuthenticated => Context.GetOwinContext().Authentication.User.Identity.IsAuthenticated;
+      
 
         #endregion Global.asax helpers
     }

@@ -74,6 +74,7 @@
     <Compile Include="DatabaseLog\WcfAppenderService.cs" />
     <Compile Include="DatabaseLog\WcfLogFactory.cs" />
     <Compile Include="Domain\IActive.cs" />
+    <Compile Include="Email\GMailService.cs" />
     <Compile Include="IAuditTrail.cs" />
     <Compile Include="SessionStorageFactories\DataContextStorageFactory.cs" />
     <Compile Include="SessionStorageFactories\HttpDataContextStorageContainer.cs" />
@@ -168,8 +169,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logging\Serilog\SQLite\LogEventExtensions\" />

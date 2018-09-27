@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Services;
@@ -12,12 +13,17 @@ namespace IdentityProvider.Controllers.Controllers
         private readonly IUserProfileAdministrationService _administrationService;
         private readonly IWebSecurity _webSecurity;
         [DefaultConstructor]
-        public AdministrationController(IWebSecurity webSecurity,
+        public AdministrationController( IWebSecurity webSecurity ,
             IUserProfileAdministrationService administrationService
             , ICookieStorageService cookieStorageService
             , IErrorLogService errorLogService
+            , IApplicationConfiguration applicationConfiguration
         )
-            : base(cookieStorageService, errorLogService)
+            : base(
+                  cookieStorageService
+                  , errorLogService
+                  , applicationConfiguration
+                  )
         {
             _administrationService = administrationService;
             _webSecurity = webSecurity;
@@ -29,7 +35,7 @@ namespace IdentityProvider.Controllers.Controllers
             return View(_webSecurity.UsersActiveGetAll());
         }
 
-        public ViewResult UserDetails(int id)
+        public ViewResult UserDetails( int id )
         {
             //var response = new UserDetailsGetByIdResponse();
             //var request = new UserDetailsGetByIdRequest {UserProfileId = id};

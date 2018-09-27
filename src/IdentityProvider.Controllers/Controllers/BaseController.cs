@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ControllerAlertHelpers;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
@@ -11,16 +12,19 @@ namespace IdentityProvider.Controllers.Controllers
     {
         private readonly ICookieStorageService _cookieStorageService;
         protected IErrorLogService _errorLogService;
+        private readonly IApplicationConfiguration _applicationConfiguration;
         private ICookieStorageService cookieStorageService;
 
         [DefaultConstructor]
         public BaseController(
             ICookieStorageService cookieStorageService
             , IErrorLogService errorLogService
+            , IApplicationConfiguration applicationConfiguration
         )
         {
             _cookieStorageService = cookieStorageService;
             _errorLogService = errorLogService;
+            _applicationConfiguration = applicationConfiguration;
         }
 
         public void Success(string message, bool dismissable = false)

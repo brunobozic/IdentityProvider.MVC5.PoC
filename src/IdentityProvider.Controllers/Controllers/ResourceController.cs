@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
@@ -29,8 +30,13 @@ namespace IdentityProvider.Controllers.Controllers
             , IErrorLogService errorLogService
             , IUnitOfWorkAsync unitOfWorkAsync
             , IApplicationResourceService resourceService
+            , IApplicationConfiguration applicationConfiguration
             )
-            : base(cookieStorageService, errorLogService)
+            : base(
+                  cookieStorageService
+                  , errorLogService
+                  , applicationConfiguration
+                  )
         {
             _unitOfWorkAsync = unitOfWorkAsync;
             _resourceService = resourceService;

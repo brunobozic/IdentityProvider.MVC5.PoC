@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_LayOutBSB.cshtml";
 }
 
-<link href="~/bower_components/pretty-checkbox/dist/pretty-checkbox.css" rel="stylesheet"/>
+<link href="~/bower_components/pretty-checkbox/dist/pretty-checkbox.css" rel="stylesheet" />
 
 <section class="content">
     <div class="row">
@@ -18,11 +18,11 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                @using (Html.BeginForm("Login", "Account", new {ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                @using (Html.BeginForm("Login" , "Account" , new { ViewBag.ReturnUrl } , FormMethod.Post , new { @class = "form-horizontal" , role = "form" }))
                 {
                     @Html.AntiForgeryToken()
 
-                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                    @Html.ValidationSummary(true , "" , new { @class = "text-danger" })
 
                     <div class="box-body">
                         <div class="form-group">
@@ -32,7 +32,7 @@
                                     <span class="input-group-addon bg-light-blue">
                                         <i class="fa fa-envelope"></i>
                                     </span>
-                                    @Html.TextBoxFor(model => model.Email, new {@class = "form-control", placeholder = "Email Address"})
+                                    @Html.TextBoxFor(model => model.Email , new { @class = "form-control" , placeholder = "Email Address" })
                                     <p class="text-danger">@Html.ValidationMessageFor(model => model.Email)</p>
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                                     <span class="input-group-addon bg-light-blue">
                                         <i class="fa fa-user-secret"></i>
                                     </span>
-                                    @Html.TextBoxFor(model => model.Password, new {@class = "form-control", placeholder = "Password"})
+                                    @Html.TextBoxFor(model => model.Password , new { @class = "form-control" , placeholder = "Password" })
                                     <p class="text-danger">@Html.ValidationMessageFor(model => model.Password)</p>
                                 </div>
                             </div>
@@ -57,9 +57,9 @@
 
                                 <!-- using direct svg file -->
                                 <div class="pretty p-svg p-plain p-bigger p-smooth p-pulse">
-                                    @Html.CheckBoxFor(m => m.RememberMe, new {})
+                                    @Html.CheckBoxFor(m => m.RememberMe , new { })
                                     <div class="state">
-                                        <img class="svg" src="~/bower_components/Ionicons/src/checkmark.svg"/>
+                                        <img class="svg" src="~/bower_components/Ionicons/src/checkmark.svg" />
                                         <label>Remember me?</label>
                                     </div>
                                 </div>
@@ -69,14 +69,14 @@
 
                         <div class="col-md-offset-8 col-md-12">
                             <p>
-                                @Html.ActionLink("Forgot your password?", "ForgotPassword", new {style = "padding: 1px"})
+                                @Html.ActionLink("Forgot your password?" , "ForgotPassword" , new { style = "padding: 1px" })
                             </p>
                         </div>
 
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        <input type="submit" value="Log in" class="btn btn-info" style="margin: 4px"/>
+                        <input type="submit" value="Log in" class="btn btn-info" style="margin: 4px" />
                         <button type="submit" class="btn btn-warning">Cancel</button>
                     </div>
                     <!-- /.box-footer -->
@@ -94,7 +94,7 @@
                 <div class="box-body">
                     <section id="socialLoginForm">
                         <div class="form-horizontal">
-                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel {ReturnUrl = ViewBag.ReturnUrl})
+                            @Html.Partial("_ExternalLoginsListPartial" , new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
                         </div>
                     </section>
                 </div>

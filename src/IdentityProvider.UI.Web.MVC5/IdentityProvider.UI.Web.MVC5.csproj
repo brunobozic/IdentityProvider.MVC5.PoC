@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <None Include="Views\Operation\Partial\_actionButtonsPartial.cshtml" />
+    <Content Include="Views\Operation\Partial\_operationsHeaderPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -307,8 +308,6 @@
     <Content Include="Views\Shared\_AdminBSBSearchBar.cshtml" />
     <Content Include="Views\Shared\_AdminBSBMenus.cshtml" />
     <Content Include="Views\Shared\_AdminBSBUserInfo.cshtml" />
-    <Content Include="Views\AdminLte\Colors.cshtml" />
-    <Content Include="Views\AdminLte\Index.cshtml" />
     <Content Include="Views\Account\LoginBootstrap.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Shared\Alert.cshtml" />
@@ -336,6 +335,8 @@
     <Folder Include="Content\img\image-gallery\thumb\" />
     <Folder Include="Scripts\Operations\Dashboard\" />
     <Folder Include="Scripts\Operations\Partials\" />
+    <Folder Include="Scripts\Resources\Dashboard\" />
+    <Folder Include="Scripts\Resources\Partials\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

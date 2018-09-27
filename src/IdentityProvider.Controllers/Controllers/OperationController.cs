@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
@@ -29,8 +30,13 @@ namespace IdentityProvider.Controllers.Controllers
             , IErrorLogService errorLogService
             , IUnitOfWorkAsync unitOfWorkAsync
             , IOperationService operationService
+            , IApplicationConfiguration applicationConfiguration
         )
-            : base(cookieStorageService , errorLogService)
+            : base(
+                  cookieStorageService
+                  , errorLogService
+                  , applicationConfiguration
+                  )
         {
             _unitOfWorkAsync = unitOfWorkAsync;
             _operationService = operationService;
@@ -216,16 +222,17 @@ namespace IdentityProvider.Controllers.Controllers
 
             try
             {
-              var queryResult = _unitOfWorkAsync.RepositoryAsync<Operation>().Queryable().AsNoTracking().Select(i => new OperationCountsDto
-                {
-                    Name = i.Name,
-                    DeletedItemCount = 4,
-                    InactiveItemCount = 5
-                });
+                var queryResult = await _unitOfWorkAsync.RepositoryAsync<Operation>().Queryable().AsNoTracking().Select(i =>
+                    new OperationCountsDto
+                    {
+                        Name = i.Name ,
+                        Active = i.Active ,
+                        Deleted = i.IsDeleted
+                    }).ToListAsync();
 
-                retVal.ActiveItemCount = await _unitOfWorkAsync.RepositoryAsync<Operation>().Queryable().AsNoTracking().CountAsync(op => op.Active && !op.IsDeleted);
-                retVal.DeletedItemCount = await _unitOfWorkAsync.RepositoryAsync<Operation>().Queryable().AsNoTracking().CountAsync(op => op.IsDeleted); // might conflict with row based access security
-                retVal.InactiveItemCount = await _unitOfWorkAsync.RepositoryAsync<Operation>().Queryable().AsNoTracking().CountAsync(op => !op.Active);
+                retVal.ActiveItemCount = queryResult.Count(op => op.Active && !op.Deleted);
+                retVal.DeletedItemCount = queryResult.Count(op => op.Deleted); // might conflict with row based access security
+                retVal.InactiveItemCount = queryResult.Count(op => !op.Active);
             }
             catch (Exception e)
             {
@@ -410,6 +417,9 @@ namespace IdentityProvider.Controllers.Controllers
         public int ActiveItemCount { get; set; }
         public int DeletedItemCount { get; set; }
         public int InactiveItemCount { get; set; }
+        public string Name { get; set; }
+        public bool Active { get; set; }
+        public bool Deleted { get; set; }
     }
 
     public class InfoOnOperationsVm

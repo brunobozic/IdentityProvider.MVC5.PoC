@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
-using IdentityProvider.Services;
 using IdentityProvider.Services.ApplicationRoleService;
 using IdentityProvider.Services.DbSeed;
 using StructureMap;
@@ -11,8 +11,15 @@ namespace IdentityProvider.Controllers.Controllers
     public class HomeController : BaseController
     {
         [DefaultConstructor]
-        public HomeController(ICookieStorageService cookieStorageService, IErrorLogService errorLogService) : base(
-            cookieStorageService, errorLogService)
+        public HomeController(
+            ICookieStorageService cookieStorageService
+            , IErrorLogService errorLogService
+            , IApplicationConfiguration applicationConfiguration )
+            : base(
+            cookieStorageService
+                  , errorLogService
+                  , applicationConfiguration
+                  )
         {
         }
 
@@ -30,7 +37,7 @@ namespace IdentityProvider.Controllers.Controllers
 
         public ActionResult Seed()
         {
-            var dBSeeder = (DoSeed)DependencyResolver.Current.GetService(typeof(IDoSeed));
+            var dBSeeder = ( DoSeed ) DependencyResolver.Current.GetService(typeof(IDoSeed));
             var seedSuccessfull = dBSeeder.Seed();
 
             ViewBag.Message = "Your seeding process went well.";
@@ -58,7 +65,7 @@ namespace IdentityProvider.Controllers.Controllers
             ViewBag.Message = "Protected Action For Testing.";
 
             var rolsService =
-                (ApplicationRoleService) DependencyResolver.Current.GetService(typeof(IApplicationRoleService));
+                ( ApplicationRoleService ) DependencyResolver.Current.GetService(typeof(IApplicationRoleService));
 
             var results = rolsService.FetchReasourseAndOperationsGraph();
 

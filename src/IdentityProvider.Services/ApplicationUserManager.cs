@@ -3,7 +3,6 @@ using IdentityProvider.Infrastructure.Email;
 using IdentityProvider.Infrastructure.SMS;
 using IdentityProvider.Models.Domain.Account;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
 
@@ -11,24 +10,30 @@ namespace IdentityProvider.Services
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store) : base(store)
-        {
-            // var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<DataContextAsync>()));
+        private readonly IEmailService _emailService;
+        private readonly DpapiDataProtectionProvider _provider = new DpapiDataProtectionProvider("IdentityProvider");
 
+        public ApplicationUserManager(
+            IUserStore<ApplicationUser> store
+            , IEmailService emailService
+            , IIdentityMessageService identityEmailMessageService
+            ) : base(store)
+        {
+            _emailService = emailService;
             // Configure validation logic for usernames
             UserValidator = new UserValidator<ApplicationUser>(this)
             {
-                AllowOnlyAlphanumericUserNames = false,
+                AllowOnlyAlphanumericUserNames = false ,
                 RequireUniqueEmail = true
             };
 
             // Configure validation logic for passwords
             PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 8,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
+                RequiredLength = 8 ,
+                RequireNonLetterOrDigit = true ,
+                RequireDigit = true ,
+                RequireLowercase = true ,
                 RequireUppercase = true
             };
 
@@ -39,34 +44,29 @@ namespace IdentityProvider.Services
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
+            RegisterTwoFactorProvider("Phone Code" , new PhoneNumberTokenProvider<ApplicationUser>
             {
                 MessageFormat = "Your security code is {0}"
             });
-            RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
+
+            RegisterTwoFactorProvider("Email Code" , new EmailTokenProvider<ApplicationUser>
             {
-                Subject = "Security Code",
+                Subject = "Security Code" ,
                 BodyFormat = "Your security code is {0}"
             });
 
-            EmailService = new EmailService();
+            EmailService = identityEmailMessageService;
             SmsService = new SmsService();
 
-            var provider = new DpapiDataProtectionProvider("IdentityProvider");
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>())
-            {
-                UserTokenProvider =
-                    new DataProtectorTokenProvider<ApplicationUser, string>(provider.Create("ASP.NET Identity"))
-            };
+            UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(_provider.Create("ASP.NET Identity"));
 
-            // var dataProtectionProvider = Startup.DataProtectionProvider;
-
-            //if (dataProtectionProvider != null)
+            //return new UserManager<ApplicationUser>(new UserStore<ApplicationUser>())
             //{
-            //    this.UserTokenProvider =
-            //        new DataProtectorTokenProvider<ApplicationUser>(
-            //            dataProtectionProvider.Create("ASP.NET Identity"));
-            //}
+            //    UserTokenProvider =
+            //        new DataProtectorTokenProvider<ApplicationUser , string>(_provider.Create("ASP.NET Identity"))
+            //};
+
+
         }
 
         //public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
