@@ -19,5 +19,11 @@ namespace IdentityProvider.Models.Domain.Account
         public bool Active { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
+
+        public UserProfile()
+        {
+            Active = true;
+            ActiveFrom = DateTime.UtcNow;
+        }
     }
 }

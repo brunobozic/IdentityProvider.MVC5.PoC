@@ -7,13 +7,13 @@ namespace IdentityProvider.Repository.EF.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Fixed_a_boo_boo : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Fixed_a_boo_boo));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808231237171_Fixed_a_boo_boo"; }
+            get { return "201810181639355_initial"; }
         }
         
         string IMigrationMetadata.Source

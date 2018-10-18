@@ -27,17 +27,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201808161354389_Initial.cs" />
-    <Compile Include="Migrations\201808161354389_Initial.Designer.cs">
-      <DependentUpon>201808161354389_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808221022234_Further_Changes_Cant_Remember_What.cs" />
-    <Compile Include="Migrations\201808221022234_Further_Changes_Cant_Remember_What.Designer.cs">
-      <DependentUpon>201808221022234_Further_Changes_Cant_Remember_What.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808231237171_Fixed_a_boo_boo.cs" />
-    <Compile Include="Migrations\201808231237171_Fixed_a_boo_boo.Designer.cs">
-      <DependentUpon>201808231237171_Fixed_a_boo_boo.cs</DependentUpon>
+    <Compile Include="Mapping\EmployeeConfiguration.cs" />
+    <Compile Include="Mapping\RoleGroupRoleConfiguration.cs" />
+    <Compile Include="Mapping\OrgUnitRoleGroupConfiguration.cs" />
+    <Compile Include="Mapping\EmployeeOrgUnitConfiguration.cs" />
+    <Compile Include="Mapping\OrganisationalUnitConfiguration.cs" />
+    <Compile Include="Migrations\201810181639355_initial.cs" />
+    <Compile Include="Migrations\201810181639355_initial.Designer.cs">
+      <DependentUpon>201810181639355_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Queries\UserRolesResourcesOperations\OperationDto.cs" />
     <Compile Include="Queries\UserRolesResourcesOperations\ResourceOperationDto.cs" />
@@ -157,14 +154,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808161354389_Initial.resx">
-      <DependentUpon>201808161354389_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808221022234_Further_Changes_Cant_Remember_What.resx">
-      <DependentUpon>201808221022234_Further_Changes_Cant_Remember_What.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808231237171_Fixed_a_boo_boo.resx">
-      <DependentUpon>201808231237171_Fixed_a_boo_boo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810181639355_initial.resx">
+      <DependentUpon>201810181639355_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

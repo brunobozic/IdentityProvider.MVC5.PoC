@@ -72,9 +72,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Account\RoleGroups.cs" />
+    <Compile Include="Domain\Account\Employee.cs" />
     <Compile Include="Domain\Account\ApplicationUser.cs" />
+    <Compile Include="Domain\Account\EmployeeOrgUnitJoin.cs" />
     <Compile Include="Domain\Account\Operation.cs" />
+    <Compile Include="Domain\Account\OrganisationalUnits.cs" />
+    <Compile Include="Domain\Account\RoleGroupRoleJoin.cs" />
+    <Compile Include="Domain\Account\OrgUnitRoleGroupJoin.cs" />
+    <Compile Include="Domain\Account\RoleGroup.cs" />
     <Compile Include="Domain\Account\UserProfile.cs" />
     <Compile Include="Operations.cs" />
     <Compile Include="Domain\Account\Resource.cs" />

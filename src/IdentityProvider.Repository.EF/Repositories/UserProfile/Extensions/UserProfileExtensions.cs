@@ -15,7 +15,7 @@ namespace IdentityProvider.Repository.EF.Repositories.UserProfile.Extensions
             if (userProfileId == 0) throw new ArgumentNullException(nameof(userProfileId));
 
             var foundAUser =
-                repository.Queryable().FirstOrDefault(i => i.UserId.Equals(userProfileId));
+                repository.Queryable().FirstOrDefault(i => i.UserProfile.Equals(userProfileId));
 
             return foundAUser;
         }

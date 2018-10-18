@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.Infrastructure.Annotations;
+﻿
 using System.Data.Entity.ModelConfiguration;
 using IdentityProvider.Models.Domain.Account;
 
@@ -12,6 +11,9 @@ namespace IdentityProvider.Repository.EF.Mapping
         {
             HasOptional(e => e.UserProfile)
             .WithRequired(a => a.User);
+
+            HasOptional(e => e.Employee)
+            .WithRequired(a => a.ApplicationUser);
         }
     }
 }

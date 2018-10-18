@@ -3,7 +3,7 @@ namespace IdentityProvider.Repository.EF.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -145,17 +145,15 @@ namespace IdentityProvider.Repository.EF.Migrations
                 .Index(t => t.UserProfile_Id);
             
             CreateTable(
-                "Account.RoleGroups",
+                "Account.RoleGroupRoleJoin",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 100),
-                        Description = c.String(),
-                        UserProfileId = c.String(maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                        RoleGroupId = c.Int(nullable: false),
                         Active = c.Boolean(nullable: false),
                         ActiveFrom = c.DateTime(),
                         ActiveTo = c.DateTime(),
-                        RoleId = c.Int(nullable: false),
                         ModifiedById = c.String(),
                         ModifiedDate = c.DateTime(),
                         DeletedById = c.String(),
@@ -166,9 +164,130 @@ namespace IdentityProvider.Repository.EF.Migrations
                         IsDeleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserProfileId)
-                .Index(t => t.Name, unique: true, name: "IX_RoleGroupName")
-                .Index(t => t.UserProfileId);
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("Account.RoleGroups", t => t.RoleGroupId, cascadeDelete: true)
+                .Index(t => t.RoleId)
+                .Index(t => t.RoleGroupId);
+            
+            CreateTable(
+                "Account.RoleGroups",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        Description = c.String(nullable: false, maxLength: 260),
+                        Active = c.Boolean(nullable: false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "IX_RoleGroupName");
+            
+            CreateTable(
+                "Account.OrgUnitRoleGroupJoin",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        OrganisationalUnitId = c.Int(nullable: false),
+                        RoleGroupId = c.Int(nullable: false),
+                        Active = c.Boolean(nullable: false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(nullable: false),
+                        OrganisationalUnit_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.OrganisationalUnits", t => t.OrganisationalUnit_Id)
+                .ForeignKey("dbo.OrganisationalUnits", t => t.RoleGroupId, cascadeDelete: true)
+                .ForeignKey("Account.RoleGroups", t => t.OrganisationalUnitId, cascadeDelete: true)
+                .Index(t => t.OrganisationalUnitId)
+                .Index(t => t.RoleGroupId)
+                .Index(t => t.OrganisationalUnit_Id);
+            
+            CreateTable(
+                "dbo.OrganisationalUnits",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        Description = c.String(nullable: false, maxLength: 100),
+                        SecurityWeight = c.Int(nullable: false),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "IX_OrganisationalUnitName");
+            
+            CreateTable(
+                "Account.EmployeeOrgUnitJoin",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        OrganisationalUnitId = c.Int(nullable: false),
+                        EmployeeId = c.Int(nullable: false),
+                        Active = c.Boolean(nullable: false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("Account.Employee", t => t.OrganisationalUnitId, cascadeDelete: true)
+                .ForeignKey("dbo.OrganisationalUnits", t => t.EmployeeId, cascadeDelete: true)
+                .Index(t => t.OrganisationalUnitId)
+                .Index(t => t.EmployeeId);
+            
+            CreateTable(
+                "Account.Employee",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Active = c.Boolean(nullable: false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(nullable: false),
+                        ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -277,14 +396,14 @@ namespace IdentityProvider.Repository.EF.Migrations
                 "Account.ResourcesHaveOperations",
                 c => new
                     {
-                        OperationId = c.Int(nullable: false),
                         ResourceId = c.Int(nullable: false),
+                        OperationId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.OperationId, t.ResourceId })
-                .ForeignKey("Account.Resources", t => t.OperationId, cascadeDelete: true)
-                .ForeignKey("Account.Operations", t => t.ResourceId, cascadeDelete: true)
-                .Index(t => t.OperationId)
-                .Index(t => t.ResourceId);
+                .PrimaryKey(t => new { t.ResourceId, t.OperationId })
+                .ForeignKey("Account.Resources", t => t.ResourceId)
+                .ForeignKey("Account.Operations", t => t.OperationId)
+                .Index(t => t.ResourceId)
+                .Index(t => t.OperationId);
             
             CreateTable(
                 "dbo.RoleHasResources",
@@ -294,61 +413,58 @@ namespace IdentityProvider.Repository.EF.Migrations
                         ResourceId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.RoleId, t.ResourceId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("Account.Resources", t => t.ResourceId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId)
+                .ForeignKey("Account.Resources", t => t.ResourceId)
                 .Index(t => t.RoleId)
                 .Index(t => t.ResourceId);
-            
-            CreateTable(
-                "Account.RolesBelongToRoleGroups",
-                c => new
-                    {
-                        RoleId = c.Int(nullable: false),
-                        RoleGroupId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.RoleId, t.RoleGroupId })
-                .ForeignKey("Account.RoleGroups", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleGroupId, cascadeDelete: true)
-                .Index(t => t.RoleId)
-                .Index(t => t.RoleGroupId);
             
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("Account.RoleGroupRoleJoin", "RoleGroupId", "Account.RoleGroups");
+            DropForeignKey("Account.OrgUnitRoleGroupJoin", "OrganisationalUnitId", "Account.RoleGroups");
+            DropForeignKey("Account.OrgUnitRoleGroupJoin", "RoleGroupId", "dbo.OrganisationalUnits");
+            DropForeignKey("Account.OrgUnitRoleGroupJoin", "OrganisationalUnit_Id", "dbo.OrganisationalUnits");
+            DropForeignKey("Account.EmployeeOrgUnitJoin", "EmployeeId", "dbo.OrganisationalUnits");
+            DropForeignKey("Account.EmployeeOrgUnitJoin", "OrganisationalUnitId", "Account.Employee");
             DropForeignKey("Account.UserProfile", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("Account.RoleGroups", "UserProfileId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetRoles", "UserProfile_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("Account.Employee", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("Account.RolesBelongToRoleGroups", "RoleGroupId", "dbo.AspNetRoles");
-            DropForeignKey("Account.RolesBelongToRoleGroups", "RoleId", "Account.RoleGroups");
+            DropForeignKey("Account.RoleGroupRoleJoin", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.RoleHasResources", "ResourceId", "Account.Resources");
             DropForeignKey("dbo.RoleHasResources", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("Account.ResourcesHaveOperations", "ResourceId", "Account.Operations");
-            DropForeignKey("Account.ResourcesHaveOperations", "OperationId", "Account.Resources");
-            DropIndex("Account.RolesBelongToRoleGroups", new[] { "RoleGroupId" });
-            DropIndex("Account.RolesBelongToRoleGroups", new[] { "RoleId" });
+            DropForeignKey("Account.ResourcesHaveOperations", "OperationId", "Account.Operations");
+            DropForeignKey("Account.ResourcesHaveOperations", "ResourceId", "Account.Resources");
             DropIndex("dbo.RoleHasResources", new[] { "ResourceId" });
             DropIndex("dbo.RoleHasResources", new[] { "RoleId" });
-            DropIndex("Account.ResourcesHaveOperations", new[] { "ResourceId" });
             DropIndex("Account.ResourcesHaveOperations", new[] { "OperationId" });
+            DropIndex("Account.ResourcesHaveOperations", new[] { "ResourceId" });
             DropIndex("Account.UserProfile", new[] { "User_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("Account.RoleGroups", new[] { "UserProfileId" });
+            DropIndex("Account.Employee", new[] { "ApplicationUser_Id" });
+            DropIndex("Account.EmployeeOrgUnitJoin", new[] { "EmployeeId" });
+            DropIndex("Account.EmployeeOrgUnitJoin", new[] { "OrganisationalUnitId" });
+            DropIndex("dbo.OrganisationalUnits", "IX_OrganisationalUnitName");
+            DropIndex("Account.OrgUnitRoleGroupJoin", new[] { "OrganisationalUnit_Id" });
+            DropIndex("Account.OrgUnitRoleGroupJoin", new[] { "RoleGroupId" });
+            DropIndex("Account.OrgUnitRoleGroupJoin", new[] { "OrganisationalUnitId" });
             DropIndex("Account.RoleGroups", "IX_RoleGroupName");
+            DropIndex("Account.RoleGroupRoleJoin", new[] { "RoleGroupId" });
+            DropIndex("Account.RoleGroupRoleJoin", new[] { "RoleId" });
             DropIndex("dbo.AspNetRoles", new[] { "UserProfile_Id" });
             DropIndex("dbo.AspNetRoles", "IX_RoleName");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("Account.Resources", "IX_ResourceName");
             DropIndex("Account.Operations", "IX_OperationName");
-            DropTable("Account.RolesBelongToRoleGroups");
             DropTable("dbo.RoleHasResources");
             DropTable("Account.ResourcesHaveOperations");
             DropTable("Account.UserProfile");
@@ -356,7 +472,12 @@ namespace IdentityProvider.Repository.EF.Migrations
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("Account.Employee");
+            DropTable("Account.EmployeeOrgUnitJoin");
+            DropTable("dbo.OrganisationalUnits");
+            DropTable("Account.OrgUnitRoleGroupJoin");
             DropTable("Account.RoleGroups");
+            DropTable("Account.RoleGroupRoleJoin");
             DropTable("dbo.AspNetRoles");
             DropTable("Account.Resources");
             DropTable("Account.Operations");

@@ -23,6 +23,8 @@ namespace IdentityProvider.Repository.EF.Mapping
                     m.MapLeftKey("RoleId");
                     m.MapRightKey("ResourceId");
                 });
+
+       
         }
     }
 }
