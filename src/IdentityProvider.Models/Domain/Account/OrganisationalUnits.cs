@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Linq;
 using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
+    [Table("OrganisationalUnit" , Schema = "Account")]
     public class OrganisationalUnit : DomainEntity<int>, IActive
     {
         public OrganisationalUnit()
         {
             Active = true;
             ActiveFrom = DateTime.UtcNow;
-        
+
             SecurityWeight = 0; // Guest
         }
 
@@ -27,11 +29,11 @@ namespace IdentityProvider.Models.Domain.Account
         public DateTime? ActiveTo { get; set; }
 
         [Required]
-        [MaxLength(50 , ErrorMessage = "The name of the organizational unit must be between 20 and 50 characters"), MinLength(20)]
+        [MaxLength(50 , ErrorMessage = "The name of the organizational unit must be between 2 and 50 characters"), MinLength(2)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(260 , ErrorMessage = "The description of the organizational unit must be between 5 and 260 characters"), MinLength(5)]
+        [MaxLength(260 , ErrorMessage = "The description of the organizational unit must be between 2 and 260 characters"), MinLength(2)]
         public string Description { get; set; }
 
         [Required]

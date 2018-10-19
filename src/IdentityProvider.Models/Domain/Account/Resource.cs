@@ -11,7 +11,6 @@ namespace IdentityProvider.Models.Domain.Account
     {
         public Resource()
         {
-            Roles = new HashSet<ApplicationRole>();
             Operations = new HashSet<Operation>();
             Active = true;
             ActiveFrom = DateTime.UtcNow;
@@ -24,7 +23,7 @@ namespace IdentityProvider.Models.Domain.Account
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
         public virtual ICollection<Operation> Operations { get; set; }
-        public virtual ICollection<ApplicationRole> Roles { get; set; }
+        public virtual ICollection<RoleResourceJoin> Roles { get; set; }
 
         public void AssignOperationsToThisResource( List<Operation> operations )
         {
@@ -37,19 +36,6 @@ namespace IdentityProvider.Models.Domain.Account
         public void AssignOperationToThisResource( Operation operation )
         {
             Operations.Add(operation);
-        }
-
-        public void AssignRolesToThisResource( List<ApplicationRole> roles )
-        {
-            foreach (var role in roles)
-            {
-                Roles.Add(role);
-            }
-        }
-
-        public void AssignRoleToThisResource( ApplicationRole role )
-        {
-            Roles.Add(role);
         }
 
         public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )

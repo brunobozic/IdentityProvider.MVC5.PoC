@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IdentityProvider.Models;
 using IdentityProvider.Models.Domain.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -526,6 +525,62 @@ namespace IdentityProvider.Services.DbSeed
                 _context.Employee.Add(emp);
             }
 
+            var user2 = _context.Users.SingleOrDefault(u => u.FirstName == "Application" && u.LastName == "Standard User");
+
+            if (!_context.Employee.Any(u => u.Name == "Application" && u.Surname == "Standard User"))
+            {
+                var emp = new Employee
+                {
+                    Name = "Application" ,
+                    Surname = "Standard User" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationUser = user2
+                };
+
+                _context.Employee.Add(emp);
+            }
+
+            var user3 = _context.Users.SingleOrDefault(u => u.FirstName == "Application" && u.LastName == "Administrator");
+
+            if (!_context.Employee.Any(u => u.Name == "Application" && u.Surname == "Administrator"))
+            {
+                var emp = new Employee
+                {
+                    Name = "Application" ,
+                    Surname = "Administrator" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationUser = user3
+                };
+
+                _context.Employee.Add(emp);
+            }
+
+            var user4 = _context.Users.SingleOrDefault(u => u.FirstName == "Application" && u.LastName == "Administrator");
+
+            if (!_context.Employee.Any(u => u.Name == "Application" && u.Surname == "AutomatedTasks"))
+            {
+                var emp = new Employee
+                {
+                    Name = "Application" ,
+                    Surname = "AutomatedTasks" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationUser = user4
+                };
+
+                _context.Employee.Add(emp);
+            }
+
+            _context.SaveChanges();
+
             #endregion Employee
 
             #region Organizational Units
@@ -535,7 +590,22 @@ namespace IdentityProvider.Services.DbSeed
                 var orgUnit = new OrganisationalUnit
                 {
                     Name = "Developers" ,
+                    Description = "Okokokokokokokokokokokookokokokokokokokok" ,
                     SecurityWeight = 0 ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added
+                };
+
+                _context.OrganisationalUnit.Add(orgUnit);
+
+                var employee1 = _context.Employee.SingleOrDefault(u => u.Name == "Bruno" && u.Surname == "Božić");
+
+                var empOrgUnit = new EmployeeOrgUnitJoin
+                {
+                    Employee = employee1 ,
+                    OrganisationalUnit = orgUnit ,
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,
@@ -551,6 +621,7 @@ namespace IdentityProvider.Services.DbSeed
                 var orgUnit = new OrganisationalUnit
                 {
                     Name = "Director" ,
+                    Description = "Okokokokokokokokokokokookokokokokokokokok" ,
                     SecurityWeight = 1 ,
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
@@ -560,6 +631,19 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.OrganisationalUnit.Add(orgUnit);
 
+                var employee2 = _context.Employee.SingleOrDefault(u => u.Name == "Application" && u.Surname == "Administrator");
+
+                var empOrgUnit = new EmployeeOrgUnitJoin
+                {
+                    Employee = employee2 ,
+                    OrganisationalUnit = orgUnit ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added
+                };
+
+                _context.OrganisationalUnit.Add(orgUnit);
             }
 
             if (!_context.OrganisationalUnit.Any(u => u.Name == "HR"))
@@ -567,6 +651,7 @@ namespace IdentityProvider.Services.DbSeed
                 var orgUnit = new OrganisationalUnit
                 {
                     Name = "HR" ,
+                    Description = "Okokokokokokokokokokokookokokokokokokokok" ,
                     SecurityWeight = 2 ,
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
@@ -582,6 +667,7 @@ namespace IdentityProvider.Services.DbSeed
                 var orgUnit = new OrganisationalUnit
                 {
                     Name = "Administration" ,
+                    Description = "Okokokokokokokokokokokookokokokokokokokok" ,
                     SecurityWeight = 3 ,
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
@@ -597,7 +683,22 @@ namespace IdentityProvider.Services.DbSeed
                 var orgUnit = new OrganisationalUnit
                 {
                     Name = "PointOfSales" ,
+                    Description = "Okokokokokokokokokokokookokokokokokokokok" ,
                     SecurityWeight = 4 ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added
+                };
+
+                _context.OrganisationalUnit.Add(orgUnit);
+
+                var employee3 = _context.Employee.SingleOrDefault(u => u.Name == "Application" && u.Surname == "Standard User");
+
+                var empOrgUnit = new EmployeeOrgUnitJoin
+                {
+                    Employee = employee3 ,
+                    OrganisationalUnit = orgUnit ,
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,

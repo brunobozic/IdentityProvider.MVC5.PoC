@@ -14,7 +14,7 @@ namespace IdentityProvider.Models.Domain.Account
         public ApplicationRole()
         {
            
-            Resources = new HashSet<Resource>();
+            
             base.Id = Guid.NewGuid().ToString();
             Active = true;
             ActiveFrom = DateTime.UtcNow;
@@ -23,7 +23,7 @@ namespace IdentityProvider.Models.Domain.Account
         public ApplicationRole(string roleName) : this()
         {
         
-            Resources = new HashSet<Resource>();
+     
             base.Name = roleName;
             Active = true;
             ActiveFrom = DateTime.UtcNow;
@@ -35,7 +35,7 @@ namespace IdentityProvider.Models.Domain.Account
         public string Description { get; set; }
         public virtual ApplicationUser UserProfile { get; set; }
         public virtual ICollection<RoleGroupRoleJoin> RoleGroups { get; set; }
-        public virtual ICollection<Resource> Resources { get; set; }
+        public virtual ICollection<RoleResourceJoin> Resources { get; set; }
         public TrackingState TrackingState { get; set; }
         public ICollection<string> ModifiedProperties { get; set; }
         public bool Active { get; set; }

@@ -28,6 +28,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Mapping\EmployeeConfiguration.cs" />
+    <Compile Include="Mapping\RoleResourceConfiguration.cs" />
     <Compile Include="Mapping\RoleGroupRoleConfiguration.cs" />
     <Compile Include="Mapping\OrgUnitRoleGroupConfiguration.cs" />
     <Compile Include="Mapping\EmployeeOrgUnitConfiguration.cs" />
