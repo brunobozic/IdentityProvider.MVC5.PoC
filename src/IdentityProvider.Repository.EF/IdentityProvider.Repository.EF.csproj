@@ -36,6 +36,14 @@
     <Compile Include="Migrations\201810181639355_initial.Designer.cs">
       <DependentUpon>201810181639355_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810191424451_initial2.cs" />
+    <Compile Include="Migrations\201810191424451_initial2.Designer.cs">
+      <DependentUpon>201810191424451_initial2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Queries\UserGrants\OrganizationalUnitsDto.cs" />
+    <Compile Include="Queries\UserGrants\GrantedPriviligesDto.cs" />
+    <Compile Include="Queries\UserGrants\UserGrantQuery.cs" />
+    <Compile Include="Queries\UserGrants\UserGrantQueryResponse.cs" />
     <Compile Include="Queries\UserRolesResourcesOperations\OperationDto.cs" />
     <Compile Include="Queries\UserRolesResourcesOperations\ResourceOperationDto.cs" />
     <Compile Include="Queries\ISimpleQueryObject.cs" />
@@ -126,6 +134,9 @@
       <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Serilog.2.5.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\packages\StructureMap.4.7.0\lib\net45\StructureMap.dll</HintPath>
       <Private>True</Private>
@@ -156,6 +167,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201810181639355_initial.resx">
       <DependentUpon>201810181639355_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810191424451_initial2.resx">
+      <DependentUpon>201810191424451_initial2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -48,7 +48,12 @@ namespace IdentityProvider.Repository.EF.EFDataContext
 
         public DbSet<Resource> Resource { get; set; }
         public DbSet<Operation> Operation { get; set; }
-        //public DbSet<RoleGroup> RoleGroup { get; set; }
+        public DbSet<RoleGroup> RoleGroup { get; set; }
+        public DbSet<Employee> Employee { get; set; }
+        public DbSet<OrganisationalUnit> OrganisationalUnit { get; set; }
+        public DbSet<RoleGroupRoleJoin> RoleGroupContainsRoles { get; set; }
+        public DbSet<EmployeeOrgUnitJoin> EmployeesBelongToOgranizationalUnits { get; set; }
+        public DbSet<OrgUnitRoleGroupJoin> OrganizationalUnitsHaveRoleGroups { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<DbLog> DatabaseLog { get; set; }
         // public DbSet<ResourcesHaveOperations> ResourcesHaveOperations { get; set; }

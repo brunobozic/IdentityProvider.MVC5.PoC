@@ -1,4 +1,5 @@
 using System.ComponentModel.Design;
+using IdentityProvider.Infrastructure;
 using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.Certificates.ExpiryValidation;
 using IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource;
@@ -16,6 +17,7 @@ using IdentityProvider.Services;
 using IdentityProvider.Services.ApplicationRoleService;
 using IdentityProvider.Services.OperationsService;
 using IdentityProvider.Services.ResourceService;
+using IdentityProvider.Services.RowLeveLSecurityUserGrantService;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
 using StructureMap.Pipeline;
@@ -125,7 +127,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             For<ICertificateManager>().Use<CertificateManager>().LifecycleIs<UniquePerRequestLifecycle>();
             For<ICertificateFromEmbededResourceProvider>().Use<CertificateFromEmbeddedResourceProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             For<ICertificateExpirationValidator>().Use<CertificateExpirationValidator>().LifecycleIs<UniquePerRequestLifecycle>();
-
+            For<ICachedUserAuthorizationGrantsProvider>().Use<CachedUserAuthorizationGrantsProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             // ================================================================================
 
             For<IApplicationRoleService>().Use<ApplicationRoleService>().LifecycleIs<UniquePerRequestLifecycle>();

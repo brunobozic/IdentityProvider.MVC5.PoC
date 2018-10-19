@@ -52,11 +52,10 @@ namespace IdentityProvider.Models.Domain.Account
         public string CreatedById { get; set; }
         public DateTime? CreatedDate { get; set; }
 
-       // public ICollection<RoleGroup> RoleGroups { get; set; }
+   
         public ICollection<string> ModifiedProperties { get; set; }
 
         public virtual UserProfile UserProfile { get; set; }
-        public virtual Employee Employee { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync( UserManager<ApplicationUser> manager )
         {
@@ -67,8 +66,6 @@ namespace IdentityProvider.Models.Domain.Account
         }
 
         public TrackingState TrackingState { get; set; }
-
-
-
+        public Employee Employee1 { get; set; }
     }
 }

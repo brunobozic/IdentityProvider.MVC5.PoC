@@ -12,8 +12,9 @@ namespace IdentityProvider.Repository.EF.Mapping
             HasOptional(e => e.UserProfile)
             .WithRequired(a => a.User);
 
-            HasOptional(e => e.Employee)
-            .WithRequired(a => a.ApplicationUser);
+            HasOptional(e => e.Employee1)
+                .WithRequired(a => a.ApplicationUser);
+            //.Map(configuration => configuration.MapKey("Employee_Id"));
         }
     }
 }

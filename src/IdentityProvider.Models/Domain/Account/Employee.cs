@@ -17,11 +17,13 @@ namespace IdentityProvider.Models.Domain.Account
             throw new NotImplementedException();
         }
 
-        public virtual ApplicationUser ApplicationUser { get; set; }
         public bool Active { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
         public ICollection<EmployeeOrgUnitJoin> OrganisationalUnits { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
         public Employee()
         {

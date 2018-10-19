@@ -1,4 +1,5 @@
 ﻿using System;
+using IdentityProvider.Infrastructure;
 using IdentityProvider.Infrastructure.DatabaseLog;
 using IdentityProvider.Infrastructure.DatabaseLog.DTOs;
 using IdentityProvider.Infrastructure.DatabaseLog.Model;
@@ -15,10 +16,12 @@ namespace HAC.Helpdesk.Services.Logging.WCF
     public class DbLogService : IDbLogService
     {
         private readonly IUnitOfWorkAsync _uow;
+        private readonly ICachedUserAuthorizationGrantsProvider _cachedUserAuthorizationGrantsProvider;
 
-        public DbLogService(IUnitOfWorkAsync uow)
+        public DbLogService(IUnitOfWorkAsync uow, ICachedUserAuthorizationGrantsProvider cachedUserAuthorizationGrantsProvider)
         {
             _uow = uow;
+            _cachedUserAuthorizationGrantsProvider = cachedUserAuthorizationGrantsProvider;
         }
 
         public DbLogService()
@@ -27,7 +30,7 @@ namespace HAC.Helpdesk.Services.Logging.WCF
             {
                 var ctx = DataContextFactory.GetDataContextAsync();
 
-                _uow = new UnitOfWork(ctx, new RowAuthPoliciesContainer());
+                _uow = new UnitOfWork(ctx, new RowAuthPoliciesContainer(_cachedUserAuthorizationGrantsProvider));
             }
         }
 

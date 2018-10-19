@@ -142,6 +142,10 @@
     <Compile Include="DbSeed\IDoSeed.cs" />
     <Compile Include="OperationsService\IOperationService.cs" />
     <Compile Include="ResourceService\IApplicationResourceService.cs" />
+    <Compile Include="RowLeveLSecurityUserGrantService\CachedUserAuthorizationGrantsProviderProvider.cs" />
+    <Compile Include="RowLeveLSecurityUserGrantService\GrantedPriviligesResponse.cs" />
+    <Compile Include="RowLeveLSecurityUserGrantService\IUserGrantService.cs" />
+    <Compile Include="RowLeveLSecurityUserGrantService\UserGrantService.cs" />
     <Compile Include="UserProfileService\IUserProfileAdministrationService.cs" />
     <Compile Include="IWebSecurity.cs" />
     <Compile Include="OperationsService\OperationsService.cs" />

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using Module.Repository.EF.Repositories;
-using Microsoft.CSharp.RuntimeBinder;
 using Module.Repository.EF.RowLevelSecurity;
 
 namespace Module.Repository.EF.IntegrationTests.UnitTests.Fake

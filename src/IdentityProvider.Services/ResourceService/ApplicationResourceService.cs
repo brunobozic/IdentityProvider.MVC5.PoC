@@ -54,11 +54,5 @@ namespace IdentityProvider.Services.ResourceService
 
             return resource != null;
         }
-
-
-
-
-
-
     }
 }

@@ -76,6 +76,7 @@
     <Compile Include="Domain\IActive.cs" />
     <Compile Include="Email\GMailService.cs" />
     <Compile Include="IAuditTrail.cs" />
+    <Compile Include="ICachedUserAuthorizationGrantsProvider.cs" />
     <Compile Include="SessionStorageFactories\DataContextStorageFactory.cs" />
     <Compile Include="SessionStorageFactories\HttpDataContextStorageContainer.cs" />
     <Compile Include="SessionStorageFactories\HttpLoggingStorageContainer.cs" />

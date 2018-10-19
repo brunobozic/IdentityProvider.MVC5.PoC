@@ -20,6 +20,10 @@ namespace IdentityProvider.Repository.EF.Mapping
             Property(t => t.RowVersion)
                 .IsRowVersion()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
+
+            HasRequired(e => e.ApplicationUser)
+                .WithOptional(a => a.Employee1)
+                .Map(configuration => configuration.MapKey("ApplicationUser_Id"));
         }
     }
 }

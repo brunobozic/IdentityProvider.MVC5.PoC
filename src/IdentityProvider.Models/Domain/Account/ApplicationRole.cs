@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using IdentityProvider.Infrastructure.Domain;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TrackableEntities;

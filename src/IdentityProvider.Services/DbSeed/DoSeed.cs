@@ -15,7 +15,7 @@ namespace IdentityProvider.Services.DbSeed
         private readonly AppDbContext _context;
 
         [StructureMap.DefaultConstructor] // Set Default Constructor for StructureMap
-        public DoSeed(AppDbContext context)
+        public DoSeed( AppDbContext context )
         {
             _context = context;
         }
@@ -28,99 +28,99 @@ namespace IdentityProvider.Services.DbSeed
             if (!_context.Operation.Any(u => u.Name == "R"))
                 _context.Operation.Add(new Operation
                 {
-                    Name = "R",
-                    Description = "Read",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "R" ,
+                    Description = "Read" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 });
 
             if (!_context.Operation.Any(u => u.Name == "W"))
                 _context.Operation.Add(new Operation
                 {
-                    Name = "W",
-                    Description = "Write",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "W" ,
+                    Description = "Write" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 });
 
             if (!_context.Operation.Any(u => u.Name == "U"))
                 _context.Operation.Add(new Operation
                 {
-                    Name = "U",
-                    Description = "Update",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "U" ,
+                    Description = "Update" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 });
 
             if (!_context.Operation.Any(u => u.Name == "D"))
                 _context.Operation.Add(new Operation
                 {
-                    Name = "D",
-                    Description = "Delete",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "D" ,
+                    Description = "Delete" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 });
 
             if (!_context.Operation.Any(u => u.Name == "C"))
                 _context.Operation.Add(new Operation
                 {
-                    Name = "C",
-                    Description = "Insert",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "C" ,
+                    Description = "Insert" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 });
 
             if (!_context.Operation.Any(u => u.Name == "V"))
                 _context.Operation.Add(new Operation
                 {
-                    Name = "V",
-                    Description = "ViewResult",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "V" ,
+                    Description = "ViewResult" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 });
 
             if (!_context.Operation.Any(u => u.Name == "Upl"))
                 _context.Operation.Add(new Operation
                 {
-                    Name = "Upl",
-                    Description = "UploadBlob",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "Upl" ,
+                    Description = "UploadBlob" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 });
 
             if (!_context.Operation.Any(u => u.Name == "Test"))
                 _context.Operation.Add(new Operation
                 {
-                    Name = "Test",
-                    Description = "Test",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "Test" ,
+                    Description = "Test" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 });
 
             if (!_context.Operation.Any(u => u.Name == "Test2"))
                 _context.Operation.Add(new Operation
                 {
-                    Name = "Test2",
-                    Description = "Test2",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "Test2" ,
+                    Description = "Test2" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 });
 
@@ -151,10 +151,10 @@ namespace IdentityProvider.Services.DbSeed
             {
                 var r = new Resource
                 {
-                    Name = "ManageController",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "ManageController" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 };
 
@@ -174,11 +174,11 @@ namespace IdentityProvider.Services.DbSeed
             {
                 var r = new Resource
                 {
-                    Name = "AccountController",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
-                    TrackingState = TrackingState.Added,
+                    Name = "AccountController" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
                 };
 
                 r.Operations.Add(readOperation);
@@ -194,11 +194,11 @@ namespace IdentityProvider.Services.DbSeed
             {
                 var r = new Resource
                 {
-                    Name = "HomeController",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
-                    TrackingState = TrackingState.Added,
+                    Name = "HomeController" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
                 };
 
                 r.Operations.Add(readOperation);
@@ -214,11 +214,11 @@ namespace IdentityProvider.Services.DbSeed
             {
                 var r = new Resource
                 {
-                    Name = "AdministrationController",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
-                    TrackingState = TrackingState.Added,
+                    Name = "AdministrationController" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
                 };
 
                 r.Operations.Add(readOperation);
@@ -234,10 +234,10 @@ namespace IdentityProvider.Services.DbSeed
             {
                 var r = new Resource
                 {
-                    Name = "UserProfileController",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "UserProfileController" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 };
 
@@ -254,11 +254,11 @@ namespace IdentityProvider.Services.DbSeed
             {
                 var r = new Resource
                 {
-                    Name = "ListUserProfiles",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
-                    TrackingState = TrackingState.Added,
+                    Name = "ListUserProfiles" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
                 };
 
                 r.Operations.Add(readOperation);
@@ -271,10 +271,10 @@ namespace IdentityProvider.Services.DbSeed
             {
                 var r = new Resource
                 {
-                    Name = "ListLockedUserAccounts",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "ListLockedUserAccounts" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 };
 
@@ -288,10 +288,10 @@ namespace IdentityProvider.Services.DbSeed
             {
                 var r = new Resource
                 {
-                    Name = "UnlockLockedUserAccount",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "UnlockLockedUserAccount" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 };
 
@@ -305,11 +305,11 @@ namespace IdentityProvider.Services.DbSeed
             {
                 var r = new Resource
                 {
-                    Name = "UploadUserProfileImage",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
-                    TrackingState = TrackingState.Added,
+                    Name = "UploadUserProfileImage" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
                 };
 
                 r.Operations.Add(uploadOperation);
@@ -322,10 +322,10 @@ namespace IdentityProvider.Services.DbSeed
             {
                 var r = new Resource
                 {
-                    Name = "DeleteUserProfileImage",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "DeleteUserProfileImage" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 };
 
@@ -350,14 +350,14 @@ namespace IdentityProvider.Services.DbSeed
             if (!_context.Roles.Any(r => r.Name == "Admin"))
             {
                 var store = new RoleStore<ApplicationRole>(_context);
-                var manager = new ApplicationRoleManager(store, _context);
+                var manager = new ApplicationRoleManager(store , _context);
                 var role = new ApplicationRole("Admin")
                 {
-                    Name = "Admin",
-                    Description = "Admin",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "Admin" ,
+                    Description = "Admin" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 };
 
@@ -375,14 +375,14 @@ namespace IdentityProvider.Services.DbSeed
             if (!_context.Roles.Any(r => r.Name == "Standard"))
             {
                 var store = new RoleStore<ApplicationRole>(_context);
-                var manager = new ApplicationRoleManager(store, _context);
+                var manager = new ApplicationRoleManager(store , _context);
                 var role = new ApplicationRole("Standard")
                 {
-                    Name = "Standard",
-                    Description = "Standard",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "Standard" ,
+                    Description = "Standard" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 };
 
@@ -403,14 +403,14 @@ namespace IdentityProvider.Services.DbSeed
             if (!_context.Roles.Any(r => r.Name == "Guest"))
             {
                 var store = new RoleStore<ApplicationRole>(_context);
-                var manager = new ApplicationRoleManager(store, _context);
+                var manager = new ApplicationRoleManager(store , _context);
                 var role = new ApplicationRole("Guest")
                 {
-                    Name = "Guest",
-                    Description = "Guest",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Name = "Guest" ,
+                    Description = "Guest" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 };
 
@@ -432,17 +432,17 @@ namespace IdentityProvider.Services.DbSeed
 
                 var user = new ApplicationUser
                 {
-                    UserName = "AppAutomation",
-                    FirstName = "Application",
-                    LastName = "AutomatedTasks",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    UserName = "AppAutomation" ,
+                    FirstName = "Application" ,
+                    LastName = "AutomatedTasks" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 };
 
-                manager.Create(user, "AppAutomation!");
-                manager.AddToRole(user.Id, "Admin");
+                manager.Create(user , "AppAutomation!");
+                manager.AddToRole(user.Id , "Admin");
             }
 
             if (!_context.Users.Any(u => u.UserName == "AdminUser"))
@@ -451,18 +451,18 @@ namespace IdentityProvider.Services.DbSeed
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    UserName = "AdminUser",
-                    FirstName = "Application",
-                    LastName = "Administrator",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Id = Guid.NewGuid().ToString() ,
+                    UserName = "AdminUser" ,
+                    FirstName = "Application" ,
+                    LastName = "Administrator" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 };
 
-                manager.Create(user, "AdminUser!");
-                manager.AddToRole(user.Id, "Admin");
+                manager.Create(user , "AdminUser!");
+                manager.AddToRole(user.Id , "Admin");
             }
 
             if (!_context.Users.Any(u => u.UserName == "StandardUser"))
@@ -471,18 +471,18 @@ namespace IdentityProvider.Services.DbSeed
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    UserName = "StandardUser",
-                    FirstName = "Application",
-                    LastName = "Standard User",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
+                    Id = Guid.NewGuid().ToString() ,
+                    UserName = "StandardUser" ,
+                    FirstName = "Application" ,
+                    LastName = "Standard User" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added
                 };
 
-                manager.Create(user, "StandardUser!");
-                manager.AddToRole(user.Id, "Standard");
+                manager.Create(user , "StandardUser!");
+                manager.AddToRole(user.Id , "Standard");
             }
 
             if (!_context.Users.Any(u => u.UserName == "bruno.bozic@blink.hr"))
@@ -491,20 +491,126 @@ namespace IdentityProvider.Services.DbSeed
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    UserName = "bruno.bozic@blink.hr",
-                    FirstName = "Bruno",
-                    LastName = "Božić",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
+                    Id = Guid.NewGuid().ToString() ,
+                    UserName = "bruno.bozic@blink.hr" ,
+                    FirstName = "Bruno" ,
+                    LastName = "Božić" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
                     TrackingState = TrackingState.Added
                 };
 
-                manager.Create(user, "bruno123!");
-                manager.AddToRole(user.Id, "Admin");
+                manager.Create(user , "bruno123!");
+                manager.AddToRole(user.Id , "Admin");
             }
 
             _context.SaveChanges();
+
+            #region Employee
+
+            var user1 = _context.Users.SingleOrDefault(u => u.FirstName == "Bruno" && u.LastName == "Božić");
+
+            if (!_context.Employee.Any(u => u.Name == "Bruno" && u.Surname == "Božić"))
+            {
+                var emp = new Employee
+                {
+                    Name = "Bruno" ,
+                    Surname = "Božić" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationUser = user1
+                };
+
+                _context.Employee.Add(emp);
+            }
+
+            #endregion Employee
+
+            #region Organizational Units
+
+            if (!_context.OrganisationalUnit.Any(u => u.Name == "Developers"))
+            {
+                var orgUnit = new OrganisationalUnit
+                {
+                    Name = "Developers" ,
+                    SecurityWeight = 0 ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added
+                };
+
+                _context.OrganisationalUnit.Add(orgUnit);
+
+            }
+
+            if (!_context.OrganisationalUnit.Any(u => u.Name == "Director"))
+            {
+                var orgUnit = new OrganisationalUnit
+                {
+                    Name = "Director" ,
+                    SecurityWeight = 1 ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added
+                };
+
+                _context.OrganisationalUnit.Add(orgUnit);
+
+            }
+
+            if (!_context.OrganisationalUnit.Any(u => u.Name == "HR"))
+            {
+                var orgUnit = new OrganisationalUnit
+                {
+                    Name = "HR" ,
+                    SecurityWeight = 2 ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added
+                };
+
+                _context.OrganisationalUnit.Add(orgUnit);
+            }
+
+            if (!_context.OrganisationalUnit.Any(u => u.Name == "Administration"))
+            {
+                var orgUnit = new OrganisationalUnit
+                {
+                    Name = "Administration" ,
+                    SecurityWeight = 3 ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added
+                };
+
+                _context.OrganisationalUnit.Add(orgUnit);
+            }
+
+            if (!_context.OrganisationalUnit.Any(u => u.Name == "PointOfSales"))
+            {
+                var orgUnit = new OrganisationalUnit
+                {
+                    Name = "PointOfSales" ,
+                    SecurityWeight = 4 ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added
+                };
+
+                _context.OrganisationalUnit.Add(orgUnit);
+            }
+
+            _context.SaveChanges();
+
+            #endregion Organizational Units
+
 
             return true;
         }
