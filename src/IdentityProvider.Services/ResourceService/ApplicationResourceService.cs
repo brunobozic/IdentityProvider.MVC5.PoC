@@ -9,7 +9,7 @@ using Module.ServicePattern;
 namespace IdentityProvider.Services.ResourceService
 {
 
-    public class ApplicationResourceService : Service<Resource>, IApplicationResourceService
+    public class ApplicationResourceService : Service<ApplicationResource>, IApplicationResourceService
     {
         private readonly ILog4NetLoggingService _loggingService;
         private readonly IMapper _mapper;
@@ -24,7 +24,7 @@ namespace IdentityProvider.Services.ResourceService
             , IMapper mapper
             , ApplicationSignInManager signInManager
             , ApplicationUserManager userManager
-        ) : base(unitOfWorkAsync.RepositoryAsync<Resource>())
+        ) : base(unitOfWorkAsync.RepositoryAsync<ApplicationResource>())
         {
             _unitOfWorkAsync = unitOfWorkAsync;
             _loggingService = loggingService;
@@ -33,26 +33,6 @@ namespace IdentityProvider.Services.ResourceService
             _userManager = userManager;
         }
 
-        public int AddResource(int id, string name, List<Operation> operations)
-        {
-            var resource = new Resource
-            {
-                Id = id,
-                Name = name,
-                Operations = operations
-            };
-
-            _unitOfWorkAsync.RepositoryAsync<Resource>().Insert(resource);
-            _unitOfWorkAsync.Commit();
-
-            return resource.Id;
-        }
-
-        public bool FoundResource(int id)
-        {
-            var resource = _unitOfWorkAsync.RepositoryAsync<Resource>().Queryable().Single(i => i.Id.Equals(id));
-
-            return resource != null;
-        }
+   
     }
 }

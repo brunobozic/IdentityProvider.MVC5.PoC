@@ -7,23 +7,21 @@ using TrackableEntities;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    
+
     public class ApplicationRole : IdentityRole, IFullAudit, ISoftDeletable, IHandlesConcurrency, ITrackable
     {
 
         public ApplicationRole()
         {
-           
-            
             base.Id = Guid.NewGuid().ToString();
             Active = true;
             ActiveFrom = DateTime.UtcNow;
         }
 
-        public ApplicationRole(string roleName) : this()
+        public ApplicationRole( string roleName ) : this()
         {
-        
-     
+
+
             base.Name = roleName;
             Active = true;
             ActiveFrom = DateTime.UtcNow;
@@ -34,13 +32,18 @@ namespace IdentityProvider.Models.Domain.Account
         [Required]
         public string Description { get; set; }
         public virtual ApplicationUser UserProfile { get; set; }
-        public virtual ICollection<RoleGroupRoleJoin> RoleGroups { get; set; }
-        public virtual ICollection<RoleResourceJoin> Resources { get; set; }
+        public virtual ICollection<RoleGroupContainsRoleLink> RoleGroups { get; set; }
         public TrackingState TrackingState { get; set; }
         public ICollection<string> ModifiedProperties { get; set; }
+
+        #region IsActive
+
         public bool Active { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
+
+        #endregion IsActive
+
         public string ModifiedById { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public string DeletedById { get; set; }

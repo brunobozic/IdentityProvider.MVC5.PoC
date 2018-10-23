@@ -9,18 +9,27 @@ using IdentityProvider.Infrastructure.Domain;
 namespace IdentityProvider.Models.Domain.Account
 {
     /// <inheritdoc />
-    [Table("Employee" , Schema = "Account")]
+    [Table("Employee" , Schema = "Organization")]
     public class Employee : DomainEntity<int>, IActive
     {
+        #region IValidatable Entity contract implementation
+
         public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
             throw new NotImplementedException();
         }
 
+        #endregion IValidatable Entity contract implementation
+
+        #region IsActive
+
         public bool Active { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
-        public ICollection<EmployeeOrgUnitJoin> OrganisationalUnits { get; set; }
+
+        #endregion IsActive
+
+        public ICollection<EmployeeBelongsToOrgUnitLink> OrganizationalUnits { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
@@ -29,16 +38,16 @@ namespace IdentityProvider.Models.Domain.Account
         {
             Active = true;
             ActiveFrom = DateTime.UtcNow;
-            OrganisationalUnits = new HashSet<EmployeeOrgUnitJoin>();
+            OrganizationalUnits = new HashSet<EmployeeBelongsToOrgUnitLink>();
         }
 
-        public List<EmployeeOrgUnitJoin> FetchAssociatedOrganisationalUnits()
+        public List<EmployeeBelongsToOrgUnitLink> FetchAssociatedOrganisationalUnits()
         {
-            List<EmployeeOrgUnitJoin> organisationalUnits;
+            List<EmployeeBelongsToOrgUnitLink> organisationalUnits;
 
             try
             {
-                organisationalUnits = OrganisationalUnits.Where(i => i.Active && !i.IsDeleted && i.EmployeeId.Equals(Id)).ToList();
+                organisationalUnits = OrganizationalUnits.Where(i => i.Active && !i.IsDeleted && i.EmployeeId.Equals(Id)).ToList();
             }
             catch (Exception e)
             {

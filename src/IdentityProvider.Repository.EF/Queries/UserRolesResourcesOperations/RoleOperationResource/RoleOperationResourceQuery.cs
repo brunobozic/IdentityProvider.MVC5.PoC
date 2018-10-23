@@ -22,26 +22,26 @@ namespace IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.Ro
         public IEnumerable<RoleOperationResourceDto> Execute()
         {
             var identityContext = _context as AppDbContext;
-
-            return (IEnumerable<RoleOperationResourceDto>)(from resource in _context.Resource
-                                                           from operation in resource.Operations
-                                                           from roles in resource.Roles
-                                                           from cross in roles.Users
-                                                           from users in identityContext.Users
-                                                           where resource.Active
-                                                                 && operation.Active
-                                                                 && roles.Active
-                                                                 && users.Active
-                                                                 && users.Id.Equals(cross.UserId)
-                                                                 && cross.RoleId.Equals(roles.Id)
-                                                           select new RoleOperationResourceDto
-                                                           {
-                                                               ResourceName = resource.Name,
-                                                               RoleName = roles.Name,
-                                                               UserName = users.UserName,
-                                                               Operation = operation.Name,
-                                                               User = users.UserName
-                                                           });
+            return null;
+            //return (IEnumerable<RoleOperationResourceDto>)(from resource in _context.ApplicationResource
+            //                                               from operation in resource.Operations
+            //                                               from roles in resource.Roles
+            //                                               from cross in roles.Users
+            //                                               from users in identityContext.Users
+            //                                               where resource.Active
+            //                                                     && operation.Active
+            //                                                     && roles.Active
+            //                                                     && users.Active
+            //                                                     && users.Id.Equals(cross.UserId)
+            //                                                     && cross.RoleId.Equals(roles.Id)
+            //                                               select new RoleOperationResourceDto
+            //                                               {
+            //                                                   ResourceName = resource.Name,
+            //                                                   RoleName = roles.Name,
+            //                                                   UserName = users.UserName,
+            //                                                   Operation = operation.Name,
+            //                                                   User = users.UserName
+            //                                               });
         }
     }
 }

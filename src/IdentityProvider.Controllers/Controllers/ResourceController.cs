@@ -189,7 +189,7 @@ namespace IdentityProvider.Controllers.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ResourceInsert(Resource resourceToInsert)
+        public ActionResult ResourceInsert(ApplicationResource resourceToInsert)
         {
             var retVal = new ResourceInsertedVm();
 
@@ -232,7 +232,7 @@ namespace IdentityProvider.Controllers.Controllers
 
             try
             {
-                var repo = _unitOfWorkAsync.RepositoryAsync<Resource>();
+                var repo = _unitOfWorkAsync.RepositoryAsync<ApplicationResource>();
                 await repo.DeleteAsync(int.Parse(resourceToDelete));
                 var result = await _unitOfWorkAsync.SaveChangesAsync();
 

@@ -4,7 +4,7 @@ using IdentityProvider.Models.Domain.Account;
 
 namespace IdentityProvider.Repository.EF.Mapping
 {
-    public class OrgUnitRoleGroupJoinConfiguration : EntityTypeConfiguration<OrgUnitRoleGroupJoin>
+    public class OrgUnitRoleGroupJoinConfiguration : EntityTypeConfiguration<OrgUnitContainsRoleGroupLink>
     {
         public OrgUnitRoleGroupJoinConfiguration()
         {
@@ -20,14 +20,6 @@ namespace IdentityProvider.Repository.EF.Mapping
             Property(t => t.RowVersion)
                 .IsRowVersion()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
-
-            HasRequired(ph => ph.OrganisationalUnit)
-            .WithMany(ph => ph.RoleGroups)
-            .HasForeignKey(ph => ph.RoleGroupId);
-
-            HasRequired(ph => ph.RoleGroup)
-                .WithMany(ph => ph.OrganisationalUnits)
-                .HasForeignKey(ph => ph.OrganisationalUnitId);
         }
     }
 }

@@ -7,13 +7,13 @@ namespace IdentityProvider.Repository.EF.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class initial2 : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initial2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201810191424451_initial2"; }
+            get { return "201810231528161_Initial"; }
         }
         
         string IMigrationMetadata.Source

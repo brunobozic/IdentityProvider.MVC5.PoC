@@ -28,18 +28,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Mapping\EmployeeConfiguration.cs" />
-    <Compile Include="Mapping\RoleResourceConfiguration.cs" />
+    <Compile Include="Mapping\OrgUnitRoleConfiguration.cs" />
+    <Compile Include="Mapping\ResourcePermissionGroupConfiguration.cs" />
+    <Compile Include="Mapping\RoleResourcePermissionGroupLinkConfiguration.cs" />
+    <Compile Include="Mapping\ResourcePermissionGroupResourcePermissionConfiguration.cs" />
+    <Compile Include="Mapping\ResourcePermissionConfiguration.cs" />
     <Compile Include="Mapping\RoleGroupRoleConfiguration.cs" />
     <Compile Include="Mapping\OrgUnitRoleGroupConfiguration.cs" />
     <Compile Include="Mapping\EmployeeOrgUnitConfiguration.cs" />
     <Compile Include="Mapping\OrganisationalUnitConfiguration.cs" />
-    <Compile Include="Migrations\201810181639355_initial.cs" />
-    <Compile Include="Migrations\201810181639355_initial.Designer.cs">
-      <DependentUpon>201810181639355_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810191424451_initial2.cs" />
-    <Compile Include="Migrations\201810191424451_initial2.Designer.cs">
-      <DependentUpon>201810191424451_initial2.cs</DependentUpon>
+    <Compile Include="Migrations\201810231528161_Initial.cs" />
+    <Compile Include="Migrations\201810231528161_Initial.Designer.cs">
+      <DependentUpon>201810231528161_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Queries\UserGrants\OrganizationalUnitsDto.cs" />
     <Compile Include="Queries\UserGrants\GrantedPriviligesDto.cs" />
@@ -56,7 +56,7 @@
     <Compile Include="Mapping\DatabaseAuditTrailConfiguration.cs" />
     <Compile Include="Mapping\DatabaseLogConfiguration.cs" />
     <Compile Include="Mapping\OperationConfiguration.cs" />
-    <Compile Include="Mapping\ResourceConfiguration.cs" />
+    <Compile Include="Mapping\ApplicationResourceConfiguration.cs" />
     <Compile Include="Mapping\RoleGroupConfiguration.cs" />
     <Compile Include="Mapping\UserProfileConfiguration.cs" />
     <Compile Include="Mapping\ApplicationRoleConfiguration.cs" />
@@ -166,11 +166,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810181639355_initial.resx">
-      <DependentUpon>201810181639355_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810191424451_initial2.resx">
-      <DependentUpon>201810191424451_initial2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810231528161_Initial.resx">
+      <DependentUpon>201810231528161_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

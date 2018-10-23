@@ -6,7 +6,7 @@ namespace IdentityProvider.Models.ViewModels.Resources.Extensions
 {
     public static class ResourceExtension
     {
-        public static OperationVm ConvertToViewModel( this Resource resource )
+        public static OperationVm ConvertToViewModel( this ApplicationResource resource )
         {
             var vm = new OperationVm
             {

@@ -6,28 +6,37 @@ using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    [Table("RoleGroupRoleJoin" , Schema = "Account")]
-   public class RoleGroupRoleJoin : DomainEntity<int>, IActive
+    [Table("EmployeeBelongsToOrgUnitLink" , Schema = "Organization")]
+    public class EmployeeBelongsToOrgUnitLink : DomainEntity<int>, IActive
     {
-        public RoleGroupRoleJoin()
+        public EmployeeBelongsToOrgUnitLink()
         {
             Active = true;
             ActiveFrom = DateTime.UtcNow;
         }
 
-        public virtual ApplicationRole Role { get; set; }
-        public virtual RoleGroup RoleGroup { get; set; }
+        public virtual OrganizationalUnit OrganizationalUnit { get; set; }
+        public virtual Employee Employee { get; set; }
 
-        public string RoleId { get; set; }
-        public int RoleGroupId { get; set; }
+        public int OrganizationalUnitId { get; set; }
+        public int EmployeeId { get; set; }
+
+        #region IValidatable Entity contract implementation
 
         public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
             throw new NotImplementedException();
         }
 
+        #endregion IValidatable Entity contract implementation
+
+        #region IsActive
+
         public bool Active { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
+
+        #endregion IsActive
+
     }
 }

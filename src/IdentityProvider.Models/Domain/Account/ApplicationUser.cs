@@ -41,9 +41,13 @@ namespace IdentityProvider.Models.Domain.Account
 
         public bool IsDeleted { get; set; }
 
+        #region IsActive
+
         public bool Active { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
+
+        #endregion IsActive
 
         public string ModifiedById { get; set; }
         public DateTime? ModifiedDate { get; set; }
@@ -52,7 +56,7 @@ namespace IdentityProvider.Models.Domain.Account
         public string CreatedById { get; set; }
         public DateTime? CreatedDate { get; set; }
 
-   
+
         public ICollection<string> ModifiedProperties { get; set; }
 
         public virtual UserProfile UserProfile { get; set; }

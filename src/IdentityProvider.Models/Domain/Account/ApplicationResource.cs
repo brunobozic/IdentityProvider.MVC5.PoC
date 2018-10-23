@@ -6,12 +6,11 @@ using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    [Table("Resources" , Schema = "Account")]
-    public class Resource : DomainEntity<int>, IActive
+    [Table("Resources" , Schema = "Application")]
+    public class ApplicationResource : DomainEntity<int>, IActive
     {
-        public Resource()
+        public ApplicationResource()
         {
-            Operations = new HashSet<Operation>();
             Active = true;
             ActiveFrom = DateTime.UtcNow;
         }
@@ -19,24 +18,16 @@ namespace IdentityProvider.Models.Domain.Account
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+
+        #region IsActive
+
         public bool Active { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
-        public virtual ICollection<Operation> Operations { get; set; }
-        public virtual ICollection<RoleResourceJoin> Roles { get; set; }
 
-        public void AssignOperationsToThisResource( List<Operation> operations )
-        {
-            foreach (var op in operations)
-            {
-                Operations.Add(op);
-            }
-        }
+        #endregion IsActive
 
-        public void AssignOperationToThisResource( Operation operation )
-        {
-            Operations.Add(operation);
-        }
+        public virtual ICollection<Permission> ResourcePermissions { get; set; }
 
         public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
@@ -44,7 +35,7 @@ namespace IdentityProvider.Models.Domain.Account
 
             if (string.IsNullOrEmpty(Name) && name.Length > 0)
             {
-                yield return new ValidationResult("Operation name is required." , name);
+                yield return new ValidationResult("Application Resource name is required." , name);
             }
         }
     }

@@ -8,13 +8,13 @@ using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    [Table("RoleGroups" , Schema = "Account")]
+    [Table("RoleGroup" , Schema = "Organization")]
     public class RoleGroup : DomainEntity<int>, IActive
     {
         public RoleGroup()
         {
-          
-            OrganisationalUnits = new HashSet<OrgUnitRoleGroupJoin>();
+
+            OrganisationalUnits = new HashSet<OrgUnitContainsRoleGroupLink>();
             Active = true;
             ActiveFrom = DateTime.UtcNow;
         }
@@ -27,21 +27,29 @@ namespace IdentityProvider.Models.Domain.Account
         [MaxLength(260 , ErrorMessage = "The description of the role group must be between 5 and 260 characters"), MinLength(5)]
         public string Description { get; set; }
 
+        #region IsActive
+
         public bool Active { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
 
-        public virtual ICollection<RoleGroupRoleJoin> Roles { get; set; }
-        public virtual ICollection<OrgUnitRoleGroupJoin> OrganisationalUnits { get; set; }
+        #endregion IsActive
+
+        public virtual ICollection<RoleGroupContainsRoleLink> Roles { get; set; }
+        public virtual ICollection<OrgUnitContainsRoleGroupLink> OrganisationalUnits { get; set; }
+
+        #region IValidatable Entity contract implementation
 
         public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
-            return null;
+            throw new NotImplementedException();
         }
 
-        public List<OrgUnitRoleGroupJoin> FetchAssociatedOrganisationalUnits()
+        #endregion IValidatable Entity contract implementation
+
+        public List<OrgUnitContainsRoleGroupLink> FetchAssociatedOrganisationalUnits()
         {
-            List<OrgUnitRoleGroupJoin> organisationalUnits;
+            List<OrgUnitContainsRoleGroupLink> organisationalUnits;
 
             try
             {
@@ -58,13 +66,13 @@ namespace IdentityProvider.Models.Domain.Account
             return organisationalUnits;
         }
 
-        public List<RoleGroupRoleJoin> FetchAssociatedRoles()
+        public List<RoleGroupContainsRoleLink> FetchAssociatedRoles()
         {
-            List<RoleGroupRoleJoin> roles;
+            List<RoleGroupContainsRoleLink> roles;
 
             try
             {
-                roles = Roles.Where(i => i.Active && !i.IsDeleted && i.RoleId.Equals(Id)).ToList();
+                roles = Roles.Where(i => i.Active && !i.IsDeleted && i.ApplicationRoleId.Equals(Id)).ToList();
             }
             catch (Exception e)
             {

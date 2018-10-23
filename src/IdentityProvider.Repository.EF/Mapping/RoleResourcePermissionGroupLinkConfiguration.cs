@@ -4,9 +4,9 @@ using IdentityProvider.Models.Domain.Account;
 
 namespace IdentityProvider.Repository.EF.Mapping
 {
-    public class RoleResourceConfiguration : EntityTypeConfiguration<RoleResourceJoin>
+    public class RolePermissionGroupLinkConfiguration : EntityTypeConfiguration<RoleContainsPermissionGroupLink>
     {
-        public RoleResourceConfiguration()
+        public RolePermissionGroupLinkConfiguration()
         {
             // Primary Key
             HasKey(e => e.Id);
@@ -20,14 +20,6 @@ namespace IdentityProvider.Repository.EF.Mapping
             Property(t => t.RowVersion)
                 .IsRowVersion()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
-
-            HasRequired(ph => ph.Resource)
-                .WithMany(ph => ph.Roles)
-                .HasForeignKey(ph => ph.RoleId);
-
-            HasRequired(ph => ph.Role)
-                .WithMany(ph => ph.Resources)
-                .HasForeignKey(ph => ph.ResourceId);
         }
     }
 }

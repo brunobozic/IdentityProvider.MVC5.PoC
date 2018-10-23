@@ -13,7 +13,7 @@ namespace IdentityProvider.Repository.EF.Mapping
                 .HasColumnAnnotation(
                     IndexAnnotation.AnnotationName,
                     new IndexAnnotation(
-                        new IndexAttribute("IX_RoleName", 1) { IsUnique = true }));
+                        new IndexAttribute("IX_ApplicationRoleName" , 1) { IsUnique = true }));
         }
     }
 }

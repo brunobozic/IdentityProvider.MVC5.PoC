@@ -8,10 +8,10 @@ using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    [Table("OrganisationalUnit" , Schema = "Account")]
-    public class OrganisationalUnit : DomainEntity<int>, IActive
+    [Table("Unit" , Schema = "Organization")]
+    public class OrganizationalUnit : DomainEntity<int>, IActive
     {
-        public OrganisationalUnit()
+        public OrganizationalUnit()
         {
             Active = true;
             ActiveFrom = DateTime.UtcNow;
@@ -19,14 +19,22 @@ namespace IdentityProvider.Models.Domain.Account
             SecurityWeight = 0; // Guest
         }
 
+        #region IValidatable Entity contract implementation
+
         public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
             throw new NotImplementedException();
         }
 
+        #endregion IValidatable Entity contract implementation
+
+        #region IsActive
+
         public bool Active { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
+
+        #endregion IsActive
 
         [Required]
         [MaxLength(50 , ErrorMessage = "The name of the organizational unit must be between 2 and 50 characters"), MinLength(2)]
@@ -40,13 +48,13 @@ namespace IdentityProvider.Models.Domain.Account
         [Range(0 , 50)]
         public int SecurityWeight { get; set; }
 
-        public ICollection<EmployeeOrgUnitJoin> Employees { get; set; }
-        public ICollection<OrgUnitRoleGroupJoin> RoleGroups { get; set; }
-        public ICollection<OrgUnitRoleGroupJoin> OrganisationalUnits { get; set; }
+        public ICollection<EmployeeBelongsToOrgUnitLink> Employees { get; set; }
+        public ICollection<OrgUnitContainsRoleGroupLink> RoleGroups { get; set; }
+        public ICollection<OrgUnitContainsRoleGroupLink> OrganisationalUnits { get; set; }
 
-        public List<EmployeeOrgUnitJoin> FetchAssociatedEmployees()
+        public List<EmployeeBelongsToOrgUnitLink> FetchAssociatedEmployees()
         {
-            List<EmployeeOrgUnitJoin> employees;
+            List<EmployeeBelongsToOrgUnitLink> employees;
 
             try
             {
@@ -63,9 +71,9 @@ namespace IdentityProvider.Models.Domain.Account
             return employees;
         }
 
-        public List<OrgUnitRoleGroupJoin> FetchAssociatedRoleGroups()
+        public List<OrgUnitContainsRoleGroupLink> FetchAssociatedRoleGroups()
         {
-            List<OrgUnitRoleGroupJoin> roleGroups;
+            List<OrgUnitContainsRoleGroupLink> roleGroups;
 
             try
             {

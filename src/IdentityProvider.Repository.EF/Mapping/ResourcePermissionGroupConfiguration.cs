@@ -5,9 +5,9 @@ using IdentityProvider.Models.Domain.Account;
 
 namespace IdentityProvider.Repository.EF.Mapping
 {
-    public class ResourceConfiguration : EntityTypeConfiguration<Resource>
+    public class ResourcePermissionGroupConfiguration : EntityTypeConfiguration<PermissionGroup>
     {
-        public ResourceConfiguration()
+        public ResourcePermissionGroupConfiguration()
         {
             // Primary Key
             HasKey(e => e.Id);
@@ -27,20 +27,6 @@ namespace IdentityProvider.Repository.EF.Mapping
                 .IsRowVersion()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 
-            Property(t => t.Name)
-                .HasColumnAnnotation(
-                    IndexAnnotation.AnnotationName,
-                    new IndexAnnotation(
-                        new IndexAttribute("IX_ResourceName", 1) { IsUnique = true }));
-
-            HasMany(t => t.Operations)
-                .WithMany(c => c.Resources)
-                .Map(m =>
-                {
-                    m.ToTable("ResourcesHaveOperations", "Account");
-                    m.MapLeftKey("ResourceId");
-                    m.MapRightKey("OperationId");
-                });
         }
     }
 }

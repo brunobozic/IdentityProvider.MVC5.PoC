@@ -6,7 +6,7 @@ using IdentityProvider.Models.Domain.Account;
 
 namespace IdentityProvider.Repository.EF.Mapping
 {
-    public class OrganisationalUnitConfiguration : EntityTypeConfiguration<OrganisationalUnit>, IAuditTrail
+    public class OrganisationalUnitConfiguration : EntityTypeConfiguration<OrganizationalUnit>, IAuditTrail
     {
         public OrganisationalUnitConfiguration()
         {
