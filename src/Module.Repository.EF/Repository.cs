@@ -25,7 +25,11 @@ namespace Module.Repository.EF
         private readonly IRowAuthPoliciesContainer _container;
         private readonly Expression<Func<TEntity , bool>> authFilter;
 
-        public Repository( DbContext context , IUnitOfWorkAsync unitOfWork , IRowAuthPoliciesContainer rowAuthPoliciesContainer )
+        public Repository( 
+            DbContext context 
+            , IUnitOfWorkAsync unitOfWork 
+            , IRowAuthPoliciesContainer rowAuthPoliciesContainer 
+        )
         {
             UnitOfWork = unitOfWork;
             Context = context;

@@ -136,14 +136,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IdentityProvider.Repository.EF\IdentityProvider.Repository.EF.csproj">
-      <Project>{0CA9D23C-1325-485B-904C-8E8CDF9EE5A7}</Project>
-      <Name>HAC.Helpdesk.SimpleMembership.Repository.EF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IdentityProvider.Services\IdentityProvider.Services.csproj">
-      <Project>{7D969281-FD71-4DFA-ACF3-7CE772F950A5}</Project>
-      <Name>HAC.Helpdesk.SimpleMembership.Services</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IdentityProvider.Infrastructure\IdentityProvider.Infrastructure.csproj">
       <Project>{9C5177D6-B929-4082-B97F-0A2EC4954B19}</Project>
       <Name>IdentityProvider.Infrastructure</Name>
@@ -151,6 +143,14 @@
     <ProjectReference Include="..\IdentityProvider.Models\IdentityProvider.Models.csproj">
       <Project>{37F80328-35AC-4FED-8C50-59AFB2987B12}</Project>
       <Name>IdentityProvider.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IdentityProvider.Repository.EF\IdentityProvider.Repository.EF.csproj">
+      <Project>{0CA9D23C-1325-485B-904C-8E8CDF9EE5A7}</Project>
+      <Name>HAC.Helpdesk.SimpleMembership.Repository.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IdentityProvider.Services\IdentityProvider.Services.csproj">
+      <Project>{7D969281-FD71-4DFA-ACF3-7CE772F950A5}</Project>
+      <Name>HAC.Helpdesk.SimpleMembership.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Module.Repository.EF\Module.Repository.EF.csproj">
       <Project>{57C00358-6CBC-460C-A358-1C9D02637CE9}</Project>
@@ -162,7 +162,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Operation\" />
     <Folder Include="Views\Resource\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

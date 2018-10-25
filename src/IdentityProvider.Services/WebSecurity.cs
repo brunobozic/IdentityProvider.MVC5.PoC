@@ -16,7 +16,6 @@ using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.Factories;
-using IdentityProvider.Services.RowLeveLSecurityUserGrantService;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -875,8 +874,6 @@ namespace IdentityProvider.Services
 
                 if (_loggingService == null)
                     _loggingService = Log4NetLoggingFactory.GetLogger();
-
-               
 
                 _unitOfWorkAsync = new UnitOfWork(dbContextAsync , new RowAuthPoliciesContainer(_cachedUserAuthorizationGrantsProvider));
                 // UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_dbContextAsync as DbContext));

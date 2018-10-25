@@ -1,6 +1,6 @@
-﻿namespace IdentityProvider.Models.ViewModels.Resources
+﻿namespace IdentityProvider.Models.ViewModels.Operations
 {
-    public class ResourceDeletedVm
+    public class OperationDeletedVm
     {
         public bool WasDeleted { get; set; }
         public string Error { get; set; }

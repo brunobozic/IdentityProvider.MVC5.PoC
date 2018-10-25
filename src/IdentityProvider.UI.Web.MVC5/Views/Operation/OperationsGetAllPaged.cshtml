@@ -9,6 +9,7 @@
 
     string currentFilter = ViewBag.CurrentFilter;
     string currentSort = ViewBag.CurrentSort;
+
     if (string.IsNullOrEmpty(currentSort))
     {
         currentSort = "Created_Date_Desc";
@@ -150,6 +151,7 @@
         });
     });
 
+    var deleteUrl = "/Operation/OperationDeleteAsync/";
     // Delete item from grid
     function deleteOperation(operationId) {
         swal.setDefaults({
@@ -219,6 +221,7 @@
             $('#mdModal').modal('hide');
         });
 
+    var detailUrl = "/Operation/OperationDetails";
     // Item details modal
     $(document).ready(function () {
         $(".detailsDialog").click(function (event) {
@@ -269,6 +272,7 @@
         });
     });
 
+    var editUrl = "/Operation/OperationEdit";
     // Item edit modal
     $(document).ready(function () {
         $(".editDialog").click(function (event) {
@@ -319,6 +323,7 @@
         });
     });
 
+    var insertUrl = "/Operation/OperationInsert";
     // Create a new item modal
     $(document).ready(function () {
         $(".createNewDialog").click(function (event) {

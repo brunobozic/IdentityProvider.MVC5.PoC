@@ -2,9 +2,9 @@
 using System.Web.Mvc;
 using PagedList;
 
-namespace IdentityProvider.Models.ViewModels.Resources
+namespace IdentityProvider.Models.ViewModels.Operations
 {
-    public class ResourcePagedVm
+    public class OperationPagedVm
     {
         [Display(Name = "Find by")]
         public string SearchString { get; set; }
@@ -18,7 +18,7 @@ namespace IdentityProvider.Models.ViewModels.Resources
         public int? NumberOfInactiveItems { get; set; }
         public int? NumberOfActiveItems { get; set; }
         public SelectList PageSizeList { get; set; }
-        public IPagedList<ResourceDto> Resources { get; set; }
+        public IPagedList<OperationVm> Operations { get; set; }
         public string HeaderBigText { get; set; }
         public string HeaderSmallText { get; set; }
     }

@@ -41,11 +41,14 @@
     <Compile Include="Migrations\201810231528161_Initial.Designer.cs">
       <DependentUpon>201810231528161_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810250931298_Initial2.cs" />
+    <Compile Include="Migrations\201810250931298_Initial2.Designer.cs">
+      <DependentUpon>201810250931298_Initial2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Queries\UserGrants\OrganizationalUnitsDto.cs" />
     <Compile Include="Queries\UserGrants\GrantedPriviligesDto.cs" />
     <Compile Include="Queries\UserGrants\UserGrantQuery.cs" />
     <Compile Include="Queries\UserGrants\UserGrantQueryResponse.cs" />
-    <Compile Include="Queries\UserRolesResourcesOperations\OperationDto.cs" />
     <Compile Include="Queries\UserRolesResourcesOperations\ResourceOperationDto.cs" />
     <Compile Include="Queries\ISimpleQueryObject.cs" />
     <Compile Include="Queries\UserRolesResourcesOperations\RoleOperationResource\RoleOperationResourceDto.cs" />
@@ -168,6 +171,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201810231528161_Initial.resx">
       <DependentUpon>201810231528161_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810250931298_Initial2.resx">
+      <DependentUpon>201810250931298_Initial2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

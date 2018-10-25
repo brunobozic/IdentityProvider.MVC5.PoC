@@ -1,18 +1,15 @@
 ﻿using System;
 using IdentityProvider.Models.Domain.Account;
-using IdentityProvider.Models.ViewModels.Operations;
 
 namespace IdentityProvider.Models.ViewModels.Resources.Extensions
 {
     public static class ResourceExtension
     {
-        public static OperationVm ConvertToViewModel( this ApplicationResource resource )
+        public static ResourceDto ConvertToViewModel( this ApplicationResource resource )
         {
-            var vm = new OperationVm
+            var vm = new ResourceDto
             {
-                Operation = new OperationDto
-                {
-
+               
                     Deleted = resource?.IsDeleted ?? false ,
                     Active = resource?.Active ?? false ,
                     CreatedBy = resource?.CreatedById ?? "" ,
@@ -27,8 +24,7 @@ namespace IdentityProvider.Models.ViewModels.Resources.Extensions
                     UserMayViewCreatedProp = true ,
                     UserMayViewDeletedProp = true ,
                     UserMayViewLastModifieddProp = true
-
-                }
+               
             };
 
             return vm;

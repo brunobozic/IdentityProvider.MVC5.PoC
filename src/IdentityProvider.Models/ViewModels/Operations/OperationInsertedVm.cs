@@ -1,6 +1,6 @@
-﻿namespace IdentityProvider.Models.ViewModels.Resources
+﻿namespace IdentityProvider.Models.ViewModels.Operations
 {
-    public class ResourceInsertedVm
+    public class OperationInsertedVm
     {
         public int WasInserted { get; set; }
         public bool Success { get; set; }

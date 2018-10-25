@@ -2,11 +2,8 @@
 using AutoMapper;
 using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Infrastructure.Logging.Serilog;
-using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.EFDataContext;
 using IdentityProvider.Repository.EF.Queries.UserGrants;
-using Module.Repository.EF.Repositories;
-using Module.Repository.EF.UnitOfWorkInterfaces;
 using StructureMap;
 
 
@@ -17,22 +14,18 @@ namespace IdentityProvider.Services.RowLeveLSecurityUserGrantService
         private readonly ILog4NetLoggingService _loggingService;
         private readonly IMapper _mapper;
         private readonly ApplicationSignInManager _signInManager;
-        private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationRoleManager _roleManager;
 
         [DefaultConstructor]  //This is the attribute you need to add on the constructor
         public UserGrantService(
-            IUnitOfWorkAsync unitOfWorkAsync
-            , ILog4NetLoggingService loggingService
+             ILog4NetLoggingService loggingService
             , IMapper mapper
-            , IRepositoryAsync<ApplicationRole> repository
             , ApplicationSignInManager signInManager
             , ApplicationUserManager userManager
             , ApplicationRoleManager roleManager
         )
         {
-            _unitOfWorkAsync = unitOfWorkAsync;
             _loggingService = loggingService;
             _mapper = mapper;
             _signInManager = signInManager;

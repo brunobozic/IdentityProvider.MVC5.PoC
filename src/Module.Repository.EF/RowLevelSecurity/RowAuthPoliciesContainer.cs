@@ -13,7 +13,6 @@ namespace Module.Repository.EF.RowLevelSecurity
         public RowAuthPoliciesContainer( ICachedUserAuthorizationGrantsProvider userAuthorizationGrantsProvider )
         {
             _userAuthorizationGrantsProvider = userAuthorizationGrantsProvider;
-
             _userAuthorizationGrantsProvider.OrganizationalUnits = new[] { 1 , 2 , 3 , 4 , 5 , 6 , 7 };
             _userAuthorizationGrantsProvider.ExplicitlyAssignedToProjects = new[] { 1 , 2 , 3 , 4 , 5 , 6 , 7 };
         }

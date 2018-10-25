@@ -28,6 +28,8 @@ namespace IdentityProvider.Models.Domain.Account
         #endregion IsActive
 
         public virtual ICollection<Permission> ResourcePermissions { get; set; }
+        public bool MakeActive { get; set; }
+        public DateTime? ActiveUntil { get; set; }
 
         public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
