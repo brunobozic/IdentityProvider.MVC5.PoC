@@ -82,6 +82,8 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <None Include="Views\Operation\Partial\_actionButtonsPartial.cshtml" />
+    <Content Include="Content\css\themed-buttons-deep-purple.css" />
+    <Content Include="Content\css\themed-buttons-red.css" />
     <Content Include="Scripts\CommonCRUDScripts\commonCreate.js" />
     <Content Include="Scripts\CommonCRUDScripts\commonDelete.js" />
     <Content Include="Scripts\CommonCRUDScripts\commonDetails.js" />

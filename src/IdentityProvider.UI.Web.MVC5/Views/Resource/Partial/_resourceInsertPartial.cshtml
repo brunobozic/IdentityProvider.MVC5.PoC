@@ -6,7 +6,9 @@
 
 <div class="container-fluid">
     <div class="row clearfix">
+        
         @*  A partial view would go in here!  *@
+
         <div class="card">
             <div class="header cool-text">
                 <em style="font-size: 1.7em">
@@ -18,7 +20,7 @@
             </div>
             <div class="body container-fluid" style="width: 100% !important">
 
-                @using (Html.BeginForm("ResourceInsertAsync" , "Resource" , FormMethod.Post , new { id = "frmNewItem" , name = "frmNewItem" }))
+                @using (Html.BeginForm("ResourceInsertAsync", "Resource", FormMethod.Post, new {id = "frmNewItem", name = "frmNewItem"}))
                 {
                     <div class="form-group">
                         <div class="form-line">

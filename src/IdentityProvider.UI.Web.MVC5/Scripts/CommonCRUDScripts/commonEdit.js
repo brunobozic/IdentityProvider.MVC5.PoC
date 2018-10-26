@@ -9,9 +9,9 @@ $(document).ready(function () {
         var name = $buttonClicked.attr('data-name');
         var options = { /*'backdrop': 'static',*/ keyboard: true, focus: true };
         $.ajax({
-            type: "POST",
-            url: editUrl,
-            data: '{id: "' + id + '" }',
+            type: "GET",
+            url: editUrl + '?id=' + id,
+            //data: '{id: "' + id + '" }',
             contentType: "application/json; charset=utf-8",
             dataType: "html",
             success: function (response) {

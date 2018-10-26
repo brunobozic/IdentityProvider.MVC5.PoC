@@ -1,268 +1,221 @@
 ﻿@model IdentityProvider.Models.ViewModels.Resources.ResourceVm
-<style type="text/css">
 
-    body {
-        font-family: Arial;
-        font-size: 10pt;
-    }
+@Html.Partial("../Shared/CommonInsertItemPartials/_styleSectionPartial")
 
-    table {
-        table-layout: auto !important;
-        border-collapse: collapse !important;
-        width: 100% !important;
-    }
+@Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionPartial")
 
-        table .absorbing-column {
-            width: 100% !important;
-        }
 
-        table td {
-            white-space: nowrap;
-        }
-
-        table, table td {
-            border: 0 solid #fff;
-            background-color: #ffffff
-        }
-
-            table, table th {
-                border: 0 solid #fff;
-                background-color: #ffffff
-            }
-
-    .cool-text {
-        font-family: "Montserrat", sans-serif;
-    }
-</style>
-
-<div class="container-fluid">
+<div class="container-fluid" style="width: 100% !important">
     <div class="row clearfix">
-        <div class="header cool-text">
-            <em style="font-size: 1.7em">
-                Operations
-            </em>
-            <em style="font-size: 0.9em">
-                <small>Details</small>
-            </em>
-        </div>
-        <div class="body" style="width:100% !important">
-            <table class="table-light">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td valign="top">
-                            <b>@Html.DisplayNameFor(item => item.Resource.Name)</b>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(item => item.Resource.Name)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>@Html.DisplayNameFor(item => item.Resource.Description)</b>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(item => item.Resource.Description)
+        <div class="card">
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>@Html.DisplayNameFor(item => item.Resource.Active)</b>
-                        </td>
-                        <td>
-                            @if (Model.Resource.Active)
-                            {
-                                <i class="material-icons align-center" style="cursor: not-allowed; color: green" title="Active">check_circle_outline</i>
-                            }
-                            else
-                            {
-                                <i class="material-icons align-center" style="cursor: not-allowed; color: darkred" title="Inactive">domain_disabled</i>
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>@Html.DisplayNameFor(item => item.Resource.ActiveFrom)</b>
-                        </td>
-                        <td>
-                            @if (Model.Resource.ActiveFrom != DateTime.MinValue)
-                            {
-                                @Html.DisplayFor(item => item.Resource.ActiveFrom)
+            <div class="header cool-text">
+                <em style="font-size: 1.7em">
+                    Operation
+                </em>
+                <em style="font-size: 0.9em">
+                    <small>Create new</small>
+                </em>
+            </div>
 
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>@Html.DisplayNameFor(item => item.Resource.ActiveTo)</b>
-                        </td>
-                        <td>
-                            @if (Model.Resource.ActiveTo != DateTime.MinValue)
-                            {
-                                @Html.DisplayFor(item => item.Resource.ActiveTo)
+            <div class="body container-fluid" style="width: 100% !important">
 
-                            }
-                        </td>
-                    </tr>
-                    @if (Model.Resource.UserMayViewDeletedProp)
-                    {
-                        <tr>
-                            <td>
-                                <b>@Html.DisplayNameFor(item => item.Resource.Deleted)</b>
-                            </td>
-                            <td>
-                                @if (Model.Resource.Deleted)
+                @using (Html.BeginForm("Edit" , "Resource" , FormMethod.Post , new { id = "frmEditItem" , name = "frmEditItem" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true)
+
+                        @Html.HiddenFor(model => model.Resource.Id)
+
+                        @Html.LabelFor(model => model.Resource.Name , new { @class = "control-label col-md-2" })
+
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Resource.Name)
+                            @Html.ValidationMessageFor(model => model.Resource.Name)
+                        </div>
+
+                        @*<b>@Html.DisplayNameFor(item => item.Operation.Description)</b>
+
+                                @Html.EditorFor(item => item.Operation.Description, new {htmlAttributes = new {@class = "form-control"}})
+
+
+                                <b>@Html.DisplayNameFor(item => item.Operation.Active)</b>
+
+                                if (Model.Operation.Active)
                                 {
-                                    <i class="material-icons align-center" style="cursor: not-allowed; color: red" title="Deleted">delete_forever</i>
+                                <i class="material-icons align-center" style="cursor: not-allowed; color: green" title="Active">check_circle_outline</i>
                                 }
                                 else
                                 {
-                                    <i class="material-icons align-center" style="cursor: not-allowed; color: darkmagenta" vtitle="Active">check_circle_outline</i>
+                                <i class="material-icons align-center" style="cursor: not-allowed; color: darkred" title="Inactive">domain_disabled</i>
                                 }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
 
-                                <b>@Html.DisplayNameFor(item => item.Resource.DateDeleted)</b>
-                            </td>
-                            <td>
-                                @if (Model.Resource.DateDeleted != DateTime.MinValue)
+                                <br/>
+
+                                <b>@Html.DisplayNameFor(item => item.Operation.ActiveFrom)</b>
+
+                                if (Model.Operation.ActiveFrom != DateTime.MinValue)
                                 {
-                                    @Html.DisplayFor(item => item.Resource.DateDeleted)
-
+                                @Html.EditorFor(item => item.Operation.ActiveFrom, new {htmlAttributes = new {@class = "form-control"}})
                                 }
 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>@Html.DisplayNameFor(item => item.Resource.DeletedBy)</b>
-                            </td>
-                            <td>
-                                @Html.DisplayFor(item => item.Resource.DeletedBy)
-                            </td>
-                        </tr>
-                    }
-                    else
-                    {
-                        // may not view deletion related audit data...
-                        <tr>
-                            <td>
-                                <b>@Html.DisplayNameFor(item => item.Resource.Deleted)</b>
-                            </td>
-                            <td>No permission to view this data</td>
-                        </tr>
-                        <tr>
-                            <td>
+                                <b>@Html.DisplayNameFor(item => item.Operation.ActiveTo)</b>
 
-                                <b>@Html.DisplayNameFor(item => item.Resource.DateDeleted)</b>
-                            </td>
-                            <td>No permission to view this data</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>@Html.DisplayNameFor(item => item.Resource.DeletedBy)</b>
-                            </td>
-                            <td>No permission to view this data</td>
-                        </tr>
-                    }
-
-                    @if (Model.Resource.UserMayViewCreatedProp)
-                    {
-                        <tr>
-                            <td>
-                                <b>@Html.DisplayNameFor(item => item.Resource.DateCreated)</b>
-                            </td>
-                            <td>
-                                @if (Model.Resource.DateCreated != DateTime.MinValue)
+                                if (Model.Operation.ActiveTo != DateTime.MinValue)
                                 {
-                                    @Html.DisplayFor(item => item.Resource.DateCreated)
+                                @Html.EditorFor(item => item.Operation.ActiveTo, new {htmlAttributes = new {@class = "form-control"}})
                                 }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>@Html.DisplayNameFor(item => item.Resource.CreatedBy)</b>
-                            </td>
-                            <td>
-                                @Html.DisplayFor(item => item.Resource.CreatedBy)
-                            </td>
-                        </tr>
 
-                    }
-                    else
-                    {
-                        <tr>
-                            <td>
-                                <b>@Html.DisplayNameFor(item => item.Resource.DateCreated)</b>
-                            </td>
-                            <td>
-                                No permission to view this data
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>@Html.DisplayNameFor(item => item.Resource.CreatedBy)</b>
-                            </td>
-                            <td>
-                                No permission to view this data
-                            </td>
-                        </tr>
-
-                    }
-
-                    @if (Model.Resource.UserMayViewLastModifieddProp)
-                    {
-                        <tr>
-                            <td>
-                                <b>@Html.DisplayNameFor(item => item.Resource.DateModified)</b>
-                            </td>
-                            <td>
-                                @if (Model.Resource.DateModified != DateTime.MinValue)
+                                if (Model.Operation.UserMayViewDeletedProp)
                                 {
-                                    @Html.DisplayFor(item => item.Resource.DateModified)
+                                <b>@Html.DisplayNameFor(item => item.Operation.Deleted)</b>
+
+                                if (Model.Operation.Deleted)
+                                {
+                                <i class="material-icons align-center" style="cursor: not-allowed; color: red" title="Deleted">delete_forever</i>
                                 }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>@Html.DisplayNameFor(item => item.Resource.ModifiedBy)</b>
-                            </td>
-                            <td>
-                                @Html.DisplayFor(item => item.Resource.ModifiedBy)
-                            </td>
-                        </tr>
+                                else
+                                {
+                                <i class="material-icons align-center" style="cursor: not-allowed; color: darkmagenta" vtitle="Active">check_circle_outline</i>
+                                }
 
-                    }
-                    else
-                    {
-                        <tr>
-                            <td>
-                                <b>@Html.DisplayNameFor(item => item.Resource.DateModified)</b>
-                            </td>
-                            <td>
-                                No permission to view this data
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>@Html.DisplayNameFor(item => item.Resource.ModifiedBy)</b>
-                            </td>
-                            <td>
-                                No permission to view this data
-                            </td>
-                        </tr>
-                    }
+                                <b>@Html.DisplayNameFor(item => item.Operation.DateDeleted)</b>
 
-                </tbody>
-            </table>
+                                if (Model.Operation.DateDeleted != DateTime.MinValue)
+                                {
+                                @Html.DisplayFor(item => item.Operation.DateDeleted)
+                                }
+
+                                <b>@Html.DisplayNameFor(item => item.Operation.DeletedBy)</b>
+
+                                @Html.DisplayFor(item => item.Operation.DeletedBy)
+                                }
+                                else
+                                {
+                                // may not view deletion related audit data...
+
+                                <b>@Html.DisplayNameFor(item => item.Operation.Deleted)</b>
+                                <b>@Html.DisplayNameFor(item => item.Operation.DateDeleted)</b>
+                                <b>@Html.DisplayNameFor(item => item.Operation.DeletedBy)</b>
+                                }
+
+                                if (Model.Operation.UserMayViewCreatedProp)
+                                {
+                                <b>@Html.DisplayNameFor(item => item.Operation.DateCreated)</b>
+
+                                if (Model.Operation.DateCreated != DateTime.MinValue)
+                                {
+                                @Html.DisplayFor(item => item.Operation.DateCreated)
+                                }
+
+                                <b>@Html.DisplayNameFor(item => item.Operation.CreatedBy)</b>
+
+                                @Html.DisplayFor(item => item.Operation.CreatedBy)
+
+                                }
+                                else
+                                {
+                                <b>@Html.DisplayNameFor(item => item.Operation.DateCreated)</b>
+                                <b>@Html.DisplayNameFor(item => item.Operation.CreatedBy)</b>
+                                }
+
+                                if (Model.Operation.UserMayViewLastModifieddProp)
+                                {
+
+                                <b>@Html.DisplayNameFor(item => item.Operation.DateModified)</b>
+
+                                if (Model.Operation.DateModified != DateTime.MinValue)
+                                {
+                                @Html.DisplayFor(item => item.Operation.DateModified)
+                                }
+
+                                <b>@Html.DisplayNameFor(item => item.Operation.ModifiedBy)</b>
+
+                                @Html.DisplayFor(item => item.Operation.ModifiedBy)
+
+                                }
+                                else
+                                {
+                                <b>@Html.DisplayNameFor(item => item.Operation.DateModified)</b>
+                                <b>@Html.DisplayNameFor(item => item.Operation.ModifiedBy)</b>
+
+                                }
+                            </div>*@
+                    </div>
+                    <div class="form-group col-xs-8 p-t-5">
+                        <div class="row m-t-15 m-b--20">
+                            <button type="submit" name="btnSubmit" id="btnSubmit" class="btn bg-purple waves-effect btn-xs editDialog" data-toggle="tooltip" data-placement="right" title="" data-original-title="Submit">
+                                <i class="material-icons">edit</i>
+                                <span>
+                                    Submit
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                }
+
+                <div id="loading">
+                    <p>Loading...</p>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        $("#loading").hide();
+
+        $('#btnSubmit').click(function () {
+            $('#frmEditItem').submit();
+        });
+
+        $("#frmEditItem").on("submit", function (event) {
+            var $this = $(this);
+
+            event.preventDefault();
+
+            $("#loading").show();
+            $('#btnSubmit').attr('disabled', 'disabled');
+
+            var dataToPost = $(this).serialize({ checkboxesAsBools: true });
+
+            $.ajax({
+                type: $this.attr('method'),
+                url: $this.attr('action'),
+                data: dataToPost,
+                success: function (response) {
+
+                    $('#mdModal').modal('toggle');
+                    swal(
+                        'Edits saved',
+                        'Your item has been editted.',
+                        'success'
+                    ).then(function () {
+                        location.reload();
+                    });
+
+                    return false;
+                },
+                error: function (response) {
+                    swal(
+                        'Error!',
+                        'Your item has not been editted. ' + response.ValidationIssues,
+                        'error'
+                    ).then(function () {
+                        location.reload();
+                    });;
+                },
+                complete: function () {
+                    $("#loading").hide();
+                    $('#btnSubmit').removeAttr('disabled');
+                }
+            });
+        });
+    });
+</script>
+
+@Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")

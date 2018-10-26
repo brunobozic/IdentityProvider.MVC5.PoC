@@ -248,13 +248,13 @@ namespace IdentityProvider.Controllers.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult OperationInsert()
+        public ActionResult Insert()
         {
             return PartialView("Partial/_operationInsertPartial");
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public async Task<JsonResult> OperationInsert( OperationToInsertVm operationToInsert )
+        public async Task<JsonResult> Insert( OperationToInsertVm operationToInsert )
         {
             var retVal = new OperationInsertedVm { Success = false };
 
@@ -317,7 +317,7 @@ namespace IdentityProvider.Controllers.Controllers
 
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public async Task<JsonResult> OperationDeleteAsync( string operationToDelete )
+        public async Task<JsonResult> Delete( string operationToDelete )
         {
             var retVal = new OperationDeletedVm { WasDeleted = false };
 
@@ -347,7 +347,7 @@ namespace IdentityProvider.Controllers.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public PartialViewResult OperationEdit( int id )
+        public PartialViewResult Edit( int id )
         {
             var retVal = new OperationVm
             {
@@ -378,7 +378,7 @@ namespace IdentityProvider.Controllers.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public async Task<PartialViewResult> OperationDetails( int id )
+        public async Task<PartialViewResult> Detail( int id )
         {
             var retVal = new OperationVm
             {

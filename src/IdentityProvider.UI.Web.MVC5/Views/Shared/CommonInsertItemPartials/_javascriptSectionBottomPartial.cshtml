@@ -1,11 +1,14 @@
 ﻿<script src="~/Scripts/jQueryOverride-boolean-checkboxes.js"></script>
 <script type="text/javascript">
+    
+    // SWAL message styling
     swal.setDefaults({
         buttonsStyling: false,
         confirmButtonClass: 'btn btn-success w-25 mr-05',
         cancelButtonClass: 'btn btn-secondary w-25 ml-05'
     });
 
+    // needed on several partials...
     $("#hiddenSegmentDependantOnCheckbox").hide();
 
     $(function () {
@@ -20,6 +23,7 @@
         });
     });
 
+    // attaching datepicker
     $(function () {
         $('#sandbox-container input').datepicker({
             format: "dd.mm.yyyy",
@@ -31,6 +35,7 @@
         });
     });
 
+    // js for adding a new item to the grid
     $(function () {
         $("#loading").hide();
         $('#btnSubmit').click(function () {

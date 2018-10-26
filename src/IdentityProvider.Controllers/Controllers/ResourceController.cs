@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -16,6 +17,7 @@ using IdentityProvider.Services.ResourceService;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using PagedList;
 using StructureMap;
+using TrackableEntities;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -79,15 +81,15 @@ namespace IdentityProvider.Controllers.Controllers
             // TODO: if user has rights to view deleted items and undelete them?
             var query = _resourceService.Queryable().Where(o => o.Active && !o.IsDeleted).Select(i =>
                  new ResourceDto
-                    {
-                        Active = i.Active ,
-                        Name = i.Name ,
-                        Description = i.Description ,
-                        Deleted = i.IsDeleted ,
-                        DateCreated = i.CreatedDate ,
-                        DateModified = i.ModifiedDate ,
-                        Id = i.Id
-                    });
+                 {
+                     Active = i.Active ,
+                     Name = i.Name ,
+                     Description = i.Description ,
+                     Deleted = i.IsDeleted ,
+                     DateCreated = i.CreatedDate ,
+                     DateModified = i.ModifiedDate ,
+                     Id = i.Id
+                 });
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -245,13 +247,13 @@ namespace IdentityProvider.Controllers.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult ResourceInsert()
+        public ActionResult Insert()
         {
             return PartialView("Partial/_resourceInsertPartial");
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public async Task<ActionResult> ResourceInsertAsync( ApplicationResource resourceToInsert )
+        public async Task<ActionResult> Insert( ApplicationResource resourceToInsert )
         {
             var retVal = new ResourceInsertedVm { Success = false };
 
@@ -314,7 +316,7 @@ namespace IdentityProvider.Controllers.Controllers
 
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public async Task<ActionResult> ResourceDeleteAsync( string itemToDelete )
+        public async Task<ActionResult> Delete( string itemToDelete )
         {
             var retVal = new ResourceDeletedVm { WasDeleted = false };
 
@@ -343,8 +345,9 @@ namespace IdentityProvider.Controllers.Controllers
             return Json(retVal.WasDeleted , JsonRequestBehavior.AllowGet);
         }
 
-        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public async Task<ActionResult> ResourceEditAsync( int id )
+        // GET: /Resource/Edit/5
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Edit( int? id )
         {
             var retVal = new ResourceVm
             {
@@ -355,6 +358,7 @@ namespace IdentityProvider.Controllers.Controllers
             if (id <= 0)
             {
                 retVal.Message = "Please provide an id.";
+                // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 return PartialView("Partial/_resourceEditPartial" , retVal);
             }
 
@@ -373,8 +377,55 @@ namespace IdentityProvider.Controllers.Controllers
             return PartialView("Partial/_resourceEditPartial" , retVal);
         }
 
+        // POST: /Resource/Edit/5
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit( [Bind(Include = "Id, Name, Description, Active, ActiveFrom, ActiveTo")] ApplicationResource resource )
+        {
+            // https://stackoverflow.com/questions/39533599/mvc-5-with-bootstrap-modal-from-partial-view-validation-not-working
+            // https://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
+            var retVal = new ResourceVm
+            {
+                Success = false ,
+                Message = ""
+            };
+
+            if (ModelState.IsValid)
+            {
+                var repo = _unitOfWorkAsync.RepositoryAsync<ApplicationResource>();
+
+                var valid = resource.Validate();
+
+                try
+                {
+                    repo.Update(resource);
+
+                    var result = await _unitOfWorkAsync.SaveChangesAsync();
+
+                    if (result > 0)
+                    {
+                        retVal.Success = true;
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    Console.WriteLine(e);
+                    Debug.WriteLine(e);
+                    retVal.Message = e.Message;
+                }
+            }
+            else
+            {
+                retVal.FormErrors = ModelState.Select(kvp => new { key = kvp.Key , errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+                retVal.Message = "Model state invalid";
+            }
+
+            return PartialView("Partial/_resourceEditPartial" , retVal);
+        }
+
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public async Task<ActionResult> ResourceDetailsAsync( int id )
+        public async Task<ActionResult> Detail( int id )
         {
             var retVal = new ResourceVm
             {
