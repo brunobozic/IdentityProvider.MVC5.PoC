@@ -532,10 +532,10 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                             var fullName = auditableEntity.Entity.GetType().Name;
                             if (fullName != null && !fullName.Equals("ApplicationUser"))
                             {
-                                if (auditableEntity.Property(p => p.CreatedDate).IsModified ||
-                                    auditableEntity.Property(p => p.CreatedById).IsModified)
-                                    throw new DbEntityValidationException(
-                                        $"Attempt to change created audit trails on a modified {auditableEntity.Entity.GetType().FullName}");
+                                //if (auditableEntity.Property(p => p.CreatedDate).IsModified ||
+                                //    auditableEntity.Property(p => p.CreatedById).IsModified)
+                                //    throw new DbEntityValidationException(
+                                //        $"Attempt to change created audit trails on a modified {auditableEntity.Entity.GetType().FullName}");
                             }
                             else
                             {

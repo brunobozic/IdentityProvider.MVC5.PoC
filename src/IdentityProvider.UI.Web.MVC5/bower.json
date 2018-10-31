@@ -46,7 +46,8 @@
     "jquery": "3.3.1",
     "jQuery": "3.3.1",
     "bootstrap-datepicker": "v1.8.0",
-    "gridstack": "v0.4.0"
+    "gridstack": "v0.4.0",
+    "Ionicons": "ionicons#v2.0.1"
   },
   "resolutions": {
     "bootstrap": "v3.3.7",

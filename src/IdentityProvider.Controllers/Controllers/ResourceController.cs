@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -17,7 +16,6 @@ using IdentityProvider.Services.ResourceService;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using PagedList;
 using StructureMap;
-using TrackableEntities;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -314,8 +312,8 @@ namespace IdentityProvider.Controllers.Controllers
             return Json(retVal , JsonRequestBehavior.AllowGet);
         }
 
-
-        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        // POST: /Resource/Delete/5
+        [AcceptVerbs( HttpVerbs.Post)]
         public async Task<ActionResult> Delete( string itemToDelete )
         {
             var retVal = new ResourceDeletedVm { WasDeleted = false };

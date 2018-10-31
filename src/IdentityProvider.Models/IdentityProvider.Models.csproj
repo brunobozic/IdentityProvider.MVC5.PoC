@@ -90,6 +90,7 @@
     <Compile Include="Domain\Account\OrgUnitContainsRoleGroupLink.cs" />
     <Compile Include="Domain\Account\RoleGroup.cs" />
     <Compile Include="Domain\Account\UserProfile.cs" />
+    <Compile Include="MVC5Helpers\ModelStateHelper.cs" />
     <Compile Include="Operations.cs" />
     <Compile Include="Domain\Account\ApplicationResource.cs" />
     <Compile Include="Domain\Account\ApplicationRole.cs" />
@@ -98,6 +99,8 @@
     <Compile Include="ViewModels\Account\ManageViewModels.cs" />
     <Compile Include="ViewModels\Error\ErrorViewModel.cs" />
     <Compile Include="ViewModels\Operations\Extensions\OperationExtension.cs" />
+    <Compile Include="ViewModels\Operations\InfoOnOperationsVm.cs" />
+    <Compile Include="ViewModels\Operations\OperationCountDto.cs" />
     <Compile Include="ViewModels\Operations\OperationDeletedVm.cs" />
     <Compile Include="ViewModels\Operations\OperationDto.cs" />
     <Compile Include="ViewModels\Operations\OperationInsertedVm.cs" />

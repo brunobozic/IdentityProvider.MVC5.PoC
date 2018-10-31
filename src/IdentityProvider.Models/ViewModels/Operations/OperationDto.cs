@@ -20,5 +20,6 @@ namespace IdentityProvider.Models.ViewModels.Operations
         public bool UserMayViewLastModifieddProp { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }

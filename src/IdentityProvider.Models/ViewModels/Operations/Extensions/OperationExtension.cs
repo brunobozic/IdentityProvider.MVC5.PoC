@@ -24,7 +24,8 @@ namespace IdentityProvider.Models.ViewModels.Operations.Extensions
                 Name = operation.Name ?? "" ,
                 UserMayViewCreatedProp = true ,
                 UserMayViewDeletedProp = true ,
-                UserMayViewLastModifieddProp = true
+                UserMayViewLastModifieddProp = true ,
+                RowVersion = operation.RowVersion
             };
 
             return vm;

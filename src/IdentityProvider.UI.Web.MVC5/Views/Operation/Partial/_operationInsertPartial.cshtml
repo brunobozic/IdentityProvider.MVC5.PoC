@@ -1,61 +1,14 @@
 ﻿@model IdentityProvider.Models.ViewModels.Operations.OperationToInsertVm
-<style type="text/css">
 
-    body {
-        font-family: Arial;
-        font-size: 10pt;
-    }
+@Html.Partial("../Shared/CommonInsertItemPartials/_styleSectionPartial")
 
-    table {
-        table-layout: auto !important;
-        border-collapse: collapse !important;
-        width: 100% !important;
-    }
-
-        table .absorbing-column {
-            width: 100% !important;
-        }
-
-        table td {
-            white-space: nowrap;
-        }
-
-        table, table td {
-            border: 0 solid #fff;
-            background-color: #ffffff
-        }
-
-            table, table th {
-                border: 0 solid #fff;
-                background-color: #ffffff
-            }
-
-    .cool-text {
-        font-family: "Montserrat", sans-serif;
-    }
-
-    .hidden {
-    }
-
-    .insertDialog {
-    }
-</style>
-
-<script type="text/javascript">
-    $("#hiddenSegmentDependantOnCheckbox").hide();
-</script>
-
-<link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />
-<link href="~/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
-<script src="~/bower_components/select2/dist/js/select2.full.js"></script>
-<link href="~/bower_components/adminbsb-materialdesign/css/style.css" rel="stylesheet" />
-<link href="~/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
-<link href="~/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" />
-<script src="~/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-<script src="~/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.hr.min.js"></script>
+@Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionPartial")
 
 <div class="container-fluid">
     <div class="row clearfix">
+
+        @*  A partial view would go in here!  *@
+
         <div class="card">
             <div class="header cool-text">
                 <em style="font-size: 1.7em">
@@ -67,19 +20,19 @@
             </div>
             <div class="body container-fluid" style="width: 100% !important">
 
-                @using (Html.BeginForm("OperationInsert" , "Operation" , FormMethod.Post , new { id = "frmNewOperation" , name = "frmNewOperation" }))
+                @using (Html.BeginForm("Insert" , "Operation" , FormMethod.Post , new { id = "frmNewItem" , name = "frmNewItem" }))
                 {
                     <div class="form-group">
                         <div class="form-line">
                             <input type="text" class="form-control" placeholder="Enter the name of your item ..." id="Name" name="Name">
-                            @Html.ValidationMessageFor(model => model.Name)
+                            @Html.ValidationMessageFor(model => model.Name , "" , new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="form-line">
                             <input type="text" class="form-control" placeholder="Enter the description of your item ..." id="Description" name="Description">
-                            @Html.ValidationMessageFor(model => model.Description)
+                            @Html.ValidationMessageFor(model => model.Description , "" , new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -104,7 +57,7 @@
                             </div>
                         </div>
 
-                        @Html.ValidationMessageFor(model => model.MakeActive)
+                        @Html.ValidationMessageFor(model => model.MakeActive , "" , new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group col-xs-8 p-t-5">
@@ -128,339 +81,6 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    swal.setDefaults({
-        buttonsStyling: false,
-        confirmButtonClass: 'btn btn-success w-25 mr-05',
-        cancelButtonClass: 'btn btn-secondary w-25 ml-05'
-    });
-
-    $("#hiddenSegmentDependantOnCheckbox").hide();
-
-    $(function () {
-        $("#defineActiveUntil").on("change", function () {
-            $this = $(this);
-
-            if ($('#defineActiveUntil').is(":checked ")) {
-                $("#hiddenSegmentDependantOnCheckbox").show();
-            } else {
-                $("#hiddenSegmentDependantOnCheckbox").hide();
-            }
-        });
-    });
-
-    $(function () {
-        $('#sandbox-container input').datepicker({
-            format: "dd.mm.yyyy",
-            maxViewMode: 2,
-            todayBtn: "linked",
-            clearBtn: true,
-            language: "hr",
-            todayHighlight: true
-        });
-    });
-
-    $(function () {
-        $("#loading").hide();
-        $('#btnSubmit').click(function () {
-
-            // if ($("#frmNewOperation").valid()) {
-            $('#frmNewOperation').submit();
-            //  }
-            //  else {
-            //      return false;
-            //  }
-        });
-
-        $("#frmNewOperation").on("submit", function (event) {
-            var $this = $(this);
-
-            event.preventDefault();
-
-            $("#loading").show();
-            $('#btnSubmit').attr('disabled', 'disabled');
-
-            var dataToPost = $(this).serialize({ checkboxesAsBools: true });
-
-            $.ajax({
-                type: $this.attr('method'),
-                url: $this.attr('action'),
-                data: dataToPost,
-                success: function (response) {
-
-                    $('#mdModal').modal('toggle');
-                    swal(
-                        'Created!!',
-                        'Your item has been created.',
-                        'success'
-                    ).then(function(){ 
-                        location.reload();
-                    });
-
-                    return false;
-                },
-                error: function (response) {
-                    swal(
-                        'Error!',
-                        'Your item has not been created. ' + response.ValidationIssues,
-                        'error'
-                    ).then(function () {
-                        location.reload();
-                    });;
-                },
-                complete: function () {
-                    $("#loading").hide();
-                    $('#btnSubmit').removeAttr('disabled');
-                }
-            });
-        });
-    });
-
-    if (typeof jQuery === "undefined") {
-        throw new Error("jQuery plugins need to be before this file");
-    }
-
-    $.AdminBSB = {};
-    $.AdminBSB.options = {
-        colors: {
-            red: '#F44336',
-            pink: '#E91E63',
-            purple: '#9C27B0',
-            deepPurple: '#673AB7',
-            indigo: '#3F51B5',
-            blue: '#2196F3',
-            lightBlue: '#03A9F4',
-            cyan: '#00BCD4',
-            teal: '#009688',
-            green: '#4CAF50',
-            lightGreen: '#8BC34A',
-            lime: '#CDDC39',
-            yellow: '#ffe821',
-            amber: '#FFC107',
-            orange: '#FF9800',
-            deepOrange: '#FF5722',
-            brown: '#795548',
-            grey: '#9E9E9E',
-            blueGrey: '#607D8B',
-            black: '#000000',
-            white: '#ffffff'
-        },
-        leftSideBar: {
-            scrollColor: 'rgba(0,0,0,0.5)',
-            scrollWidth: '4px',
-            scrollAlwaysVisible: false,
-            scrollBorderRadius: '0',
-            scrollRailBorderRadius: '0',
-            scrollActiveItemWhenPageLoad: true,
-            breakpointWidth: 1170
-        },
-        dropdownMenu: {
-            effectIn: 'fadeIn',
-            effectOut: 'fadeOut'
-        }
-    }
-
-    //==========================================================================================================================
-
-    /* Input - Function ========================================================================================================
-    *  You can manage the inputs(also textareas) with name of class 'form-control'
-    *
-    */
-    $.AdminBSB.input = {
-        activate: function ($parentSelector) {
-            $parentSelector = $parentSelector || $('body');
-
-            // On focus event
-            $parentSelector.find('.form-control').focus(function () {
-                $(this).closest('.form-line').addClass('focused');
-            });
-
-            // On focusout event
-            $parentSelector.find('.form-control').focusout(function () {
-                var $this = $(this);
-                if ($this.parents('.form-group').hasClass('form-float')) {
-                    if ($this.val() === '') { $this.parents('.form-line').removeClass('focused'); }
-                }
-                else {
-                    $this.parents('.form-line').removeClass('focused');
-                }
-            });
-
-            // On label click
-            $parentSelector.on('click', '.form-float .form-line .form-label', function () {
-                $(this).parent().find('input').focus();
-            });
-
-            // Not blank form
-            $parentSelector.find('.form-control').each(function () {
-                if ($(this).val() !== '') {
-                    $(this).parents('.form-line').addClass('focused');
-                }
-            });
-        }
-    }
-    //==========================================================================================================================
-
-    /* Form - Select - Function ================================================================================================
-    *  You can manage the 'select' of form elements
-    *
-    */
-    $.AdminBSB.select = {
-        activate: function () {
-            if ($.fn.selectpicker) { $('select:not(.ms)').selectpicker(); }
-        }
-    }
-    //==========================================================================================================================
-
-    /* DropdownMenu - Function =================================================================================================
-    *  You can manage the dropdown menu
-    *
-    */
-
-    $.AdminBSB.dropdownMenu = {
-        activate: function () {
-            var _this = this;
-
-            $('.dropdown, .dropup, .btn-group').on({
-                "show.bs.dropdown": function () {
-                    var dropdown = _this.dropdownEffect(this);
-                    _this.dropdownEffectStart(dropdown, dropdown.effectIn);
-                },
-                "shown.bs.dropdown": function () {
-                    var dropdown = _this.dropdownEffect(this);
-                    if (dropdown.effectIn && dropdown.effectOut) {
-                        _this.dropdownEffectEnd(dropdown, function () { });
-                    }
-                },
-                "hide.bs.dropdown": function (e) {
-                    var dropdown = _this.dropdownEffect(this);
-                    if (dropdown.effectOut) {
-                        e.preventDefault();
-                        _this.dropdownEffectStart(dropdown, dropdown.effectOut);
-                        _this.dropdownEffectEnd(dropdown, function () {
-                            dropdown.dropdown.removeClass('open');
-                        });
-                    }
-                }
-            });
-
-            // Set Waves
-            Waves.attach('.dropdown-menu li a', ['waves-block']);
-            Waves.init();
-        },
-        dropdownEffect: function (target) {
-            var effectIn = $.AdminBSB.options.dropdownMenu.effectIn, effectOut = $.AdminBSB.options.dropdownMenu.effectOut;
-            var dropdown = $(target), dropdownMenu = $('.dropdown-menu', target);
-
-            if (dropdown.length > 0) {
-                var udEffectIn = dropdown.data('effect-in');
-                var udEffectOut = dropdown.data('effect-out');
-                if (udEffectIn !== undefined) { effectIn = udEffectIn; }
-                if (udEffectOut !== undefined) { effectOut = udEffectOut; }
-            }
-
-            return {
-                target: target,
-                dropdown: dropdown,
-                dropdownMenu: dropdownMenu,
-                effectIn: effectIn,
-                effectOut: effectOut
-            };
-        },
-        dropdownEffectStart: function (data, effectToStart) {
-            if (effectToStart) {
-                data.dropdown.addClass('dropdown-animating');
-                data.dropdownMenu.addClass('animated dropdown-animated');
-                data.dropdownMenu.addClass(effectToStart);
-            }
-        },
-        dropdownEffectEnd: function (data, callback) {
-            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-            data.dropdown.one(animationEnd, function () {
-                data.dropdown.removeClass('dropdown-animating');
-                data.dropdownMenu.removeClass('animated dropdown-animated');
-                data.dropdownMenu.removeClass(data.effectIn);
-                data.dropdownMenu.removeClass(data.effectOut);
-
-                if (typeof callback == 'function') {
-                    callback();
-                }
-            });
-        }
-    }
-    //==========================================================================================================================
-
-    /* Browser - Function ======================================================================================================
-    *  You can manage browser
-    *
-    */
-    var edge = 'Microsoft Edge';
-    var ie10 = 'Internet Explorer 10';
-    var ie11 = 'Internet Explorer 11';
-    var opera = 'Opera';
-    var firefox = 'Mozilla Firefox';
-    var chrome = 'Google Chrome';
-    var safari = 'Safari';
-
-    $.AdminBSB.browser = {
-        activate: function () {
-            var _this = this;
-            var className = _this.getClassName();
-
-            if (className !== '') $('html').addClass(_this.getClassName());
-        },
-        getBrowser: function () {
-            var userAgent = navigator.userAgent.toLowerCase();
-
-            if (/edge/i.test(userAgent)) {
-                return edge;
-            } else if (/rv:11/i.test(userAgent)) {
-                return ie11;
-            } else if (/msie 10/i.test(userAgent)) {
-                return ie10;
-            } else if (/opr/i.test(userAgent)) {
-                return opera;
-            } else if (/chrome/i.test(userAgent)) {
-                return chrome;
-            } else if (/firefox/i.test(userAgent)) {
-                return firefox;
-            } else if (!!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)) {
-                return safari;
-            }
-
-            return undefined;
-        },
-        getClassName: function () {
-            var browser = this.getBrowser();
-
-            if (browser === edge) {
-                return 'edge';
-            } else if (browser === ie11) {
-                return 'ie11';
-            } else if (browser === ie10) {
-                return 'ie10';
-            } else if (browser === opera) {
-                return 'opera';
-            } else if (browser === chrome) {
-                return 'chrome';
-            } else if (browser === firefox) {
-                return 'firefox';
-            } else if (browser === safari) {
-                return 'safari';
-            } else {
-                return '';
-            }
-        }
-    }
-    //==========================================================================================================================
-
-    $(function () {
-        $.AdminBSB.dropdownMenu.activate();
-        $.AdminBSB.input.activate();
-        $.AdminBSB.select.activate();
-        setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
-    });
-
-</script>
+@Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")
 
 

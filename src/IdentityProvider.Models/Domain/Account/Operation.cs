@@ -34,10 +34,16 @@ namespace IdentityProvider.Models.Domain.Account
         public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
             var name = new[] { "Name" };
+            var description = new[] { "Description" };
 
             if (string.IsNullOrEmpty(Name) && name.Length > 0)
             {
                 yield return new ValidationResult("Operation name is required." , name);
+            }
+
+            if (string.IsNullOrEmpty(Description) && description.Length > 0)
+            {
+                yield return new ValidationResult("Description is required." , description);
             }
         }
     }
