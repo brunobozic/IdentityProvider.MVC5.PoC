@@ -27,6 +27,9 @@ $(document).ready(function () {
                 });
             },
             failure: function (response) {
+
+                // $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+
                 $('#mdModal').modal(options);
 
                 $('#mdModal').modal('show');
@@ -36,6 +39,9 @@ $(document).ready(function () {
                 });
             },
             error: function (response) {
+
+                // $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+
                 $('#mdModal').modal(options);
 
                 $('#mdModal').modal('show');

@@ -81,6 +81,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Content Include="Views\Operation\Partial\_operationsAuditTrailGetAllPagedPartial.cshtml" />
     <None Include="Views\Operation\Partial\_actionButtonsPartial.cshtml" />
     <Content Include="Content\css\themed-buttons-deep-purple.css" />
     <Content Include="Content\css\themed-buttons-red.css" />
@@ -88,6 +89,9 @@
     <Content Include="Scripts\CommonCRUDScripts\commonDelete.js" />
     <Content Include="Scripts\CommonCRUDScripts\commonDetails.js" />
     <Content Include="Scripts\CommonCRUDScripts\commonEdit.js" />
+    <Content Include="Scripts\CommonCRUDScripts\commonSubmitEditForm.js" />
+    <Content Include="Scripts\Muuri\muuriWireup.js" />
+    <Content Include="Scripts\Select2\select2Wireup.js" />
     <Content Include="Views\Operation\Partial\_operationsHeaderPartial.cshtml" />
     <Content Include="Views\Resource\Partial\_actionButtonsPartial.cshtml" />
     <Content Include="Views\Resource\Partial\_resourceDetailsPartial.cshtml" />
@@ -101,6 +105,9 @@
     <Content Include="Views\Shared\CommonInsertItemPartials\_javascriptSectionBottomPartial.cshtml" />
     <Content Include="Views\Shared\DragAndDropHandlePartial\_dragAndDropHandlePartial.cshtml" />
     <Content Include="Views\Shared\CardUIElementRightHandMenuPartials\_rightHandSideMenuPartial.cshtml" />
+    <Content Include="Views\Shared\DashboardCommons\_dashboardCommonScripts_Stuff.cshtml" />
+    <Content Include="Views\Shared\DashboardCommons\_dashboardCommonScripts_Stuff2.cshtml" />
+    <Content Include="Views\Operation\Partial\_operationAuditTrailPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />

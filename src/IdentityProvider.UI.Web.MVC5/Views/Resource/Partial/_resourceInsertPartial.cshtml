@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
     <div class="row clearfix">
-        
+
         @*  A partial view would go in here!  *@
 
         <div class="card">
@@ -20,7 +20,7 @@
             </div>
             <div class="body container-fluid" style="width: 100% !important">
 
-                @using (Html.BeginForm("Insert", "Resource", FormMethod.Post, new {id = "frmNewItem", name = "frmNewItem"}))
+                @using (Html.BeginForm("Insert" , "Resource" , FormMethod.Post , new { id = "frmNewItem" , name = "frmNewItem" }))
                 {
                     <div class="form-group">
                         <div class="form-line">
@@ -80,6 +80,16 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    $("#loading").hide();
+
+    $('#btnSubmit').click(function () {
+        $('#frmEditItem').submit();
+    });
+
+</script>
 
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")
 

@@ -4,11 +4,9 @@
 
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionPartial")
 
-
 <!-- Custom Css -->
 <link href="~/Content/site.css" rel="stylesheet" />
 <link href="~/bower_components/pretty-checkbox/dist/pretty-checkbox.css" rel="stylesheet" />
-
 
 <div class="container-fluid" style="width: 100% !important">
     <div class="row clearfix">
@@ -52,13 +50,14 @@
 
                         <div class="form-group">
                             <input type="hidden" name="Active" value="false" />
+
                             @if (Model.Operation.Active)
                             {
-                                <input name="Active" id="Operation_Active" class="filled-in chk-col-deep-purple" type="checkbox" checked="checked">
+                                <input name="Operation.Active" id="Operation_Active" class="filled-in chk-col-deep-purple" type="checkbox" checked="checked">
                             }
                             else
                             {
-                                <input name="Active" id="Operation_Active" class="filled-in chk-col-deep-purple" type="checkbox">
+                                <input name="Operation.Active" id="Operation_Active" class="" type="checkbox">
                             }
 
 
@@ -66,15 +65,12 @@
 
                         </div>
 
-
-
                         @*<div class="col-sm-3">
                                 <div class="demo-switch-title">GREEN</div>
                                 <div class="switch">
                                     <label><input type="checkbox" checked=""><span class="lever switch-col-green"></span></label>
                                 </div>
-                            </div>*@
-
+                        </div>*@
 
                         @Html.ValidationMessageFor(model => model.Operation.Active , "" , new { @class = "text-danger" })
 
@@ -100,8 +96,7 @@
                                 </div>
                             </div>
                         </div>
-
-
+                        
                         <div class="form-group col-xs-8 p-t-5">
                             <div class="row m-t-15 m-b--20">
                                 <button type="submit" name="btnSubmit" id="btnSubmit" class="btn bg-purple waves-effect btn-xs editDialog" data-toggle="tooltip" data-placement="right" title="" data-original-title="Submit">
@@ -112,8 +107,6 @@
                                 </button>
                             </div>
                         </div>
-
-
 
                         @*    if (Model.Operation.UserMayViewDeletedProp)
                                 {
@@ -204,6 +197,8 @@
     </div>
 </div>
 
+<script src="~/Scripts/CommonCRUDScripts/commonSubmitEditForm.js"></script>
+
 <script>
 
     $(function () {
@@ -226,90 +221,17 @@
             if (this.checked) {
                 $(this).prop("checked", true);
             }
+            // else { $(this).prop("checked", false); }
             $('#Operation_Active').val(this.checked);
         });
     });
 
-    $(function () {
-        $("#loading").hide();
+    $("#loading").hide();
 
-        $('#btnSubmit').click(function () {
-            $('#frmEditItem').submit();
-        });
-
-        $("#frmEditItem").on("submit", function (event) {
-            var $this = $(this);
-
-            event.preventDefault();
-
-            $("#loading").show();
-            $('#btnSubmit').attr('disabled', 'disabled');
-
-            var dataToPost = $(this).serialize({ checkboxesAsBools: true });
-
-            $.ajax({
-                type: $this.attr('method'),
-                url: $this.attr('action'),
-                data: dataToPost,
-                success: function (response) {
-
-                    if (response.Success === true) {
-                        $('#mdModal').modal('toggle');
-                        swal(
-                            'Edits saved',
-                            'Your item has been editted.',
-                            'success'
-                        ).then(function () {
-                            location.reload();
-                        });
-                    }
-                    else {
-
-                        if (response.OptimisticConcurrencyError === true) {
-                            swal(
-                                'Warning!',
-                                'Your item has not been editted. ' + response.OptimisticConcurrencyErrorMsg,
-                                'error'
-                            ).then(function () {
-                                location.reload();
-                            });
-                        } else {
-                            swal(
-                                'Edits failed',
-                                'Your item has not been editted.',
-                                'error'
-                            ).then(function () {
-                                for (var i = 0; i < response.FormErrors.length; i++) {
-                                    $('span[data-valmsg-for="' + response.FormErrors[i].key + '"]').text(response.FormErrors[i].errors[0]);
-                                }
-                                // now apply the style name of class eq to "error" to all the elements with the class "field-validation-valid"
-                                $(function () {
-                                    $('.field-validation-valid').each(function () {
-                                        $(this).addClass('error');
-                                    });
-                                });
-                            });
-                        }
-                    }
-
-                    return false;
-                },
-                error: function (response) {
-                    swal(
-                        'Error!',
-                        'Your item has not been editted. ' + response.ValidationIssues,
-                        'error'
-                    ).then(function () {
-                        location.reload();
-                    });
-                },
-                complete: function () {
-                    $("#loading").hide();
-                    $('#btnSubmit').removeAttr('disabled');
-                }
-            });
-        });
+    $('#btnSubmit').click(function () {
+        $('#frmEditItem').submit();
     });
+
 </script>
 
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")

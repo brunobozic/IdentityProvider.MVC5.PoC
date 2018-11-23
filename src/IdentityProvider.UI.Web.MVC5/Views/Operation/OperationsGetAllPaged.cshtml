@@ -16,120 +16,30 @@
     }
 }
 
-<style>
-
-    .cool-text {
-        font-family: "Montserrat", sans-serif;
-    }
-
-    .my-auto-layout-table {
-        table-layout: auto !important;
-        border-collapse: collapse !important;
-        width: 100% !important;
-    }
-
-    .my-fixed-layout-table {
-        table-layout: fixed !important;
-        border-collapse: collapse !important;
-        width: 100% !important;
-    }
-
-    table .absorbing-column {
-        width: 100% !important;
-    }
-
-    /*table td {
-        white-space: nowrap;
-        word-wrap: break-word;
-    }*/
-
-    .createNewDialog {
-    }
-
-    /*table td:last-child {
-        width: 9% !important;
-    }*/
-
-    .grid {
-        position: relative;
-    }
-
-    .item {
-        position: absolute;
-        width: 250px;
-        height: 110px;
-        line-height: 25px;
-        margin: 10px;
-        z-index: 1;
-    }
-
-    .item-full-width {
-        position: absolute;
-        width: 98%;
-        line-height: 25px;
-        margin: 10px;
-        z-index: 1;
-    }
-
-    .item.muuri-item-hidden {
-        z-index: 0;
-    }
-
-    .item.muuri-item-releasing {
-        z-index: 2;
-    }
-
-    .item.muuri-item-dragging {
-        z-index: 3;
-    }
-
-    .item-content {
-        position: relative;
-        width: 99%;
-        height: 99%;
-        /*text-align: center;
-        background: red;
-        font-size: 50px;
-        color: white;*/
-        cursor: pointer;
-    }
-
-    .handleForDragandDrop {
-        position: relative;
-        cursor: pointer;
-        background: #ffffff; /* Old browsers */
-        background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
-        background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
-        background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-    }
-
-    .item.muuri-item-dragging .item-content {
-        background: blue;
-    }
-
-    .item.muuri-item-releasing .item-content {
-        background: blueViolet;
-    }
-
-    .item-full-width.muuri-item-dragging .item-content {
-        background: blue;
-    }
-
-    .item-full-width.muuri-item-releasing .item-content {
-        background: blueViolet;
-    }
-</style>
-
-<script src="~/Scripts/CommonCRUDScripts/commonCreate.js"></script>
-<script src="~/Scripts/CommonCRUDScripts/commonDelete.js"></script>
-<script src="~/Scripts/CommonCRUDScripts/commonDetails.js"></script>
-<script src="~/Scripts/CommonCRUDScripts/commonEdit.js"></script>
-
 <script>
+    var deleteUrl = "/Operation/Delete/";
+    var toolTipUrl = '/Operation/Detail';
+    var detailUrl = "/Operation/Detail";
+    var editUrl = "/Operation/Edit";
+    var insertUrl = "/Operation/Insert";
+
     $(document).ready(function () {
-        var grid = new Muuri('.grid', {
-            dragEnabled: true
+
+        $('#ShowInactive').val(this.checked);
+
+        $('#ShowInactiveHidden').val(this.checked);
+
+        $('#ShowInactive').change(function () {
+
+            if (this.checked) {
+                $(this).prop("checked", true);
+                $('#ShowInactive').val(this.checked);
+                $('#ShowInactiveHidden').val("true");
+            } else {
+                $('#ShowInactive').val(this.checked);
+                $(this).prop("checked", false);
+                $('#ShowInactiveHidden').val("false");
+            }
         });
     });
 
@@ -157,18 +67,6 @@
         });
     });
 
-    // Submit the form on changing the dropbox selected item value (paging: items per page)
-    $(document).ready(function () {
-        $("#PageSizeList").select2({
-            // theme: "classic"
-        });
-
-        $('#PageSizeList').on('select2:select', function (event) {
-            var form = $(event.target).closest("form");;
-            form.submit();
-        });
-    });
-
     // Delete item from grid
     $(document).ready(function () {
         $(".deleteDialog").click(function (event) {
@@ -181,21 +79,123 @@
         });
     });
 
-    var deleteUrl = "/Operation/Delete/";
-
-    var toolTipUrl = '/Operation/Detail';
-
     // Item details modal, close modal button
     $('closebtn').on('click',
         function () {
             $('#mdModal').modal('hide');
         });
 
-    var detailUrl = "/Operation/Detail";
+    $(document).ready(function () {
+        $.fn.dataTable.ext.classes.sPageButton = 'btn bg-pink';
 
-    var editUrl = "/Operation/Edit";
+        // Setup - add a text input to each footer cell
+        $('#SearchResultTable tfoot th').each( function () {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        });
 
-    var insertUrl = "/Operation/Insert";
+        var table = $('#SearchResultTable').DataTable({
+            "columnDefs": [
+                { "width": "5%", "targets": [0] },
+                { "width": "10%", "targets": [1] },
+                { "width": "10%", "targets": [2] },
+                // { "width": "20%", "searchable": true, "orderable": true,  "targets": [3] },
+                { "width": "20%", "targets": [3] },
+                { "width": "20%", "searchable": true, "orderable": true,  "targets": [4] },
+                { "className": "text-center custom-middle-align", "targets": [0, 1, 2, 3, 4] }
+            ],
+            select: {
+                style: 'multi'
+            },
+            "keys": true,
+            "fixedHeader": true,
+            "sortable": true,
+            "proccessing": true,
+            "serverSide": true,
+            "pageLength": 10,
+            "pagingType": "full_numbers",
+            "ajax": {
+                url: "@Url.Action("AuditTrailDatatables" , "AuditTrail")",
+                type: 'POST',
+                datatype: "json"
+            },
+            "language": {
+                "search": "",
+                "searchPlaceholder": "Search...",
+                "processing": "<div class='overlay custom-loader-background'><i class='fa fa-cog fa-spin custom-loader-color'></i></div>"
+            },
+            "columns": [
+                { "data": "Id", "name": "Id", "autoWidth": true },
+                { "data": "UserName", "name": "UserName", "autoWidth": true },
+                { "data": "TableName", "name": "TableName", "autoWidth": true },
+                { "data": "OldData", "name": "OldData", "autoWidth": false },
+                { "data": "NewData", "name": "NewData", "autoWidth": false }
+            ]
+        });
+
+        table.columns().every( function () {
+            var that = this;
+
+            $('input', this.footer()).on('keydown', function (e) {
+              
+                if ( that.search() !== this.value ) {
+                    that.search( this.value ).draw();
+                }
+                
+            } );
+        } );
+    });
+
+    //$('#submitSearch').click(function () {
+    //    $('#searchAndPageSizeForm').submit();
+    //});
+
+    //$(function () {
+    //    $("#searchAndPageSizeForm").on("submit", function (event) {
+    //        var $this = $(this);
+
+    //        event.preventDefault();
+
+    //        // $('#submitSearch').attr('disabled', 'disabled');
+
+    //        var dataToPost = $(this).serialize({ checkboxesAsBools: true });
+    //        alert(dataToPost);
+    //        $.ajax({
+    //            type: $this.attr('method'),
+    //            url: $this.attr('action'),
+    //            data: dataToPost,
+    //            success: function (response) {
+
+    //                if (response.Success === true) {
+
+    //                }
+    //                else {
+
+    //                    if (response.OptimisticConcurrencyError === true) {
+
+    //                    } else {
+
+    //                    }
+    //                }
+
+    //                return false;
+    //            },
+    //            error: function (response) {
+    //                swal(
+    //                    'Error!',
+    //                    'Your item has not been editted. ' + response.ValidationIssues,
+    //                    'error'
+    //                ).then(function () {
+    //                    location.reload();
+    //                });
+    //            },
+    //            complete: function () {
+    //                $("#loading").hide();
+    //                // $('#btnSubmit').removeAttr('disabled');
+    //            }
+    //        });
+    //    });
+    //});
 
 </script>
 
@@ -253,8 +253,9 @@
 
             <div class="item-full-width">
                 <div class="card">
-
-                    @Html.Partial("../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial" , Model)
+                    <div class="item-content">
+                        @Html.Partial("../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial" , Model)
+                    </div>
 
                     <div class="header">
                         <ul class="header-dropdown m-r--5" style="top:10px !important">
@@ -284,9 +285,13 @@
                                 </div>
                             </div>
 
+                            <input type="hidden" id="ShowInactiveHidden" name="ShowInactive" />
+
+                            <input id="ShowInactive" name="ShowInactive" class="filled-in chk-col-pink" type="checkbox" @(Model.ShowInactive ? "checked" : "")>
+
+                            <label for="ShowInactive">Active</label>
+
                             <div class="col-xs-2">
-                                @*<input name="showinactive" id="showinactive" class="filled-in chk-col-pink" type="checkbox">
-                                    <label for="showinactive">Only active</label>*@
 
                                 <div class="form-line" style="float: right; margin-right: 8px">
                                     @Html.DropDownListFor(m => m.PageSize , Model.PageSizeList , new { id = "PageSizeList" , @class = "js-select2-enabled" , @style = "padding: 5px; width: 55px" })
@@ -349,7 +354,9 @@
                                                 </th>*@
                                         </tr>
                                     </thead>
+
                                     @Html.Partial("Partial/_operationsPartial" , Model)
+
                                 </table>
                             </div>
                         }
@@ -359,13 +366,14 @@
                         {
                             <div class="pager">
                                 @Html.PagedListPager(Model.Operations , page => Url.Action("OperationsGetAllPaged" , new
-                           {
-                               page ,
-                               sortOrder = Model.SortOrder,
-                               currentFilter = Model.SearchString,
-                               pageNumber = page ,
-                               pageSize = Model.PageSize
-                           }))
+                                {
+                                    page ,
+                                    sortOrder = Model.SortOrder,
+                                    currentFilter = Model.SearchString,
+                                    pageNumber = page ,
+                                    pageSize = Model.PageSize,
+                                    ShowInactive = Model.ShowInactive
+                                }))
                                 Page @(Model.Operations.PageCount < Model.Operations.PageNumber ? 0 : Model.Operations.PageNumber) of @Model.Operations.PageCount
                             </div>
                         }
@@ -374,6 +382,7 @@
                             <div><hr /></div>
                         }
                     </div>
+
                 </div>
             </div>
 
@@ -409,98 +418,43 @@
                         </em>
                     </div>
 
-                    @*<div class="body container-fluid">
-                            @using (Html.BeginForm("OperationsAuditTrail" , "Operation" , FormMethod.Get , new { id = "searchAndPageSizeForm" }))
-                            {
-                                <div class="col-xs-10">
-                                    <div class="form-line" style="margin-left: 5px">
-                                        @Html.TextBox("SearchString" , ViewBag.CurrentFilter as string , new { @placeholder = "Search" , @value = ViewBag.CurrentFilter , @data_toggle = "tooltip" , @data_placement = "top" , @title = "" , @data_original_title = "Enter search criteria" })
-                                        @Html.ValidationMessage("Search")
-                                        <button class="btn bg-purple waves-effect btn-xs" id="submitSearch" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
-                                    </div>
-                                </div>
 
-                                <div class="col-xs-2">
-                                    <div class="form-line" style="float: right; margin-right: 5px">
-                                        @Html.DropDownListFor(m => m.PageSize , Model.PageSizeList , new { id = "PageSizeList" , @class = "js-select2-enabled" , @style = "padding: 5px; width: 55px" })
-                                    </div>
-                                </div>
+                    <div style="width:90%; margin:0 auto;">
+                        <table id="SearchResultTable" class="table table-striped table-bordered"
+                               style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>UserName</th>
+                                    <th>TableName</th>
+                                    <th>OldValue</th>
+                                    <th>NewValue</th>
+                                </tr>
+                            </thead>
 
-                                <div class="body" style="width: 100% !important">
-                                    <table class="table table-striped table-light table-condensed table-responsive-sm" Id="operationsAuditTrailGrid">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by name">
-                                                        @Html.ActionLink("TimeStamp" , "OperationsAuditTrail" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.NameSortParam))
-                                                        @Html.SortIdentifier(currentSort , "Name")
-                                                    </span>
-                                                </th>
-                                                <th>
-                                                    <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by description">
-                                                        @Html.ActionLink("Action" , "OperationsAuditTrail" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DescriptionSortParam))
-                                                        @Html.SortIdentifier(currentSort , "Description")
-                                                    </span>
-                                                </th>
-                                                <th>
-                                                    <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by active status">
-                                                        @Html.ActionLink("User" , "OperationsAuditTrail" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.ActiveSortParam))
-                                                        @Html.SortIdentifier(currentSort , "Active")
-                                                    </span>
-                                                </th>
-                                                <th>
-                                                    <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by created date">
-                                                        @Html.ActionLink("Old_Value" , "OperationsAuditTrail" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DateCreatedSortParam))
-                                                        @Html.SortIdentifier(currentSort , "Old_Value")
-                                                    </span>
-                                                </th>
-                                                <th>
-                                                    <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by modified date">
-                                                        @Html.ActionLink("New_Value" , "OperationsAuditTrail" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DateModifiedSortParam))
-                                                        @Html.SortIdentifier(currentSort , "New_Value")
-                                                    </span>
-                                                </th>
-                                                <th>
-                                                    <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions available on selected item">
-                                                        <span>
-                                                            Actions
-                                                        </span><i class="material-icons" style="font-size: 1em; color: purple" , title="Actions">build</i>
-                                                    </span>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        @Html.Partial("Partial/_operationsAuditTrailPartial" , Model)
-                                    </table>
-                                </div>
-                            }
-                        </div>
-                        <div class="footer">
-                            @if (Model.Operations.PageCount > 1)
-                            {
-                                <div class="pager">
-                                    @Html.PagedListPager(Model.Operations , page => Url.Action("OperationsAuditTrail" , new
-                                    {
-                                        page ,
-                                        sortOrder = Model.SortOrder,
-                                        currentFilter = Model.SearchString,
-                                        pageNumber = page ,
-                                        pageSize = Model.PageSize
-                                    }))
-                                    Page @(Model.Operations.PageCount < Model.Operations.PageNumber ? 0 : Model.Operations.PageNumber) of @Model.Operations.PageCount
-                                </div>
-                            }
-                            else
-                            {
-                                <div><hr /></div>
-                            }
-                        </div>*@
+                            <tfoot>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>UserName</th>
+                                    <th>TableName</th>
+                                    <th>OldValue</th>
+                                    <th>NewValue</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <div><hr /></div>   <div><hr /></div>
+
+
                 </div>
             </div>
+            <!-- #END# Audit trail card -->
         </div>
-        <!-- #END# Audit trail card -->
-
+        <!-- #END# Muuri grid -->
     </div>
 </div>
+
 
 <div class="modal fade in" id="mdModal" tabindex="-1" role="dialog" style="display: none;">
     <div class="modal-dialog modal-lg" role="document">
@@ -517,4 +471,3 @@
         </div>
     </div>
 </div>
-

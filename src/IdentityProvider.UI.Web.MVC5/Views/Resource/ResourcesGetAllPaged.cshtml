@@ -120,13 +120,16 @@
 <script src="~/Scripts/CommonCRUDScripts/commonDelete.js"></script>
 <script src="~/Scripts/CommonCRUDScripts/commonDetails.js"></script>
 <script src="~/Scripts/CommonCRUDScripts/commonEdit.js"></script>
+<script src="~/Scripts/Muuri/muuriWireup.js"></script>
+<script src="~/Scripts/Select2/select2Wireup.js"></script>
 
 <script>
-    $(document).ready(function () {
-        var grid = new Muuri('.grid', {
-            dragEnabled: true
-        });
-    });
+
+    var toolTipUrl = '/Resource/Detail';
+    var detailUrl = "/Resource/Detail";
+    var editUrl = "/Resource/Edit";
+    var insertUrl = "/Resource/Insert";
+    var deleteUrl = "/Resource/Delete/";
 
     // Fetch number of active/deleted/inactivated resources from backend to be used in widgets
     $(document).ready(function () {
@@ -152,22 +155,6 @@
         });
     });
 
-    // Submit the form on changing the dropbox selected item value (paging: items per page)
-    $(document).ready(function () {
-        $("#PageSizeList").select2({
-            // theme: "classic"
-        });
-
-        $('#PageSizeList').on('select2:select', function (event) {
-            var form = $(event.target).closest("form");
-            form.submit();
-        });
-    });
-
-    // Delete item from grid
-
-    var deleteUrl = "/Resource/Delete/";
-
     $(document).ready(function () {
         $(".deleteDialog").click(function (event) {
             event.preventDefault();
@@ -179,19 +166,11 @@
         });
     });
 
-    var toolTipUrl = '/Resource/Detail';
-
     // Item details modal, close modal button
     $('closebtn').on('click',
         function () {
             $('#mdModal').modal('hide');
         });
-
-    var detailUrl = "/Resource/Detail";
-
-    var editUrl = "/Resource/Edit";
-
-    var insertUrl = "/Resource/Insert";
 
 </script>
 

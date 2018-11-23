@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using IdentityProvider.Infrastructure;
 using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
     [Table("Operations" , Schema = "Resource")]
-    public class Operation : DomainEntity<int>, IActive
+    public class Operation : DomainEntity<int>, IActive, IAuditTrail
     {
         public Operation()
         {

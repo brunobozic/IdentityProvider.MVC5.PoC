@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
@@ -9,12 +8,11 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
-using IdentityProvider.Infrastructure.LatestAdditions;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
-using IdentityProvider.Models.MVC5Helpers;
 using IdentityProvider.Models.ViewModels.Operations;
 using IdentityProvider.Models.ViewModels.Operations.Extensions;
+using IdentityProvider.Services.AuditTrailService;
 using IdentityProvider.Services.OperationsService;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using PagedList;
@@ -53,26 +51,50 @@ namespace IdentityProvider.Controllers.Controllers
             , string searchString
             , int? pageNumber = 1
             , int pageSize = 10
+            , bool ShowInactive = false
         )
         {
             searchString = SetupViewbagForPagedItems(sortOrder , currentFilter , searchString , ref pageNumber);
 
             // TODO: if user can see Inactive items and perhaps reactivate?
             // TODO: if user has rights to view deleted items and undelete them?
-            var query = _operationService.Queryable().Where(o => o.Active && !o.IsDeleted).Select(i =>
-                new OperationVm
-                {
-                    Operation = new OperationDto
-                    {
-                        Active = i.Active ,
-                        Name = i.Name ,
-                        Description = i.Description ,
-                        Deleted = i.IsDeleted ,
-                        DateCreated = i.CreatedDate ,
-                        DateModified = i.ModifiedDate ,
-                        Id = i.Id
-                    }
-                });
+
+            IQueryable<OperationVm> query;
+
+            if (ShowInactive)
+            {
+                query = _operationService.Queryable().Where(o => !o.IsDeleted).Select(i =>
+                     new OperationVm
+                     {
+                         Operation = new OperationDto
+                         {
+                             Active = i.Active ,
+                             Name = i.Name ,
+                             Description = i.Description ,
+                             Deleted = i.IsDeleted ,
+                             DateCreated = i.CreatedDate ,
+                             DateModified = i.ModifiedDate ,
+                             Id = i.Id
+                         }
+                     });
+            }
+            else
+            {
+                query = _operationService.Queryable().Where(o => o.Active && !o.IsDeleted).Select(i =>
+                   new OperationVm
+                   {
+                       Operation = new OperationDto
+                       {
+                           Active = i.Active ,
+                           Name = i.Name ,
+                           Description = i.Description ,
+                           Deleted = i.IsDeleted ,
+                           DateCreated = i.CreatedDate ,
+                           DateModified = i.ModifiedDate ,
+                           Id = i.Id ,
+                       }
+                   });
+            }
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -130,7 +152,8 @@ namespace IdentityProvider.Controllers.Controllers
                 PageSize = int.Parse(selectedOne.Value) ,
                 PageSizeList = list ,
                 SearchString = searchString ,
-                SortOrder = sortOrder
+                SortOrder = sortOrder ,
+                ShowInactive = ShowInactive
             };
 
             return View(returnValue);
@@ -437,23 +460,27 @@ namespace IdentityProvider.Controllers.Controllers
                         // the item has been deactivated...
                         if (existingEntity.Active && !operation.Active)
                         {
-                            // set the date of deactivation to current date
+                            // set the date of deactivation to current date, dont touch the created date
                             existingEntity.ActiveTo = DateTime.Now;
                         }
 
                         // the item has been reactivated...
                         if (!existingEntity.Active && operation.Active)
                         {
-                            // log?
+                            // audit log?
+                            existingEntity.Active = true;
+                            existingEntity.ActiveFrom = DateTime.Now;
+                            existingEntity.ActiveTo = operation.ActiveTo;
                         }
                     }
                     else
                     {
+                        // extending the activation validity date...
                         existingEntity.ActiveTo = operation.ActiveTo;
                     }
 
                     existingEntity.Active = operation.Active;
-                
+
                     // you are not allowed to change the value of active from, you naughty naughty person!
                     existingEntity.TrackingState = TrackingState.Modified;
                     existingEntity.RowVersion = operation.RowVersion;
@@ -477,7 +504,7 @@ namespace IdentityProvider.Controllers.Controllers
                     // if we stumbled upon an optimistic concurrency error, emit proper error to the user, and have the view reloaded with the new values taken from the database
                     if (e.Message.Contains("The record you attempted to edit was modified by another user after you got the original value. The edit operation was canceled and the current values in the database have been displayed."))
                     {
-                        return Json(new { Success = false , OptimisticConcurrencyError = true, OptimisticConcurrencyErrorMsg = "The record you attempted to edit was modified by another user after you got the original value. The edit operation was canceled and the current values in the database have been displayed." });
+                        return Json(new { Success = false , OptimisticConcurrencyError = true , OptimisticConcurrencyErrorMsg = "The record you attempted to edit was modified by another user after you got the original value. The edit operation was canceled and the current values in the database have been displayed." });
                     }
                 }
             }
@@ -538,6 +565,96 @@ namespace IdentityProvider.Controllers.Controllers
 
             return PartialView("Partial/_operationDetailsPartial" , retVal);
         }
+
+     
+
+        //[AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        //public ActionResult OperationAuditTrailGetAllPaged(
+        //    string sortOrder
+        //    , string currentFilter
+        //    , string searchString
+        //    , int? pageNumber = 1
+        //    , int pageSize = 10
+        //    )
+        //{
+        //    searchString = SetupViewbagForPagedItems(sortOrder , currentFilter , searchString , ref pageNumber);
+
+        //    var query = _auditTrailService.Queryable().Select(i =>
+        //        new OperationAuditTrailVm
+        //        {
+        //            OperationAuditTrail = new OperationAuditTrailDto
+        //            {
+        //                Id = i.Id ,
+        //                TableName = i.TableName ,
+        //                UserName = i.UserName
+
+        //            }
+        //        });
+
+        //    if (!string.IsNullOrEmpty(searchString))
+        //    {
+        //        query = query.Where(s =>
+        //           s.OperationAuditTrail.TableName.Contains(searchString)
+        //        || s.OperationAuditTrail.OldData.Contains(searchString)
+        //        || s.OperationAuditTrail.NewData.Contains(searchString));
+        //    }
+
+        //    //switch (sortOrder)
+        //    //{
+        //    //    case "Name":
+        //    //        query = query.OrderBy(x => x.Name);
+        //    //        break;
+        //    //    case "Name_Desc":
+        //    //        query = query.OrderByDescending(x => x.Name);
+        //    //        break;
+        //    //    case "Description":
+        //    //        query = query.OrderBy(x => x.Description);
+        //    //        break;
+        //    //    case "Description_Desc":
+        //    //        query = query.OrderByDescending(x => x.Description);
+        //    //        break;
+        //    //    case "Active":
+        //    //        query = query.OrderBy(x => x.Active);
+        //    //        break;
+        //    //    case "Active_Desc":
+        //    //        query = query.OrderByDescending(x => x.Active);
+        //    //        break;
+        //    //    case "Deleted":
+        //    //        query = query.OrderBy(x => x.Deleted);
+        //    //        break;
+        //    //    case "Deleted_Desc":
+        //    //        query = query.OrderByDescending(x => x.Deleted);
+        //    //        break;
+        //    //    case "Date_Created":
+        //    //        query = query.OrderBy(x => x.DateCreated);
+        //    //        break;
+        //    //    case "Date_Created_Desc":
+        //    //        query = query.OrderByDescending(x => x.DateCreated);
+        //    //        break;
+        //    //    case "Date_Modified":
+        //    //        query = query.OrderBy(x => x.DateModified);
+        //    //        break;
+        //    //    case "Date_Modified_Desc":
+        //    //        query = query.OrderByDescending(x => x.DateModified);
+        //    //        break;
+        //    //    default:
+        //    //        query = query.OrderBy(x => x.Name);
+        //    //        break;
+        //    //}
+
+        //    var pageNo = SetupListOfPageSizes(pageNumber , pageSize , out var selectedOne , out var list);
+
+        //    var returnValue = new OperationAuditTrailPagedVm
+        //    {
+        //        OperationAuditTrail = query.ToPagedList(pageNo , int.Parse(selectedOne.Text)) ,
+        //        PageSize = int.Parse(selectedOne.Value) ,
+        //        PageSizeList = list ,
+        //        SearchString = searchString ,
+        //        SortOrder = sortOrder ,
+        //    };
+
+        //    return Json(returnValue);
+        //}
     }
 }
 

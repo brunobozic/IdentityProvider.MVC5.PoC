@@ -4,6 +4,9 @@
 
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionPartial")
 
+<!-- Custom Css -->
+<link href="~/Content/site.css" rel="stylesheet" />
+<link href="~/bower_components/pretty-checkbox/dist/pretty-checkbox.css" rel="stylesheet" />
 
 <div class="container-fluid" style="width: 100% !important">
     <div class="row clearfix">
@@ -165,57 +168,17 @@
         </div>
     </div>
 </div>
+
+<script src="~/Scripts/CommonCRUDScripts/commonSubmitEditForm.js"></script>
+
 <script>
-    $(function () {
-        $("#loading").hide();
 
-        $('#btnSubmit').click(function () {
-            $('#frmEditItem').submit();
-        });
+    $("#loading").hide();
 
-        $("#frmEditItem").on("submit", function (event) {
-            var $this = $(this);
-
-            event.preventDefault();
-
-            $("#loading").show();
-            $('#btnSubmit').attr('disabled', 'disabled');
-
-            var dataToPost = $(this).serialize({ checkboxesAsBools: true });
-
-            $.ajax({
-                type: $this.attr('method'),
-                url: $this.attr('action'),
-                data: dataToPost,
-                success: function (response) {
-
-                    $('#mdModal').modal('toggle');
-                    swal(
-                        'Edits saved',
-                        'Your item has been editted.',
-                        'success'
-                    ).then(function () {
-                        location.reload();
-                    });
-
-                    return false;
-                },
-                error: function (response) {
-                    swal(
-                        'Error!',
-                        'Your item has not been editted. ' + response.ValidationIssues,
-                        'error'
-                    ).then(function () {
-                        location.reload();
-                    });;
-                },
-                complete: function () {
-                    $("#loading").hide();
-                    $('#btnSubmit').removeAttr('disabled');
-                }
-            });
-        });
+    $('#btnSubmit').click(function () {
+        $('#frmEditItem').submit();
     });
+
 </script>
 
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")

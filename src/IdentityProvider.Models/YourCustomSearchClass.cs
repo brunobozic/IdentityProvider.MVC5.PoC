@@ -1,0 +1,17 @@
+﻿using System;
+
+namespace IdentityProvider.Models
+{
+    public class YourCustomSearchClass
+    {
+        public int Id { get; set; }
+        public string NewData { get; set; }
+        public string OldData { get; set; }
+        public string TableName { get; set; }
+        public string UserName { get; set; }
+        public string Actions { get; set; }
+        public long? TableIdValue { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public int UserId { get; set; }
+    }
+}

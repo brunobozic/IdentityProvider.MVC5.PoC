@@ -12,6 +12,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "html",
             success: function (response) {
+
                 // $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
 
                 $('#mdModal').modal(options);
@@ -24,6 +25,9 @@
                 });
             },
             failure: function (response) {
+
+                // $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+
                 $('#mdModal').modal(options);
 
                 $('#mdModal').modal('show');
@@ -33,6 +37,9 @@
                 });
             },
             error: function (response) {
+
+                // $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
+
                 $('#mdModal').modal(options);
 
                 $('#mdModal').modal('show');

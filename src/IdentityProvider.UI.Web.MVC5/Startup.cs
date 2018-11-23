@@ -2,7 +2,6 @@
 using Microsoft.Owin;
 using Owin;
 
-
 [assembly: OwinStartup(typeof(Startup))]
 
 namespace IdentityProvider.UI.Web.MVC5

@@ -81,6 +81,16 @@
     </div>
 </div>
 
+<script>
+
+    $("#loading").hide();
+
+    $('#btnSubmit').click(function () {
+        $('#frmEditItem').submit();
+    });
+
+</script>
+
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")
 
 

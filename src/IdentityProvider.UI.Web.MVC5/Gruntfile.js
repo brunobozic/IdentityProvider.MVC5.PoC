@@ -5,7 +5,7 @@ Click here to learn more. https://go.microsoft.com/fwlink/?LinkID=513275&clcid=0
 module.exports = function(grunt) {
     "use strict";
     grunt.initConfig({
-        //WARNING: You CANNOT put comments in the setting.json file. grunt.file.readJSON does not handle comments
+        // WARNING: You CANNOT put comments in the setting.json file. grunt.file.readJSON does not handle comments
         properties: grunt.file.readJSON("App_Data/BowerBundles.json"),
         basedir: "wwwroot",
         bower: {
@@ -27,9 +27,9 @@ module.exports = function(grunt) {
         },
 
         concat: {
-            //This is the standard way of concatenating files using setting.json
-            // - scr:  takes an array by accessing a json property, in this case mainCss, from the setting.json file
-            // - dest: to use BunndleForBower.cs you need to save the file into a set directory and with the same name as the property
+            // This is the standard way of concatenating files using setting.json
+            //  - scr:  takes an array by accessing a json property, in this case mainCss, from the setting.json file
+            //  - dest: to use BunndleForBower.cs you need to save the file into a set directory and with the same name as the property
             css: {
                 src: new Array("<%= properties.mainCss %>"),
                 dest: "css/mainCss.css"
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
             }
         },
 
-        //This is only needed when Bootstrap and/or Jquery is updated
+        // This is only needed when Bootstrap and/or Jquery is updated
         copy: {
             jQueryCdn: {
                 src: "lib/jquery/dist/jquery.min.js",
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
                     reload: true
                 }
             },
-            //These watch various library and specific application directories for changes and then call the appropriate build commands
+            // These watch various library and specific application directories for changes and then call the appropriate build commands
             css: {
                 files: ["lib/**/*.css", "Content/**/*.css"],
                 tasks: ["build:css"],

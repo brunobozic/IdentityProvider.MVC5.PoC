@@ -22,24 +22,28 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using WebActivatorEx;
 using IContainer = StructureMap.IContainer;
 
-[assembly: System.Web.PreApplicationStartMethod(typeof(StructuremapMvc), "Start")]
-[assembly: ApplicationShutdownMethod(typeof(StructuremapMvc), "End")]
+[assembly: System.Web.PreApplicationStartMethod(typeof(StructuremapMvc) , "Start")]
+[assembly: ApplicationShutdownMethod(typeof(StructuremapMvc) , "End")]
 
-namespace IdentityProvider.UI.Web.MVC5 {
-    public static class StructuremapMvc {
+namespace IdentityProvider.UI.Web.MVC5
+{
+    public static class StructuremapMvc
+    {
         #region Public Properties
 
         public static StructureMapDependencyScope StructureMapDependencyScope { get; set; }
 
         #endregion
-		
-		#region Public Methods and Operators
-		
-		public static void End() {
+
+        #region Public Methods and Operators
+
+        public static void End()
+        {
             StructureMapDependencyScope.Dispose();
         }
-		
-        public static void Start() {
+
+        public static void Start()
+        {
             IContainer container = IoC.Initialize();
             StructureMapDependencyScope = new StructureMapDependencyScope(container);
             DependencyResolver.SetResolver(StructureMapDependencyScope);
