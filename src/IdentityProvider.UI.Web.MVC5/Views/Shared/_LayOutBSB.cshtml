@@ -18,7 +18,24 @@
     | Stylesheets here |
     -------------------------->
     <!-- Bootstrap Core Css -->
-    <link href="~/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+    <link href="~/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/bower_components/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />
+        <link href="~/bower_components/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />*@
+
+
+    <!-- Datatables Css -->
+    @*<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />*@
+    <link href="https://cdn.datatables.net/select/1.2.7/css/select.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/keytable/2.4.1/css/keyTable.bootstrap.min.css" rel="stylesheet" />
+
+
+    <link href="~/bower_components/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/bower_components/datatables/media/css/dataTables.material.min.css" rel="stylesheet" />*@
+    <link href="~/bower_components/datatables/media/css/jquery.dataTables.css" rel="stylesheet" />
+
+    <link href="https://cdn.datatables.net/rowreorder/1.2.5/css/rowReorder.dataTables.min.css" rel="stylesheet" />
 
     <!-- Waves Effect Css -->
     @*<link href="plugins/node-waves/waves.css" rel="stylesheet" />*@
@@ -30,25 +47,26 @@
     <!-- Morris Chart Css-->
     <link href="~/bower_components/morris.js/morris.css" rel="stylesheet" />
 
+    <link href="~/bower_components/sweetalert2/dist/sweetalert2.css" rel="stylesheet" />
+
+    <link href="~/Content/popover-overrides.css" rel="stylesheet" />
+
+    <link href="~/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
+
     <!-- Custom Css -->
     <link href="~/Content/site.css" rel="stylesheet" />
-
     <link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="~/bower_components/adminbsb-materialdesign/css/themes/all-themes.css" rel="stylesheet" />
     <link href="~/bower_components/adminbsb-materialdesign/css/style.css" rel="stylesheet" />
     <link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />
-
     <link href="~/Content/css/themed-buttons-deep-purple.css" rel="stylesheet" />
     <link href="~/Content/css/themed-buttons-red.css" rel="stylesheet" />
 
-    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/select/1.2.7/css/select.bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/keytable/2.4.1/css/keyTable.bootstrap.min.css" rel="stylesheet" />
-   
-    
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/MakeTableResponsive.css" rel="stylesheet" />
 
     <style>
 
@@ -123,56 +141,124 @@
         }
     </style>
 
+    <link href="~/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 
     <!------------------------------
     | Very important scripts here |
     ------------------------------->
     <!-- Jquery Core Js -->
-    <script src="~/bower_components/jQuery/dist/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Core Js -->
+    <!-- Popper Js (you might not be needing this if using bootstrap bundle -->
+    @*<script src="~/bower_components/bootstrap/site/docs/4.1/assets/js/vendor/popper.min.js"></script>*@
+
+    <link href="~/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Datepicker Js -->
+    <script src="~/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
     <!-- Slim scroll Js -->
     <script src="~/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+
     <!-- Lodash -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
-    @*<script src="~/bower_components/lodash/dist/lodash.js"></script>*@
 
     <!-- SWAL -->
     <script src="~/bower_components/sweetalert2/dist/sweetalert2.all.js"></script>
-    <link href="~/bower_components/sweetalert2/dist/sweetalert2.css" rel="stylesheet" />
+
     <script src="~/bower_components/sweetalert2/dist/sweetalert2.js"></script>
 
-    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <!-- Make tables responsive -->
     <script src="~/Scripts/makeTableResponsive.js"></script>
-    <link href="~/Content/MakeTableResponsive.css" rel="stylesheet" />
-    <script src="~/bower_components/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>
-    <link href="~/Content/popover-overrides.css" rel="stylesheet" />
-    <link href="~/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
+
+    <!-- Select2 -->
     <script src="~/bower_components/select2/dist/js/select2.full.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="~/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="~/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="~/bower_components/Waves/dist/waves.js"></script>
+
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="~/bower_components/jquery-countTo/jquery.countTo.js"></script>
+
+    <!-- Morris Plugin Js -->
+    <script src="~/bower_components/raphael/raphael.js"></script>
+    <script src="~/bower_components/morris.js/morris.js"></script>
+
+    <!-- ChartJs -->
+    <script src="~/bower_components/Chart.js/Chart.js"></script>
+
+    <!-- Flot Charts Plugin Js -->
+    @*<script src="~/bower_components/Flot/jquery.flot.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.resize.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.pie.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.categories.js"></script>
+        <script src="~/bower_components/Flot/jquery.flot.time.js"></script>*@
+
+    <!-- Tooltip popovers Js -->
+    <script src="~/bower_components/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>
+
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="~/bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
+
+    <!-- Sparkline Js -->
+    <script src="~/bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
+
+    <!-- Select2 Js -->
+    <script src="~/bower_components/select2/dist/js/select2.js"></script>
+    <link href="~/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
+
+    <!-- Boolean checkboxes jQuery override -->
+    <script src="~/Scripts/jQueryOverride-boolean-checkboxes.js"></script>
 
     <!-- Muuri -->
     <script src="https://unpkg.com/web-animations-js@2.3.1/web-animations.min.js"></script>
     <script src="https://unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
     <script src="https://unpkg.com/muuri@0.7.0/dist/muuri.min.js"></script>
 
+    <!-- Application specific stuff -->
     <script src="~/Scripts/CommonCRUDScripts/commonCreate.js"></script>
     <script src="~/Scripts/CommonCRUDScripts/commonDelete.js"></script>
     <script src="~/Scripts/CommonCRUDScripts/commonDetails.js"></script>
     <script src="~/Scripts/CommonCRUDScripts/commonEdit.js"></script>
-    <script src="~/Scripts/Muuri/muuriWireup.js"></script>
+
     <script src="~/Scripts/Select2/select2Wireup.js"></script>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Custom Js -->
+    <script src="~/bower_components/adminbsb-materialdesign/js/admin.js"></script>
+    <script src="~/bower_components/adminbsb-materialdesign/js/pages/index.js"></script>
+    <script src="~/bower_components/adminbsb-materialdesign/js/demo.js"></script>
 
+    <!-- ========== -->
     <!-- DataTables -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <!-- ========== -->
+    <script src="~/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/bower_components/datatables/media/js/dataTables.dataTables.min.js"></script>
+    @*<script src="~/bower_components/datatables/media/js/dataTables.material.js"></script>*@
 
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/keytable/2.4.1/js/dataTables.keyTable.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
+
+    @*<script src="~/bower_components/datatables/media/js/dataTables.bootstrap.min.js"></script>*@
 
 
+    @*<script src="~/bower_components/datatables-fixedheader/js/dataTables.fixedHeader.js"></script>*@
+    @*<script src="~/bower_components/datatables-fixedheader/js/fixedHeader.bootstrap.js"></script>*@
+
+    <script src="~/bower_components/datatables-responsive/js/dataTables.responsive.js"></script>
+    <script src="~/bower_components/datatables-responsive/js/responsive.bootstrap.js"></script>
+    <script src="~/bower_components/datatables-responsive/js/responsive.dataTables.js"></script>
+    <!-- ========== -->
+    <!-- ========== -->
+    <!-- ========== -->
 
 </head>
 
@@ -214,56 +300,8 @@
     <!--------------------------
     | Javascript here |
     -------------------------->
-    <!-- Jquery Core Js -->
-    <script src="~/bower_components/jquery/dist/jquery.js"></script>
+    <script>
 
-    <!-- Bootstrap Core Js -->
-    <script src="~/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-
-    <!-- Select Plugin Js -->
-    <script src="~/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
-
-    <!-- Slimscroll Plugin Js -->
-    <script src="~/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="~/bower_components/Waves/dist/waves.js"></script>
-
-    <!-- Jquery CountTo Plugin Js -->
-    <script src="~/bower_components/jquery-countTo/jquery.countTo.js"></script>
-
-    <!-- Morris Plugin Js -->
-    <script src="~/bower_components/raphael/raphael.js"></script>
-    <script src="~/bower_components/morris.js/morris.js"></script>
-
-    <!-- ChartJs -->
-    <script src="~/bower_components/Chart.js/Chart.js"></script>
-
-    <!-- Flot Charts Plugin Js -->
-    @*<script src="~/bower_components/Flot/jquery.flot.js"></script>
-        <script src="~/bower_components/Flot/jquery.flot.resize.js"></script>
-        <script src="~/bower_components/Flot/jquery.flot.pie.js"></script>
-        <script src="~/bower_components/Flot/jquery.flot.categories.js"></script>
-        <script src="~/bower_components/Flot/jquery.flot.time.js"></script>*@
-
-    <!-- Sparkline Chart Plugin Js -->
-    <script src="~/bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
-
-    <!-- Custom Js -->
-    <script src="~/bower_components/adminbsb-materialdesign/js/admin.js"></script>
-    <script src="~/bower_components/adminbsb-materialdesign/js/pages/index.js"></script>
-    <script src="~/bower_components/adminbsb-materialdesign/js/demo.js"></script>
-
-    <!-- Sparkline Js -->
-    <script src="~/bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
-
-    <!-- Select2 Js -->
-    <script src="~/bower_components/select2/dist/js/select2.js"></script>
-    <link href="~/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
-
-    <!-- Boolean checkboxes jQuery override -->
-    <script src="~/Scripts/jQueryOverride-boolean-checkboxes.js"></script>
-
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    </script>
 </body>
 </html>

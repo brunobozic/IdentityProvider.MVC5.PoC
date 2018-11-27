@@ -42,14 +42,14 @@ namespace IdentityProvider.Controllers.Controllers
 
             result.AddRange(res.Select(s => new YourCustomSearchClass
             {
-                Id = s.Id ,
-                UserId = s.UserId ,
-                TableName = s.TableName ,
-                UpdatedAt = s.UpdatedAt ,
-                OldData = s.OldData ,
-                NewData = s.NewData ,
-                Actions = s.Actions ,
-                TableIdValue = s.TableIdValue
+                Id = s.Id
+                ,UpdatedAt = s.UpdatedAt
+                ,UserId = s.UserId
+                ,Action = s.Action
+                ,TableName = s.TableName
+                ,OldData = s.OldData
+                ,NewData = s.NewData
+                ,TableId = s.TableId
             }));
 
             return Json(new

@@ -16,6 +16,13 @@
     }
 }
 
+<script src="~/Scripts/Muuri/muuriWireup.js"></script>
+<script src="~/bower_components/moment/min/moment-with-locales.js"></script>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 <script>
     var deleteUrl = "/Operation/Delete/";
     var toolTipUrl = '/Operation/Detail';
@@ -85,66 +92,151 @@
             $('#mdModal').modal('hide');
         });
 
-    $(document).ready(function () {
-        $.fn.dataTable.ext.classes.sPageButton = 'btn bg-pink';
 
-        // Setup - add a text input to each footer cell
-        $('#SearchResultTable tfoot th').each( function () {
-            var title = $(this).text();
-            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-        });
+    $(document).ready(function () {
+
+
+        $.fn.dataTable.ext.classes.sLengthSelect = 'btn bg-pink';
+        $.fn.dataTable.ext.classes.sPageButton = 'btn bg-pink'; // Change Pagination Button Class
+        $.fn.dataTable.ext.classes.sPageButtonActive = 'btn bg-pink';
+
+
+        //// Setup - add a text input to each footer cell
+        //$('#SearchResultTable tfoot th').each( function () {
+        //    var title = $(this).text();
+        //    $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        //});
 
         var table = $('#SearchResultTable').DataTable({
             "columnDefs": [
-                { "width": "5%", "targets": [0] },
-                { "width": "10%", "targets": [1] },
-                { "width": "10%", "targets": [2] },
-                // { "width": "20%", "searchable": true, "orderable": true,  "targets": [3] },
-                { "width": "20%", "targets": [3] },
-                { "width": "20%", "searchable": true, "orderable": true,  "targets": [4] },
-                { "className": "text-center custom-middle-align", "targets": [0, 1, 2, 3, 4] }
+                { "width": "5%", "visible": false, "targets": [0] },                                        // Id
+                { "width": "10%", "searchable": false, "orderable": true,  "targets": [1] },                // UpdatedAt
+                { "width": "10%", "searchable": false, "orderable": true,  "targets": [2] },                // UserName
+                { "width": "10%", "searchable": false, "orderable": true,  "targets": [3] },                // Action
+                { "width": "10%", "searchable": false, "orderable": true,  "targets": [4] },                // TableName
+                { "width": "20%", "searchable": false, "orderable": true,  "targets": [5] },                // OldData
+                { "width": "20%", "searchable": false, "orderable": true,  "targets": [6] },                // NewData
+                { "className": "text-center custom-middle-align", "targets": [0, 1, 2, 3, 4, 5, 6] }
             ],
             select: {
                 style: 'multi'
             },
+            "autoWidth": false,
             "keys": true,
             "fixedHeader": true,
             "sortable": true,
-            "proccessing": true,
+            processing: true,
             "serverSide": true,
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true,
             "pageLength": 10,
             "pagingType": "full_numbers",
             "ajax": {
                 url: "@Url.Action("AuditTrailDatatables" , "AuditTrail")",
                 type: 'POST',
-                datatype: "json"
+                datatype: "json",
+                "data": function(data) {
+                    data.from = $('#min-date').val();
+                    data.to = $('#max-date').val();
+                }
             },
             "language": {
                 "search": "",
                 "searchPlaceholder": "Search...",
-                "processing": "<div class='overlay custom-loader-background'><i class='fa fa-cog fa-spin custom-loader-color'></i></div>"
+                loadingRecords: '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="http://www.snacklocal.com/images/ajaxload.gif"></div>',
+                processing: '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="http://www.snacklocal.com/images/ajaxload.gif"></div>'
             },
             "columns": [
-                { "data": "Id", "name": "Id", "autoWidth": true },
-                { "data": "UserName", "name": "UserName", "autoWidth": true },
-                { "data": "TableName", "name": "TableName", "autoWidth": true },
+                { "data": "Id", "name": "Id", "autoWidth": false },
+                {
+                    "data": "UpdatedAt", "name": "UpdatedAt", "autoWidth": false
+                    , type: "datetime"
+                    , render: function (data, type, row) {
+                        return moment(data).format('DD.MM.YYYY HH:MM:SS');}
+                },
+                { "data": "UserName", "name": "UserName", "autoWidth": false },
+                { "data": "Action", "name": "Action", "autoWidth": false },
+                { "data": "TableName", "name": "TableName", "autoWidth": false },
                 { "data": "OldData", "name": "OldData", "autoWidth": false },
                 { "data": "NewData", "name": "NewData", "autoWidth": false }
             ]
         });
 
-        table.columns().every( function () {
-            var that = this;
 
-            $('input', this.footer()).on('keydown', function (e) {
-              
-                if ( that.search() !== this.value ) {
-                    that.search( this.value ).draw();
-                }
-                
-            } );
-        } );
+
+        //table.columns().every( function () {
+        //    var that = this;
+
+        //    $('input', this.footer()).on('keydown', function (e) {
+
+        //        if ( that.search() !== this.value ) {
+        //            that.search( this.value ).draw();
+        //        }
+
+        //    } );
+        //});
+
+        //// Bootstrap datepicker
+        //$('.input-daterange input').each(function() {
+        //    $(this).datepicker({
+        //        todayBtn: "linked",
+        //        clearBtn: true,
+        //        calendarWeeks: true,
+        //        autoclose: true,
+        //        todayHighlight: true
+        //    });
+        ////'clearDates'
+        //});
+
+        $(function() {
+            $('input[name="datetimes"]').daterangepicker({
+                timePicker: true,
+                startDate: moment().startOf('hour'),
+                endDate: moment().startOf('hour').add(24, 'hour'),
+                locale: {
+                    format: 'DD.MM.YYYY HH:mm:SS'
+
+                },
+                "minYear": 2000,
+                "maxYear": 2050,
+                "timePicker24Hour": true,
+                "timePickerSeconds": true
+            });
+        });
+
+
+        //// Extend dataTables search
+        //$.fn.dataTable.ext.search.push(
+        //    function(settings, data, dataIndex) {
+        //        var min = $('#min-date').val();
+        //        var max = $('#max-date').val();
+        //        var createdAt = data[2] || 0; // Our date column in the table
+
+        //        if (
+        //            (min == "" || max == "") ||
+        //                (moment(createdAt).isSameOrAfter(min) && moment(createdAt).isSameOrBefore(max))
+        //        ) {
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //);
+
+        // Re-draw the table when the a date range filter changes
+        $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
+            console.log(picker.startDate.format('YYYY-MM-DD HH:mm:SS'));
+            console.log(picker.endDate.format('YYYY-MM-DD HH:mm:SS'));
+            table.draw();
+        });
+
+        $('#my-table_filter').hide();
+
+
     });
+
+
 
     //$('#submitSearch').click(function () {
     //    $('#searchAndPageSizeForm').submit();
@@ -350,8 +442,6 @@
                                                     <i class="material-icons" style="font-size: 1em; color: purple" , title="Actions">build</i>
                                                 </span>
                                             </th>
-                                            @*<th class="filler" style="width: 10%; text-align: center; border: none; border-color: white; border-width: 0px">
-                                                </th>*@
                                         </tr>
                                     </thead>
 
@@ -386,7 +476,9 @@
                 </div>
             </div>
 
+            <!-- ================ -->
             <!-- Audit trail card -->
+            <!-- ================ -->
             <div class="item-full-width">
                 <div class="card">
 
@@ -418,14 +510,37 @@
                         </em>
                     </div>
 
+                    <!-- Audit trail pickers -->
+                    
+                    <input type="text" name="datetimes" />
+                    
+
+                    @*<div class="container">
+                        <div class="col-md-2">
+                            <div class="input-group input-daterange">
+
+                                <input type="text" id="min-date" class="form-control date-range-filter" data-date-format="dd.MM.YYYY" placeholder="From:">
+
+                                <div class="input-group-addon">to</div>
+
+                                <input type="text" id="max-date" class="form-control date-range-filter" data-date-format="dd.MM.YYYY" placeholder="To:">
+
+                            </div>
+                        </div>
+                    </div>*@
+                    <!-- #END# Audit trail pickers -->
+
+
 
                     <div style="width:90%; margin:0 auto;">
-                        <table id="SearchResultTable" class="table table-striped table-bordered"
-                               style="width:100%">
+                        <table id="SearchResultTable" width="100%" class="display table table-striped table-hover">
+
                             <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>UpdatedAt</th>
                                     <th>UserName</th>
+                                    <th>Action</th>
                                     <th>TableName</th>
                                     <th>OldValue</th>
                                     <th>NewValue</th>
@@ -433,14 +548,15 @@
                             </thead>
 
                             <tfoot>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>UserName</th>
-                                    <th>TableName</th>
-                                    <th>OldValue</th>
-                                    <th>NewValue</th>
-                                </tr>
+                                @*<tr>
+                                        <th>UserName</th>
+                                        <th>TableName</th>
+                                        <th>UpdatedAt</th>
+                                        <th>OldValue</th>
+                                        <th>NewValue</th>
+                                    </tr>*@
                             </tfoot>
+
                         </table>
                     </div>
 
@@ -449,7 +565,9 @@
 
                 </div>
             </div>
+            <!-- ====================== -->
             <!-- #END# Audit trail card -->
+            <!-- ====================== -->
         </div>
         <!-- #END# Muuri grid -->
     </div>
@@ -471,3 +589,15 @@
         </div>
     </div>
 </div>
+
+<style>
+    .dataTables_processing {
+        z-index: 11000 !important;
+        padding-top: 1px !important;
+    }
+
+    .dataTables_loadingRecords {
+        z-index: 11000 !important;
+        padding-top: 1px !important;
+    }
+</style>

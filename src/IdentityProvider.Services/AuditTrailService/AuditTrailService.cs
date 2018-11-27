@@ -48,8 +48,8 @@ namespace IdentityProvider.Services.AuditTrailService
                         OldData = m.OldData , // GDPR => need to check whether the user has the privileges to see the raw data, else mask the data and provide means to audit log explicit read requests
                         TableName = m.TableName , 
                         UserName = m.UserName , // GDPR => need to check whether the user has the privileges to see the raw data, else mask the data and provide means to audit log explicit read requests
-                        Actions = m.Actions ,
-                        TableIdValue = m.TableIdValue ,
+                        Action = m.Actions ,
+                        TableId = m.TableIdValue ,
                         UpdatedAt = m.UpdatedAt
                     });
 
@@ -87,13 +87,13 @@ namespace IdentityProvider.Services.AuditTrailService
 
                 case "Actions":
 
-                    query = sortDir ? query.OrderBy(x => x.Actions) : query.OrderByDescending(x => x.Actions);
+                    query = sortDir ? query.OrderBy(x => x.Action) : query.OrderByDescending(x => x.Action);
 
                     break;
 
                 case "TableIdValue":
 
-                    query = sortDir ? query.OrderBy(x => x.TableIdValue) : query.OrderByDescending(x => x.TableIdValue);
+                    query = sortDir ? query.OrderBy(x => x.TableId) : query.OrderByDescending(x => x.TableId);
 
                     break;
 

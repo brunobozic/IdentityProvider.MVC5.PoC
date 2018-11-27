@@ -49,6 +49,8 @@ namespace IdentityProvider.Controllers.Controllers
             string sortOrder
             , string currentFilter
             , string searchString
+            , string from 
+            , string to
             , int? pageNumber = 1
             , int pageSize = 10
             , bool ShowInactive = false
