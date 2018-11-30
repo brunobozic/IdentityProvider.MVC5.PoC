@@ -16,13 +16,6 @@
     }
 }
 
-<script src="~/Scripts/Muuri/muuriWireup.js"></script>
-<script src="~/bower_components/moment/min/moment-with-locales.js"></script>
-
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
 <script>
     var deleteUrl = "/Operation/Delete/";
     var toolTipUrl = '/Operation/Detail';
@@ -90,16 +83,14 @@
     $('closebtn').on('click',
         function () {
             $('#mdModal').modal('hide');
-        });
+    });
 
-
+    // ======== Datatables wireup ========
     $(document).ready(function () {
 
-
-        $.fn.dataTable.ext.classes.sLengthSelect = 'btn bg-pink';
-        $.fn.dataTable.ext.classes.sPageButton = 'btn bg-pink'; // Change Pagination Button Class
-        $.fn.dataTable.ext.classes.sPageButtonActive = 'btn bg-pink';
-
+        $.fn.dataTable.ext.classes.sLengthSelect = 'btn bg-pink';               // Change Pagination Button Class
+        $.fn.dataTable.ext.classes.sPageButton = 'btn bg-pink';                 // Change Pagination Button Class
+        $.fn.dataTable.ext.classes.sPageButtonActive = 'btn bg-pink';           // Change Pagination Button Class
 
         //// Setup - add a text input to each footer cell
         //$('#SearchResultTable tfoot th').each( function () {
@@ -116,7 +107,7 @@
                 { "width": "10%", "searchable": false, "orderable": true,  "targets": [4] },                // TableName
                 { "width": "20%", "searchable": false, "orderable": true,  "targets": [5] },                // OldData
                 { "width": "20%", "searchable": false, "orderable": true,  "targets": [6] },                // NewData
-                { "className": "text-center custom-middle-align", "targets": [0, 1, 2, 3, 4, 5, 6] }
+                { "className": "text-center custom-middle-align", "targets": [ 3, 4 ] }
             ],
             select: {
                 style: 'multi'
@@ -149,21 +140,20 @@
                 processing: '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="http://www.snacklocal.com/images/ajaxload.gif"></div>'
             },
             "columns": [
-                { "data": "Id", "name": "Id", "autoWidth": false },
+                { "data": "Id", "name": "Id", "autoWidth": true },
                 {
-                    "data": "UpdatedAt", "name": "UpdatedAt", "autoWidth": false
+                    "data": "UpdatedAt", "name": "UpdatedAt", "autoWidth": true
                     , type: "datetime"
                     , render: function (data, type, row) {
                         return moment(data).format('DD.MM.YYYY HH:MM:SS');}
                 },
-                { "data": "UserName", "name": "UserName", "autoWidth": false },
-                { "data": "Action", "name": "Action", "autoWidth": false },
+                { "data": "UserName", "name": "UserName", "autoWidth": true },
+                { "data": "Action", "name": "Action", "autoWidth": true },
                 { "data": "TableName", "name": "TableName", "autoWidth": false },
                 { "data": "OldData", "name": "OldData", "autoWidth": false },
                 { "data": "NewData", "name": "NewData", "autoWidth": false }
             ]
         });
-
 
 
         //table.columns().every( function () {
@@ -178,17 +168,6 @@
         //    } );
         //});
 
-        //// Bootstrap datepicker
-        //$('.input-daterange input').each(function() {
-        //    $(this).datepicker({
-        //        todayBtn: "linked",
-        //        clearBtn: true,
-        //        calendarWeeks: true,
-        //        autoclose: true,
-        //        todayHighlight: true
-        //    });
-        ////'clearDates'
-        //});
 
         $(function() {
             $('input[name="datetimes"]').daterangepicker({
@@ -231,10 +210,40 @@
             table.draw();
         });
 
-        $('#my-table_filter').hide();
+        //$('#my-table_filter').hide();
 
 
     });
+    // ======== #ENDOF# Datatables wireup ========
+
+
+
+    // ======== Bootstrap multiselect ========
+
+        $(document).ready(function() {
+            $('#table-name-multiselect').select2({
+                width: '100%', // need to override the changed default
+                placeholder: 'Select table name',
+                dropdownAutoWidth: true,
+               // dropdownParent: $('.multiselect-parent')
+            });
+
+            $('#action-multiselect').select2({
+                width: '100%', // need to override the changed default
+                placeholder: 'Select an action',
+                dropdownAutoWidth: true,
+               // dropdownParent: $('.multiselect-parent')
+            });
+
+            //  I first hide the default tag that's being used for the down arrow
+            $('b[role="presentation"]').hide();
+            // Then with CSS I style the select boxes. I set the height, change the background color of the arrow area to a gradient black, change the width, font-size and also the color of the down arrow to white
+            $('.select2-selection__arrow').append('<i class="fa fa-angle-down"></i>');
+        });
+
+    // ======== #ENDOF# Bootstrap multiselect ========
+
+
 
 
 
@@ -511,26 +520,125 @@
                     </div>
 
                     <!-- Audit trail pickers -->
-                    
-                    <input type="text" name="datetimes" />
-                    
 
-                    @*<div class="container">
-                        <div class="col-md-2">
-                            <div class="input-group input-daterange">
 
-                                <input type="text" id="min-date" class="form-control date-range-filter" data-date-format="dd.MM.YYYY" placeholder="From:">
+                    <table class="table table-light table-condensed" @*Id=""  data-classes="table"*@ style="width:95%">
+                        <thead></thead>
+                        <tbody>
+                            <tr>
 
-                                <div class="input-group-addon">to</div>
+                                <td style="width: 50%">
+                                    <!-- Date range picker -->
+                                    <label style="float: left; padding-right: 10px; padding-top:2px">Date range</label>
+                                    <div class="form-line">
+                                        <input type="text" name="datetimes" style="width: 320px" />
+                                    </div>
+                                </td>
+                                <td style="width: 50%">
+                                    <!-- Table picker -->
+                                    <div class="form-group" style="float: left; width: 20%">
+                                        <label style="padding-right: 10px; padding-top:2px">Table name</label>
+                                    </div>
+                                    <div  class="form-group multiselect-parent" style="float: right; width: 80%">
 
-                                <input type="text" id="max-date" class="form-control date-range-filter" data-date-format="dd.MM.YYYY" placeholder="To:">
+                                        <select id="table-name-multiselect" multiple="multiple" class="form-control" data-width="100%">
+                                            <option value="cheese">Cheese</option>
+                                            <option value="tomatoes">Tomatoes</option>
+                                            <option value="mozarella">Mozzarella</option>
+                                            <option value="mushrooms">Mushrooms</option>
+                                            <option value="pepperoni">Pepperoni</option>
+                                            <option value="onions">Onions</option>
+                                        </select>
 
-                            </div>
-                        </div>
-                    </div>*@
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%">
+                                    <!-- UserName picker -->
+                                    <div class="form-group" style="float: left; width: 20%">
+                                        <label style="float: left; padding-right: 10px; padding-top:2px">User name</label>
+                                    </div>
+                                    <div class="form-group" style="float: right; width: 80%">
+                                        <div class="" style="">
+                                            @Html.TextBox("SearchString" ,@*ViewBag.CurrentFilter as string*@ /**/
+                                                                                                                                null , new
+                                                                                                                                {
+                                                                                                                                    @placeholder = "Search" @*@,value = ViewBag.CurrentFilter*@                                                                                                                                                             /**/
+                                                                                                                                                                                                                                                                                                 ,
+                                                                                                                                                                                                                            @data_toggle = "tooltip" ,
+                                                                                                                                                                                                                            @data_placement = "top" ,
+                                                                                                                                                                                                                            @title = "" ,
+                                                                                                                                                                                                                            @data_original_title = "Enter search criteria"
+                                                                                                                                                                                                                        })
+                                            <button class="btn themed-buttons-red waves-effect btn-xs" id="submitSearchUserName" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="width: 50%">
+                                    <!-- Action (Insert, Delete, Update) picker -->
+                                    <div class="form-group" style="float: left; width: 20%">
+                                        <label style="float: left; padding-right: 10px; padding-top:2px">Action</label>
+                                    </div>
+                                    <div  class="form-group multiselect-parent" style="float: right; width: 80%">
+
+                                        <select id="action-multiselect" multiple="multiple" class="form-control" style="float: right;" data-width="100%">
+                                            <option value="update">Update</option>
+                                            <option value="delete">Delete</option>
+                                            <option value="insert">Insert</option>
+                                        </select>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%">
+                                    <!-- OldValue picker -->
+                                    <div class="form-group" style="float: left; width: 20%">
+                                        <label style="float: left; padding-right: 10px; padding-top:2px">Old value</label>
+                                    </div>
+                                    <div class="form-group" style="float: right; width: 80%">
+                                        <div class="" style="">
+                                            @Html.TextBox("SearchString" ,@*ViewBag.CurrentFilter as string*@ /**/
+                                                                                                                                null , new
+                                                                                                                                {
+                                                                                                                                    @placeholder = "Search" @*@,value = ViewBag.CurrentFilter*@                                                                                                                                                             /**/
+                                                                                                                                                                                                                                                                                                 ,
+                                                                                                                                                                                                                            @data_toggle = "tooltip" ,
+                                                                                                                                                                                                                            @data_placement = "top" ,
+                                                                                                                                                                                                                            @title = "" ,
+                                                                                                                                                                                                                            @data_original_title = "Enter search criteria"
+                                                                                                                                                                                                                        })
+                                            <button class="btn themed-buttons-red waves-effect btn-xs" id="submitSearchOldValue" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="width: 50%">
+                                    <!-- NewValue picker -->
+                                    <div class="form-group" style="float: left; width: 20%">
+                                        <label style="float: left; padding-right: 10px; padding-top:2px">New value</label>
+                                    </div>
+                                    <div class="form-group" style="float: right; width: 80%">
+                                        <div class="" style="">
+                                            @Html.TextBox("SearchString" ,@*ViewBag.CurrentFilter as string*@ /**/
+                                                                                                                                null , new
+                                                                                                                                {
+                                                                                                                                    @placeholder = "Search" @*@,value = ViewBag.CurrentFilter*@                                                                                                                                                             /**/
+                                                                                                                                                                                                                                                                                                 ,
+                                                                                                                                                                                                                            @data_toggle = "tooltip" ,
+                                                                                                                                                                                                                            @data_placement = "top" ,
+                                                                                                                                                                                                                            @title = "" ,
+                                                                                                                                                                                                                            @data_original_title = "Enter search criteria"
+                                                                                                                                                                                                                        })
+                                            <button class="btn themed-buttons-red waves-effect btn-xs" id="submitSearchNewValue" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                     <!-- #END# Audit trail pickers -->
-
-
 
                     <div style="width:90%; margin:0 auto;">
                         <table id="SearchResultTable" width="100%" class="display table table-striped table-hover">
@@ -562,7 +670,6 @@
 
                     <div><hr /></div>   <div><hr /></div>
 
-
                 </div>
             </div>
             <!-- ====================== -->
@@ -570,23 +677,6 @@
             <!-- ====================== -->
         </div>
         <!-- #END# Muuri grid -->
-    </div>
-</div>
-
-
-<div class="modal fade in" id="mdModal" tabindex="-1" role="dialog" style="display: none;">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="largeModalLabel"></h4>
-            </div>
-            <div class="modal-body">
-                @*  guess what, this is where you put your ajax fetched content  *@
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -600,4 +690,23 @@
         z-index: 11000 !important;
         padding-top: 1px !important;
     }
+
+    .select2-results__option {
+        text-align: left !important;
+    }
+
+    table.dataTable thead th {
+        position: relative;
+        background-image: none !important;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #E91E63 !important;
+        color: white !important;
+      }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+        color: white !important;
+    }
+
 </style>

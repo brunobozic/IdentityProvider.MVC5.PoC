@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
@@ -23,41 +24,41 @@ namespace IdentityProvider.Controllers.Controllers
             , IErrorLogService errorLogService
             , IUnitOfWorkAsync unitOfWorkAsync
             , IApplicationConfiguration applicationConfiguration
-            ) : base(cookieStorageService
-                , errorLogService
-                , applicationConfiguration
-                )
+        ) : base(cookieStorageService
+            , errorLogService
+            , applicationConfiguration
+        )
         {
             _unitOfWorkAsync = unitOfWorkAsync;
             _auditTrailService = auditTrailService;
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public JsonResult AuditTrailDatatables( DataTableAjaxPostModel model )
+        public JsonResult AuditTrailDatatables(DataTableAjaxPostModel model)
         {
             // action inside a standard controller
-            var res = SearchFunction(model , out var filteredResultsCount , out var totalResultsCount);
+            var res = SearchFunction(model, out var filteredResultsCount, out var totalResultsCount);
 
             var result = new List<YourCustomSearchClass>(res.Count);
 
             result.AddRange(res.Select(s => new YourCustomSearchClass
             {
-                Id = s.Id
-                ,UpdatedAt = s.UpdatedAt
-                ,UserId = s.UserId
-                ,Action = s.Action
-                ,TableName = s.TableName
-                ,OldData = s.OldData
-                ,NewData = s.NewData
-                ,TableId = s.TableId
+                Id = s.Id,
+                UpdatedAt = s.UpdatedAt,
+                UserId = s.UserId,
+                Action = s.Action,
+                TableName = s.TableName,
+                OldData = s.OldData,
+                NewData = s.NewData,
+                TableId = s.TableId
             }));
 
             return Json(new
             {
                 // this is what datatables expect to recieve
-                draw = model.draw ,
-                recordsTotal = totalResultsCount ,
-                recordsFiltered = filteredResultsCount ,
+                draw = model.draw,
+                recordsTotal = totalResultsCount,
+                recordsFiltered = filteredResultsCount,
                 data = result
             });
         }
@@ -66,7 +67,7 @@ namespace IdentityProvider.Controllers.Controllers
             DataTableAjaxPostModel model
             , out int filteredResultsCount
             , out int totalResultsCount
-            )
+        )
         {
             var searchBy = model.search?.value;
             var take = model.length;
@@ -79,8 +80,8 @@ namespace IdentityProvider.Controllers.Controllers
             if (model.order != null)
             {
                 // in this example we just default sort on the 1st column
-                sortBy = model.columns[ model.order[ 0 ].column ].data;
-                sortDir = model.order[ 0 ].dir.ToLower() == "asc";
+                sortBy = model.columns[model.order[0].column].data;
+                sortDir = model.order[0].dir.ToLower() == "asc";
             }
 
             if (searchBy == null)
@@ -100,7 +101,7 @@ namespace IdentityProvider.Controllers.Controllers
                 , sortDir
                 , out filteredResultsCount
                 , out totalResultsCount
-                );
+            );
 
 
             if (result == null)
@@ -110,6 +111,54 @@ namespace IdentityProvider.Controllers.Controllers
             }
 
             return result;
+        }
+
+        private MultiSelectList GetMultiSelectListDropDownForTableName( List<int> selectedValues )
+        {
+            
+            List<SelectListItem> items;
+
+            if (selectedValues != null)
+            {
+                items = _auditTrailService.Queryable().OrderBy(a => a.TableName).AsNoTracking().Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString() ,
+                    Text = c.TableName ,
+                    Selected = selectedValues.Contains(c.Id) ,
+                    Disabled = selectedValues.Contains(c.Id) // this will make the dropdown checkboxes disabled for all those items that already exist in the db, to prevent deletion
+                }).ToList();
+            }
+            else
+            {
+                items = _auditTrailService.Queryable().OrderBy(a => a.TableName).AsNoTracking().Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString() ,
+                    Text = c.TableName ,
+                    Selected = false
+                }).ToList();
+            }
+
+            var msl = new MultiSelectList(items , "Value" , "Text" , selectedValues , selectedValues);
+
+            return msl;
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult GetTableNameMultiselectDropdown()
+        {
+            return null;
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult GetUserNameMultiselectDropdown()
+        {
+            return null;
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult GetActionMultiselectDropdown()
+        {
+            return null;
         }
     }
 }

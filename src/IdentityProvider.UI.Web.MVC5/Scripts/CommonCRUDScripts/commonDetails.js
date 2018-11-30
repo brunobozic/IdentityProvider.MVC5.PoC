@@ -19,10 +19,14 @@ $(document).ready(function () {
 
                 $('#mdModal').modal(options);
 
+                $('#mdModal').find('.modal-body').html("");
+
+                $('#mdModal').find('.modal-body').html(response);
+
                 $('#mdModal').modal('show');
 
                 $('#mdModal').on('shown.bs.modal', function () {
-                    $('#mdModal').find('.modal-body').html(response);
+                 
                     // $('#mdModal').find('.modal-title').html("Operation details");
                 });
             },
@@ -32,10 +36,14 @@ $(document).ready(function () {
 
                 $('#mdModal').modal(options);
 
+                $('#mdModal').find('.modal-body').html("");
+
+                $('#mdModal').find('.modal-body').html("Problem loading your data...");
+
                 $('#mdModal').modal('show');
 
                 $('#mdModal').on('shown.bs.modal', function () {
-                    $('#mdModal').find('.modal-body').html("Problem loading your data...");
+                   
                 });
             },
             error: function (response) {
@@ -44,10 +52,14 @@ $(document).ready(function () {
 
                 $('#mdModal').modal(options);
 
+                $('#mdModal').find('.modal-body').html("");
+
+                $('#mdModal').find('.modal-body').html("Problem loading your data...");
+
                 $('#mdModal').modal('show');
 
                 $('#mdModal').on('shown.bs.modal', function () {
-                    $('#mdModal').find('.modal-body').html("Problem loading your data...");
+              
                 });
             }
         });

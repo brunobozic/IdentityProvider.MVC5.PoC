@@ -2,8 +2,6 @@
 
 @Html.Partial("../Shared/CommonInsertItemPartials/_styleSectionPartial")
 
-@Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionPartial")
-
 <!-- Custom Css -->
 <link href="~/Content/site.css" rel="stylesheet" />
 <link href="~/bower_components/pretty-checkbox/dist/pretty-checkbox.css" rel="stylesheet" />
@@ -66,11 +64,11 @@
                         </div>
 
                         @*<div class="col-sm-3">
-                                <div class="demo-switch-title">GREEN</div>
-                                <div class="switch">
-                                    <label><input type="checkbox" checked=""><span class="lever switch-col-green"></span></label>
-                                </div>
-                        </div>*@
+                                    <div class="demo-switch-title">GREEN</div>
+                                    <div class="switch">
+                                        <label><input type="checkbox" checked=""><span class="lever switch-col-green"></span></label>
+                                    </div>
+                            </div>*@
 
                         @Html.ValidationMessageFor(model => model.Operation.Active , "" , new { @class = "text-danger" })
 
@@ -96,10 +94,10 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group col-xs-8 p-t-5">
                             <div class="row m-t-15 m-b--20">
-                                <button type="submit" name="btnSubmit" id="btnSubmit" class="btn bg-purple waves-effect btn-xs editDialog" data-toggle="tooltip" data-placement="right" title="" data-original-title="Submit">
+                                <button type="submit" name="btnSubmit" id="btnSubmit" class="btn bg-red waves-effect editDialog" data-toggle="tooltip" data-placement="right" title="" data-original-title="Submit">
                                     <i class="material-icons">edit</i>
                                     <span>
                                         Submit
@@ -196,9 +194,6 @@
         </div>
     </div>
 </div>
-
-<script src="~/Scripts/CommonCRUDScripts/commonSubmitEditForm.js"></script>
-
 <script>
 
     $(function () {
@@ -226,13 +221,33 @@
         });
     });
 
-    $("#loading").hide();
+    $(function () {
+        $("#loading").hide();
 
-    $('#btnSubmit').click(function () {
-        $('#frmEditItem').submit();
+        $('#btnSubmit').click(function () {
+            $('#frmEditItem').submit();
+        });
     });
+
+    $(function () {
+        try {
+            $.AdminBSB.dropdownMenu.activate();
+            $.AdminBSB.input.activate();
+            $.AdminBSB.select.activate();
+            // skinChanger();
+        } catch (exception) {
+            alert(exception);
+            console.log("operationEditPartial AdminBsb problem", exception);
+        }
+    });
+
 
 </script>
 
+<link href="~/bower_components/Waves/dist/waves.css" rel="stylesheet" />
+<link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />
+<script src="~/Scripts/CommonCRUDScripts/commonSubmitEditForm.js"></script>
+
+@Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionPartial")
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")
 

@@ -53,7 +53,9 @@
     "datatables-colvis": "1.1.2",
     "datatables-fixedheader": "DataTables-FixedHeader#3.1.5",
     "datatables-select": "1.2.7",
-    "bootstrap": "v3.3.7"
+    "bootstrap": "v3.3.7",
+    "bootstrap-multiselect": "v0.9.14",
+    "select2-bootstrap-theme": "0.1.0-beta.9"
   },
   "resolutions": {
     "bootstrap": "v4.1.3",

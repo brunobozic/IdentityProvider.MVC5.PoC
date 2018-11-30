@@ -1,5 +1,10 @@
 ﻿$(document).ready(function () {
-    var grid = new Muuri('.grid', {
-        dragEnabled: true
-    });
+    try {
+        var grid = new Muuri('.grid',
+            {
+                dragEnabled: true
+            });
+    } catch (exception) {
+        console.log('muuri exception', exception);
+    }
 });
