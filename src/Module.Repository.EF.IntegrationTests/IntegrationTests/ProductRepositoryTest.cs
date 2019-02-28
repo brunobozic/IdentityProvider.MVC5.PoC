@@ -1,13 +1,5 @@
-﻿using System;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Module.Repository.EF.IntegrationTests.Utilities;
-using Module.Repository.EF.Repositories;
-using Module.Repository.EF.UnitOfWorkInterfaces;
-using TrackableEntities;
 
 namespace Module.Repository.EF.IntegrationTests.IntegrationTests
 {

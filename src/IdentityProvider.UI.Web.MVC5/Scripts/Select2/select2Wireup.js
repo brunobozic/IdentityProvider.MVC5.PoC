@@ -5,7 +5,7 @@ $(document).ready(function () {
     });
 
     $('#PageSizeList').on('select2:select', function (event) {
-        var form = $(event.target).closest("form");;
+        var form = $(event.target).closest("form");
         form.submit();
     });
 });

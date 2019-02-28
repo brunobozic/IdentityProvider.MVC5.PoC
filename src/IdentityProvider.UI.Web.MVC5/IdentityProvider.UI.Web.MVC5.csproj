@@ -341,7 +341,7 @@
     <Content Include="Views\Seed\Index.cshtml" />
     <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Home\ProtectedActionForTesting.cshtml" />
-    <Content Include="Views\Home\TestRepostoryQueries.cshtml" />
+    <Content Include="Views\Home\TestRepositoryQueries.cshtml" />
     <Content Include="Views\Operation\OperationsGetAllPaged.cshtml" />
     <Content Include="Views\Operation\Partial\_operationsPartial.cshtml" />
     <Content Include="Views\Operation\Partial\_operationDetailsPartial.cshtml" />

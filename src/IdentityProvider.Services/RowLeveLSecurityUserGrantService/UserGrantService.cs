@@ -17,7 +17,7 @@ namespace IdentityProvider.Services.RowLeveLSecurityUserGrantService
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationRoleManager _roleManager;
 
-        [DefaultConstructor]  //This is the attribute you need to add on the constructor
+        [DefaultConstructor]  // This is the attribute you need to add on the constructor
         public UserGrantService(
              ILog4NetLoggingService loggingService
             , IMapper mapper

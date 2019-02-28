@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
-using IdentityProvider.Infrastructure.Logging.Log4Net;
 using StructureMap;
 
 namespace IdentityProvider.Controllers

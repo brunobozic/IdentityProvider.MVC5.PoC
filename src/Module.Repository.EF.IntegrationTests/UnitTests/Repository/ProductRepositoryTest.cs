@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Module.Repository.EF.IntegrationTests.UnitTests.Fake;
-using Module.Repository.EF.UnitOfWorkInterfaces;
-using TrackableEntities;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Module.Repository.EF.IntegrationTests.UnitTests.Repository
 {

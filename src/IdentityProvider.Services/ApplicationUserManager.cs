@@ -20,6 +20,7 @@ namespace IdentityProvider.Services
             ) : base(store)
         {
             _emailService = emailService;
+
             // Configure validation logic for usernames
             UserValidator = new UserValidator<ApplicationUser>(this)
             {
