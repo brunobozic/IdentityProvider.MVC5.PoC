@@ -15,7 +15,7 @@ using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Services;
 using IdentityProvider.Services.ApplicationRoleService;
 using IdentityProvider.Services.OperationsService;
-using IdentityProvider.Services.ResourceService;
+
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
 using StructureMap.Pipeline;
@@ -130,7 +130,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 
             For<IApplicationRoleService>().Use<ApplicationRoleService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IOperationService>().Use<OperationsService>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<IApplicationResourceService>().Use<ApplicationResourceService>().LifecycleIs<UniquePerRequestLifecycle>();
+            //For<IApplicationResourceService>().Use<ApplicationResourceService>().LifecycleIs<UniquePerRequestLifecycle>();
 
             //For(typeof(IService<>)).Use(typeof(Service<>));
 
@@ -163,7 +163,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 
             For<IEmailService>().Use<TextLoggingEmailService>().LifecycleIs<UniquePerRequestLifecycle>();
 
-            For<IIdentityMessageService>().Use<GmailEmailService>().LifecycleIs<UniquePerRequestLifecycle>();
+            //For<IIdentityMessageService>().Use<GmailEmailService>().LifecycleIs<UniquePerRequestLifecycle>();
     
             For<ILog4NetLoggingService>().Use<Log4NetLoggingService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IContextProvider>().Use<HttpContextProvider>().LifecycleIs<UniquePerRequestLifecycle>();

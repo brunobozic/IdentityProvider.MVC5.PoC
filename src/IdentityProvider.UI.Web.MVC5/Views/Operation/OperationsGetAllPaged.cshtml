@@ -16,7 +16,6 @@
 }
 
 <style>
-
     .cool-text {
         font-family: "Montserrat", sans-serif;
     }
@@ -62,17 +61,27 @@
         z-index: 1;
     }
 
-        .item.muuri-item-hidden {
-            z-index: 0;
-        }
 
-        .item.muuri-item-releasing {
-            z-index: 2;
-        }
+    .item-chart {
+        position: absolute;
+        width: 640px;
+        height: 480px;
+        line-height: 25px;
+        margin: 10px;
+        z-index: 1;
+    }
 
-        .item.muuri-item-dragging {
-            z-index: 3;
-        }
+    .item.muuri-item-hidden {
+        z-index: 0;
+    }
+
+    .item.muuri-item-releasing {
+        z-index: 2;
+    }
+
+    .item.muuri-item-dragging {
+        z-index: 3;
+    }
 
     .item-content {
         position: relative;
@@ -374,53 +383,63 @@
         <h2>DASHBOARD</h2>
     </div>
 
-    <div class="row">
-        <div class="grid">
-            <div class="item">
-                <div class="item-content">
-                    <div class="info-box bg-green hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">playlist_add_check</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">ACTIVE OPERATIONS</div>
-                            <div class="number count-to" id="activeOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
-                        </div>
+<div class="row">
+    <div class="grid">
+        <div class="item">
+            <div class="item-content">
+                <div class="info-box bg-green hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">playlist_add_check</i>
                     </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="item-content">
-                    <div class="info-box bg-yellow hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">playlist_add_check</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">TESTING 2</div>
-                            <div class="number count-to" id="activeOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="item-content">
-                    <div class="info-box bg-blue hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">playlist_add_check</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">TESTING 3</div>
-                            <div class="number count-to" id="activeOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
-                        </div>
+                    <div class="content">
+                        <div class="text">ACTIVE OPERATIONS</div>
+                        <div class="number count-to" id="activeOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="item">
+            <div class="item-content">
+                <div class="info-box bg-yellow hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">playlist_add_check</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">TESTING 2</div>
+                        <div class="number count-to" id="activeOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="item-content">
+                <div class="info-box bg-blue hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">playlist_add_check</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">TESTING 3</div>
+                        <div class="number count-to" id="activeOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-chart">
+            <div class="item-content">
+                <div class="chart" style="width:100%; height: 100%; background-color: whitesmoke">
+                    @Html.Partial("ChartPartials/_pieChartPartial" , Model)
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
     @Html.Partial("Partial/_operationsHeaderPartial" , Model)
+
+
 
     <!-- Widgets -->
     <div class="row clearfix">
@@ -477,74 +496,74 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-2">
-                            @*<input name="showinactive" id="showinactive" class="filled-in chk-col-pink" type="checkbox">
-                                <label for="showinactive">Only active</label>*@
+                            <div class="col-xs-2">
+                                @*<input name="showinactive" id="showinactive" class="filled-in chk-col-pink" type="checkbox">
+                                    <label for="showinactive">Only active</label>*@
 
-                            <div class="form-line" style="float: right; margin-right: 8px">
-                                @Html.DropDownListFor(m => m.PageSize , Model.PageSizeList , new { id = "PageSizeList" , @class = "js-select2-enabled" , @style = "padding: 5px; width: 55px" })
+                                <div class="form-line" style="float: right; margin-right: 8px">
+                                    @Html.DropDownListFor(m => m.PageSize , Model.PageSizeList , new { id = "PageSizeList" , @class = "js-select2-enabled" , @style = "padding: 5px; width: 55px" })
+                                </div>
+
                             </div>
 
-                        </div>
+                            <div class="body" style="width: 100% !important">
 
-                        <div class="body" style="width: 100% !important">
+                                <div class="col-xs-2 form-line" style="padding-left:0 !important">
+                                    <button type="submit" class="btn bg-purple waves-effect btn-xs createNewDialog" data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Create a new operation">
+                                        <i class="material-icons">create</i> <span>
+                                            Create
+                                        </span>
+                                    </button>
+                                </div>
 
-                            <div class="col-xs-2 form-line" style="padding-left:0 !important">
-                                <button type="submit" class="btn bg-purple waves-effect btn-xs createNewDialog" data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Create a new operation">
-                                    <i class="material-icons">create</i> <span>
-                                        Create
-                                    </span>
-                                </button>
-                            </div>
-
-                            <table class="table table-striped table-light table-condensed my-fixed-layout-table" Id="operationsGrid">
-                                <thead>
-                                    <tr>
-                                        <th style="">
-                                            <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by name">
-                                                @Html.ActionLink("Name" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.NameSortParam))
-                                                @Html.SortIdentifier(currentSort , "Name")
-                                            </span>
-                                        </th>
-                                        <th style="">
-                                            <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by description">
-                                                @Html.ActionLink("Description" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DescriptionSortParam))
-                                                @Html.SortIdentifier(currentSort , "Description")
-                                            </span>
-                                        </th>
-                                        <th style="width:50px">
-                                            <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by active status">
-                                                @Html.ActionLink("Active" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.ActiveSortParam))
-                                                @Html.SortIdentifier(currentSort , "Active")
-                                            </span>
-                                        </th>
-                                        <th style="width:148px">
-                                            <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by created date">
-                                                @Html.ActionLink("Created_Date" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DateCreatedSortParam))
-                                                @Html.SortIdentifier(currentSort , "Created_Date")
-                                            </span>
-                                        </th>
-                                        <th style="width:148px">
-                                            <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by modified date">
-                                                @Html.ActionLink("Modified_Date" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DateModifiedSortParam))
-                                                @Html.SortIdentifier(currentSort , "Modified_Date")
-                                            </span>
-                                        </th>
-                                        <th style="width:190px">
-                                            <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions available on selected item">
-                                                <span>
-                                                    Actions
+                                <table class="table table-striped table-light table-condensed my-fixed-layout-table" Id="operationsGrid">
+                                    <thead>
+                                        <tr>
+                                            <th style="">
+                                                <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by name">
+                                                    @Html.ActionLink("Name" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.NameSortParam))
+                                                    @Html.SortIdentifier(currentSort , "Name")
                                                 </span>
-                                                <i class="material-icons" style="font-size: 1em; color: purple" , title="Actions">build</i>
-                                            </span>
-                                        </th>
-                                        @*<th class="filler" style="width: 10%; text-align: center; border: none; border-color: white; border-width: 0px">
-                                            </th>*@
-                                    </tr>
-                                </thead>
-                                @Html.Partial("Partial/_operationsPartial" , Model)
-                            </table>
-                        </div>
+                                            </th>
+                                            <th style="">
+                                                <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by description">
+                                                    @Html.ActionLink("Description" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DescriptionSortParam))
+                                                    @Html.SortIdentifier(currentSort , "Description")
+                                                </span>
+                                            </th>
+                                            <th style="width:50px">
+                                                <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by active status">
+                                                    @Html.ActionLink("Active" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.ActiveSortParam))
+                                                    @Html.SortIdentifier(currentSort , "Active")
+                                                </span>
+                                            </th>
+                                            <th style="width:148px">
+                                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by created date">
+                                                    @Html.ActionLink("Created_Date" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DateCreatedSortParam))
+                                                    @Html.SortIdentifier(currentSort , "Created_Date")
+                                                </span>
+                                            </th>
+                                            <th style="width:148px">
+                                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by modified date">
+                                                    @Html.ActionLink("Modified_Date" , "OperationsGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DateModifiedSortParam))
+                                                    @Html.SortIdentifier(currentSort , "Modified_Date")
+                                                </span>
+                                            </th>
+                                            <th style="width:190px">
+                                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions available on selected item">
+                                                    <span>
+                                                        Actions
+                                                    </span>
+                                                    <i class="material-icons" style="font-size: 1em; color: purple" , title="Actions">build</i>
+                                                </span>
+                                            </th>
+                                            @*<th class="filler" style="width: 10%; text-align: center; border: none; border-color: white; border-width: 0px">
+                                                </th>*@
+                                        </tr>
+                                    </thead>
+                                    @Html.Partial("Partial/_operationsPartial" , Model)
+                                </table>
+                            </div>
                     }
                 </div>
                 <div class="footer">
@@ -552,13 +571,13 @@
                     {
                         <div class="pager">
                             @Html.PagedListPager(Model.Operations , page => Url.Action("OperationsGetAllPaged" , new
-                       {
-                           page ,
-                           sortOrder = Model.SortOrder,
-                           currentFilter = Model.SearchString,
-                           pageNumber = page ,
-                           pageSize = Model.PageSize
-                       }))
+                           {
+                               page ,
+                               sortOrder = Model.SortOrder ,
+                               currentFilter = Model.SearchString ,
+                               pageNumber = page ,
+                               pageSize = Model.PageSize
+                           }))
                             Page @(Model.Operations.PageCount < Model.Operations.PageNumber ? 0 : Model.Operations.PageNumber) of @Model.Operations.PageCount
                         </div>
                     }

@@ -19,7 +19,7 @@ using StructureMap;
 
 namespace IdentityProvider.Controllers.Controllers
 {
-    public class OperationController : BaseController
+    public class OperationController : BaseController, IController
     {
         private readonly IOperationService _operationService;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
@@ -186,6 +186,7 @@ namespace IdentityProvider.Controllers.Controllers
 
             selListItem2 = new SelectListItem
             {
+
                 Text = "10" ,
                 Value = "10" ,
                 Selected = false

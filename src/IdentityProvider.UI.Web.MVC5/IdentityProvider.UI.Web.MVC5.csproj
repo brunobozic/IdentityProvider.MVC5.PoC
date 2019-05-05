@@ -19,7 +19,8 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -57,9 +58,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\StructureMapMvc.cs" />
     <Compile Include="BootStrapper.cs" />
-    <Compile Include="Controllers\AdminLteController.cs" />
     <Compile Include="Controllers\ErrorViewModel.cs" />
-    <Compile Include="DependencyResolution\ControllerConventionOld.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
@@ -81,7 +80,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Content Include="Views\Operation\ChartPartials\_pieChartPartial.cshtml" />
+    <Content Include="Views\Operation\ChartPartials\_pieChartHeaderPartial.cshtml" />
     <None Include="Views\Operation\Partial\_actionButtonsPartial.cshtml" />
+    <Content Include="Content\materialize.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Views\Operation\Partial\_operationsHeaderPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -314,7 +317,6 @@
     <Content Include="Views\Error\UserFriendlyError.cshtml" />
     <Content Include="Views\Home\Seed.cshtml" />
     <Content Include="Views\Seed\Index.cshtml" />
-    <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Home\ProtectedActionForTesting.cshtml" />
     <Content Include="Views\Home\TestRepostoryQueries.cshtml" />
     <Content Include="Views\Operation\OperationsGetAllPaged.cshtml" />

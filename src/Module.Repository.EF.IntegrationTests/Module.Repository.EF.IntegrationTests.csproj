@@ -71,8 +71,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="TrackableEntities.Common">
-      <HintPath>..\IdentityProvider.Models\bin\Debug\TrackableEntities.Common.dll</HintPath>
+    <Reference Include="TrackableEntities.EF.6">
+      <HintPath>..\..\packages\TrackableEntities.EF.6.2.5.4\lib\net45\TrackableEntities.EF.6.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
