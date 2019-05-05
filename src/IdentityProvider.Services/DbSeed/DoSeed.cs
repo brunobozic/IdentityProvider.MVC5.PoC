@@ -105,7 +105,8 @@ namespace IdentityProvider.Services.DbSeed
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,
-                    TrackingState = TrackingState.Added
+                    TrackingState = TrackingState.Added,
+                    Description = "ManageController"
                 };
 
                 _context.ApplicationResource.Add(r);
@@ -119,7 +120,8 @@ namespace IdentityProvider.Services.DbSeed
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,
-                    TrackingState = TrackingState.Added ,
+                    TrackingState = TrackingState.Added,
+                    Description = "AccountController"
                 };
 
                 _context.ApplicationResource.Add(r);
@@ -134,6 +136,7 @@ namespace IdentityProvider.Services.DbSeed
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,
                     TrackingState = TrackingState.Added ,
+                    Description = "HomeController"
                 };
 
                 _context.ApplicationResource.Add(r);
@@ -147,21 +150,23 @@ namespace IdentityProvider.Services.DbSeed
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,
-                    TrackingState = TrackingState.Added
+                    TrackingState = TrackingState.Added ,
+                    Description = "UserProfileController"
                 };
 
                 _context.ApplicationResource.Add(r);
             }
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "LockedUserAccount"))
+            if (!_context.ApplicationResource.Any(u => u.Name == "LockedUserAccounts"))
             {
                 var r = new ApplicationResource
                 {
-                    Name = "LockedUserAccount" ,
+                    Name = "LockedUserAccounts" ,
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,
-                    TrackingState = TrackingState.Added
+                    TrackingState = TrackingState.Added ,
+                    Description = "LockedUserAccounts"
                 };
 
                 _context.ApplicationResource.Add(r);
@@ -176,7 +181,8 @@ namespace IdentityProvider.Services.DbSeed
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,
-                    TrackingState = TrackingState.Added
+                    TrackingState = TrackingState.Added ,
+                    Description = "UserProfileImage"
                 };
 
                 _context.ApplicationResource.Add(r);
@@ -191,7 +197,8 @@ namespace IdentityProvider.Services.DbSeed
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,
-                    TrackingState = TrackingState.Added
+                    TrackingState = TrackingState.Added ,
+                    Description = "OperationController"
                 };
 
                 _context.ApplicationResource.Add(r);
@@ -206,7 +213,8 @@ namespace IdentityProvider.Services.DbSeed
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,
-                    TrackingState = TrackingState.Added
+                    TrackingState = TrackingState.Added ,
+                    Description = "RoleGroupController"
                 };
 
                 _context.ApplicationResource.Add(r);
@@ -221,7 +229,8 @@ namespace IdentityProvider.Services.DbSeed
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,
-                    TrackingState = TrackingState.Added
+                    TrackingState = TrackingState.Added ,
+                    Description = "PermissionGroupController"
                 };
 
                 _context.ApplicationResource.Add(r);
@@ -236,7 +245,24 @@ namespace IdentityProvider.Services.DbSeed
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,
-                    TrackingState = TrackingState.Added
+                    TrackingState = TrackingState.Added ,
+                    Description = "PermissionController"
+                };
+
+                _context.ApplicationResource.Add(r);
+
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "ResourceController"))
+            {
+                var r = new ApplicationResource
+                {
+                    Name = "ResourceController" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    Description = "ResourceController"
                 };
 
                 _context.ApplicationResource.Add(r);
@@ -251,7 +277,24 @@ namespace IdentityProvider.Services.DbSeed
                     Active = true ,
                     ActiveFrom = DateTime.Now ,
                     ActiveTo = DateTime.Now.AddMonths(6) ,
-                    TrackingState = TrackingState.Added
+                    TrackingState = TrackingState.Added ,
+                    Description = "OrganizationalUnitController"
+                };
+
+                _context.ApplicationResource.Add(r);
+
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeController"))
+            {
+                var r = new ApplicationResource
+                {
+                    Name = "EmployeeController" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    Description = "EmployeeController"
                 };
 
                 _context.ApplicationResource.Add(r);
@@ -269,501 +312,605 @@ namespace IdentityProvider.Services.DbSeed
 
             var res1 = _context.ApplicationResource.First(u => u.Name == "UserProfileImage");
 
-            var rp = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileImageDelete"))
             {
-                Name = "UserProfileImageDelete" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res1 ,
-                Operation = deleteOperation
-            };
+                var rp = new Permission
+                {
+                    Name = "UserProfileImageDelete" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res1 ,
+                    Operation = deleteOperation
+                };
 
-            _context.Permission.Add(rp);
+                _context.Permission.Add(rp);
+            }
 
             var res2 = _context.ApplicationResource.First(u => u.Name == "UserProfileImage");
 
-            var rp2 = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileImageUpload"))
             {
-                Name = "UserProfileImageUpload" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res2 ,
-                Operation = uploadOperation
-            };
+                var rp2 = new Permission
+                {
+                    Name = "UserProfileImageUpload" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res2 ,
+                    Operation = uploadOperation
+                };
 
-            _context.Permission.Add(rp2);
+                _context.Permission.Add(rp2);
+            }
 
             var res3 = _context.ApplicationResource.First(u => u.Name == "EmployeeController");
 
-            var rp3 = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeControllerCreate"))
             {
-                Name = "EmployeeControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res3 ,
-                Operation = createOperation
-            };
+                var rp3 = new Permission
+                {
+                    Name = "EmployeeControllerCreate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res3 ,
+                    Operation = createOperation
+                };
 
-            var rp31 = new Permission
+                _context.Permission.Add(rp3);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeControllerDelete"))
             {
-                Name = "EmployeeControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res3 ,
-                Operation = deleteOperation
-            };
+                var rp31 = new Permission
+                {
+                    Name = "EmployeeControllerDelete" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res3 ,
+                    Operation = deleteOperation
+                };
 
-            var rp32 = new Permission
+                _context.Permission.Add(rp31);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeControllerUpdate"))
             {
-                Name = "EmployeeControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res3 ,
-                Operation = updateOperation
-            };
+                var rp32 = new Permission
+                {
+                    Name = "EmployeeControllerUpdate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res3 ,
+                    Operation = updateOperation
+                };
 
-            var rp33 = new Permission
+                _context.Permission.Add(rp32);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeControllerRead"))
             {
-                Name = "EmployeeControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res3 ,
-                Operation = readOperation
-            };
+                var rp33 = new Permission
+                {
+                    Name = "EmployeeControllerRead" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res3 ,
+                    Operation = readOperation
+                };
 
-            _context.Permission.Add(rp3);
-            _context.Permission.Add(rp31);
-            _context.Permission.Add(rp32);
-            _context.Permission.Add(rp33);
+                _context.Permission.Add(rp33);
+            }
 
-            var res4 = _context.ApplicationResource.First(u => u.Name == "EmployeeDelete");
+            var res4 = _context.ApplicationResource.First(u => u.Name == "EmployeeController");
 
-            var rp4 = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeDelete"))
             {
-                Name = "EmployeeDelete" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res4 ,
-                Operation = deleteOperation
-            };
+                var rp4 = new Permission
+                {
+                    Name = "EmployeeDelete" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res4 ,
+                    Operation = deleteOperation
+                };
 
-            _context.Permission.Add(rp4);
+                _context.Permission.Add(rp4);
+            }
 
-            var res5 = _context.ApplicationResource.First(u => u.Name == "EmployeeCreate");
+            var res5 = _context.ApplicationResource.First(u => u.Name == "EmployeeController");
 
-            var rp5 = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeCreate"))
             {
-                Name = "EmployeeCreate" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res5 ,
-                Operation = createOperation
-            };
+                var rp5 = new Permission
+                {
+                    Name = "EmployeeCreate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res5 ,
+                    Operation = createOperation
+                };
 
-            _context.Permission.Add(rp5);
+                _context.Permission.Add(rp5);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeUpdate"))
+            {
+                var rp5 = new Permission
+                {
+                    Name = "EmployeeUpdate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res5 ,
+                    Operation = updateOperation
+                };
+
+                _context.Permission.Add(rp5);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeRead"))
+            {
+                var rp5 = new Permission
+                {
+                    Name = "EmployeeRead" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res5 ,
+                    Operation = readOperation
+                };
+
+                _context.Permission.Add(rp5);
+            }
 
             var res6 = _context.ApplicationResource.First(u => u.Name == "LockedUserAccount");
 
-            var rp6 = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "UnlockLockedUserAccount"))
             {
-                Name = "UnlockLockedUserAccount" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res6 ,
-                Operation = updateOperation
-            };
+                var rp6 = new Permission
+                {
+                    Name = "UnlockLockedUserAccount" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res6 ,
+                    Operation = updateOperation
+                };
 
-            _context.Permission.Add(rp6);
+                _context.Permission.Add(rp6);
+            }
 
             var res7 = _context.ApplicationResource.First(u => u.Name == "LockedUserAccounts");
 
-            var rp7 = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "ViewLockedUserAccounts"))
             {
-                Name = "ViewLockedUserAccount" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res7 ,
-                Operation = readOperation
-            };
+                var rp7 = new Permission
+                {
+                    Name = "ViewLockedUserAccounts" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res7 ,
+                    Operation = readOperation
+                };
 
-            _context.Permission.Add(rp7);
+                _context.Permission.Add(rp7);
+            }
 
             var res8 = _context.ApplicationResource.First(u => u.Name == "HomeController");
 
-            var rp8 = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "HomeControllerCreate"))
             {
-                Name = "HomeControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res8 ,
-                Operation = createOperation
-            };
+                var rp8 = new Permission
+                {
+                    Name = "HomeControllerCreate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res8 ,
+                    Operation = createOperation
+                };
 
-            var rp81 = new Permission
+                _context.Permission.Add(rp8);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "HomeControlleDelete"))
             {
-                Name = "HomeControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res8 ,
-                Operation = deleteOperation
-            };
+                var rp81 = new Permission
+                {
+                    Name = "HomeControlleDelete" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res8 ,
+                    Operation = deleteOperation
+                };
 
-            var rp82 = new Permission
+                _context.Permission.Add(rp81);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "HomeControllerRead"))
             {
-                Name = "HomeControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res8 ,
-                Operation = readOperation
-            };
+                var rp82 = new Permission
+                {
+                    Name = "HomeControllerRead" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res8 ,
+                    Operation = readOperation
+                };
 
-            var rp83 = new Permission
+                _context.Permission.Add(rp82);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "HomeControllerUpdate"))
             {
-                Name = "HomeControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res8 ,
-                Operation = updateOperation
-            };
+                var rp83 = new Permission
+                {
+                    Name = "HomeControllerUpdate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res8 ,
+                    Operation = updateOperation
+                };
 
-            _context.Permission.Add(rp8);
-            _context.Permission.Add(rp81);
-            _context.Permission.Add(rp82);
-            _context.Permission.Add(rp83);
+                _context.Permission.Add(rp83);
+            }
 
             var res9 = _context.ApplicationResource.First(u => u.Name == "OperationController");
 
-            var rp9 = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "OperationCreate"))
             {
-                Name = "OperationControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res9 ,
-                Operation = createOperation
-            };
+                var rp9 = new Permission
+                {
+                    Name = "OperationCreate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res9 ,
+                    Operation = createOperation
+                };
 
-            var rp91 = new Permission
+                _context.Permission.Add(rp9);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "OperationDelete"))
             {
-                Name = "OperationControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res9 ,
-                Operation = deleteOperation
-            };
+                var rp91 = new Permission
+                {
+                    Name = "OperationDelete" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res9 ,
+                    Operation = deleteOperation
+                };
 
-            var rp92 = new Permission
+                _context.Permission.Add(rp91);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "OperationRead"))
             {
-                Name = "OperationControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res9 ,
-                Operation = readOperation
-            };
+                var rp92 = new Permission
+                {
+                    Name = "OperationRead" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res9 ,
+                    Operation = readOperation
+                };
 
-            var rp93 = new Permission
+                _context.Permission.Add(rp92);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "OperationUpdate"))
             {
-                Name = "OperationControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res9 ,
-                Operation = updateOperation
-            };
+                var rp93 = new Permission
+                {
+                    Name = "OperationUpdate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res9 ,
+                    Operation = updateOperation
+                };
 
-            _context.Permission.Add(rp9);
-            _context.Permission.Add(rp91);
-            _context.Permission.Add(rp92);
-            _context.Permission.Add(rp93);
+                _context.Permission.Add(rp93);
+            }
 
             var res10 = _context.ApplicationResource.First(u => u.Name == "ResourceController");
 
-            var rp10 = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "ResourceCreate"))
             {
-                Name = "ResourceControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res10 ,
-                Operation = createOperation
-            };
+                var rp10 = new Permission
+                {
+                    Name = "ResourceCreate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res10 ,
+                    Operation = createOperation
+                };
 
-            var rp101 = new Permission
+                _context.Permission.Add(rp10);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "ResourceDelete"))
             {
-                Name = "ResourceControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res10 ,
-                Operation = deleteOperation
-            };
+                var rp101 = new Permission
+                {
+                    Name = "ResourceDelete" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res10 ,
+                    Operation = deleteOperation
+                };
 
-            var rp102 = new Permission
+                _context.Permission.Add(rp101);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "ResourceRead"))
             {
-                Name = "ResourceControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res10 ,
-                Operation = readOperation
-            };
+                var rp102 = new Permission
+                {
+                    Name = "ResourceRead" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res10 ,
+                    Operation = readOperation
+                };
 
-            var rp103 = new Permission
+                _context.Permission.Add(rp102);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "ResourceUpdate"))
             {
-                Name = "ResourceControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res10 ,
-                Operation = updateOperation
-            };
+                var rp103 = new Permission
+                {
+                    Name = "ResourceUpdate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res10 ,
+                    Operation = updateOperation
+                };
 
-            _context.Permission.Add(rp10);
-            _context.Permission.Add(rp101);
-            _context.Permission.Add(rp102);
-            _context.Permission.Add(rp103);
-
-            var res11 = _context.ApplicationResource.First(u => u.Name == "EmployeeController");
-
-            var rp11 = new Permission
-            {
-                Name = "EmployeeControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res11 ,
-                Operation = createOperation
-            };
-
-            var rp111 = new Permission
-            {
-                Name = "EmployeeControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res11 ,
-                Operation = deleteOperation
-            };
-
-            var rp112 = new Permission
-            {
-                Name = "EmployeeControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res11 ,
-                Operation = readOperation
-            };
-
-            var rp113 = new Permission
-            {
-                Name = "EmployeeControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res11 ,
-                Operation = updateOperation
-            };
-
-            _context.Permission.Add(rp11);
-            _context.Permission.Add(rp111);
-            _context.Permission.Add(rp112);
-            _context.Permission.Add(rp113);
+                _context.Permission.Add(rp103);
+            }
 
             var res12 = _context.ApplicationResource.First(u => u.Name == "OrganizationalUnitController");
 
-            var rp12 = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "OrganizationalUnitCreate"))
             {
-                Name = "OrganizationalUnitControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res12 ,
-                Operation = createOperation
-            };
+                var rp12 = new Permission
+                {
+                    Name = "OrganizationalUnitCreate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res12 ,
+                    Operation = createOperation
+                };
 
-            var rp121 = new Permission
+                _context.Permission.Add(rp12);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "OrganizationalUnitDelete"))
             {
-                Name = "OrganizationalUnitControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res12 ,
-                Operation = deleteOperation
-            };
+                var rp121 = new Permission
+                {
+                    Name = "OrganizationalUnitDelete" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res12 ,
+                    Operation = deleteOperation
+                };
 
-            var rp122 = new Permission
+                _context.Permission.Add(rp121);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "OrganizationalUnitRead"))
             {
-                Name = "OrganizationalUnitControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res12 ,
-                Operation = readOperation
-            };
+                var rp122 = new Permission
+                {
+                    Name = "OrganizationalUnitRead" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res12 ,
+                    Operation = readOperation
+                };
 
-            var rp123 = new Permission
+                _context.Permission.Add(rp122);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "OrganizationalUnitUpdate"))
             {
-                Name = "OrganizationalUnitControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res12 ,
-                Operation = updateOperation
-            };
+                var rp123 = new Permission
+                {
+                    Name = "OrganizationalUnitUpdate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res12 ,
+                    Operation = updateOperation
+                };
 
-            _context.Permission.Add(rp12);
-            _context.Permission.Add(rp121);
-            _context.Permission.Add(rp122);
-            _context.Permission.Add(rp123);
+                _context.Permission.Add(rp123);
+            }
 
             var res13 = _context.ApplicationResource.First(u => u.Name == "RoleGroupController");
 
-            var rp13 = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "RoleGroupCreate"))
             {
-                Name = "RoleGroupControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res13 ,
-                Operation = createOperation
-            };
+                var rp13 = new Permission
+                {
+                    Name = "RoleGroupCreate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res13 ,
+                    Operation = createOperation
+                };
 
-            var rp131 = new Permission
+                _context.Permission.Add(rp13);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "RoleGroupDelete"))
             {
-                Name = "RoleGroupControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res13 ,
-                Operation = deleteOperation
-            };
+                var rp131 = new Permission
+                {
+                    Name = "RoleGroupDelete" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res13 ,
+                    Operation = deleteOperation
+                };
 
-            var rp132 = new Permission
+                _context.Permission.Add(rp131);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "RoleGroupRead"))
             {
-                Name = "RoleGroupControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res13 ,
-                Operation = readOperation
-            };
+                var rp132 = new Permission
+                {
+                    Name = "RoleGroupRead" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res13 ,
+                    Operation = readOperation
+                };
 
-            var rp133 = new Permission
+                _context.Permission.Add(rp132);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "RoleGroupUpdate"))
             {
-                Name = "RoleGroupControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res13 ,
-                Operation = updateOperation
-            };
+                var rp133 = new Permission
+                {
+                    Name = "RoleGroupUpdate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res13 ,
+                    Operation = updateOperation
+                };
 
-            _context.Permission.Add(rp13);
-            _context.Permission.Add(rp131);
-            _context.Permission.Add(rp132);
-            _context.Permission.Add(rp133);
+                _context.Permission.Add(rp133);
+            }
 
             var res14 = _context.ApplicationResource.First(u => u.Name == "UserProfileController");
 
-            var rp14 = new Permission
+            if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileCreate"))
             {
-                Name = "UserProfileControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res14 ,
-                Operation = createOperation
-            };
+                var rp14 = new Permission
+                {
+                    Name = "UserProfileCreate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res14 ,
+                    Operation = createOperation
+                };
 
-            var rp141 = new Permission
+                _context.Permission.Add(rp14);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileDelete"))
             {
-                Name = "UserProfileControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res14 ,
-                Operation = deleteOperation
-            };
+                var rp141 = new Permission
+                {
+                    Name = "UserProfileDelete" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res14 ,
+                    Operation = deleteOperation
+                };
 
-            var rp142 = new Permission
+                _context.Permission.Add(rp141);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileRead"))
             {
-                Name = "UserProfileControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res14 ,
-                Operation = readOperation
-            };
+                var rp142 = new Permission
+                {
+                    Name = "UserProfileRead" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res14 ,
+                    Operation = readOperation
+                };
 
-            var rp143 = new Permission
+                _context.Permission.Add(rp142);
+            }
+
+            if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileUpdate"))
             {
-                Name = "UserProfileControllerTotalGrant" ,
-                Active = true ,
-                ActiveFrom = DateTime.Now ,
-                ActiveTo = DateTime.Now.AddMonths(6) ,
-                TrackingState = TrackingState.Added ,
-                ApplicationResource = res14 ,
-                Operation = updateOperation
-            };
+                var rp143 = new Permission
+                {
+                    Name = "UserProfileUpdate" ,
+                    Active = true ,
+                    ActiveFrom = DateTime.Now ,
+                    ActiveTo = DateTime.Now.AddMonths(6) ,
+                    TrackingState = TrackingState.Added ,
+                    ApplicationResource = res14 ,
+                    Operation = updateOperation
+                };
 
-            _context.Permission.Add(rp13);
-            _context.Permission.Add(rp131);
-            _context.Permission.Add(rp132);
-            _context.Permission.Add(rp133);
+                _context.Permission.Add(rp143);
+            }
 
             _context.SaveChanges();
 
@@ -779,10 +926,12 @@ namespace IdentityProvider.Services.DbSeed
             var rperm1 = _context.Permission.First(u => u.Name == "EmployeeControllerTotalGrant");
             var rperm2 = _context.Permission.First(u => u.Name == "EmployeeDelete");
             var rperm3 = _context.Permission.First(u => u.Name == "EmployeeCreate");
+            var rperm4 = _context.Permission.First(u => u.Name == "EmployeeUpdate");
+            var rperm5 = _context.Permission.First(u => u.Name == "EmployeeRead");
 
             var rpg1 = new PermissionGroup
             {
-                Name = "EmployeeControllerPermissionGroup" ,
+                Name = "EmployeePermissionGroup" ,
                 Active = true ,
                 ActiveFrom = DateTime.Now ,
                 ActiveTo = DateTime.Now.AddMonths(6) ,
@@ -819,12 +968,34 @@ namespace IdentityProvider.Services.DbSeed
                 Permission = rperm3
             };
 
+            var rpgrpLink14 = new PermissionGroupOwnsPermissionLink
+            {
+                Active = true ,
+                ActiveFrom = DateTime.Now ,
+                ActiveTo = DateTime.Now.AddMonths(6) ,
+                TrackingState = TrackingState.Added ,
+                PermissionGroup = rpg1 ,
+                Permission = rperm4
+            };
+
+            var rpgrpLink15 = new PermissionGroupOwnsPermissionLink
+            {
+                Active = true ,
+                ActiveFrom = DateTime.Now ,
+                ActiveTo = DateTime.Now.AddMonths(6) ,
+                TrackingState = TrackingState.Added ,
+                PermissionGroup = rpg1 ,
+                Permission = rperm5
+            };
+
             _context.PermissionGroupOwnsPermissionLink.Add(rpgrpLink11);
             _context.PermissionGroupOwnsPermissionLink.Add(rpgrpLink12);
             _context.PermissionGroupOwnsPermissionLink.Add(rpgrpLink13);
+            _context.PermissionGroupOwnsPermissionLink.Add(rpgrpLink14);
+            _context.PermissionGroupOwnsPermissionLink.Add(rpgrpLink15);
 
-            var rperm4 = _context.Permission.First(u => u.Name == "UserProfileControllerTotalGrant");
-            var rperm5 = _context.Permission.First(u => u.Name == "UserProfileImageUpload");
+            var rperm41 = _context.Permission.First(u => u.Name == "UserProfileControllerTotalGrant");
+            var rperm51 = _context.Permission.First(u => u.Name == "UserProfileImageUpload");
             var rperm6 = _context.Permission.First(u => u.Name == "UserProfileImageDelete");
 
             var rpg21 = new PermissionGroup
@@ -890,7 +1061,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.OrganisationalUnit.Add(orgUnit);
-
             }
 
             if (!_context.OrganisationalUnit.Any(u => u.Name == "DirectorsOffice"))
@@ -907,7 +1077,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.OrganisationalUnit.Add(orgUnit);
-
             }
 
             if (!_context.OrganisationalUnit.Any(u => u.Name == "HR"))
@@ -956,7 +1125,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.OrganisationalUnit.Add(orgUnit);
-
             }
 
             _context.SaveChanges();
@@ -981,6 +1149,7 @@ namespace IdentityProvider.Services.DbSeed
 
                 manager.Create(role);
             }
+
             if (!_context.Roles.Any(r => r.Name == "Standard"))
             {
                 var store = new RoleStore<ApplicationRole>(_context);
@@ -996,8 +1165,8 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 manager.Create(role);
-
             }
+
             if (!_context.Roles.Any(r => r.Name == "Guest"))
             {
                 var store = new RoleStore<ApplicationRole>(_context);
@@ -1013,8 +1182,8 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 manager.Create(role);
-
             }
+
             // a role can optionally belong to either a group of roles or *directly* to an organizational unit (or an individual user)
             // organizational units will normally contain an n-number of role groups (each role group having an n-number of roles).
 
@@ -1107,7 +1276,6 @@ namespace IdentityProvider.Services.DbSeed
                 OrganizationalUnit = org22 ,
                 Role = ( ApplicationRole ) role22
             };
-
 
             var org32 = _context.OrganisationalUnit.First(u => u.Name == "PointOfSales");
             var role32 = _context.Roles.First(u => u.Name == "Guest");

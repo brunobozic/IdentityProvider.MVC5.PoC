@@ -70,7 +70,7 @@ namespace IdentityProvider.UI.Web.MVC5
                 For<IUserStore<IdentityUser>>()
                     .Use<UserStore<IdentityUser>>()
                     .Ctor<DbContext>()
-                    .Is<IdentityDbContext>(cfg => cfg.SelectConstructor(() => new IdentityDbContext("connection string")).Ctor<string>()
+                    .Is<IdentityDbContext>(cfg => cfg.SelectConstructor(() => new IdentityDbContext("DefaultConnection")).Ctor<string>()
                     .Is("IdentitySetupWithStructureMap"));
 
                 ForConcreteType<UserManager<IdentityUser>>()

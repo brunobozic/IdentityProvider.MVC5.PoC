@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using System.Web.Security;
+using IdentityProvider.Controllers.Authorize;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
@@ -23,13 +25,13 @@ namespace IdentityProvider.Controllers.Controllers
         {
         }
 
-     
+
         public ActionResult Index()
         {
             return View();
         }
 
-       
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -37,7 +39,7 @@ namespace IdentityProvider.Controllers.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Administrator")]
+        [CustomAuthorizeByRole(role: "Administrator")]
         public ActionResult Seed()
         {
             var dBSeeder = ( DoSeed ) DependencyResolver.Current.GetService(typeof(IDoSeed));
@@ -48,7 +50,7 @@ namespace IdentityProvider.Controllers.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Administrator")]
+        [CustomAuthorizeByRole(role: "Administrator")]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -57,7 +59,7 @@ namespace IdentityProvider.Controllers.Controllers
             return View();
         }
 
-        [Authorize(Roles ="Administrator")]
+        [CustomAuthorizeByRole(role: "Administrator")]
         public ActionResult ProtectedActionForTesting()
         {
             ViewBag.Message = "Protected Action For Testing.";
@@ -65,6 +67,7 @@ namespace IdentityProvider.Controllers.Controllers
             return View();
         }
 
+        [CustomAuthorizeByRole(role: "Administrator")]
         public ActionResult TestRepostoryQueries()
         {
             ViewBag.Message = "Protected Action For Testing.";

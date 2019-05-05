@@ -89,6 +89,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authorize\CustomAuthorizeByRole.cs" />
+    <Compile Include="Authorize\CustomAuthorizeByPermission.cs" />
     <Compile Include="AutoMapperBootStrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
