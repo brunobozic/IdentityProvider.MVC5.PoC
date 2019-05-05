@@ -1,29 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using IdentityProvider.Infrastructure.Domain;
 using Microsoft.AspNet.Identity.EntityFramework;
 using TrackableEntities;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    
+
     public class ApplicationRole : IdentityRole, IFullAudit, ISoftDeletable, IHandlesConcurrency, ITrackable
     {
 
         public ApplicationRole()
         {
-            RoleGroup = new HashSet<RoleGroups>();
-            Resources = new HashSet<Resource>();
             base.Id = Guid.NewGuid().ToString();
+            Active = true;
+            ActiveFrom = DateTime.UtcNow;
         }
 
-        public ApplicationRole(string roleName) : this()
+        public ApplicationRole( string roleName ) : this()
         {
-            RoleGroup = new HashSet<RoleGroups>();
-            Resources = new HashSet<Resource>();
+
+
             base.Name = roleName;
+            Active = true;
+            ActiveFrom = DateTime.UtcNow;
         }
 
         [Required]
@@ -31,13 +32,18 @@ namespace IdentityProvider.Models.Domain.Account
         [Required]
         public string Description { get; set; }
         public virtual ApplicationUser UserProfile { get; set; }
-        public virtual ICollection<RoleGroups> RoleGroup { get; set; }
-        public virtual ICollection<Resource> Resources { get; set; }
+        public virtual ICollection<RoleGroupContainsRoleLink> RoleGroups { get; set; }
         public TrackingState TrackingState { get; set; }
         public ICollection<string> ModifiedProperties { get; set; }
+
+        #region IsActive
+
         public bool Active { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
+
+        #endregion IsActive
+
         public string ModifiedById { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public string DeletedById { get; set; }

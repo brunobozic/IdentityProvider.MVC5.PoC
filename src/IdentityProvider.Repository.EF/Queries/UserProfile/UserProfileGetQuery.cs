@@ -27,7 +27,7 @@ namespace IdentityProvider.Repository.EF.Queries.UserProfile
         {
             And(
                 x =>
-                    x.UserId.Equals(userIdIs));
+                    x.UserProfile.Equals(userIdIs));
 
             return this;
         }

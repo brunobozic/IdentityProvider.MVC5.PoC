@@ -6,7 +6,7 @@ namespace IdentityProvider.Repository.EF.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(IdentityProvider.Repository.EF.EFDataContext.AppDbContext context)

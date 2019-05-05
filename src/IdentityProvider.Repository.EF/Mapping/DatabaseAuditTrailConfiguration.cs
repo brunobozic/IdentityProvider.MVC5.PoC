@@ -50,6 +50,7 @@ namespace IdentityProvider.Repository.EF.Mapping
 
             // Table & Column Mappings
             ToTable("DbAuditTrail", "Audit");
+
             Property(t => t.UserId).HasColumnName("UserId");
 
             Property(t => t.TableName).HasColumnName("TableName");

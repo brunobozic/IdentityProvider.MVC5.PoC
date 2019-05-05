@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics;
-using System.Linq;
+using IdentityProvider.Infrastructure;
 using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    [Table("Operations" , Schema = "Account")]
-    public class Operation : DomainEntity<int>, IActive
+    [Table("Operations" , Schema = "Resource")]
+    public class Operation : DomainEntity<int>, IActive, IAuditTrail
     {
         public Operation()
         {
-            Resources = new HashSet<Resource>();
+            ResourcePermissions = new HashSet<Permission>();
             Active = true;
             ActiveFrom = DateTime.UtcNow;
         }
@@ -31,35 +30,21 @@ namespace IdentityProvider.Models.Domain.Account
         [DisplayName("Record is active to (date)")]
         public DateTime? ActiveTo { get; set; }
 
-        public ICollection<Resource> Resources { get; set; }
-
-        public List<Resource> FetchAssociatedResources()
-        {
-            List<Resource> resources;
-
-            try
-            {
-                resources = Resources.Where(i => i.Active && !i.IsDeleted && i.Id.Equals(Id)).ToList();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                Debug.WriteLine(e);
-
-                return null;
-            }
-
-
-            return resources;
-        }
+        public virtual ICollection<Permission> ResourcePermissions { get; set; }
 
         public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
             var name = new[] { "Name" };
+            var description = new[] { "Description" };
 
             if (string.IsNullOrEmpty(Name) && name.Length > 0)
             {
                 yield return new ValidationResult("Operation name is required." , name);
+            }
+
+            if (string.IsNullOrEmpty(Description) && description.Length > 0)
+            {
+                yield return new ValidationResult("Description is required." , description);
             }
         }
     }

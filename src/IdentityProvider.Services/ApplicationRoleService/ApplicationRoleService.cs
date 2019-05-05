@@ -28,7 +28,7 @@ namespace IdentityProvider.Services.ApplicationRoleService
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationRoleManager _roleManager;
 
-        [DefaultConstructor]  //This is the attribute you need to add on the constructor
+        [DefaultConstructor]  // This is the attribute you need to add on the constructor
         public ApplicationRoleService(
             IUnitOfWorkAsync unitOfWorkAsync
             , ILog4NetLoggingService loggingService

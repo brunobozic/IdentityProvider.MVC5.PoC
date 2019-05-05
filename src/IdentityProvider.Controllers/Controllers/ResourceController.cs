@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,6 @@ using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
-using IdentityProvider.Models.ViewModels.Operations;
 using IdentityProvider.Models.ViewModels.Resources;
 using IdentityProvider.Models.ViewModels.Resources.Extensions;
 using IdentityProvider.Services.ResourceService;
@@ -43,13 +43,13 @@ namespace IdentityProvider.Controllers.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public ActionResult ResourceGetAllPaged(
+        public ActionResult ResourcesGetAllPaged(
             string sortOrder
             , string currentFilter
             , string searchString
             , int? pageNumber = 1
             , int pageSize = 10
-            )
+        )
         {
             ViewBag.searchQuery = string.IsNullOrEmpty(searchString) ? "" : searchString;
 
@@ -75,17 +75,19 @@ namespace IdentityProvider.Controllers.Controllers
             ViewBag.CurrentFilter = searchString;
             ViewBag.CurrentSort = sortOrder;
 
+            // TODO: if user can see Inactive items and perhaps reactivate?
+            // TODO: if user has rights to view deleted items and undelete them?
             var query = _resourceService.Queryable().Where(o => o.Active && !o.IsDeleted).Select(i =>
-                new ResourceVm
-                {
-                    Active = i.Active,
-                    Name = i.Name,
-                    Description = i.Description,
-                    Deleted = i.IsDeleted,
-                    DateCreated = i.CreatedDate,
-                    DateModified = i.ModifiedDate,
-                    Id = i.Id
-                });
+                 new ResourceDto
+                 {
+                     Active = i.Active ,
+                     Name = i.Name ,
+                     Description = i.Description ,
+                     Deleted = i.IsDeleted ,
+                     DateCreated = i.CreatedDate ,
+                     DateModified = i.ModifiedDate ,
+                     Id = i.Id
+                 });
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -135,65 +137,142 @@ namespace IdentityProvider.Controllers.Controllers
                     break;
             }
 
-            var pageNo = (pageNumber ?? 1);
+            var pageNo = ( pageNumber ?? 1 );
 
-            // Create the select list item you want to add
-            var selListItem = new SelectListItem
-            {
-                Text = "2",
-                Value = "2",
-                Selected = false
-            };
-
-            var selListItem2 = new SelectListItem
-            {
-                Text = "10",
-                Value = "10",
-                Selected = false
-            };
-
-            var selListItem3 = new SelectListItem
-            {
-                Text = "20",
-                Value = "20",
-                Selected = false
-            };
-
-            var selListItem4 = new SelectListItem
-            {
-                Text = "50",
-                Value = "50",
-                Selected = false
-            };
+            var selListItem = CreateListOfDefaultForPaginator(out var selListItem2 , out var selListItem3 , out var selListItem4);
 
             // Create a list of select list items - this will be returned as your select list
-            var newList = new List<SelectListItem> { selListItem, selListItem2, selListItem3, selListItem4 };    //Add select list item to list of selectlistitems
+            var newList =
+                new List<SelectListItem>
+                {
+                    selListItem,
+                    selListItem2,
+                    selListItem3,
+                    selListItem4
+                }; //Add select list item to list of selectlistitems
 
             // Based on the incoming parameter, set one of the list items to selected equals true
             var selectedOne = newList.Single(i => i.Text == pageSize.ToString());
             selectedOne.Selected = true;
 
             // Return the list of selectlistitems as a selectlist
-            var list = new SelectList(newList, "Value", "Text", null);
+            var list = new SelectList(newList , "Value" , "Text" , null);
 
             var returnValue = new ResourcePagedVm
             {
-                Resources = query.ToPagedList(pageNo, int.Parse(selectedOne.Text)),
-                PageSize = int.Parse(selectedOne.Value),
-                PageSizeList = list,
-                SearchString = searchString,
+                Resources = query.ToPagedList(pageNo , int.Parse(selectedOne.Text)) ,
+                PageSize = int.Parse(selectedOne.Value) ,
+                PageSizeList = list ,
+                SearchString = searchString ,
                 SortOrder = sortOrder
             };
 
             return View(returnValue);
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ResourceInsert(Resource resourceToInsert)
+        private static SelectListItem CreateListOfDefaultForPaginator( out SelectListItem selListItem2 ,
+            out SelectListItem selListItem3 , out SelectListItem selListItem4 )
         {
-            var retVal = new ResourceInsertedVm();
+            // Create the select list item you want to add
+            var selListItem = new SelectListItem
+            {
+                Text = "2" ,
+                Value = "2" ,
+                Selected = false
+            };
 
-            var validationResults = resourceToInsert.Validate();
+            selListItem2 = new SelectListItem
+            {
+                Text = "10" ,
+                Value = "10" ,
+                Selected = false
+            };
+
+            selListItem3 = new SelectListItem
+            {
+                Text = "20" ,
+                Value = "20" ,
+                Selected = false
+            };
+
+            selListItem4 = new SelectListItem
+            {
+                Text = "50" ,
+                Value = "50" ,
+                Selected = false
+            };
+
+            return selListItem;
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public async Task<JsonResult> FetchInfoOnResources()
+        {
+            var retVal = new InfoOnResourcesVm
+            {
+                ActiveItemCount = 0 ,
+                DeletedItemCount = 0 ,
+                InactiveItemCount = 0 ,
+                Success = false ,
+                Message = string.Empty
+            };
+
+            try
+            {
+                var queryResult = await _unitOfWorkAsync.RepositoryAsync<ApplicationResource>().Queryable().AsNoTracking().Select(i =>
+                    new ResourceCountsDto
+                    {
+                        Name = i.Name ,
+                        Active = i.Active ,
+                        Deleted = i.IsDeleted
+                    }).ToListAsync();
+
+                retVal.ActiveItemCount = queryResult.Count(op => op.Active && !op.Deleted);
+                retVal.DeletedItemCount = queryResult.Count(op => op.Deleted); // might conflict with row based access security
+                retVal.InactiveItemCount = queryResult.Count(op => !op.Active);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Debug.WriteLine(e);
+                _errorLogService.LogError(this , e.Message , e);
+                retVal.Message = e.Message ?? "";
+            }
+
+            retVal.Success = true;
+
+            return Json(retVal , JsonRequestBehavior.AllowGet);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Insert()
+        {
+            return PartialView("Partial/_resourceInsertPartial");
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public async Task<ActionResult> Insert( ApplicationResource resourceToInsert )
+        {
+            var retVal = new ResourceInsertedVm { Success = false };
+
+            if (ModelState.IsValid)
+            {
+                if (ModelState.Values.Any(i => i.Errors.Count > 0))
+                {
+                    var problems = ModelState.Values.Where(i => i.Errors.Count > 0).ToList();
+                }
+            }
+
+            var res = new ApplicationResource
+            {
+                Name = resourceToInsert.Name ,
+                Description = resourceToInsert.Description ,
+                Active = resourceToInsert.MakeActive ,
+                ActiveFrom = DateTime.Now ,
+                ActiveTo = resourceToInsert.ActiveUntil
+            };
+
+            var validationResults = res.Validate();
 
             if (validationResults != null && validationResults.Any())
             {
@@ -206,34 +285,48 @@ namespace IdentityProvider.Controllers.Controllers
                     sb.Append(validation.ErrorMessage);
                 }
 
-                return View("Partial/_failedToInsertResourcePartial", retVal);
+                ModelState.AddModelError("Name" , sb.ToString());
+                retVal.ValidationIssues = sb.ToString();
+
+                return Json(retVal , JsonRequestBehavior.AllowGet);
             }
 
-            _resourceService.Insert(resourceToInsert);
+            var inserted = -1;
 
-            var inserted = _unitOfWorkAsync.SaveChanges();
+            try
+            {
+                _unitOfWorkAsync.RepositoryAsync<ApplicationResource>().Insert(res);
+                inserted = await _unitOfWorkAsync.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Debug.WriteLine(e);
+                _errorLogService.LogError(this , e.Message , e);
+                retVal.Message = e.Message ?? "";
+            }
 
             retVal.WasInserted = inserted;
             retVal.Success = true;
 
-            return View(retVal);
+            return Json(retVal , JsonRequestBehavior.AllowGet);
         }
 
-
-        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public async Task<ActionResult> ResourceDeleteAsync(string resourceToDelete)
+        // POST: /Resource/Delete/5
+        [AcceptVerbs( HttpVerbs.Post)]
+        public async Task<ActionResult> Delete( string itemToDelete )
         {
-            var retVal = new OperationDeletedVm { WasDeleted = false };
+            var retVal = new ResourceDeletedVm { WasDeleted = false };
 
-            if (string.IsNullOrEmpty(resourceToDelete))
+            if (string.IsNullOrEmpty(itemToDelete))
             {
-                throw new ArgumentNullException(nameof(resourceToDelete));
+                throw new ArgumentNullException(nameof(itemToDelete));
             }
 
             try
             {
-                var repo = _unitOfWorkAsync.RepositoryAsync<Resource>();
-                await repo.DeleteAsync(int.Parse(resourceToDelete));
+                var repo = _unitOfWorkAsync.RepositoryAsync<ApplicationResource>();
+                await repo.DeleteAsync(int.Parse(itemToDelete));
                 var result = await _unitOfWorkAsync.SaveChangesAsync();
 
                 if (result > 0)
@@ -243,41 +336,124 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 Console.WriteLine(e);
                 Debug.WriteLine(e);
-                _errorLogService.LogError(this, e.Message, e);
+                _errorLogService.LogError(this , e.Message , e);
                 retVal.Error = e.Message ?? "";
             }
 
-            return Json(retVal.WasDeleted, JsonRequestBehavior.AllowGet);
+            return Json(retVal.WasDeleted , JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: /Resource/Edit/5
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Edit( int? id )
+        {
+            var retVal = new ResourceVm
+            {
+                Success = false ,
+                Message = ""
+            };
+
+            if (id <= 0)
+            {
+                retVal.Message = "Please provide an id.";
+                // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return PartialView("Partial/_resourceEditPartial" , retVal);
+            }
+
+            var result = _resourceService.Find(id);
+
+            if (result != null)
+            {
+                retVal.Success = true;
+                retVal.Resource = result.ConvertToViewModel();
+            }
+            else
+            {
+                retVal.Message = "Item with requested Id was not found.";
+            }
+
+            return PartialView("Partial/_resourceEditPartial" , retVal);
+        }
+
+        // POST: /Resource/Edit/5
+        [AcceptVerbs(HttpVerbs.Post)]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit( [Bind(Include = "Id, Name, Description, Active, ActiveFrom, ActiveTo")] ApplicationResource resource )
+        {
+            // https://stackoverflow.com/questions/39533599/mvc-5-with-bootstrap-modal-from-partial-view-validation-not-working
+            // https://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
+            var retVal = new ResourceVm
+            {
+                Success = false ,
+                Message = ""
+            };
+
+            if (ModelState.IsValid)
+            {
+                var repo = _unitOfWorkAsync.RepositoryAsync<ApplicationResource>();
+
+                var valid = resource.Validate();
+
+                try
+                {
+                    repo.Update(resource);
+
+                    var result = await _unitOfWorkAsync.SaveChangesAsync();
+
+                    if (result > 0)
+                    {
+                        retVal.Success = true;
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    Console.WriteLine(e);
+                    Debug.WriteLine(e);
+                    retVal.Message = e.Message;
+                }
+            }
+            else
+            {
+                retVal.FormErrors = ModelState.Select(kvp => new { key = kvp.Key , errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+                retVal.Message = "Model state invalid";
+            }
+
+            return PartialView("Partial/_resourceEditPartial" , retVal);
         }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public async Task<ActionResult> ResourceEditAsync(object id)
+        public async Task<ActionResult> Detail( int id )
         {
+            var retVal = new ResourceVm
+            {
+                Success = false ,
+                Message = ""
+            };
+
+            if (id <= 0)
+            {
+                retVal.Message = "Please provide an id.";
+                return PartialView("Partial/_resourceDetailsPartial" , retVal);
+            }
+
             var result = await _resourceService.FindAsync(id);
 
-            switch (result)
+            if (result != null)
             {
-                case null:
-                    return PartialView("Partial/_resourceNotFoundPartial");
-                default:
-                    var viewModel = result.ConvertToViewModel();
-                    return PartialView("Partial/_resourceEditPartial", viewModel);
+                retVal.Success = true;
+
+                if (Request.IsAjaxRequest())
+                {
+                    retVal.Resource = result.ConvertToViewModel();
+                }
             }
-        }
-
-        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public async Task<ActionResult> ResourceDetailsAsync(object id)
-        {
-            var result = await _resourceService.FindAsync(id);
-
-            switch (result)
+            else
             {
-                case null:
-                    return PartialView("Partial/_resourceNotFoundPartial");
-                default:
-                    var viewModel = result.ConvertToViewModel();
-                    return PartialView("Partial/_resourceDetailsPartial", viewModel);
+                retVal.Message = "Item with requested Id was not found.";
             }
+
+            return PartialView("Partial/_resourceDetailsPartial" , retVal);
         }
     }
 }

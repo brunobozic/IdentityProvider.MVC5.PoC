@@ -7,7 +7,7 @@ namespace IdentityProvider.UI.Web.MVC5
     public class BundleConfig
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
-        public static void RegisterBundles(BundleCollection bundles)
+        public static void RegisterBundles( BundleCollection bundles )
         {
             //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
             //            "~/Scripts/jquery-{version}.js"));
@@ -30,12 +30,12 @@ namespace IdentityProvider.UI.Web.MVC5
 
 
             bundles.Add(new StyleBundle("~/Bundles/css")
-                .Include("~/Content/css/bootstrap.min.css", new CssRewriteUrlTransformAbsolute())
+                .Include("~/Content/css/bootstrap.min.css" , new CssRewriteUrlTransformAbsolute())
                 .Include("~/Content/css/bootstrap-select.css")
                 .Include("~/Content/css/bootstrap-datepicker3.min.css")
-                .Include("~/Content/css/font-awesome.min.css", new CssRewriteUrlTransformAbsolute())
-                .Include("~/Content/css/icheck/blue.min.css", new CssRewriteUrlTransformAbsolute())
-                .Include("~/Content/css/AdminLTE.css", new CssRewriteUrlTransformAbsolute())
+                .Include("~/Content/css/font-awesome.min.css" , new CssRewriteUrlTransformAbsolute())
+                .Include("~/Content/css/icheck/blue.min.css" , new CssRewriteUrlTransformAbsolute())
+                .Include("~/Content/css/AdminLTE.css" , new CssRewriteUrlTransformAbsolute())
                 .Include("~/Content/css/skins/skin-blue.css"));
             bundles.Add(new ScriptBundle("~/Bundles/js")
                 .Include("~/Scripts/jquery-3.3.1.js")

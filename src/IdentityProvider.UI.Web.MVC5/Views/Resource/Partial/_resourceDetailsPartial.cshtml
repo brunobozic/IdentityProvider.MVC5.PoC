@@ -1,56 +1,82 @@
-﻿@model IdentityProvider.Models.ViewModels.Operations.OperationVm
+﻿@model IdentityProvider.Models.ViewModels.Resources.ResourceVm
 
-<style type="text/css">
-    body {
-        font-family: Arial;
-        font-size: 10pt;
-    }
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="header cool-text">
+            <em style="font-size: 1.7em">
+                Resource
+            </em>
+            <em style="font-size: 0.9em">
+                <small>Edit</small>
+            </em>
+        </div>
+        <div class="body" style="width:100% !important">
+            <table class="table-light">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td valign="top">
+                            <b>@Html.DisplayNameFor(item => item.Resource.Name)</b>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(item => item.Resource.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>@Html.DisplayNameFor(item => item.Resource.Description)</b>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(item => item.Resource.Description)
 
-    table, table td {
-        border: 0 solid #fff;
-    }
-</style>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="word-wrap: break-word !important;">
+                            <b>@Html.DisplayNameFor(item => item.Resource.Active)</b>
+                        </td>
+                        <td>
+                            @if (Model.Resource.Active)
+                            {
+                                <i class="material-icons align-center" style="cursor: not-allowed; color: green" title="Active">check_circle_outline</i>
+                            }
+                            else
+                            {
+                                <i class="material-icons align-center" style="cursor: not-allowed; color: darkred" title="Inactive">domain_disabled</i>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="word-wrap: break-word !important;">
+                            <b>@Html.DisplayNameFor(item => item.Resource.ActiveFrom)</b>
+                        </td>
+                        <td>
+                            @if (Model.Resource.ActiveFrom != DateTime.MinValue)
+                            {
+                                @Html.DisplayFor(item => item.Resource.ActiveFrom)
 
-<table class="table-light table-hover table-borderless">
-    <tbody>
-        <tr>
-            <td valign="top">
-                <b>@Html.DisplayNameFor(item => item.Name):</b>
-            </td>
-            <td>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>@Html.DisplayNameFor(item => item.Resource.ActiveTo)</b>
+                        </td>
+                        <td>
+                            @if (Model.Resource.ActiveTo != DateTime.MinValue)
+                            {
+                                @Html.DisplayFor(item => item.Resource.ActiveTo)
 
-
-                @Html.DisplayFor(item => item.Description)
-                <br />
-                @Html.DisplayFor(item => item.Active)
-                <br />
-
-                @if (Model.UserMayViewDeletedProp)
-                {
-                    @Html.DisplayFor(item => item.Deleted)
-                    <br />
-                    @Html.DisplayFor(item => item.DateDeleted)
-                    <br />
-                    @Html.DisplayFor(item => item.DeletedBy)
-                    <br />
-                }
-
-                @if (Model.UserMayViewCreatedProp)
-                {
-                    @Html.DisplayFor(item => item.DateCreated)
-                    <br />
-                    @Html.DisplayFor(item => item.CreatedBy)
-                    <br />
-                }
-
-                @if (Model.UserMayViewLastModifieddProp)
-                {
-                    @Html.DisplayFor(item => item.DateModified)
-                    <br />
-                    @Html.DisplayFor(item => item.ModifiedBy)
-                    <br />
-                }
-            </td>
-        </tr>
-    </tbody>
-</table>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

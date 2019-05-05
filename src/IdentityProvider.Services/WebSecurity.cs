@@ -34,6 +34,7 @@ namespace IdentityProvider.Services
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private ILog4NetLoggingService _loggingService;
         private ApplicationUserManager _userManager;
+        private readonly ICachedUserAuthorizationGrantsProvider _cachedUserAuthorizationGrantsProvider;
 
         public IAuthenticationManager AuthenticationManager => HttpContext.Current.GetOwinContext().Authentication;
 
@@ -842,9 +843,11 @@ namespace IdentityProvider.Services
             , IMapper mapper
             , ApplicationSignInManager signInManager
             , ApplicationUserManager userManager
+            , ICachedUserAuthorizationGrantsProvider cachedUserAuthorizationGrantsProvider
         )
         {
             _userManager = userManager;
+            _cachedUserAuthorizationGrantsProvider = cachedUserAuthorizationGrantsProvider;
             _signInManager = signInManager;
             _loggingService = loggingService ?? throw new ArgumentNullException(nameof(loggingService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -872,7 +875,7 @@ namespace IdentityProvider.Services
                 if (_loggingService == null)
                     _loggingService = Log4NetLoggingFactory.GetLogger();
 
-                _unitOfWorkAsync = new UnitOfWork(dbContextAsync , new RowAuthPoliciesContainer());
+                _unitOfWorkAsync = new UnitOfWork(dbContextAsync , new RowAuthPoliciesContainer(_cachedUserAuthorizationGrantsProvider));
                 // UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_dbContextAsync as DbContext));
             }
             catch (Exception ex)

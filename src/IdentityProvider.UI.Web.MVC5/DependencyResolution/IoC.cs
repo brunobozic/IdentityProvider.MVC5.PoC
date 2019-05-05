@@ -16,11 +16,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace IdentityProvider.UI.Web.MVC5.DependencyResolution {
+namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
+{
     using StructureMap;
-	
-    public static class IoC {
-        public static IContainer Initialize() {
+
+    public static class IoC
+    {
+        public static IContainer Initialize()
+        {
             return new Container(c => c.AddRegistry<DefaultRegistry>());
         }
     }

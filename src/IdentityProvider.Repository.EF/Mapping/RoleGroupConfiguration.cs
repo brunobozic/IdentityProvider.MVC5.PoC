@@ -5,7 +5,7 @@ using IdentityProvider.Models.Domain.Account;
 
 namespace IdentityProvider.Repository.EF.Mapping
 {
-    public class RoleGroupConfiguration : EntityTypeConfiguration<RoleGroups>
+    public class RoleGroupConfiguration : EntityTypeConfiguration<RoleGroup>
     {
         public RoleGroupConfiguration()
         {
@@ -29,18 +29,10 @@ namespace IdentityProvider.Repository.EF.Mapping
 
             Property(t => t.Name)
                 .HasColumnAnnotation(
-                    IndexAnnotation.AnnotationName,
+                    IndexAnnotation.AnnotationName ,
                     new IndexAnnotation(
-                        new IndexAttribute("IX_RoleGroupName", 1) { IsUnique = true }));
+                        new IndexAttribute("IX_RoleGroupName" , 1) { IsUnique = true }));
 
-            HasMany(t => t.Roles)
-                .WithMany(c => c.RoleGroup)
-                .Map(x =>
-                {
-                    x.MapLeftKey("RoleId");
-                    x.MapRightKey("RoleGroupId");
-                    x.ToTable("RolesBelongToRoleGroups", "Account");
-                });
         }
     }
 }

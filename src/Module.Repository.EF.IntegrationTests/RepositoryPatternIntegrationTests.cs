@@ -133,289 +133,289 @@ namespace Module.Repository.EF.IntegrationTests
         }
 
         // Insert Graph
-        [TestMethod]
-        public void Insert_Graph_With_Many_To_Many_Relation()
-        {
-            // TODO: idempotent teardown
+        //[TestMethod]
+        //public void Insert_Graph_With_Many_To_Many_Relation()
+        //{
+        //    // TODO: idempotent teardown
 
-            using (var context = new AppDbContext())
-            {
-                IUnitOfWorkAsync unitOfWork = new UnitOfWork(context , new RowAuthPoliciesContainer());
-                IRowAuthPoliciesContainer container = RowAuthPoliciesContainer.ConfigureRowAuthPolicies();
+        //    using (var context = new AppDbContext())
+        //    {
+        //        IUnitOfWorkAsync unitOfWork = new UnitOfWork(context , new RowAuthPoliciesContainer());
+        //        IRowAuthPoliciesContainer container = RowAuthPoliciesContainer.ConfigureRowAuthPolicies();
 
-                container.Register<Operation , string>(o => o.Name).When(GetWhenCriteria).Match(GetMatchingCriteria);
-                IRepositoryAsync<Operation> operationRepository =
-                    new Repository<Operation>(context , unitOfWork , container);
-                IRepositoryAsync<Resource> resourceRepository =
-                    new Repository<Resource>(context , unitOfWork , container);
+        //        container.Register<Operation , string>(o => o.Name).When(GetWhenCriteria).Match(GetMatchingCriteria);
+        //        IRepositoryAsync<Operation> operationRepository =
+        //            new Repository<Operation>(context , unitOfWork , container);
+        //        IRepositoryAsync<ApplicationResource> resourceRepository =
+        //            new Repository<ApplicationResource>(context , unitOfWork , container);
 
-                var testResource = new Resource
-                {
-                    Name = "TestResource15" ,
-                    Description = "TestResource15" ,
-                    Active = true ,
-                    TrackingState = TrackingState.Added ,
-                    Operations = new[]
-                    {
-                        new Operation
-                        {
-                            Name = "Test11",
-                            Description = "Test11",
-                            TrackingState = TrackingState.Added
-                        },
-                        new Operation
-                        {
-                            Name = "Test12",
-                            Description = "Test12",
-                            TrackingState = TrackingState.Added
-                        },
-                        new Operation
-                        {
-                            Name = "Test13",
-                            Description = "Test13",
-                            TrackingState = TrackingState.Added
-                        }
-                    }
-                };
+        //        var testResource = new ApplicationResource
+        //        {
+        //            Name = "TestResource15" ,
+        //            Description = "TestResource15" ,
+        //            Active = true ,
+        //            TrackingState = TrackingState.Added ,
+        //            Operations = new[]
+        //            {
+        //                new Operation
+        //                {
+        //                    Name = "Test11",
+        //                    Description = "Test11",
+        //                    TrackingState = TrackingState.Added
+        //                },
+        //                new Operation
+        //                {
+        //                    Name = "Test12",
+        //                    Description = "Test12",
+        //                    TrackingState = TrackingState.Added
+        //                },
+        //                new Operation
+        //                {
+        //                    Name = "Test13",
+        //                    Description = "Test13",
+        //                    TrackingState = TrackingState.Added
+        //                }
+        //            }
+        //        };
 
-                try
-                {
-                    // unitOfWork.Repository<Resource>().ApplyChanges(testResource);
-                    unitOfWork.Repository<Resource>().Insert(testResource , false);
-                    unitOfWork.SaveChanges();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    ReportError(ex);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    TestContext.WriteLine(ex.Message);
-                }
+        //        try
+        //        {
+        //            // unitOfWork.Repository<Resource>().ApplyChanges(testResource);
+        //            unitOfWork.Repository<ApplicationResource>().Insert(testResource , false);
+        //            unitOfWork.SaveChanges();
+        //        }
+        //        catch (DbEntityValidationException ex)
+        //        {
+        //            ReportError(ex);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Debug.WriteLine(ex.Message);
+        //            TestContext.WriteLine(ex.Message);
+        //        }
 
 
-                var insertedResource = resourceRepository.Query(x => x.Name == "TestResource15").Select().FirstOrDefault();
-                Assert.IsTrue(insertedResource?.Name == "TestResource15");
-                var singleOrDefault = insertedResource.Operations.SingleOrDefault(op => op.Name == "Test13");
-                Assert.IsNotNull(singleOrDefault);
-            }
-        }
+        //        var insertedResource = resourceRepository.Query(x => x.Name == "TestResource15").Select().FirstOrDefault();
+        //        Assert.IsTrue(insertedResource?.Name == "TestResource15");
+        //        var singleOrDefault = insertedResource.Operations.SingleOrDefault(op => op.Name == "Test13");
+        //        Assert.IsNotNull(singleOrDefault);
+        //    }
+        //}
 
         // This does not seem to work with many to many (link table) relations, because there are no FKs defined in the joined tables
-        [TestMethod]
-        public void Insert_Graph_With_Many_To_Many_Relation_With_Traversal()
-        {
-            // TODO: idempotent teardown
+        //[TestMethod]
+        //public void Insert_Graph_With_Many_To_Many_Relation_With_Traversal()
+        //{
+        //    // TODO: idempotent teardown
 
-            using (var context = new AppDbContext())
-            {
-                IUnitOfWorkAsync unitOfWork = new UnitOfWork(context , new RowAuthPoliciesContainer());
-                IRowAuthPoliciesContainer container = RowAuthPoliciesContainer.ConfigureRowAuthPolicies();
+        //    using (var context = new AppDbContext())
+        //    {
+        //        IUnitOfWorkAsync unitOfWork = new UnitOfWork(context , new RowAuthPoliciesContainer());
+        //        IRowAuthPoliciesContainer container = RowAuthPoliciesContainer.ConfigureRowAuthPolicies();
 
-                container.Register<Operation , string>(o => o.Name).When(GetWhenCriteria).Match(GetMatchingCriteria);
-                IRepositoryAsync<Operation> operationRepository = new Repository<Operation>(context , unitOfWork , container);
-                IRepositoryAsync<Resource> resourceRepository = new Repository<Resource>(context , unitOfWork , container);
+        //        container.Register<Operation , string>(o => o.Name).When(GetWhenCriteria).Match(GetMatchingCriteria);
+        //        IRepositoryAsync<Operation> operationRepository = new Repository<Operation>(context , unitOfWork , container);
+        //        IRepositoryAsync<ApplicationResource> resourceRepository = new Repository<ApplicationResource>(context , unitOfWork , container);
 
-                var testResource = new Resource
-                {
-                    Id = 1000 ,
-                    Name = "TestResource15" ,
-                    Description = "TestResource15" ,
-                    Active = true ,
-                    TrackingState = TrackingState.Added ,
-                    Operations = new[] {
-                        new Operation
-                        {
-                            Id= 1000,
-                            Name = "Test11" ,
-                            Description = "Test11" ,
-                            TrackingState = TrackingState.Added
-                        }
-                    ,
-                        new Operation
-                        {   Id= 1001,
-                            Name = "Test12" ,
-                            Description = "Test12" ,
-                            TrackingState = TrackingState.Added
-                        }
-                    ,
-                        new Operation
-                        {   Id= 1002,
-                            Name = "Test13" ,
-                            Description = "Test13" ,
-                            TrackingState = TrackingState.Added
-                        }
-                    }
-                };
+        //        var testResource = new ApplicationResource
+        //        {
+        //            Id = 1000 ,
+        //            Name = "TestResource15" ,
+        //            Description = "TestResource15" ,
+        //            Active = true ,
+        //            TrackingState = TrackingState.Added ,
+        //            Operations = new[] {
+        //                new Operation
+        //                {
+        //                    Id= 1000,
+        //                    Name = "Test11" ,
+        //                    Description = "Test11" ,
+        //                    TrackingState = TrackingState.Added
+        //                }
+        //            ,
+        //                new Operation
+        //                {   Id= 1001,
+        //                    Name = "Test12" ,
+        //                    Description = "Test12" ,
+        //                    TrackingState = TrackingState.Added
+        //                }
+        //            ,
+        //                new Operation
+        //                {   Id= 1002,
+        //                    Name = "Test13" ,
+        //                    Description = "Test13" ,
+        //                    TrackingState = TrackingState.Added
+        //                }
+        //            }
+        //        };
 
-                try
-                {
-                    // unitOfWork.Repository<Resource>().ApplyChanges(testResource);
-                    unitOfWork.Repository<Resource>().Insert(testResource , true);
-                    unitOfWork.SaveChanges();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    ReportError(ex);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    TestContext.WriteLine(ex.Message);
-                }
-            }
+        //        try
+        //        {
+        //            // unitOfWork.Repository<Resource>().ApplyChanges(testResource);
+        //            unitOfWork.Repository<ApplicationResource>().Insert(testResource , true);
+        //            unitOfWork.SaveChanges();
+        //        }
+        //        catch (DbEntityValidationException ex)
+        //        {
+        //            ReportError(ex);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Debug.WriteLine(ex.Message);
+        //            TestContext.WriteLine(ex.Message);
+        //        }
+        //    }
 
-            //  var insertedOperation = operationRepository.Query(x => x.Name == "One").Select().FirstOrDefault();
-            //  Assert.IsTrue(insertedOperation?.Name == "One");
-        }
+        //    //  var insertedOperation = operationRepository.Query(x => x.Name == "One").Select().FirstOrDefault();
+        //    //  Assert.IsTrue(insertedOperation?.Name == "One");
+        //}
         // Delete
         // Delete Many to many
 
-        [TestMethod]
-        public void Delete_One_Side_From_Many_To_Many()
-        {
-            // TODO: idempotent teardown
+        //[TestMethod]
+        //public void Delete_One_Side_From_Many_To_Many()
+        //{
+        //    // TODO: idempotent teardown
 
-            using (var context = new AppDbContext())
-            {
-                IUnitOfWorkAsync unitOfWork = new UnitOfWork(context , new RowAuthPoliciesContainer());
-                IRowAuthPoliciesContainer container = RowAuthPoliciesContainer.ConfigureRowAuthPolicies();
+        //    using (var context = new AppDbContext())
+        //    {
+        //        IUnitOfWorkAsync unitOfWork = new UnitOfWork(context , new RowAuthPoliciesContainer());
+        //        IRowAuthPoliciesContainer container = RowAuthPoliciesContainer.ConfigureRowAuthPolicies();
 
-                container.Register<Operation , string>(o => o.Name).When(GetWhenCriteria).Match(GetMatchingCriteria);
-                IRepositoryAsync<Operation> operationRepository =
-                    new Repository<Operation>(context , unitOfWork , container);
-                IRepositoryAsync<Resource> resourceRepository =
-                    new Repository<Resource>(context , unitOfWork , container);
+        //        container.Register<Operation , string>(o => o.Name).When(GetWhenCriteria).Match(GetMatchingCriteria);
+        //        IRepositoryAsync<Operation> operationRepository =
+        //            new Repository<Operation>(context , unitOfWork , container);
+        //        IRepositoryAsync<ApplicationResource> resourceRepository =
+        //            new Repository<ApplicationResource>(context , unitOfWork , container);
 
-                var operationToRemove = operationRepository.Queryable().SingleOrDefault(op => op.Name == "Test11");
+        //        var operationToRemove = operationRepository.Queryable().SingleOrDefault(op => op.Name == "Test11");
 
-                var resource = resourceRepository.Queryable().SingleOrDefault(res => res.Name == "TestResource15");
+        //        var resource = resourceRepository.Queryable().SingleOrDefault(res => res.Name == "TestResource15");
 
-                if (resource.Operations.Contains(operationToRemove))
-                {
-                    resource.Operations.Remove(operationToRemove);
-                }
+        //        if (resource.Operations.Contains(operationToRemove))
+        //        {
+        //            resource.Operations.Remove(operationToRemove);
+        //        }
 
-                try
-                {
-                    unitOfWork.Repository<Resource>().Update(resource , false);
-                    unitOfWork.SaveChanges();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    ReportError(ex);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    TestContext.WriteLine(ex.Message);
-                }
-
-
-                var resourceToRemoveFrom = resourceRepository.Query(x => x.Name == "TestResource15").Select().FirstOrDefault();
-                Assert.IsTrue(resourceToRemoveFrom?.Name == "TestResource15");
-
-                var removedOperation = resourceToRemoveFrom.Operations.SingleOrDefault(op => op.Name == "Test11");
-                Assert.IsNull(removedOperation);
-
-                var operationShouldNotHaveBeenDeleted = operationRepository.Query(x => x.Name == "Test11").Select().FirstOrDefault();
-                Assert.IsNotNull(operationShouldNotHaveBeenDeleted);
-            }
-        }
-
-        [TestMethod]
-        public void Add_Additional_Many_To_Many_Relation()
-        {
-            // TODO: idempotent teardown
-
-            using (var context = new AppDbContext())
-            {
-                IUnitOfWorkAsync unitOfWork = new UnitOfWork(context , new RowAuthPoliciesContainer());
-                IRowAuthPoliciesContainer container = RowAuthPoliciesContainer.ConfigureRowAuthPolicies();
-
-                container.Register<Operation , string>(o => o.Name).When(GetWhenCriteria).Match(GetMatchingCriteria);
-                IRepositoryAsync<Operation> operationRepository =
-                    new Repository<Operation>(context , unitOfWork , container);
-                IRepositoryAsync<Resource> resourceRepository =
-                    new Repository<Resource>(context , unitOfWork , container);
-
-                var operationToAdd = operationRepository.Queryable().SingleOrDefault(op => op.Name == "Test11");
-
-                var resource = resourceRepository.Queryable().SingleOrDefault(res => res.Name == "TestResource15");
-
-                if (!resource.Operations.Contains(operationToAdd))
-                {
-                    resource.Operations.Add(operationToAdd);
-                }
-
-                try
-                {
-                    unitOfWork.Repository<Resource>().Update(resource , false);
-                    unitOfWork.SaveChanges();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    ReportError(ex);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    TestContext.WriteLine(ex.Message);
-                }
+        //        try
+        //        {
+        //            unitOfWork.Repository<ApplicationResource>().Update(resource , false);
+        //            unitOfWork.SaveChanges();
+        //        }
+        //        catch (DbEntityValidationException ex)
+        //        {
+        //            ReportError(ex);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Debug.WriteLine(ex.Message);
+        //            TestContext.WriteLine(ex.Message);
+        //        }
 
 
-                var resourceResult = resourceRepository.Query(x => x.Name == "TestResource15").Select().FirstOrDefault();
-                Assert.IsTrue(resourceResult?.Name == "TestResource15");
-                var singleOrDefault = resourceResult.Operations.SingleOrDefault(op => op.Name == "Test11");
-                Assert.IsNotNull(singleOrDefault);
-            }
-        }
+        //        var resourceToRemoveFrom = resourceRepository.Query(x => x.Name == "TestResource15").Select().FirstOrDefault();
+        //        Assert.IsTrue(resourceToRemoveFrom?.Name == "TestResource15");
+
+        //        var removedOperation = resourceToRemoveFrom.Operations.SingleOrDefault(op => op.Name == "Test11");
+        //        Assert.IsNull(removedOperation);
+
+        //        var operationShouldNotHaveBeenDeleted = operationRepository.Query(x => x.Name == "Test11").Select().FirstOrDefault();
+        //        Assert.IsNotNull(operationShouldNotHaveBeenDeleted);
+        //    }
+        //}
+
+        //[TestMethod]
+        //public void Add_Additional_Many_To_Many_Relation()
+        //{
+        //    // TODO: idempotent teardown
+
+        //    using (var context = new AppDbContext())
+        //    {
+        //        IUnitOfWorkAsync unitOfWork = new UnitOfWork(context , new RowAuthPoliciesContainer());
+        //        IRowAuthPoliciesContainer container = RowAuthPoliciesContainer.ConfigureRowAuthPolicies();
+
+        //        container.Register<Operation , string>(o => o.Name).When(GetWhenCriteria).Match(GetMatchingCriteria);
+        //        IRepositoryAsync<Operation> operationRepository =
+        //            new Repository<Operation>(context , unitOfWork , container);
+        //        IRepositoryAsync<ApplicationResource> resourceRepository =
+        //            new Repository<ApplicationResource>(context , unitOfWork , container);
+
+        //        var operationToAdd = operationRepository.Queryable().SingleOrDefault(op => op.Name == "Test11");
+
+        //        var resource = resourceRepository.Queryable().SingleOrDefault(res => res.Name == "TestResource15");
+
+        //        if (!resource.Operations.Contains(operationToAdd))
+        //        {
+        //            resource.Operations.Add(operationToAdd);
+        //        }
+
+        //        try
+        //        {
+        //            unitOfWork.Repository<ApplicationResource>().Update(resource , false);
+        //            unitOfWork.SaveChanges();
+        //        }
+        //        catch (DbEntityValidationException ex)
+        //        {
+        //            ReportError(ex);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Debug.WriteLine(ex.Message);
+        //            TestContext.WriteLine(ex.Message);
+        //        }
+
+
+        //        var resourceResult = resourceRepository.Query(x => x.Name == "TestResource15").Select().FirstOrDefault();
+        //        Assert.IsTrue(resourceResult?.Name == "TestResource15");
+        //        var singleOrDefault = resourceResult.Operations.SingleOrDefault(op => op.Name == "Test11");
+        //        Assert.IsNotNull(singleOrDefault);
+        //    }
+        //}
 
         // Update
-        [TestMethod]
-        public void Update_Both_Parent_And_Child_Entity_In_Many_To_Many()
-        {
-            // TODO: idempotent teardown
+        //[TestMethod]
+        //public void Update_Both_Parent_And_Child_Entity_In_Many_To_Many()
+        //{
+        //    // TODO: idempotent teardown
 
-            using (var context = new AppDbContext())
-            {
-                IUnitOfWorkAsync unitOfWork = new UnitOfWork(context , new RowAuthPoliciesContainer());
-                IRowAuthPoliciesContainer container = RowAuthPoliciesContainer.ConfigureRowAuthPolicies();
+        //    using (var context = new AppDbContext())
+        //    {
+        //        IUnitOfWorkAsync unitOfWork = new UnitOfWork(context , new RowAuthPoliciesContainer());
+        //        IRowAuthPoliciesContainer container = RowAuthPoliciesContainer.ConfigureRowAuthPolicies();
 
-                container.Register<Operation , string>(o => o.Name).When(GetWhenCriteria).Match(GetMatchingCriteria);
-                IRepositoryAsync<Operation> operationRepository =
-                    new Repository<Operation>(context , unitOfWork , container);
-                IRepositoryAsync<Resource> resourceRepository =
-                    new Repository<Resource>(context , unitOfWork , container);
+        //        container.Register<Operation , string>(o => o.Name).When(GetWhenCriteria).Match(GetMatchingCriteria);
+        //        IRepositoryAsync<Operation> operationRepository =
+        //            new Repository<Operation>(context , unitOfWork , container);
+        //        IRepositoryAsync<ApplicationResource> resourceRepository =
+        //            new Repository<ApplicationResource>(context , unitOfWork , container);
 
-                var operationToedit = operationRepository.Queryable().SingleOrDefault(op => op.Name == "Test11");
-                operationToedit.Name = "Changed";
+        //        var operationToedit = operationRepository.Queryable().SingleOrDefault(op => op.Name == "Test11");
+        //        operationToedit.Name = "Changed";
 
-                var resource = resourceRepository.Queryable().SingleOrDefault(res => res.Name == "TestResource15");
-                resource.Name = "Changed";
+        //        var resource = resourceRepository.Queryable().SingleOrDefault(res => res.Name == "TestResource15");
+        //        resource.Name = "Changed";
 
-                try
-                {
-                    unitOfWork.Repository<Resource>().Update(resource , false);
-                    unitOfWork.SaveChanges();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    ReportError(ex);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    TestContext.WriteLine(ex.Message);
-                }
+        //        try
+        //        {
+        //            unitOfWork.Repository<ApplicationResource>().Update(resource , false);
+        //            unitOfWork.SaveChanges();
+        //        }
+        //        catch (DbEntityValidationException ex)
+        //        {
+        //            ReportError(ex);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Debug.WriteLine(ex.Message);
+        //            TestContext.WriteLine(ex.Message);
+        //        }
 
-                var resourceResult = resourceRepository.Query(x => x.Name == "Changed").Select().FirstOrDefault();
-                Assert.IsTrue(resourceResult?.Name == "Changed");
-                var singleOrDefault = resourceResult.Operations.SingleOrDefault(op => op.Name == "Changed");
-                Assert.IsNotNull(singleOrDefault);
-            }
-        }
+        //        var resourceResult = resourceRepository.Query(x => x.Name == "Changed").Select().FirstOrDefault();
+        //        Assert.IsTrue(resourceResult?.Name == "Changed");
+        //        var singleOrDefault = resourceResult.Operations.SingleOrDefault(op => op.Name == "Changed");
+        //        Assert.IsNotNull(singleOrDefault);
+        //    }
+        //}
 
         // Fetch complex graph (multiple levels of associations, join)
 

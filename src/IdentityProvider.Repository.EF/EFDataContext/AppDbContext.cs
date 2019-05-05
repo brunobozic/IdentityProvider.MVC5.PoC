@@ -46,9 +46,18 @@ namespace IdentityProvider.Repository.EF.EFDataContext
             InstanceId = Guid.NewGuid();
         }
 
-        public DbSet<Resource> Resource { get; set; }
+        public DbSet<ApplicationResource> ApplicationResource { get; set; }
         public DbSet<Operation> Operation { get; set; }
-        public DbSet<RoleGroups> RoleGroup { get; set; }
+        public DbSet<RoleGroup> RoleGroup { get; set; }
+        public DbSet<Employee> Employee { get; set; }
+        public DbSet<OrgUnitContainsRoleLink> OrgUnitRoleLink { get; set; }
+        public DbSet<Permission> Permission { get; set; }
+        public DbSet<PermissionGroup> ResourcePermissionGroup { get; set; }
+        public DbSet<PermissionGroupOwnsPermissionLink> PermissionGroupOwnsPermissionLink { get; set; }
+        public DbSet<OrganizationalUnit> OrganisationalUnit { get; set; }
+        public DbSet<RoleGroupContainsRoleLink> RoleGroupContainsRoles { get; set; }
+        public DbSet<EmployeeBelongsToOrgUnitLink> EmployeesBelongToOgranizationalUnits { get; set; }
+        public DbSet<OrgUnitContainsRoleGroupLink> OrganizationalUnitsHaveRoleGroups { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<DbLog> DatabaseLog { get; set; }
         // public DbSet<ResourcesHaveOperations> ResourcesHaveOperations { get; set; }
@@ -523,10 +532,10 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                             var fullName = auditableEntity.Entity.GetType().Name;
                             if (fullName != null && !fullName.Equals("ApplicationUser"))
                             {
-                                if (auditableEntity.Property(p => p.CreatedDate).IsModified ||
-                                    auditableEntity.Property(p => p.CreatedById).IsModified)
-                                    throw new DbEntityValidationException(
-                                        $"Attempt to change created audit trails on a modified {auditableEntity.Entity.GetType().FullName}");
+                                //if (auditableEntity.Property(p => p.CreatedDate).IsModified ||
+                                //    auditableEntity.Property(p => p.CreatedById).IsModified)
+                                //    throw new DbEntityValidationException(
+                                //        $"Attempt to change created audit trails on a modified {auditableEntity.Entity.GetType().FullName}");
                             }
                             else
                             {

@@ -1,10 +1,12 @@
 using System.ComponentModel.Design;
+using IdentityProvider.Infrastructure;
 using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.Certificates.ExpiryValidation;
 using IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource;
 using IdentityProvider.Infrastructure.Certificates.Manager;
 using IdentityProvider.Infrastructure.ConfigurationProvider;
 using IdentityProvider.Infrastructure.Cookies;
+using IdentityProvider.Infrastructure.DatabaseAudit;
 using IdentityProvider.Infrastructure.GlobalAsaxHelpers;
 using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Infrastructure.Logging.Serilog;
@@ -14,10 +16,14 @@ using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Services;
 using IdentityProvider.Services.ApplicationRoleService;
+using IdentityProvider.Services.AuditTrailService;
 using IdentityProvider.Services.OperationsService;
 
+using IdentityProvider.Services.ResourceService;
+using IdentityProvider.Services.RowLeveLSecurityUserGrantService;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
+using Module.ServicePattern;
 using StructureMap.Pipeline;
 
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
@@ -63,7 +69,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             //    .Is<HAC.Helpdesk.SimpleMembership.Repository.EF.EFDataContext.IdentityDbContext>((SmartInstance<HAC.Helpdesk.SimpleMembership.Repository.EF.EFDataContext.IdentityDbContext, HAC.Helpdesk.SimpleMembership.Repository.EF.EFDataContext.IdentityDbContext> cfg) => cfg.SelectConstructor(() => new HAC.Helpdesk.SimpleMembership.Repository.EF.EFDataContext.IdentityDbContext("nameOrConnectionString"))
             //    .Ctor<string>()
             //    .Is("SimpleMembership"));
-       
+
             For<Microsoft.Owin.Security.IAuthenticationManager>().Use(() => HttpContext.Current.GetOwinContext().Authentication);
 
             For<IUserStore<ApplicationUser>>()
@@ -81,7 +87,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
                     RequireNonLetterOrDigit = true ,
                     RequireDigit = true ,
                     RequireLowercase = true ,
-                    RequireUppercase = true 
+                    RequireUppercase = true
                 })
                 .SetProperty(userManager => userManager.UserValidator = new UserValidator<IdentityUser>(userManager)
                 {
@@ -125,14 +131,15 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             For<ICertificateManager>().Use<CertificateManager>().LifecycleIs<UniquePerRequestLifecycle>();
             For<ICertificateFromEmbededResourceProvider>().Use<CertificateFromEmbeddedResourceProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             For<ICertificateExpirationValidator>().Use<CertificateExpirationValidator>().LifecycleIs<UniquePerRequestLifecycle>();
-
+            For<ICachedUserAuthorizationGrantsProvider>().Use<CachedUserAuthorizationGrantsProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             // ================================================================================
 
             For<IApplicationRoleService>().Use<ApplicationRoleService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IOperationService>().Use<OperationsService>().LifecycleIs<UniquePerRequestLifecycle>();
-            //For<IApplicationResourceService>().Use<ApplicationResourceService>().LifecycleIs<UniquePerRequestLifecycle>();
-
-            //For(typeof(IService<>)).Use(typeof(Service<>));
+            For<IApplicationResourceService>().Use<ApplicationResourceService>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IAuditTrailService>().Use<AuditTrailService>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IRepositoryAsync<DbAuditTrail>>().Use<Repository<DbAuditTrail>>().LifecycleIs<UniquePerRequestLifecycle>();
+            // For(typeof(IService<>)).Use(typeof(Service<>));
 
             // ================================================================================
 
@@ -155,7 +162,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             .Ctor<DbContext>()
             .Is<Repository.EF.EFDataContext.AppDbContext>(( SmartInstance<Repository.EF.EFDataContext.AppDbContext , DbContext> cfg ) => cfg.SelectConstructor(() => new Repository.EF.EFDataContext.AppDbContext("connectionStringName"))
             .Ctor<string>()
-             .Is("SimpleMembership"));
+            .Is("SimpleMembership"));
 
             For<IUnitOfWorkAsync>().Use<UnitOfWork>().LifecycleIs<UniquePerRequestLifecycle>();
             For(typeof(IRepositoryAsync<>)).Use(typeof(Repository<>));
@@ -163,8 +170,8 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 
             For<IEmailService>().Use<TextLoggingEmailService>().LifecycleIs<UniquePerRequestLifecycle>();
 
-            //For<IIdentityMessageService>().Use<GmailEmailService>().LifecycleIs<UniquePerRequestLifecycle>();
-    
+            For<IIdentityMessageService>().Use<GmailEmailService>().LifecycleIs<UniquePerRequestLifecycle>();
+
             For<ILog4NetLoggingService>().Use<Log4NetLoggingService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IContextProvider>().Use<HttpContextProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IApplicationConfiguration>().Use<ApplicationConfiguration>().LifecycleIs<UniquePerRequestLifecycle>();

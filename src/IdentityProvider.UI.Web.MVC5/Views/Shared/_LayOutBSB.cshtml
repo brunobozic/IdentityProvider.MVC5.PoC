@@ -8,7 +8,7 @@
     <title>Welcome To | Bootstrap Based Admin Template - Material Design</title>
 
     <!-- Favicon-->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -18,10 +18,23 @@
     | Stylesheets here |
     -------------------------->
     <!-- Bootstrap Core Css -->
-    <link href="~/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Datatables Css -->
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/select/1.2.7/css/select.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    @*<link href="https://cdn.datatables.net/keytable/2.4.1/css/keyTable.bootstrap.min.css" rel="stylesheet" />*@
+
+
+    @*<link href="~/bower_components/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />*@
+    @*<link href="~/bower_components/datatables/media/css/dataTables.material.min.css" rel="stylesheet" />*@
+    <link href="~/bower_components/datatables/media/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/bower_components/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet" />
+
+    @*<link href="https://cdn.datatables.net/rowreorder/1.2.5/css/rowReorder.dataTables.min.css" rel="stylesheet" />*@
 
     <!-- Waves Effect Css -->
-    @*<link href="plugins/node-waves/waves.css" rel="stylesheet" />*@
     <link href="~/bower_components/Waves/dist/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
@@ -30,67 +43,167 @@
     <!-- Custom Css -->
     <link href="~/Content/site.css" rel="stylesheet" />
 
+    <!-- Morris Chart Css-->
+    @*<link href="~/bower_components/morris.js/morris.css" rel="stylesheet" />*@
+
+    <link href="~/bower_components/sweetalert2/dist/sweetalert2.css" rel="stylesheet" />
+
+    <link href="~/Content/popover-overrides.css" rel="stylesheet" />
+
+
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="~/bower_components/adminbsb-materialdesign/css/themes/all-themes.css" rel="stylesheet" />
     <link href="~/bower_components/adminbsb-materialdesign/css/style.css" rel="stylesheet" />
-    <link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />
 
+    <link href="~/Content/css/themed-buttons-deep-purple.css" rel="stylesheet" />
+    <link href="~/Content/css/themed-buttons-red.css" rel="stylesheet" />
+    <!-- Custom Css -->
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+    @*<link href="~/Content/MakeTableResponsive.css" rel="stylesheet" />*@
+    <link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />
+    @*<link href="~/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />*@
+    <link href="~/Content/site.css" rel="stylesheet" />
+
+    <style>
+
+        .grid {
+            position: relative;
+        }
+
+        .item {
+            position: absolute;
+            width: 250px;
+            height: 110px;
+            line-height: 25px;
+            margin: 10px;
+            z-index: 1;
+        }
+
+        .item-full-width {
+            position: absolute;
+            width: 98%;
+            line-height: 25px;
+            margin: 10px;
+            z-index: 1;
+        }
+
+        .item.muuri-item-hidden {
+            z-index: 0;
+        }
+
+        .item.muuri-item-releasing {
+            z-index: 2;
+        }
+
+        .item.muuri-item-dragging {
+            z-index: 3;
+        }
+
+        .item-content {
+            position: relative;
+            width: 99%;
+            height: 99%;
+            /*text-align: center;
+            background: red;
+            font-size: 50px;
+            color: white;*/
+            cursor: pointer;
+        }
+
+        .handleForDragandDrop {
+            position: relative;
+            cursor: pointer;
+            background: #ffffff; /* Old browsers */
+            background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+        }
+
+        .item.muuri-item-dragging .item-content {
+            background: blue;
+        }
+
+        .item.muuri-item-releasing .item-content {
+            background: blueViolet;
+        }
+
+        .item-full-width.muuri-item-dragging .item-content {
+            background: blue;
+        }
+
+        .item-full-width.muuri-item-releasing .item-content {
+            background: blueViolet;
+        }
+
+        table {
+            table-layout: auto !important;
+            border-collapse: collapse !important;
+            width: 100% !important;
+        }
+
+        .navbar {
+            position: fixed !important
+        }
+
+        .block-header {
+            padding-top: 65px !important;
+        }
+    </style>
+
+    <link href="~/bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <link href="~/bower_components/pretty-checkbox/dist/pretty-checkbox.css" rel="stylesheet" />
     <!------------------------------
     | Very important scripts here |
     ------------------------------->
     <!-- Jquery Core Js -->
-    <script src="~/bower_components/jQuery/dist/jquery.js"></script>
-    <!-- Slim scroll Js -->
-    <script src="~/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
-    <!-- Lodash -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
-    @*<script src="~/bower_components/lodash/dist/lodash.js"></script>*@
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- Bootstrap Core Js -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- SWAL -->
-    <script src="~/bower_components/sweetalert2/dist/sweetalert2.all.js"></script>
-    <link href="~/bower_components/sweetalert2/dist/sweetalert2.css" rel="stylesheet" />
-    <script src="~/bower_components/sweetalert2/dist/sweetalert2.js"></script>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/makeTableResponsive.js"></script>
-    <link href="~/Content/MakeTableResponsive.css" rel="stylesheet" />
-    <script src="~/bower_components/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>
-    <link href="~/Content/popover-overrides.css" rel="stylesheet" />
-    <link href="~/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
-    <script src="~/bower_components/select2/dist/js/select2.full.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <!-- Muuri -->
-    <script src="https://unpkg.com/web-animations-js@2.3.1/web-animations.min.js"></script>
-    <script src="https://unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
-    <script src="https://unpkg.com/muuri@0.7.0/dist/muuri.min.js"></script>
+    <script src="~/bower_components/adminbsb-materialdesign/js/demo.js"></script>
+    <script src="~/bower_components/adminbsb-materialdesign/js/admin.js"></script>
+
 </head>
 
 <body class="theme-red">
     <!-- Page Loader -->
-    @Html.Partial("_AdminBSBPageLoader");
+    @Html.Partial("_AdminBSBPageLoader")
     <!-- #END# Page Loader -->
     <!-- Overlay For Sidebars -->
-    <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
     <!-- Search Bar -->
-    @Html.Partial("_AdminBSBSearchBar");
+    @Html.Partial("_AdminBSBSearchBar")
     <!-- #END# Search Bar -->
     <!-- Top Bar -->
-    @Html.Partial("_AdminBSBTopBar");
+    @Html.Partial("_AdminBSBTopBar")
     <!-- #Top Bar -->
 
     <section>
+        <div class="overlay"></div>
         <!-- Left Sidebar -->
-        @Html.Partial("_AdminBSBLeftSidebar");
+        @Html.Partial("_AdminBSBLeftSidebar")
         <!-- #END# Left Sidebar -->
         <!-- Right Sidebar -->
-        @Html.Partial("_AdminBSBRightSidebar");
+        @Html.Partial("_AdminBSBRightSidebar")
         <!-- #END# Right Sidebar -->
     </section>
+
     <div class="clearfix">
         <section class="content" style="margin-top:35px !important">
 
-            @*@Html.Partial("_AdminBSBMain");*@
+            @*@Html.Partial("_AdminBSBMain")*@
 
             <!--------------------------
             | Your Page Content Here |
@@ -98,19 +211,51 @@
 
             @RenderBody()
 
+            <div class="modal fade in" id="mdModal" tabindex="-1" role="dialog" style="display: none;">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="largeModalLabel"></h4>
+                        </div>
+                        <div class="modal-body">
+                            @*  guess what, this is where you put your ajax fetched content  *@
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-red waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
     <!--------------------------
     | Javascript here |
     -------------------------->
-    <!-- Jquery Core Js -->
-    <script src="~/bower_components/jquery/dist/jquery.js"></script>
+    @*@Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")*@
 
-    <!-- Bootstrap Core Js -->
-    <script src="~/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/bower_components/modernizr/modernizr.js"></script>
 
-    <!-- Select Plugin Js -->
-    <script src="~/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+    <!-- Muuri -->
+    <script src="https://unpkg.com/web-animations-js@2.3.1/web-animations.min.js"></script>
+    <script src="https://unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
+    <script src="https://unpkg.com/muuri@0.7.0/dist/muuri.min.js"></script>
+
+    <!-- Include the bootstrap multiselect plugin's CSS and JS: -->
+    @*<script src="~/bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"></script>
+        <link href="~/bower_components/bootstrap-multiselect/dist/css/bootstrap-multiselect.css" rel="stylesheet" />*@
+
+    <!-- Lodash -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+
+
+    <script src="~/Scripts/jQueryOverride-boolean-checkboxes.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
+    <!-- SWAL -->
+    <script src="~/bower_components/sweetalert2/dist/sweetalert2.all.js"></script>
+    <script src="~/bower_components/sweetalert2/dist/sweetalert2.js"></script>
 
     <!-- Slimscroll Plugin Js -->
     <script src="~/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
@@ -120,6 +265,10 @@
 
     <!-- Jquery CountTo Plugin Js -->
     <script src="~/bower_components/jquery-countTo/jquery.countTo.js"></script>
+
+    <!-- Morris Plugin Js -->
+    @*<script src="~/bower_components/raphael/raphael.js"></script>
+        <script src="~/bower_components/morris.js/morris.js"></script>*@
 
     <!-- ChartJs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
@@ -139,16 +288,70 @@
     <script src="~/bower_components/adminbsb-materialdesign/js/admin.js"></script>
     @*<script src="~/bower_components/adminbsb-materialdesign/js/pages/index.js"></script>*@
     <script src="~/bower_components/adminbsb-materialdesign/js/demo.js"></script>
+    <!-- Tooltip popovers Js -->
+    <script src="~/bower_components/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>
 
     <!-- Sparkline Js -->
     <script src="~/bower_components/jquery-sparkline/dist/jquery.sparkline.js"></script>
 
     <!-- Select2 Js -->
-    <script src="~/bower_components/select2/dist/js/select2.js"></script>
-    <link href="~/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+
+    <!-- Bootstrap Datepicker Js -->
+    <script src="~/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <link href="~/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" />
+    <!-- ========== -->
+    <!-- DataTables -->
+    <!-- ========== -->
+    <script src="~/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/bower_components/datatables/media/js/dataTables.dataTables.min.js"></script>
+    @*<script src="~/bower_components/datatables/media/js/dataTables.material.js"></script>*@
+
+    @*<script src="https://cdn.datatables.net/keytable/2.4.1/js/dataTables.keyTable.min.js"></script>
+        <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>*@
+
+    @*<script src="~/bower_components/datatables-fixedheader/js/dataTables.fixedHeader.js"></script>*@
+    @*<script src="~/bower_components/datatables-fixedheader/js/fixedHeader.bootstrap.js"></script>*@
+
+    <script src="~/bower_components/datatables-responsive/js/dataTables.responsive.js"></script>
+    <script src="~/bower_components/datatables-responsive/js/responsive.dataTables.js"></script>
+    <script src="~/bower_components/datatables-responsive/js/responsive.bootstrap.js"></script>
+    <!-- ========== -->
+    <!-- ========== -->
+    <!-- ========== -->
+
+    <script src="~/Scripts/Muuri/muuriWireup.js"></script>
+    <script src="~/bower_components/moment/min/moment-with-locales.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <!-- Boolean checkboxes jQuery override -->
     <script src="~/Scripts/jQueryOverride-boolean-checkboxes.js"></script>
+
+    <!-- Application specific stuff -->
+    <script src="~/Scripts/CommonCRUDScripts/commonCreate.js"></script>
+    <script src="~/Scripts/CommonCRUDScripts/commonDelete.js"></script>
+    <script src="~/Scripts/CommonCRUDScripts/commonDetails.js"></script>
+    <script src="~/Scripts/CommonCRUDScripts/commonEdit.js"></script>
+
+    <script src="~/Scripts/Select2/select2Wireup.js"></script>
+
+    <!-- Make tables responsive -->
+    @*<script src="~/Scripts/makeTableResponsive.js"></script>*@
+
+    <!-- Custom Js -->
+    @*<script src="~/bower_components/adminbsb-materialdesign/js/pages/index.js"></script>*@
+    <script>
+        // SWAL message styling
+        swal.setDefaults({
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-success w-25 mr-05',
+            cancelButtonClass: 'btn btn-secondary w-25 ml-05'
+        });
+    </script>
 
 </body>
 </html>

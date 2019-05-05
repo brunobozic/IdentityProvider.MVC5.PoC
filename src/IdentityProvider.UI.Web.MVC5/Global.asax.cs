@@ -17,7 +17,6 @@ using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Infrastructure.URLConfigHelpers;
 using IdentityProvider.Models.ViewModels.Error;
 using IdentityProvider.UI.Web.MVC5.DependencyResolution;
-using Microsoft.Owin.Security;
 
 namespace IdentityProvider.UI.Web.MVC5
 {
@@ -86,9 +85,7 @@ namespace IdentityProvider.UI.Web.MVC5
         {
             HttpContext returnValue = null;
 
-            var mySender = sender as MvcApplication;
-
-            if (mySender != null)
+            if (sender is MvcApplication mySender)
                 returnValue = mySender.Context;
 
             return returnValue;

@@ -42,12 +42,10 @@ namespace IdentityProvider.Controllers.Controllers
             )
         {
             _webSecurity = webSecurity ?? throw new ArgumentNullException(nameof(webSecurity));
-            _cookieStorageService =
-                cookieStorageService ?? throw new ArgumentNullException(nameof(cookieStorageService));
+            _cookieStorageService = cookieStorageService ?? throw new ArgumentNullException(nameof(cookieStorageService));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
-            _authenticationManager =
-                authenticationManager ?? throw new ArgumentNullException(nameof(authenticationManager));
+            _authenticationManager = authenticationManager ?? throw new ArgumentNullException(nameof(authenticationManager));
         }
 
         //

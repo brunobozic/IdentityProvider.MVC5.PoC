@@ -15,8 +15,6 @@
     }*/
 </style>
 
-<script src="~/bower_components/adminbsb-materialdesign/js/demo.js"></script>
-
 <div class="menu">
     <ul class="list">
         <li class="active">
@@ -49,10 +47,16 @@
                 <span>List of all operations</span>
             </a>
         </li>
+        <li>
+            <a href="@(Url.Action("ResourcesGetAllPaged", "Resource"))">
+                <i class="material-icons">list_alt</i>
+                <span>List of all resources</span>
+            </a>
+        </li>
     </ul>
 </div>
 
 
 @*@if (User.IsInRole("Role"))
     {
-    }*@
+}*@

@@ -12,6 +12,7 @@ namespace Module.Repository.EF.RowLevelSecurity
         private Func<bool> _shouldApplyFunc;
         public Type EntityType { get; }
 
+        // container.Register<Operation , string>(o => o.Name).When(GetWhenCriteria).Match(GetMatchingCriteria);
         public RowAuthPolicy( Expression<Func<TEntity , TProperty>> selector , IRowAuthPoliciesContainer parent )
         {
             this._selector = selector;

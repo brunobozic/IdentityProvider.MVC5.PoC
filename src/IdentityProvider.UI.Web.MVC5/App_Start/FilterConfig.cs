@@ -9,7 +9,7 @@ namespace IdentityProvider.UI.Web.MVC5
 {
     public class FilterConfig
     {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        public static void RegisterGlobalFilters( GlobalFilterCollection filters )
         {
             filters.Add(new HandleErrorAttribute());
 
@@ -26,7 +26,7 @@ namespace IdentityProvider.UI.Web.MVC5
 
                 if (performanceLogProvider == null) return;
                 var performanceLogActionFilter =
-                    new PerformanceLogActionFilter(performanceLogProvider, applicationConfiguration);
+                    new PerformanceLogActionFilter(performanceLogProvider , applicationConfiguration);
 
                 filters.Add(performanceLogActionFilter);
             }

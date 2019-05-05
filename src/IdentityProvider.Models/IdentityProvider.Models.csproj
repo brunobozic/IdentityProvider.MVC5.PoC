@@ -36,6 +36,10 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="IdentityProvider.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\IdentityProvider.Services.Logging.WCF\Bin\IdentityProvider.Models.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -72,23 +76,54 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Account\RoleGroups.cs" />
+    <Compile Include="Datatables\Column.cs" />
+    <Compile Include="Datatables\DataTableAjaxPostModel.cs" />
+    <Compile Include="Datatables\Order.cs" />
+    <Compile Include="Datatables\Search.cs" />
+    <Compile Include="Domain\Account\Employee.cs" />
     <Compile Include="Domain\Account\ApplicationUser.cs" />
+    <Compile Include="Domain\Account\EmployeeBelongsToOrgUnitLink.cs" />
     <Compile Include="Domain\Account\Operation.cs" />
+    <Compile Include="Domain\Account\OrganizationalUnits.cs" />
+    <Compile Include="Domain\Account\OrgUnitRoleLink.cs" />
+    <Compile Include="Domain\Account\Permissions.cs" />
+    <Compile Include="Domain\Account\PermissionGroup.cs" />
+    <Compile Include="Domain\Account\RoleContainsResourcePermissionGroupLink.cs" />
+    <Compile Include="Domain\Account\PermissionGroupOwnsPermissionLink.cs" />
+    <Compile Include="Domain\Account\RoleGroupContainsRoleLink.cs" />
+    <Compile Include="Domain\Account\OrgUnitContainsRoleGroupLink.cs" />
+    <Compile Include="Domain\Account\RoleGroup.cs" />
     <Compile Include="Domain\Account\UserProfile.cs" />
+    <Compile Include="MVC5Helpers\ModelStateHelper.cs" />
     <Compile Include="Operations.cs" />
-    <Compile Include="Domain\Account\Resource.cs" />
+    <Compile Include="Domain\Account\ApplicationResource.cs" />
     <Compile Include="Domain\Account\ApplicationRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\AccountViewModels.cs" />
     <Compile Include="ViewModels\Account\ManageViewModels.cs" />
     <Compile Include="ViewModels\Error\ErrorViewModel.cs" />
     <Compile Include="ViewModels\Operations\Extensions\OperationExtension.cs" />
-    <Compile Include="ViewModels\Operations\OperationsVm.cs" />
+    <Compile Include="ViewModels\Operations\InfoOnOperationsVm.cs" />
+    <Compile Include="ViewModels\Operations\OperationCountDto.cs" />
+    <Compile Include="ViewModels\Operations\OperationDeletedVm.cs" />
+    <Compile Include="ViewModels\Operations\OperationAuditTrailDto.cs" />
+    <Compile Include="ViewModels\Operations\OperationDto.cs" />
+    <Compile Include="ViewModels\Operations\OperationInsertedVm.cs" />
+    <Compile Include="ViewModels\Operations\OperationAuditTrailPagedVm.cs" />
+    <Compile Include="ViewModels\Operations\OperationPagedVm.cs" />
+    <Compile Include="ViewModels\Operations\OperationToInsertVm.cs" />
+    <Compile Include="ViewModels\Operations\OperationAuditTrailVm.cs" />
+    <Compile Include="ViewModels\Operations\OperationVm.cs" />
     <Compile Include="ViewModels\Resources\Extensions\ResourceExtension.cs" />
+    <Compile Include="ViewModels\Resources\InfoOnResourcesVm.cs" />
+    <Compile Include="ViewModels\Resources\ResourceCountsDto.cs" />
     <Compile Include="ViewModels\Resources\ResourceDeletedVm.cs" />
+    <Compile Include="ViewModels\Resources\ResourceDto.cs" />
     <Compile Include="ViewModels\Resources\ResourceInsertedVm.cs" />
     <Compile Include="ViewModels\Resources\ResourcePagedVm.cs" />
+    <Compile Include="ViewModels\Resources\ResourceToInsertVm.cs" />
+    <Compile Include="ViewModels\Resources\ResourceVm.cs" />
+    <Compile Include="YourCustomSearchClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdentityProvider.Infrastructure\IdentityProvider.Infrastructure.csproj">

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Module.Repository.EF.IntegrationTests.Utilities;
 using Module.Repository.EF.Repositories;
 using Module.Repository.EF.UnitOfWorkInterfaces;

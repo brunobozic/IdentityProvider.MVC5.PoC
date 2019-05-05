@@ -17,7 +17,8 @@
 
 
 
-namespace IdentityProvider.UI.Web.MVC5.DependencyResolution {
+namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
+{
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -30,7 +31,8 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution {
     /// <summary>
     /// The structure map dependency scope.
     /// </summary>
-    public class StructureMapDependencyScope : ServiceLocatorImplBase {
+    public class StructureMapDependencyScope : ServiceLocatorImplBase
+    {
         #region Constants and Fields
 
         private const string NestedContainerKey = "Nested.Container.Key";
@@ -39,8 +41,10 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution {
 
         #region Constructors and Destructors
 
-        public StructureMapDependencyScope(IContainer container) {
-            if (container == null) {
+        public StructureMapDependencyScope( IContainer container )
+        {
+            if (container == null)
+            {
                 throw new ArgumentNullException("container");
             }
             Container = container;
@@ -52,12 +56,15 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution {
 
         public IContainer Container { get; set; }
 
-        public IContainer CurrentNestedContainer {
-            get {
-                return (IContainer)HttpContext.Items[NestedContainerKey];
+        public IContainer CurrentNestedContainer
+        {
+            get
+            {
+                return ( IContainer ) HttpContext.Items[ NestedContainerKey ];
             }
-            set {
-                HttpContext.Items[NestedContainerKey] = value;
+            set
+            {
+                HttpContext.Items[ NestedContainerKey ] = value;
             }
         }
 
@@ -65,8 +72,10 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution {
 
         #region Properties
 
-        private HttpContextBase HttpContext {
-            get {
+        private HttpContextBase HttpContext
+        {
+            get
+            {
                 var ctx = Container.TryGetInstance<HttpContextBase>();
                 return ctx ?? new HttpContextWrapper(System.Web.HttpContext.Current);
             }
@@ -76,26 +85,32 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution {
 
         #region Public Methods and Operators
 
-        public void CreateNestedContainer() {
-            if (CurrentNestedContainer != null) {
+        public void CreateNestedContainer()
+        {
+            if (CurrentNestedContainer != null)
+            {
                 return;
             }
             CurrentNestedContainer = Container.GetNestedContainer();
         }
 
-        public void Dispose() {
+        public void Dispose()
+        {
             DisposeNestedContainer();
             Container.Dispose();
         }
 
-        public void DisposeNestedContainer() {
-            if (CurrentNestedContainer != null) {
+        public void DisposeNestedContainer()
+        {
+            if (CurrentNestedContainer != null)
+            {
                 CurrentNestedContainer.Dispose();
-				CurrentNestedContainer = null;
+                CurrentNestedContainer = null;
             }
         }
 
-        public IEnumerable<object> GetServices(Type serviceType) {
+        public IEnumerable<object> GetServices( Type serviceType )
+        {
             return DoGetAllInstances(serviceType);
         }
 
@@ -103,20 +118,23 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution {
 
         #region Methods
 
-        protected override IEnumerable<object> DoGetAllInstances(Type serviceType) {
-            return (CurrentNestedContainer ?? Container).GetAllInstances(serviceType).Cast<object>();
+        protected override IEnumerable<object> DoGetAllInstances( Type serviceType )
+        {
+            return ( CurrentNestedContainer ?? Container ).GetAllInstances(serviceType).Cast<object>();
         }
 
-        protected override object DoGetInstance(Type serviceType, string key) {
-            IContainer container = (CurrentNestedContainer ?? Container);
+        protected override object DoGetInstance( Type serviceType , string key )
+        {
+            IContainer container = ( CurrentNestedContainer ?? Container );
 
-            if (string.IsNullOrEmpty(key)) {
+            if (string.IsNullOrEmpty(key))
+            {
                 return serviceType.IsAbstract || serviceType.IsInterface
                     ? container.TryGetInstance(serviceType)
                     : container.GetInstance(serviceType);
             }
 
-            return container.GetInstance(serviceType, key);
+            return container.GetInstance(serviceType , key);
         }
 
         #endregion

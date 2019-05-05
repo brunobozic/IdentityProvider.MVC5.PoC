@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
-using IdentityProvider.Infrastructure.Logging.Log4Net;
 using StructureMap;
 
 namespace IdentityProvider.Controllers
@@ -21,7 +20,12 @@ namespace IdentityProvider.Controllers
                         {
                             var myContainer =
                                 (IContainer) requestContext.HttpContext.Items[StructuremapNestedContainerKey];
-                            return myContainer.GetInstance(controllerType) as IController;
+
+                            var checkWhatIDoHave = myContainer.WhatDoIHave();
+
+                            var instance = myContainer.GetInstance(controllerType) as IController;
+
+                            return instance;
                         }
                     return DependencyResolver.Current.GetService(controllerType) as IController;
                 }
@@ -29,8 +33,9 @@ namespace IdentityProvider.Controllers
             }
             catch (Exception ex)
             {
-                DependencyResolver.Current.GetService<ILog4NetLoggingService>().LogFatal(this, "Fatal", ex);
-                return null;
+                // DependencyResolver.Current.GetService<ILog4NetLoggingService>().LogFatal(this, "Fatal", ex);
+                throw ex;
+                // return null;
             }
         }
     }
