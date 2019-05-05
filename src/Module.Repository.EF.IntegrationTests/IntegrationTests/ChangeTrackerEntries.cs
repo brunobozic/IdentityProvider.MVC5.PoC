@@ -1,4 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Module.Repository.EF.Repositories;
+using Module.Repository.EF.UnitOfWorkInterfaces;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Module.Repository.EF.IntegrationTests.IntegrationTests
 {
