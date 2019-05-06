@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IdentityProvider.Infrastructure\IdentityProvider.Infrastructure.csproj" />
     <ProjectReference Include="..\Module.Repository.EF\Module.Repository.EF.csproj" />
   </ItemGroup>
 
