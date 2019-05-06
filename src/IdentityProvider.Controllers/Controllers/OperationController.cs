@@ -21,7 +21,7 @@ using TrackableEntities;
 
 namespace IdentityProvider.Controllers.Controllers
 {
-    public class OperationController : BaseController
+    public class OperationController : BaseController, IController
     {
         private readonly IOperationService _operationService;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
@@ -49,14 +49,14 @@ namespace IdentityProvider.Controllers.Controllers
             string sortOrder
             , string currentFilter
             , string searchString
-            , string from 
+            , string from
             , string to
             , int? pageNumber = 1
             , int pageSize = 10
             , bool ShowInactive = false
         )
         {
-            searchString = SetupViewbagForPagedItems(sortOrder , currentFilter , searchString , ref pageNumber);
+            searchString = SetupViewbagForPagedItems(sortOrder, currentFilter, searchString, ref pageNumber);
 
             // TODO: if user can see Inactive items and perhaps reactivate?
             // TODO: if user has rights to view deleted items and undelete them?
@@ -70,12 +70,12 @@ namespace IdentityProvider.Controllers.Controllers
                      {
                          Operation = new OperationDto
                          {
-                             Active = i.Active ,
-                             Name = i.Name ,
-                             Description = i.Description ,
-                             Deleted = i.IsDeleted ,
-                             DateCreated = i.CreatedDate ,
-                             DateModified = i.ModifiedDate ,
+                             Active = i.Active,
+                             Name = i.Name,
+                             Description = i.Description,
+                             Deleted = i.IsDeleted,
+                             DateCreated = i.CreatedDate,
+                             DateModified = i.ModifiedDate,
                              Id = i.Id
                          }
                      });
@@ -87,13 +87,13 @@ namespace IdentityProvider.Controllers.Controllers
                    {
                        Operation = new OperationDto
                        {
-                           Active = i.Active ,
-                           Name = i.Name ,
-                           Description = i.Description ,
-                           Deleted = i.IsDeleted ,
-                           DateCreated = i.CreatedDate ,
-                           DateModified = i.ModifiedDate ,
-                           Id = i.Id ,
+                           Active = i.Active,
+                           Name = i.Name,
+                           Description = i.Description,
+                           Deleted = i.IsDeleted,
+                           DateCreated = i.CreatedDate,
+                           DateModified = i.ModifiedDate,
+                           Id = i.Id,
                        }
                    });
             }
@@ -146,27 +146,27 @@ namespace IdentityProvider.Controllers.Controllers
                     break;
             }
 
-            var pageNo = SetupListOfPageSizes(pageNumber , pageSize , out var selectedOne , out var list);
+            var pageNo = SetupListOfPageSizes(pageNumber, pageSize, out var selectedOne, out var list);
 
             var returnValue = new OperationPagedVm
             {
-                Operations = query.ToPagedList(pageNo , int.Parse(selectedOne.Text)) ,
-                PageSize = int.Parse(selectedOne.Value) ,
-                PageSizeList = list ,
-                SearchString = searchString ,
-                SortOrder = sortOrder ,
+                Operations = query.ToPagedList(pageNo, int.Parse(selectedOne.Text)),
+                PageSize = int.Parse(selectedOne.Value),
+                PageSizeList = list,
+                SearchString = searchString,
+                SortOrder = sortOrder,
                 ShowInactive = ShowInactive
             };
 
             return View(returnValue);
         }
 
-        private static int SetupListOfPageSizes( int? pageNumber , int pageSize , out SelectListItem selectedOne ,
-            out SelectList list )
+        private static int SetupListOfPageSizes(int? pageNumber, int pageSize, out SelectListItem selectedOne,
+            out SelectList list)
         {
-            var pageNo = ( pageNumber ?? 1 );
+            var pageNo = (pageNumber ?? 1);
 
-            var selListItem = CreateListOfDefaultForPaginator(out var selListItem2 , out var selListItem3 , out var selListItem4);
+            var selListItem = CreateListOfDefaultForPaginator(out var selListItem2, out var selListItem3, out var selListItem4);
 
             // Create a list of select list items - this will be returned as your select list
             var newList =
@@ -183,13 +183,13 @@ namespace IdentityProvider.Controllers.Controllers
             selectedOne.Selected = true;
 
             // Return the list of selectlistitems as a selectlist
-            list = new SelectList(newList , "Value" , "Text" , null);
+            list = new SelectList(newList, "Value", "Text", null);
 
             return pageNo;
         }
 
-        private string SetupViewbagForPagedItems( string sortOrder , string currentFilter , string searchString ,
-            ref int? pageNumber )
+        private string SetupViewbagForPagedItems(string sortOrder, string currentFilter, string searchString,
+            ref int? pageNumber)
         {
             ViewBag.searchQuery = string.IsNullOrEmpty(searchString) ? "" : searchString;
 
@@ -218,35 +218,36 @@ namespace IdentityProvider.Controllers.Controllers
             return searchString;
         }
 
-        private static SelectListItem CreateListOfDefaultForPaginator( out SelectListItem selListItem2 ,
-            out SelectListItem selListItem3 , out SelectListItem selListItem4 )
+        private static SelectListItem CreateListOfDefaultForPaginator(out SelectListItem selListItem2,
+            out SelectListItem selListItem3, out SelectListItem selListItem4)
         {
             // Create the select list item you want to add
             var selListItem = new SelectListItem
             {
-                Text = "2" ,
-                Value = "2" ,
+                Text = "2",
+                Value = "2",
                 Selected = false
             };
 
             selListItem2 = new SelectListItem
             {
-                Text = "10" ,
-                Value = "10" ,
+
+                Text = "10",
+                Value = "10",
                 Selected = false
             };
 
             selListItem3 = new SelectListItem
             {
-                Text = "20" ,
-                Value = "20" ,
+                Text = "20",
+                Value = "20",
                 Selected = false
             };
 
             selListItem4 = new SelectListItem
             {
-                Text = "50" ,
-                Value = "50" ,
+                Text = "50",
+                Value = "50",
                 Selected = false
             };
 
@@ -258,10 +259,10 @@ namespace IdentityProvider.Controllers.Controllers
         {
             var retVal = new InfoOnOperationsVm
             {
-                ActiveItemCount = 0 ,
-                DeletedItemCount = 0 ,
-                InactiveItemCount = 0 ,
-                Success = false ,
+                ActiveItemCount = 0,
+                DeletedItemCount = 0,
+                InactiveItemCount = 0,
+                Success = false,
                 Message = string.Empty
             };
 
@@ -270,8 +271,8 @@ namespace IdentityProvider.Controllers.Controllers
                 var queryResult = await _unitOfWorkAsync.RepositoryAsync<Operation>().Queryable().AsNoTracking().Select(i =>
                     new OperationCountsDto
                     {
-                        Name = i.Name ,
-                        Active = i.Active ,
+                        Name = i.Name,
+                        Active = i.Active,
                         Deleted = i.IsDeleted
                     }).ToListAsync();
 
@@ -283,13 +284,13 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 Console.WriteLine(e);
                 Debug.WriteLine(e);
-                _errorLogService.LogError(this , e.Message , e);
+                _errorLogService.LogError(this, e.Message, e);
                 retVal.Message = e.Message ?? "";
             }
 
             retVal.Success = true;
 
-            return Json(retVal , JsonRequestBehavior.AllowGet);
+            return Json(retVal, JsonRequestBehavior.AllowGet);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -300,7 +301,7 @@ namespace IdentityProvider.Controllers.Controllers
 
         // POST: /Operation/Insert/5
         [AcceptVerbs(HttpVerbs.Post)]
-        public async Task<JsonResult> Insert( OperationToInsertVm operationToInsert )
+        public async Task<JsonResult> Insert(OperationToInsertVm operationToInsert)
         {
             var retVal = new OperationInsertedVm { Success = false };
 
@@ -312,15 +313,15 @@ namespace IdentityProvider.Controllers.Controllers
                 }
 
                 retVal.Message = "Model state invalid";
-                retVal.FormErrors = ModelState.Select(kvp => new { key = kvp.Key , errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+                retVal.FormErrors = ModelState.Select(kvp => new { key = kvp.Key, errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
             }
 
             var op = new Operation
             {
-                Name = operationToInsert.Name ,
-                Description = operationToInsert.Description ,
-                Active = operationToInsert.MakeActive ,
-                ActiveFrom = DateTime.Now ,
+                Name = operationToInsert.Name,
+                Description = operationToInsert.Description,
+                Active = operationToInsert.MakeActive,
+                ActiveFrom = DateTime.Now,
                 ActiveTo = operationToInsert.ActiveUntil
             };
 
@@ -337,10 +338,10 @@ namespace IdentityProvider.Controllers.Controllers
                     sb.Append(validation.ErrorMessage);
                 }
 
-                ModelState.AddModelError("Name" , sb.ToString());
+                ModelState.AddModelError("Name", sb.ToString());
                 retVal.ValidationIssues = sb.ToString();
 
-                return Json(retVal , JsonRequestBehavior.AllowGet);
+                return Json(retVal, JsonRequestBehavior.AllowGet);
             }
 
             var inserted = -1;
@@ -354,19 +355,19 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 Console.WriteLine(e);
                 Debug.WriteLine(e);
-                _errorLogService.LogError(this , e.Message , e);
+                _errorLogService.LogError(this, e.Message, e);
                 retVal.Message = e.Message ?? "";
             }
 
             retVal.WasInserted = inserted;
             retVal.Success = true;
 
-            return Json(retVal , JsonRequestBehavior.AllowGet);
+            return Json(retVal, JsonRequestBehavior.AllowGet);
         }
 
         // POST: /Operation/Delete/5
         [AcceptVerbs(HttpVerbs.Post)]
-        public async Task<JsonResult> Delete( string itemToDelete )
+        public async Task<JsonResult> Delete(string itemToDelete)
         {
             var retVal = new OperationDeletedVm { WasDeleted = false };
 
@@ -388,27 +389,27 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 Console.WriteLine(e);
                 Debug.WriteLine(e);
-                _errorLogService.LogError(this , e.Message , e);
+                _errorLogService.LogError(this, e.Message, e);
                 retVal.Error = e.Message ?? "";
             }
 
-            return Json(retVal.WasDeleted , JsonRequestBehavior.AllowGet);
+            return Json(retVal.WasDeleted, JsonRequestBehavior.AllowGet);
         }
 
         // GET: /Operation/Edit/5
         [AcceptVerbs(HttpVerbs.Get)]
-        public PartialViewResult Edit( int id )
+        public PartialViewResult Edit(int id)
         {
             var retVal = new OperationVm
             {
-                Success = false ,
+                Success = false,
                 Message = ""
             };
 
             if (id <= 0)
             {
                 retVal.Message = "Please provide an id.";
-                return PartialView("Partial/_operationEditPartial" , retVal);
+                return PartialView("Partial/_operationEditPartial", retVal);
             }
 
             var result = _operationService.Find(id);
@@ -423,20 +424,20 @@ namespace IdentityProvider.Controllers.Controllers
                 retVal.Message = "Item with requested Id was not found.";
             }
 
-            return PartialView("Partial/_operationEditPartial" , retVal);
+            return PartialView("Partial/_operationEditPartial", retVal);
 
         }
 
         // POST: /Operation/Edit/5
         [AcceptVerbs(HttpVerbs.Post)]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit( [Bind(Include = "Id, Name, Description, Active, ActiveFrom, ActiveTo, RowVersion")] Operation operation )
+        public async Task<ActionResult> Edit([Bind(Include = "Id, Name, Description, Active, ActiveFrom, ActiveTo, RowVersion")] Operation operation)
         {
             // https://stackoverflow.com/questions/39533599/mvc-5-with-bootstrap-modal-from-partial-view-validation-not-working
             // https://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
             var retVal = new OperationVm
             {
-                Success = false ,
+                Success = false,
                 Message = ""
             };
 
@@ -451,7 +452,7 @@ namespace IdentityProvider.Controllers.Controllers
 
                     if (existingEntity == null)
                     {
-                        ModelState.AddModelError(string.Empty , @"Unable to update entity. The entity was deleted by another user.");
+                        ModelState.AddModelError(string.Empty, @"Unable to update entity. The entity was deleted by another user.");
                     }
 
                     existingEntity.Name = operation.Name;
@@ -506,7 +507,7 @@ namespace IdentityProvider.Controllers.Controllers
                     // if we stumbled upon an optimistic concurrency error, emit proper error to the user, and have the view reloaded with the new values taken from the database
                     if (e.Message.Contains("The record you attempted to edit was modified by another user after you got the original value. The edit operation was canceled and the current values in the database have been displayed."))
                     {
-                        return Json(new { Success = false , OptimisticConcurrencyError = true , OptimisticConcurrencyErrorMsg = "The record you attempted to edit was modified by another user after you got the original value. The edit operation was canceled and the current values in the database have been displayed." });
+                        return Json(new { Success = false, OptimisticConcurrencyError = true, OptimisticConcurrencyErrorMsg = "The record you attempted to edit was modified by another user after you got the original value. The edit operation was canceled and the current values in the database have been displayed." });
                     }
                 }
             }
@@ -517,16 +518,16 @@ namespace IdentityProvider.Controllers.Controllers
 
                 var errorModel =
                     from x in ModelState.Keys
-                    where ModelState[ x ].Errors.Count > 0
+                    where ModelState[x].Errors.Count > 0
                     select new
                     {
-                        key = x.First().ToString().ToUpper() + string.Join("" , x.Skip(1)) ,
-                        errors = ModelState[ x ].Errors.
+                        key = x.First().ToString().ToUpper() + string.Join("", x.Skip(1)),
+                        errors = ModelState[x].Errors.
                             Select(y => y.ErrorMessage).
                             ToArray()
                     };
 
-                return Json(new { Success = false , FormErrors = errorModel });
+                return Json(new { Success = false, FormErrors = errorModel });
             }
 
             return Json(new { Success = true });
@@ -535,18 +536,18 @@ namespace IdentityProvider.Controllers.Controllers
         // POST: /Operation/Detail/5
         // GET: /Operation/Detail/5
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public async Task<PartialViewResult> Detail( int id )
+        public async Task<PartialViewResult> Detail(int id)
         {
             var retVal = new OperationVm
             {
-                Success = false ,
+                Success = false,
                 Message = ""
             };
 
             if (id <= 0)
             {
                 retVal.Message = "Please provide an id.";
-                return PartialView("Partial/_operationDetailsPartial" , retVal);
+                return PartialView("Partial/_operationDetailsPartial", retVal);
             }
 
             var result = await _operationService.FindAsync(id);
@@ -565,10 +566,10 @@ namespace IdentityProvider.Controllers.Controllers
                 retVal.Message = "Item with requested Id was not found.";
             }
 
-            return PartialView("Partial/_operationDetailsPartial" , retVal);
+            return PartialView("Partial/_operationDetailsPartial", retVal);
         }
 
-     
+
 
         //[AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         //public ActionResult OperationAuditTrailGetAllPaged(

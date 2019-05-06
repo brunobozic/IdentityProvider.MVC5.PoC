@@ -2,3 +2,7 @@
     background-color: #673AB7 !important;
     color: #fff;
 }
+body {
+    background-color: lightgray !important;
+    background-image: url('../iwa-sport-bg-image-light-medium.jpg');
+}

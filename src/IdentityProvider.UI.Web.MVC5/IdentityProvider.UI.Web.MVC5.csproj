@@ -19,7 +19,8 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -81,7 +82,30 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Content Include="Content\css\themed-buttons-indigo.css" />
+    <Content Include="Content\css\themed-buttons-blue.css" />
+    <Content Include="Content\css\themed-buttons-cyan.css" />
+    <Content Include="Content\css\themed-buttons-green.css" />
+    <Content Include="Content\css\themed-buttons-light-green.css" />
+    <Content Include="Content\css\themed-buttons-deep-orange.css" />
+    <Content Include="Content\css\themed-buttons-orange.css" />
+    <Content Include="Content\css\themed-buttons-grey.css" />
+    <Content Include="Content\css\themed-buttons-bue-grey.css" />
+    <Content Include="Content\css\themed-buttons-black.css" />
+    <Content Include="Content\css\themed-buttons-brown.css" />
+    <Content Include="Content\css\themed-buttons-yellow.css" />
+    <Content Include="Content\css\themed-buttons-amber.css" />
+    <Content Include="Content\css\themed-buttons-lime.css" />
+    <Content Include="Content\css\themed-buttons-teal.css" />
+    <Content Include="Content\css\themed-buttons-light-blue.css" />
+    <Content Include="Content\css\themed-buttons-purple.css" />
+    <Content Include="Content\css\themed-buttons-pink.css" />
+    <Content Include="Content\iwa-sport-bg-image-light-medium.jpg" />
+    <Content Include="Scripts\admin.js" />
+    <Content Include="Scripts\demo.js" />
     <Content Include="Views\Operation\Partial\_operationsAuditTrailGetAllPagedPartial.cshtml" />
+    <Content Include="Views\Operation\ChartPartial\_pieChartHeaderPartial.cshtml" />
+    <Content Include="Views\Operation\ChartPartial\_pieChartPartial.cshtml" />
     <None Include="Views\Operation\Partial\_actionButtonsPartial.cshtml" />
     <Content Include="Content\css\themed-buttons-deep-purple.css" />
     <Content Include="Content\css\themed-buttons-red.css" />

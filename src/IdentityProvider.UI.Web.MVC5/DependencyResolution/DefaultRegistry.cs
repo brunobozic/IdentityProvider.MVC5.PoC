@@ -74,7 +74,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             For<IUserStore<ApplicationUser>>()
                 .Use<UserStore<ApplicationUser>>()
                 .Ctor<DbContext>()
-                .Is<Repository.EF.EFDataContext.AppDbContext>(( SmartInstance<Repository.EF.EFDataContext.AppDbContext , DbContext> cfg ) => cfg.SelectConstructor(() => new Repository.EF.EFDataContext.AppDbContext("connectionStringName"))
+                .Is<Repository.EF.EFDataContext.AppDbContext>((SmartInstance<Repository.EF.EFDataContext.AppDbContext, DbContext> cfg) => cfg.SelectConstructor(() => new Repository.EF.EFDataContext.AppDbContext("connectionStringName"))
                 .Ctor<string>()
                 .Is("SimpleMembership"));
 
@@ -82,28 +82,28 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
                 .Configure
                 .SetProperty(userManager => userManager.PasswordValidator = new PasswordValidator
                 {
-                    RequiredLength = 6 ,
-                    RequireNonLetterOrDigit = true ,
-                    RequireDigit = true ,
-                    RequireLowercase = true ,
+                    RequiredLength = 6,
+                    RequireNonLetterOrDigit = true,
+                    RequireDigit = true,
+                    RequireLowercase = true,
                     RequireUppercase = true
                 })
                 .SetProperty(userManager => userManager.UserValidator = new UserValidator<IdentityUser>(userManager)
                 {
-                    AllowOnlyAlphanumericUserNames = false ,
+                    AllowOnlyAlphanumericUserNames = false,
                     RequireUniqueEmail = true
                 })
-                .SetProperty(userManager => userManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser , string>(_provider.Create("ASP.NET Identity")))
+                .SetProperty(userManager => userManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser, string>(_provider.Create("ASP.NET Identity")))
                 .SetProperty(userManager => userManager.UserLockoutEnabledByDefault = true)
                 .SetProperty(userManager => userManager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5))
                 .SetProperty(userManager => userManager.MaxFailedAccessAttemptsBeforeLockout = 5)
-                .SetProperty(userManager => userManager.RegisterTwoFactorProvider("Phone Code" , new PhoneNumberTokenProvider<IdentityUser>
+                .SetProperty(userManager => userManager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<IdentityUser>
                 {
                     MessageFormat = "Your security code is {0}"
                 }))
-                .SetProperty(userManager => userManager.RegisterTwoFactorProvider("Email Code" , new EmailTokenProvider<IdentityUser>
+                .SetProperty(userManager => userManager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<IdentityUser>
                 {
-                    Subject = "Security Code" ,
+                    Subject = "Security Code",
                     BodyFormat = "Your security code is {0}"
                 }))
                 .SetProperty(userManager => userManager.EmailService = new EmailService())
@@ -139,8 +139,10 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             For<IAuditTrailService>().Use<AuditTrailService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IRepositoryAsync<DbAuditTrail>>().Use<Repository<DbAuditTrail>>().LifecycleIs<UniquePerRequestLifecycle>();
             // For(typeof(IService<>)).Use(typeof(Service<>));
-
+            For<ICachedUserAuthorizationGrantsProvider>().Use<CachedUserAuthorizationGrantsProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             // ================================================================================
+            For<IAuditTrailService>().Use<AuditTrailService>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IRepositoryAsync<DbAuditTrail>>().Use<Repository<DbAuditTrail>>().LifecycleIs<UniquePerRequestLifecycle>();
 
             //For<IApplicationConfiguration>()
             //    .Use<ApplicationConfiguration>()
@@ -157,9 +159,9 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 
             For<DbContext>().Use(i => new IdentityProvider.Repository.EF.EFDataContext.AppDbContext("SimpleMembership")).LifecycleIs<UniquePerRequestLifecycle>();
 
-            For(typeof(IRoleStore<ApplicationRole , string>)).Use(typeof(RoleStore<ApplicationRole>))
+            For(typeof(IRoleStore<ApplicationRole, string>)).Use(typeof(RoleStore<ApplicationRole>))
             .Ctor<DbContext>()
-            .Is<Repository.EF.EFDataContext.AppDbContext>(( SmartInstance<Repository.EF.EFDataContext.AppDbContext , DbContext> cfg ) => cfg.SelectConstructor(() => new Repository.EF.EFDataContext.AppDbContext("connectionStringName"))
+            .Is<Repository.EF.EFDataContext.AppDbContext>((SmartInstance<Repository.EF.EFDataContext.AppDbContext, DbContext> cfg) => cfg.SelectConstructor(() => new Repository.EF.EFDataContext.AppDbContext("connectionStringName"))
             .Ctor<string>()
             .Is("SimpleMembership"));
 
@@ -188,7 +190,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             // Get all Profiles
             var profiles = from t in typeof(DefaultRegistry).Assembly.GetTypes()
                            where typeof(Profile).IsAssignableFrom(t)
-                           select ( Profile ) Activator.CreateInstance(t);
+                           select (Profile)Activator.CreateInstance(t);
 
             // For each Profile, include that profile in the MapperConfiguration
             var config = new MapperConfiguration(cfg =>
