@@ -15,16 +15,8 @@
         currentSort = "Created_Date_Desc";
     }
 }
-<style>
-    .item-chart {
-        position: absolute;
-        width: 640px;
-        height: 480px;
-        line-height: 25px;
-        margin: 10px;
-        z-index: 1;
-    }
-</style>
+
+
 <script>
     var deleteUrl = "/Operation/Delete/";
     var toolTipUrl = '/Operation/Detail';
@@ -108,6 +100,8 @@
         //});
 
         var table = $('#SearchResultTable').DataTable({
+            dom: 'Bfrtip',
+            colReorder: true,
             "columnDefs": [
                 { "width": "5%", "visible": false, "targets": [0] },                                        // Id
                 { "width": "10%", "searchable": false, "orderable": true,  "targets": [1] },                // UpdatedAt
@@ -121,6 +115,31 @@
             select: {
                 style: 'multi'
             },
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    title: 'Data Export'
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: 'Data Export',
+                    text: '<i class="fa fa-file-excel-o"></i>',
+                    titleAttr: 'Excel'
+                },
+                {
+                    extend: 'csvHtml5',
+                    title: 'Data Export',
+                    text: '<i class="fa fa-file-text-o"></i>',
+                    titleAttr: 'CSV'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Data Export',
+                    text: '<i class="fa fa-file-pdf-o"></i>',
+                    titleAttr: 'PDF'
+                }
+
+            ],
             "autoWidth": false,
             "keys": true,
             "fixedHeader": true,
@@ -161,9 +180,77 @@
                 { "data": "TableName", "name": "TableName", "autoWidth": false },
                 { "data": "OldData", "name": "OldData", "autoWidth": false },
                 { "data": "NewData", "name": "NewData", "autoWidth": false }
-            ]
+            ],
+            "drawCallback": function (settings) {
+                //var existTheme = $('.right-sidebar .demo-choose-skin li.active').data('theme');
+                //console.log('datatables dropdown changed, setting color to:' + existTheme);
+                //var $paginatorn = $('#SearchResultTable_next');
+                //var $buttons = $('button');
+                //var $select = $('select');
+                //$paginatorn.removeClass('bg-' + 'pink');
+                //$paginatorn.removeClass('bg-' + 'red');
+                //$paginatorn.removeClass('bg-' + existTheme);
+                //$paginatorn.addClass('bg-' + existTheme);
+
+                //var $paginatorl = $('#SearchResultTable_last');
+                //$paginatorl.removeClass('bg-' + 'red');
+                //$paginatorl.removeClass('bg-' + 'pink');
+                //$paginatorl.removeClass('bg-' + existTheme);
+                //$paginatorl.addClass('bg-' + existTheme);
+
+                //var $paginatorf = $('#SearchResultTable_first');
+                //$paginatorf.removeClass('bg-' + 'pink');
+                //$paginatorf.removeClass('bg-' + 'red');
+                //$paginatorf.removeClass('bg-' + existTheme);
+                //$paginatorf.addClass('bg-' + existTheme);
+
+                //var $paginatorprev = $('#SearchResultTable_previous');
+                //$paginatorprev.removeClass('bg-' + 'pink');
+                //$paginatorprev.removeClass('bg-' + existTheme);
+                //$paginatorprev.addClass('bg-' + existTheme);
+
+                //$.fn.dataTable.ext.classes.sLengthSelect = 'btn bg-' + existTheme;               // Change Pagination Button Class
+                //$.fn.dataTable.ext.classes.sPageButton = 'btn bg-' + existTheme;                 // Change Pagination Button Class
+                //$.fn.dataTable.ext.classes.sPageButtonActive = 'btn bg-' + existTheme;           // Change Pagination Button Class
+
+                //$select.removeClass('bg-' + existTheme);
+                //$select.addClass('bg-' + existTheme);
+
+                //var $spana = $('span >a');
+                //$spana.removeClass('themed-buttons-' + 'pink');
+                //$spana.removeClass('bg-' + 'pink');
+                //$spana.removeClass('themed-buttons-' + existTheme);
+                //$spana.removeClass('bg-' + existTheme);
+                //$spana.addClass('themed-buttons-' + existTheme);
+                //$spana.addClass('bg-' + existTheme);
+            },
+            "initComplete": function (settings, json) {
+
+            }
         });
 
+        $(document).ready(function () {
+            $('#SearchResultTable_length').change(function () {
+
+            });
+        });
+
+        $(document).ready(function () {
+            var cardDropdowns = $('.selection');
+                for (var i = 0; i < cardDropdowns.length; i++) {
+                    cardDropdowns[i].addEventListener('click', function (evt) {
+                        evt.stopPropagation();
+                    });
+                };
+        });
+        $(document).ready(function () {
+            var cardDropdowns = $('.form-group');
+            for (var i = 0; i < cardDropdowns.length; i++) {
+                cardDropdowns[i].addEventListener('click', function (evt) {
+                    evt.stopPropagation();
+                });
+            };
+        });
 
         //table.columns().every( function () {
         //    var that = this;
@@ -180,6 +267,20 @@
 
         $(function() {
             $('input[name="datetimes"]').daterangepicker({
+                timePicker: true,
+                startDate: moment().startOf('hour'),
+                endDate: moment().startOf('hour').add(24, 'hour'),
+                locale: {
+                    format: 'DD.MM.YYYY HH:mm:SS'
+
+                },
+                "minYear": 2000,
+                "maxYear": 2050,
+                "timePicker24Hour": true,
+                "timePickerSeconds": true
+            });
+
+            $('input[name="daterange"]').daterangepicker({
                 timePicker: true,
                 startDate: moment().startOf('hour'),
                 endDate: moment().startOf('hour').add(24, 'hour'),
@@ -319,6 +420,7 @@
 
     <div class="row">
         <div class="grid">
+
             <div class="item">
                 <div class="item-content">
                     <div class="info-box bg-green hover-expand-effect">
@@ -333,10 +435,31 @@
                 </div>
             </div>
 
-            <div class="item-chart">
+            <div class="item-half-width">
                 <div class="item-content">
-                    <div class="chart" style="width:100%; height: 100%; background-color: whitesmoke">
-                        @Html.Partial("ChartPartial/_pieChartPartial", Model)
+                    <div class="card">
+                        @Html.Partial("../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial", Model)
+                        <div class="header">
+                            <ul class="header-dropdown m-r--5" style="top: 10px !important">
+                                <li class="dropdown">
+
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Save current layout</a></li>
+                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Restore default layout</a></li>
+                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Refresh</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="" style="background-color: whitesmoke; height: 450px; padding: 10px">
+                            @Html.Partial("ChartPartial/_pieChartPartial", Model)
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -368,148 +491,203 @@
                     </div>
                 </div>
             </div>
+            <!-- ================ -->
+            <!-- Ops card -->
+            <!-- ================ -->
+            <div class="item-half-width">
 
-            <div class="item-full-width">
-                <div class="card">
-                    <div class="item-content">
+                <div class="item-content">
+                    <div class="card" @*style="width: 99%; height: 99%; "*@>
                         @Html.Partial("../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial", Model)
-                    </div>
 
-                    <div class="header">
-                        <ul class="header-dropdown m-r--5" style="top:10px !important">
-                            <li class="dropdown">
+                        <div class="header">
+                            <ul class="header-dropdown m-r--5" style="top: 10px !important">
+                                <li class="dropdown">
 
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-                                    <i class="material-icons">more_vert</i>
-                                </a>
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
 
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Save current layout</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Restore default layout</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Refresh</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Save current layout</a></li>
+                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Restore default layout</a></li>
+                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Refresh</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <div class="body container-fluid">
-                        @using (Html.BeginForm("OperationsGetAllPaged", "Operation", FormMethod.Get, new { id = "searchAndPageSizeForm" }))
-                        {
-                            <div class="col-xs-10">
-                                <div class="form-line" style="margin-left: 5px">
-                                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Search", @value = ViewBag.CurrentFilter, @data_toggle = "tooltip", @data_placement = "top", @title = "", @data_original_title = "Enter search criteria" })
-                                    @Html.ValidationMessage("Search")
-                                    <button class="btn bg-purple waves-effect btn-xs" id="submitSearch" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
+                        <div class="header cool-text">
+                            <em style="font-size: 1.7em">
+                                Operations
+                            </em>
+                            <em style="font-size: 0.9em">
+                                <small>...</small>
+                            </em>
+                        </div>
+
+                        <div class="body container-fluid" style="width: 100%; padding: 15px; position: center">
+                            @using (Html.BeginForm("OperationsGetAllPaged", "Operation", FormMethod.Get, new { id = "searchAndPageSizeForm" }))
+                            {
+
+                                <!-- Op pickers -->
+                                <div style="width: 99%; padding: 5px; position: center">
+                                    <table class="table table-light table-condensed" data-classes="table" style="align-content: center; position: center; width: 90%; background-color: whitesmoke; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                                        <thead></thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td @*style="width: 35%"*@ style="padding: 1px">
+                                                    <!-- Search by text -->
+                                                    <div class="form-line" style="float: left; width: 99%; padding-left: 12px; padding-right: 24px; padding-top: 6px">
+                                                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Search", @value = ViewBag.CurrentFilter, @data_toggle = "tooltip", @data_placement = "top", @title = "", @data_original_title = "Enter search criteria", @style = "float: left; padding-left: 2px; padding-right: 2px; padding-top:2px" })
+                                                        @Html.ValidationMessage("Search")
+                                                        <div class="" style="padding-left: 6px; padding-top: 0px">
+                                                            <button class="btn bg-purple waves-effect btn-xs" id="submitSearch" style="margin: 1px; margin-bottom: 8px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="width: 50%">
+                                                    <!-- Date range picker -->
+                                                    <div class="form-group" style="float: left; width: 25%">
+                                                        <label style="float: left; padding-left: 12px; padding-right: 8px; padding-top: 2px">Date range</label>
+                                                    </div>
+                                                    <div class="form-line" style="padding-left: 6px; padding-top: 2px">
+                                                        <input type="text" name="daterange" style="width: 60%; padding-left: 4px;" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="width: 30%">
+                                                    <!-- Show active inactive -->
+                                                    <input type="hidden" id="ShowInactiveHidden" name="ShowInactive" />
+                                                    @*<div class="form-group" style="float: left; width: 25%">
+                                                            <label style="float: left; padding-left: 12px; padding-right: 8px; padding-top: 2px">Show deactivated</label>
+                                                        </div>*@
+                                                    <div style="float: left; width: 25%; padding-left: 12px; padding-right: 24px; padding-top: 2px">
+                                                        <input id="ShowInactive" name="ShowInactive" class="filled-in chk-col-pink" type="checkbox" @(Model.ShowInactive ? "checked" : "")>
+                                                        <label for="ShowInactive">Active</label>
+                                                    </div>
+                                                </td>
+                                                <td style="width: 50%">
+                                                    <!-- Page size dropdown -->
+                                                    <div class="form-group" style="float: left; width: 25%">
+                                                        <label style="float: left; padding-left: 12px; padding-right: 8px; padding-top: 2px">Page size</label>
+                                                    </div>
+                                                    <div class="form-line" style="padding-left: 12px; padding-top: 2px">
+                                                        @Html.DropDownListFor(m => m.PageSize, Model.PageSizeList, new { id = "PageSizeList", @class = "js-select2-enabled", @style = "padding: 5px; width: 55px" })
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="width: 30%">
+                                                    <div style="float: left; width: 25%; padding-left: 12px; padding-right: 24px; padding-top: 2px; padding-bottom: 2px">
+                                                        <button type="submit" class="btn bg-purple waves-effect btn-xs createNewDialog" data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Create a new operation">
+                                                            <i class="material-icons">create</i> <span>
+                                                                Create
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td style="width: 50%"></td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div>
+                                <!-- #END# Op pickers -->
 
-                            <input type="hidden" id="ShowInactiveHidden" name="ShowInactive" />
-
-                            <input id="ShowInactive" name="ShowInactive" class="filled-in chk-col-pink" type="checkbox" @(Model.ShowInactive ? "checked" : "")>
-
-                            <label for="ShowInactive">Active</label>
-
-                            <div class="col-xs-2">
-
-                                <div class="form-line" style="float: right; margin-right: 8px">
-                                    @Html.DropDownListFor(m => m.PageSize, Model.PageSizeList, new { id = "PageSizeList", @class = "js-select2-enabled", @style = "padding: 5px; width: 55px" })
-                                </div>
-
-                            </div>
-
-                            <div class="body" style="width: 100% !important">
-
-                                <div class="col-xs-2 form-line" style="padding-left:0 !important">
-                                    <button type="submit" class="btn bg-purple waves-effect btn-xs createNewDialog" data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Create a new operation">
-                                        <i class="material-icons">create</i> <span>
-                                            Create
-                                        </span>
-                                    </button>
-                                </div>
-
-                                <table class="table table-striped table-light table-condensed my-fixed-layout-table" Id="operationsGrid">
-                                    <thead>
-                                        <tr>
-                                            <th style="">
-                                                <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by name">
-                                                    @Html.ActionLink("Name", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.NameSortParam))
-                                                    @Html.SortIdentifier(currentSort, "Name")
-                                                </span>
-                                            </th>
-                                            <th style="">
-                                                <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by description">
-                                                    @Html.ActionLink("Description", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DescriptionSortParam))
-                                                    @Html.SortIdentifier(currentSort, "Description")
-                                                </span>
-                                            </th>
-                                            <th style="width:50px">
-                                                <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by active status">
-                                                    @Html.ActionLink("Active", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.ActiveSortParam))
-                                                    @Html.SortIdentifier(currentSort, "Active")
-                                                </span>
-                                            </th>
-                                            <th style="width:148px">
-                                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by created date">
-                                                    @Html.ActionLink("Created_Date", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DateCreatedSortParam))
-                                                    @Html.SortIdentifier(currentSort, "Created_Date")
-                                                </span>
-                                            </th>
-                                            <th style="width:148px">
-                                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by modified date">
-                                                    @Html.ActionLink("Modified_Date", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DateModifiedSortParam))
-                                                    @Html.SortIdentifier(currentSort, "Modified_Date")
-                                                </span>
-                                            </th>
-                                            <th style="width:190px">
-                                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions available on selected item">
-                                                    <span>
-                                                        Actions
+                                <div class="body" style="width: 100% !important">
+                                    <table class="table table-striped table-light table-condensed my-fixed-layout-table" Id="operationsGrid">
+                                        <thead>
+                                            <tr>
+                                                <th style="">
+                                                    <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by name">
+                                                        @Html.ActionLink("Name", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.NameSortParam))
+                                                        @Html.SortIdentifier(currentSort, "Name")
                                                     </span>
-                                                    <i class="material-icons" style="font-size: 1em; color: purple" , title="Actions">build</i>
-                                                </span>
-                                            </th>
-                                        </tr>
-                                    </thead>
+                                                </th>
+                                                <th style="">
+                                                    <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by description">
+                                                        @Html.ActionLink("Description", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DescriptionSortParam))
+                                                        @Html.SortIdentifier(currentSort, "Description")
+                                                    </span>
+                                                </th>
+                                                <th style="width: 50px">
+                                                    <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by active status">
+                                                        @Html.ActionLink("Active", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.ActiveSortParam))
+                                                        @Html.SortIdentifier(currentSort, "Active")
+                                                    </span>
+                                                </th>
+                                                <th style="width: 148px">
+                                                    <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by created date">
+                                                        @Html.ActionLink("Created_Date", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DateCreatedSortParam))
+                                                        @Html.SortIdentifier(currentSort, "Created_Date")
+                                                    </span>
+                                                </th>
+                                                <th style="width: 148px">
+                                                    <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by modified date">
+                                                        @Html.ActionLink("Modified_Date", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DateModifiedSortParam))
+                                                        @Html.SortIdentifier(currentSort, "Modified_Date")
+                                                    </span>
+                                                </th>
+                                                <th style="width: 190px">
+                                                    <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions available on selected item">
+                                                        <span>
+                                                            Actions
+                                                        </span>
+                                                        <i class="material-icons" style="font-size: 1em; color: purple" , title="Actions">build</i>
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                        </thead>
 
-                                    @Html.Partial("Partial/_operationsPartial", Model)
+                                        @Html.Partial("Partial/_operationsPartial", Model)
 
-                                </table>
-                            </div>
-                        }
+                                    </table>
+                                </div>
+                            }
+                        </div>
+                        <div class="footer">
+                            @if (Model.Operations.PageCount > 1)
+                            {
+                                <div class="pager">
+                                    @Html.PagedListPager(Model.Operations, page => Url.Action("OperationsGetAllPaged", new
+                                    {
+                                        page,
+                                        sortOrder = Model.SortOrder,
+                                        currentFilter = Model.SearchString,
+                                        pageNumber = page,
+                                        pageSize = Model.PageSize,
+                                        ShowInactive = Model.ShowInactive
+                                    }))
+                                    Page @(Model.Operations.PageCount < Model.Operations.PageNumber ? 0 : Model.Operations.PageNumber) of @Model.Operations.PageCount
+                                </div>
+                            }
+                            else
+                            {
+                                <div>
+                                    <hr />
+                                </div>
+                            }
+                        </div>
                     </div>
-                    <div class="footer">
-                        @if (Model.Operations.PageCount > 1)
-                        {
-                            <div class="pager">
-                                @Html.PagedListPager(Model.Operations , page => Url.Action("OperationsGetAllPaged" , new
-                                {
-                                    page ,
-                                    sortOrder = Model.SortOrder,
-                                    currentFilter = Model.SearchString,
-                                    pageNumber = page ,
-                                    pageSize = Model.PageSize,
-                                    ShowInactive = Model.ShowInactive
-                                }))
-                                Page @(Model.Operations.PageCount < Model.Operations.PageNumber ? 0 : Model.Operations.PageNumber) of @Model.Operations.PageCount
-                            </div>
-                        }
-                        else
-                        {
-                            <div><hr /></div>
-                        }
-                    </div>
-
                 </div>
             </div>
-
+            <!-- ====================== -->
+            <!-- #END# Ops card -->
+            <!-- ====================== -->
             <!-- ================ -->
             <!-- Audit trail card -->
             <!-- ================ -->
             <div class="item-full-width">
-                <div class="card">
-
-                    @Html.Partial("../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial", Model)
-
+                <div class="item-content">
+                    <div class="card">
+                        @Html.Partial("../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial", Model)
+                  
                     <div class="header">
                         <ul class="header-dropdown m-r--5" style="top:10px !important">
                             <li class="dropdown">
@@ -684,8 +862,8 @@
                     </div>
 
                     <div><hr /></div>   <div><hr /></div>
-
                 </div>
+            </div>
             </div>
             <!-- ====================== -->
             <!-- #END# Audit trail card -->
@@ -695,32 +873,4 @@
     </div>
 </div>
 
-<style>
-    .dataTables_processing {
-        z-index: 11000 !important;
-        padding-top: 1px !important;
-    }
 
-    .dataTables_loadingRecords {
-        z-index: 11000 !important;
-        padding-top: 1px !important;
-    }
-
-    .select2-results__option {
-        text-align: left !important;
-    }
-
-    table.dataTable thead th {
-        position: relative;
-        background-image: none !important;
-    }
-
-    .select2-container--default .select2-selection--multiple .select2-selection__choice {
-        background-color: #E91E63 !important;
-        color: white !important;
-    }
-
-    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-        color: white !important;
-    }
-</style>

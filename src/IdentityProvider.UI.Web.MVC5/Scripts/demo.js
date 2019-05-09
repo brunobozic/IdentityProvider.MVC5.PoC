@@ -85,6 +85,11 @@ function skinChanger() {
             $spana.addClass('themed-buttons-' + $this.data('theme'));
             $spana.addClass('bg-' + $this.data('theme'));
 
+            var $select2Selection = $('.select2-selection__choice');
+            
+            // TODO: need to reapply this on page redraw
+            $select2Selection.attr('style', 'background-color: blue !important');
+
         } catch (exception) {
             console.log("operationEditPartial editDialog onClick problem", exception);
         }

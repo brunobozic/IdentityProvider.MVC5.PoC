@@ -313,6 +313,41 @@ $.AdminBSB.select = {
 }
 //==========================================================================================================================
 
+$.AdminBSB.muuriGrid = {
+    recalculateDimensions: function () {
+        console.log('refreshing positions');
+        grid.refreshItems();
+    },
+    getMuuri: function() { return grid; },
+    initializeMuuri: function() {
+        var _this = this;
+        var grid = null;
+
+        try {
+            console.log('initialising muuri');
+             grid = new Muuri('.grid',
+                {
+                    layout: {
+                        fillGaps: false,
+                        horizontal: false,
+                        alignRight: false,
+                        alignBottom: false,
+                        rounding: true
+                    },
+                    dragStartPredicate: function (item, e) {
+                        grid.refreshItems();
+                        return true;
+                    },
+                    dragEnabled: true,
+                    layoutOnResize: true
+                });
+        } catch (exception) {
+            console.log('muuri exception', exception);
+        }
+    }
+}
+
+
 /* DropdownMenu - Function =================================================================================================
 *  You can manage the dropdown menu
 *  
@@ -321,9 +356,10 @@ $.AdminBSB.select = {
 $.AdminBSB.dropdownMenu = {
     activate: function () {
         var _this = this;
-
+        console.log('entered dropdownMenu');
         $('.dropdown, .dropup, .btn-group').on({
             "show.bs.dropdown": function () {
+                console.log('show.bs.dropdown');
                 var dropdown = _this.dropdownEffect(this);
                 _this.dropdownEffectStart(dropdown, dropdown.effectIn);
             },

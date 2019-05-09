@@ -17,8 +17,10 @@ using IdentityProvider.Infrastructure.DatabaseAudit;
 using IdentityProvider.Infrastructure.DatabaseLog.Model;
 using IdentityProvider.Infrastructure.Domain;
 using IdentityProvider.Models.Domain.Account;
+using IdentityProvider.Repository.EF.Migrations;
 using Microsoft.AspNet.Identity.EntityFramework;
 using StructureMap;
+using WebMatrix.Data;
 using Database = System.Data.Entity.Database;
 using ModelValidationException = IdentityProvider.Infrastructure.ModelValidationException;
 
@@ -63,7 +65,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
         // public DbSet<ResourcesHaveOperations> ResourcesHaveOperations { get; set; }
         public DbSet<DbAuditTrail> DbAuditTrail { get; set; }
         public Guid InstanceId { get; set; }
-        public Database Database { get; set; }
+        public System.Data.Entity.Database Database { get; set; }
 
         /// <inheritdoc />
         /// <summary>

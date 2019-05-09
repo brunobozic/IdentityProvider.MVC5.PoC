@@ -114,6 +114,9 @@ namespace IdentityProvider.Services.AuditTrailService
                 .ToList();
 
             // now just get the count of items (without the skip and take) - eg how many could be returned with filtering
+            // "Entity Framework's query processing pipeline cannot handle invocation expressions, which is why you need to call AsExpandable on the first object in the query. 
+            // By calling AsExpandable, you activate LINQKit's expression visitor class which substitutes invocation expressions with simpler constructs that Entity Framework can understand."
+            // ~Josef Albahary
             filteredResultsCount = _repository
                 .Queryable()
                 .AsExpandable()
