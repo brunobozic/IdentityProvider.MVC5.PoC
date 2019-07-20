@@ -3,6 +3,9 @@
 
 @using IdentityProvider.UI.Web.MVC5.Extensions
 @using PagedList.Mvc
+@using IdentityProvider.Models.ViewModels
+@using IdentityProvider.UI.Web.MVC5.Extensions
+@using PagedList.Mvc
 
 @{
     string currentFilter = ViewBag.OpAudTrailCurrentFilter;
@@ -18,19 +21,19 @@
     <div class="row">
         <div class="card">
             <div class="body container-fluid">
-                @using (Html.BeginForm("OperationAuditTrailGetAllPaged" , "Operation" , FormMethod.Get , new { id = "auditTrailSearchAndPageSizeForm" }))
+                @using (Html.BeginForm("OperationAuditTrailGetAllPaged", "Operation", FormMethod.Get, new { id = "auditTrailSearchAndPageSizeForm" }))
                 {
                     <div class="col-xs-10">
                         <div class="form-line" style="margin-left: 5px">
-                            @Html.TextBox("SearchString" , ViewBag.OpAudTrailCurrentFilter as string , new { @placeholder = "Search" , @value = ViewBag.OpAudTrailCurrentFilter , @data_toggle = "tooltip" , @data_placement = "top" , @title = "" , @data_original_title = "Enter search criteria" })
+                            @Html.TextBox("SearchStringAuditTrail", ViewBag.OpAudTrailCurrentFilter as string, new { @placeholder = "Search", @value = ViewBag.OpAudTrailCurrentFilter, @data_toggle = "tooltip", @data_placement = "top", @title = "", @data_original_title = "Enter search criteria" })
                             @Html.ValidationMessage("Search")
-                            <button class="btn bg-purple waves-effect btn-xs" id="submitSearch" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
+                            <button class="btn bg-pink waves-effect btn-xs" id="submitSearchAuditTrail" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearchAuditTrail" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
                         </div>
                     </div>
 
                     <div class="col-xs-2">
                         <div class="form-line" style="float: right; margin-right: 8px">
-                            @Html.DropDownListFor(m => m.PageSize , Model.PageSizeList , new { id = "PageSizeList" , @class = "js-select2-enabled" , @style = "padding: 5px; width: 55px" })
+                            @Html.DropDownListFor(m => m.PageSize, Model.PageSizeList, new { id = "PageSizeList", @class = "js-select2-enabled", @style = "padding: 5px; width: 55px" })
                         </div>
                     </div>
 
@@ -41,50 +44,50 @@
                                 <tr>
                                     <th style="">
                                         <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by table name">
-                                            @Html.ActionLink("TableName" , "OperationAuditTrailGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.OpAudTrailTableNameSortParam))
-                                            @Html.SortIdentifier(currentSort , "TableName")
+                                            @Html.ActionLink("TableName", "OperationAuditTrailGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.OpAudTrailTableNameSortParam))
+                                            @Html.SortIdentifier(currentSort, "TableName")
                                         </span>
                                     </th>
                                     <th style="">
                                         <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by user name">
-                                            @Html.ActionLink("UserName" , "OperationAuditTrailGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.OpAudTrailUserNameSortParam))
-                                            @Html.SortIdentifier(currentSort , "UserName")
+                                            @Html.ActionLink("UserName", "OperationAuditTrailGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.OpAudTrailUserNameSortParam))
+                                            @Html.SortIdentifier(currentSort, "UserName")
                                         </span>
                                     </th>
                                     <th style="width:50px">
                                         <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by old data">
-                                            @Html.ActionLink("OldData" , "OperationAuditTrailGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.OpAudTrailOldDataSortParam))
-                                            @Html.SortIdentifier(currentSort , "OldData")
+                                            @Html.ActionLink("OldData", "OperationAuditTrailGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.OpAudTrailOldDataSortParam))
+                                            @Html.SortIdentifier(currentSort, "OldData")
                                         </span>
                                     </th>
                                     <th style="width:148px">
                                         <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by new data">
-                                            @Html.ActionLink("NewData" , "OperationAuditTrailGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.OpAudTrailNewDataSortParam))
-                                            @Html.SortIdentifier(currentSort , "NewData")
+                                            @Html.ActionLink("NewData", "OperationAuditTrailGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.OpAudTrailNewDataSortParam))
+                                            @Html.SortIdentifier(currentSort, "NewData")
                                         </span>
                                     </th>
                                     <th style="width:148px">
                                         <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by table id">
-                                            @Html.ActionLink("TableId" , "OperationAuditTrailGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.OpAudTrailTableIdSortParam))
-                                            @Html.SortIdentifier(currentSort , "TableId")
+                                            @Html.ActionLink("TableId", "OperationAuditTrailGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.OpAudTrailTableIdSortParam))
+                                            @Html.SortIdentifier(currentSort, "TableId")
                                         </span>
                                     </th>
                                     <th style="width:148px">
                                         <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by updated at">
-                                            @Html.ActionLink("UpdatedAt" , "OperationAuditTrailGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.OpAudTrailUpdatedAtSortParam))
-                                            @Html.SortIdentifier(currentSort , "UpdatedAt")
+                                            @Html.ActionLink("UpdatedAt", "OperationAuditTrailGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.OpAudTrailUpdatedAtSortParam))
+                                            @Html.SortIdentifier(currentSort, "UpdatedAt")
                                         </span>
                                     </th>
                                     <th style="width:148px">
                                         <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by action">
-                                            @Html.ActionLink("Action" , "OperationAuditTrailGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.OpAudTrailActionSortParam))
-                                            @Html.SortIdentifier(currentSort , "Action")
+                                            @Html.ActionLink("Action", "OperationAuditTrailGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.OpAudTrailActionSortParam))
+                                            @Html.SortIdentifier(currentSort, "Action")
                                         </span>
                                     </th>
                                 </tr>
                             </thead>
 
-                            @Html.Partial("Partial/_operationAuditTrailPartial" , Model)
+                            @Html.Partial("Partial/_operationAuditTrailPartial", Model)
 
                         </table>
                     </div>

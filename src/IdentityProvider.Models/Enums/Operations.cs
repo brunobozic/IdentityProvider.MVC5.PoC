@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IdentityProvider.Models
+namespace IdentityProvider.Models.Enums
 {
     [Flags]
     public enum Operations

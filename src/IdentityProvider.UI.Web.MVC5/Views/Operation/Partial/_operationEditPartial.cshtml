@@ -1,6 +1,6 @@
 ﻿@model IdentityProvider.Models.ViewModels.Operations.OperationVm
 
-@Html.Partial("../Shared/CommonInsertItemPartials/_styleSectionPartial")
+@*@Html.Partial("../Shared/CommonInsertItemPartials/_styleSectionPartial")*@
 
 <link href="~/bower_components/pretty-checkbox/dist/pretty-checkbox.css" rel="stylesheet" />
 
@@ -19,7 +19,7 @@
 
             <div class="body container-fluid" style="width: 100% !important">
                 <div class="body">
-                    @using (Html.BeginForm("Edit" , "Operation" , FormMethod.Post , new { id = "frmEditItem" , name = "frmEditItem" }))
+                    @using (Html.BeginForm("Edit", "Operation", FormMethod.Post, new { id = "frmEditItem", name = "frmEditItem" }))
                     {
                         @Html.AntiForgeryToken()
 
@@ -28,20 +28,22 @@
                         @Html.HiddenFor(model => model.Operation.Id)
                         @Html.HiddenFor(model => model.Operation.RowVersion)
 
-                        <div class="form-group">
+                        <div class="form-group form-float">
                             <div class="form-line">
-                                @Html.EditorFor(item => item.Operation.Name , new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(item => item.Operation.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Operation.Name, "", new { @class = "text-danger" })
+                                <label class="form-label">Enter the operation name</label>
                             </div>
-
-                            @Html.ValidationMessageFor(model => model.Operation.Name , "" , new { @class = "text-danger" })
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group form-float">
                             <div class="form-line">
-                                @Html.EditorFor(item => item.Operation.Description , new { htmlAttributes = new { @class = "form-control" } })
-                            </div>
+                                @Html.EditorFor(item => item.Operation.Description, new { htmlAttributes = new { @class = "form-control" } })
 
-                            @Html.ValidationMessageFor(model => model.Operation.Description , "" , new { @class = "text-danger" })
+
+                                @Html.ValidationMessageFor(model => model.Operation.Description, "", new { @class = "text-danger" })
+                                <label class="form-label">Enter the operation description</label>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -49,7 +51,7 @@
 
                             @if (Model.Operation.Active)
                             {
-                                <input name="Operation.Active" id="Operation_Active" class="filled-in chk-col-deep-purple" type="checkbox" checked="checked">
+                                <input name="Operation.Active" id="Operation_Active" class="filled-in chk-col-pink" type="checkbox" checked="checked">
                             }
                             else
                             {
@@ -68,7 +70,7 @@
                                     </div>
                             </div>*@
 
-                        @Html.ValidationMessageFor(model => model.Operation.Active , "" , new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.Operation.Active, "", new { @class = "text-danger" })
 
                         <div class="form-group">
 
@@ -76,7 +78,7 @@
                                 <div class="form-group">
                                     <label for="Operation_ActiveFrom">Activated at: </label>
                                     <div class="form-line" id="sandbox-container">
-                                        @Html.EditorFor(item => item.Operation.ActiveFrom , new { htmlAttributes = new { @class = "form-control" , @disabled = "disabled" } })
+                                        @Html.EditorFor(item => item.Operation.ActiveFrom, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                         @*<input type="text" class="form-control" id="Operation_ActiveFrom" name="Operation.ActiveFrom">*@
                                     </div>
                                 </div>
@@ -86,7 +88,7 @@
                                 <div class="form-group">
                                     <label for="Operation_ActiveTo">Active until: </label>
                                     <div class="form-line" id="sandbox-container">
-                                        @Html.EditorFor(item => item.Operation.ActiveTo , new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(item => item.Operation.ActiveTo, new { htmlAttributes = new { @class = "form-control" } })
                                         @*<input type="text" class="form-control" id="Operation_ActiveTo" name="Operation.ActiveTo">*@
                                     </div>
                                 </div>
@@ -95,7 +97,7 @@
 
                         <div class="form-group col-xs-8 p-t-5">
                             <div class="row m-t-15 m-b--20">
-                                <button type="submit" name="btnSubmit" id="btnSubmit" class="btn bg-red waves-effect editDialog" data-toggle="tooltip" data-placement="right" title="" data-original-title="Submit">
+                                <button type="submit" name="btnSubmit" id="btnSubmit" class="btn bg-pink waves-effect editDialog" data-toggle="tooltip" data-placement="right" title="" data-original-title="Submit">
                                     <i class="material-icons">edit</i>
                                     <span>
                                         Submit
@@ -242,8 +244,8 @@
 
 </script>
 
-<link href="~/bower_components/Waves/dist/waves.css" rel="stylesheet" />
-<link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />
+@*<link href="~/bower_components/Waves/dist/waves.css" rel="stylesheet" />
+    <link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />*@
 <script src="~/Scripts/CommonCRUDScripts/commonSubmitEditForm.js"></script>
 
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionPartial")

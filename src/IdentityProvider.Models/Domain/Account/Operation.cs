@@ -31,6 +31,7 @@ namespace IdentityProvider.Models.Domain.Account
         public DateTime? ActiveTo { get; set; }
 
         public virtual ICollection<Permission> ResourcePermissions { get; set; }
+      
 
         public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {

@@ -143,19 +143,19 @@ namespace IdentityProvider.Controllers.Controllers
             return msl;
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Get)]
         public JsonResult GetTableNameMultiselectDropdown()
         {
             return null;
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Get)]
         public JsonResult GetUserNameMultiselectDropdown()
         {
             return null;
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Get)]
         public JsonResult GetActionMultiselectDropdown()
         {
             return null;

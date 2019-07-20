@@ -9,6 +9,7 @@
         $('#btnSubmit').attr('disabled', 'disabled');
 
         var dataToPost = $(this).serialize({ checkboxesAsBools: true });
+
         alert(dataToPost);
         $.ajax({
             type: $this.attr('method'),
@@ -31,17 +32,18 @@
                     if (response.OptimisticConcurrencyError === true) {
                         swal(
                             'Warning!',
-                            'Your item has not been editted. ' + response.OptimisticConcurrencyErrorMsg,
+                            'Your item has not been editted. Reason(s): ' + response.OptimisticConcurrencyErrorMsg,
                             'error'
                         ).then(function () {
                             location.reload();
                         });
                     } else {
                         swal(
-                            'Edits failed',
+                            'Edit failed',
                             'Your item has not been editted.',
                             'error'
                         ).then(function () {
+                            // if there are any items stored in response.FormErrors (validation errors) display those in a designated dom element
                             for (var i = 0; i < response.FormErrors.length; i++) {
                                 $('span[data-valmsg-for="' + response.FormErrors[i].key + '"]').text(response.FormErrors[i].errors[0]);
                             }
@@ -60,7 +62,7 @@
             error: function (response) {
                 swal(
                     'Error!',
-                    'Your item has not been editted. ' + response.ValidationIssues,
+                    'Your item has not been editted. Reason(s): ' + response.ValidationIssues,
                     'error'
                 ).then(function () {
                     location.reload();

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace IdentityProvider.UI.Web.MVC5.Controllers
+namespace IdentityProvider.Models
 {
     internal class ErrorViewModel
     {

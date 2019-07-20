@@ -318,14 +318,14 @@ $.AdminBSB.muuriGrid = {
         console.log('refreshing positions');
         grid.refreshItems();
     },
-    getMuuri: function() { return grid; },
-    initializeMuuri: function() {
+    getMuuri: function () { return grid; },
+    initializeMuuri: function () {
         var _this = this;
         var grid = null;
 
         try {
             console.log('initialising muuri');
-             grid = new Muuri('.grid',
+            grid = new Muuri('.grid',
                 {
                     layout: {
                         fillGaps: false,
@@ -345,7 +345,7 @@ $.AdminBSB.muuriGrid = {
             console.log('muuri exception', exception);
         }
     }
-}
+};
 
 
 /* DropdownMenu - Function =================================================================================================

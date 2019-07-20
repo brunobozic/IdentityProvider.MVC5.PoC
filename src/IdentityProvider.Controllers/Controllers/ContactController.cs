@@ -6,7 +6,7 @@ namespace IdentityProvider.Controllers.Controllers
     {
         public ActionResult Index()
         {
-            throw new System.NotImplementedException();
+            return null;
         }
     }
 }

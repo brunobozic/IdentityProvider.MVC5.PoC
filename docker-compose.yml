@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  identityprovider.ui.web.mvc5:
+    image: ${DOCKER_REGISTRY-}identityprovideruiwebmvc5
+    build:
+      context: .\src\IdentityProvider.UI.Web.MVC5
+      dockerfile: Dockerfile

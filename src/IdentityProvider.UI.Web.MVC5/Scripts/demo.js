@@ -41,7 +41,7 @@ function skinChanger() {
             $select.addClass('themed-buttons-' + $this.data('theme'));
             $select.addClass('bg-' + $this.data('theme'));
 
-            var $paginatorn = $('#SearchResultTable_next');
+            var $paginatorn = $('#OperationsDashboard_AuditTrailDatatable_next');
             $paginatorn.removeClass('themed-buttons-' + 'pink');
             $paginatorn.removeClass('bg-' + 'pink');
             $paginatorn.removeClass('themed-buttons-' + existTheme);
@@ -49,7 +49,7 @@ function skinChanger() {
             $paginatorn.addClass('themed-buttons-' + $this.data('theme'));
             $paginatorn.addClass('bg-' + $this.data('theme'));
 
-            var $paginatorl = $('#SearchResultTable_last');
+            var $paginatorl = $('#OperationsDashboard_AuditTrailDatatable_last');
             $paginatorl.removeClass('themed-buttons-' + 'pink');
             $paginatorl.removeClass('bg-' + 'pink');
             $paginatorl.removeClass('themed-buttons-' + existTheme);
@@ -57,7 +57,7 @@ function skinChanger() {
             $paginatorl.addClass('themed-buttons-' + $this.data('theme'));
             $paginatorl.addClass('bg-' + $this.data('theme'));
 
-            var $paginatorf = $('#SearchResultTable_first');
+            var $paginatorf = $('#OperationsDashboard_AuditTrailDatatable_first');
             $paginatorf.removeClass('themed-buttons-' + 'pink');
             $paginatorf.removeClass('bg-' + 'pink');
             $paginatorf.removeClass('themed-buttons-' + existTheme);
@@ -65,7 +65,7 @@ function skinChanger() {
             $paginatorf.addClass('themed-buttons-' + $this.data('theme'));
             $paginatorf.addClass('bg-' + $this.data('theme'));
 
-            var $paginatorprev = $('#SearchResultTable_previous');
+            var $paginatorprev = $('#OperationsDashboard_AuditTrailDatatable_previous');
             $paginatorprev.removeClass('themed-buttons-' + 'pink');
             $paginatorprev.removeClass('bg-' + 'pink');
             $paginatorprev.removeClass('themed-buttons-' + existTheme);
@@ -77,7 +77,7 @@ function skinChanger() {
             $.fn.dataTable.ext.classes.sPageButton = 'btn bg-' + $this.data('theme');                 // Change Pagination Button Class
             $.fn.dataTable.ext.classes.sPageButtonActive = 'btn bg-' + $this.data('theme');           // Change Pagination Button Class
 
-            var $spana = $('span >a');
+            var $spana = $('span > a');
             $spana.removeClass('themed-buttons-' + 'pink');
             $spana.removeClass('bg-' + 'pink');
             $spana.removeClass('themed-buttons-' + existTheme);
@@ -86,9 +86,14 @@ function skinChanger() {
             $spana.addClass('bg-' + $this.data('theme'));
 
             var $select2Selection = $('.select2-selection__choice');
-            
+
             // TODO: need to reapply this on page redraw
             $select2Selection.attr('style', 'background-color: blue !important');
+
+
+            var $checkboxes = $(":checkbox");
+            $checkboxes.removeClass('chk-col-' + 'red');
+            $checkboxes.addClass('chk-col-' + $this.data('theme'));
 
         } catch (exception) {
             console.log("operationEditPartial editDialog onClick problem", exception);

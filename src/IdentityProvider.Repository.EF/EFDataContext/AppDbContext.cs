@@ -17,10 +17,8 @@ using IdentityProvider.Infrastructure.DatabaseAudit;
 using IdentityProvider.Infrastructure.DatabaseLog.Model;
 using IdentityProvider.Infrastructure.Domain;
 using IdentityProvider.Models.Domain.Account;
-using IdentityProvider.Repository.EF.Migrations;
 using Microsoft.AspNet.Identity.EntityFramework;
 using StructureMap;
-using WebMatrix.Data;
 using Database = System.Data.Entity.Database;
 using ModelValidationException = IdentityProvider.Infrastructure.ModelValidationException;
 

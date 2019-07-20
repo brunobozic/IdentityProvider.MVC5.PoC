@@ -29,6 +29,7 @@
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
     <TargetFrameworkProfile />
+    <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,9 +60,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\StructureMapMvc.cs" />
     <Compile Include="BootStrapper.cs" />
-    <Compile Include="Controllers\AdminLteController.cs" />
-    <Compile Include="Controllers\ErrorViewModel.cs" />
-    <Compile Include="DependencyResolution\ControllerConventionOld.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
@@ -102,14 +100,23 @@
     <Content Include="Content\css\themed-buttons-purple.css" />
     <Content Include="Content\css\themed-buttons-pink.css" />
     <Content Include="Content\iwa-sport-bg-image-light-medium.jpg" />
+    <None Include="README.md" />
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\demo.js" />
+    <Content Include="Scripts\Operations\Dashboard\OperationsDatatableWireup.js" />
+    <Content Include="Scripts\Operations\Dashboard\AuditTrailDatatableWireup.js" />
+    <Content Include="Scripts\Operations\Dashboard\AuditTrailWidgetDateRangePicker.js" />
+    <Content Include="Scripts\Operations\Dashboard\BootstrapMultipleSelect.js" />
+    <Content Include="Scripts\Operations\Dashboard\OperationsWidgetDateRangePicker.js" />
     <Content Include="Views\Operation\Partial\_operationsAuditTrailGetAllPagedPartial.cshtml" />
     <Content Include="Views\Operation\ChartPartial\_pieChartHeaderPartial.cshtml" />
     <Content Include="Views\Operation\ChartPartial\_pieChartPartial.cshtml" />
     <Content Include="Views\AdminLte\Index.cshtml" />
     <Content Include="Views\AdminLte\Colors.cshtml" />
-    <Content Include="libman.json" />
+    <None Include="Dockerfile" />
+    <None Include=".dockerignore">
+      <DependentUpon>Dockerfile</DependentUpon>
+    </None>
     <None Include="Views\Operation\Partial\_actionButtonsPartial.cshtml" />
     <Content Include="Content\css\themed-buttons-deep-purple.css" />
     <Content Include="Content\css\themed-buttons-red.css" />
@@ -136,6 +143,8 @@
     <Content Include="Views\Shared\DashboardCommons\_dashboardCommonScripts_Stuff.cshtml" />
     <Content Include="Views\Shared\DashboardCommons\_dashboardCommonScripts_Stuff2.cshtml" />
     <Content Include="Views\Operation\Partial\_operationAuditTrailPartial.cshtml" />
+    <Content Include="Views\Shared\DashboardCommons\_headerRightSideActionDropdown.cshtml" />
+    <Content Include="Views\Operation\Partial\_operationsGetAllPagedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -191,8 +200,6 @@
     <Content Include="Content\img\user.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\site.css" />
-    <Content Include="css\font-awesome.css" />
-    <Content Include="css\font-awesome.min.css" />
     <Content Include="Content\MakeTableResponsive.css" />
     <Content Include="Gruntfile.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -377,7 +384,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\img\image-gallery\thumb\" />
-    <Folder Include="Scripts\Operations\Dashboard\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="css\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Scripts\Operations\Partials\" />
     <Folder Include="Scripts\Resources\Dashboard\" />
     <Folder Include="Scripts\Resources\Partials\" />

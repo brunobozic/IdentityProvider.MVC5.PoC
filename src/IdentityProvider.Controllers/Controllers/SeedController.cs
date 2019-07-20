@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using System.Web.Routing;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
@@ -12,7 +11,6 @@ namespace IdentityProvider.Controllers.Controllers
     {
         private readonly IDoSeed _doSeed;
         private readonly ICookieStorageService _cookieStorageService;
-        private readonly IErrorLogService _errorLogService;
 
         [DefaultConstructor]
         public SeedController(
@@ -38,11 +36,6 @@ namespace IdentityProvider.Controllers.Controllers
             var seedOk = _doSeed.Seed();
 
             return View();
-        }
-
-        public void Execute(RequestContext requestContext)
-        {
-
         }
     }
 }

@@ -2,11 +2,10 @@
 $(document).ready(function () {
     $(".detailsDialog").click(function (event) {
         event.preventDefault();
-        var color = $(this).data('color');
+
         var $buttonClicked = $(this);
         var id = $buttonClicked.attr('data-id-value');
 
-        var name = $buttonClicked.attr('data-name');
         var options = { /*'backdrop': 'static',*/ keyboard: true, focus: true };
         $.ajax({
             type: "POST",
@@ -20,14 +19,11 @@ $(document).ready(function () {
                 $('#mdModal').modal(options);
 
                 $('#mdModal').find('.modal-body').html("");
-
+                $('#mdModal').modal('show');
                 $('#mdModal').find('.modal-body').html(response);
 
-                $('#mdModal').modal('show');
-
                 $('#mdModal').on('shown.bs.modal', function () {
-                 
-                    // $('#mdModal').find('.modal-title').html("Operation details");
+                   
                 });
             },
             failure: function (response) {
@@ -37,13 +33,11 @@ $(document).ready(function () {
                 $('#mdModal').modal(options);
 
                 $('#mdModal').find('.modal-body').html("");
-
+                $('#mdModal').modal('show');
                 $('#mdModal').find('.modal-body').html("Problem loading your data...");
 
-                $('#mdModal').modal('show');
-
                 $('#mdModal').on('shown.bs.modal', function () {
-                   
+
                 });
             },
             error: function (response) {
@@ -53,13 +47,11 @@ $(document).ready(function () {
                 $('#mdModal').modal(options);
 
                 $('#mdModal').find('.modal-body').html("");
-
+                $('#mdModal').modal('show');
                 $('#mdModal').find('.modal-body').html("Problem loading your data...");
 
-                $('#mdModal').modal('show');
-
                 $('#mdModal').on('shown.bs.modal', function () {
-              
+
                 });
             }
         });
