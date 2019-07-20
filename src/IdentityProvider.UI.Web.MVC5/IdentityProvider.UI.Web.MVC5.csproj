@@ -100,6 +100,7 @@
     <Content Include="Content\css\themed-buttons-purple.css" />
     <Content Include="Content\css\themed-buttons-pink.css" />
     <Content Include="Content\iwa-sport-bg-image-light-medium.jpg" />
+    <Content Include="libman.json" />
     <None Include="README.md" />
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\demo.js" />
@@ -147,14 +148,6 @@
     <Content Include="Views\Operation\Partial\_operationsGetAllPagedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\css\Fontes.css" />
-    <Content Include="Content\css\please-wait.css" />
     <Content Include="Content\popover-overrides.css" />
     <Content Include="Content\img\abstract-grey-geometric-background-01.jpg" />
     <Content Include="Content\img\abstract-grey-geometric-background-02.jpg" />
@@ -202,20 +195,8 @@
     <Content Include="Content\site.css" />
     <Content Include="Content\MakeTableResponsive.css" />
     <Content Include="Gruntfile.js" />
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jQueryOverride-boolean-checkboxes.js" />
     <Content Include="Scripts\makeTableResponsive.js" />
-    <Content Include="Scripts\modernizr.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Content\css\bootstrap-theme.css" />
-    <Content Include="Content\css\bootstrap-theme.min.css" />
-    <Content Include="Content\css\bootstrap.css" />
-    <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\skins\skin-black-light.css" />
     <Content Include="Content\css\skins\skin-black-light.min.css" />
     <Content Include="Content\css\skins\skin-black.css" />
@@ -242,8 +223,6 @@
     <Content Include="Content\css\skins\skin-yellow.min.css" />
     <Content Include="Content\css\skins\_all-skins.css" />
     <Content Include="Content\css\skins\_all-skins.min.css" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\img\avatar.png" />
     <Content Include="Content\img\avatar04.png" />
     <Content Include="Content\img\avatar2.png" />
@@ -289,18 +268,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Log4Net.config.xml" />
-    <Content Include="Content\css\bootstrap.min.css.map" />
-    <Content Include="Content\css\bootstrap.css.map" />
-    <Content Include="Content\css\bootstrap-theme.min.css.map" />
-    <Content Include="Content\css\bootstrap-theme.css.map" />
     <Content Include="App_Data\BowerBundlesBackup.json" />
     <None Include="App.config" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="fonts\fontawesome-webfont.eot" />
     <None Include="fonts\fontawesome-webfont.svg" />
     <None Include="fonts\fontawesome-webfont.ttf" />
@@ -311,13 +280,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

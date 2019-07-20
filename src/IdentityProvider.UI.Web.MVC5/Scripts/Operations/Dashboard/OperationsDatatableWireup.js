@@ -1,9 +1,9 @@
 ﻿// ======== Datatables wireup ========
 $(document).ready(function () {
     var existTheme = $('.right-sidebar .demo-choose-skin li.active').data('theme');
-    $.fn.dataTable.ext.classes.sLengthSelect = 'btn bg-' + existTheme; // Change Pagination Button Class
-    $.fn.dataTable.ext.classes.sPageButton = 'btn bg-' + existTheme; // Change Pagination Button Class
-    $.fn.dataTable.ext.classes.sPageButtonActive = 'btn bg-' + existTheme; // Change Pagination Button Class
+    $.fn.dataTable.ext.classes.sLengthSelect = 'btn btn-xs bg-' + existTheme; // Change Pagination Button Class
+    $.fn.dataTable.ext.classes.sPageButton = 'btn btn-xs bg-' + existTheme; // Change Pagination Button Class
+    $.fn.dataTable.ext.classes.sPageButtonActive = 'btn btn-xs bg-' + existTheme; // Change Pagination Button Class
 
     //// Setup - add a text input to each footer cell
     //$('#SearchResultTable tfoot th').each( function () {
@@ -15,7 +15,7 @@ $(document).ready(function () {
     var dateFormat = 'DD.MM.YYYY HH:MM:SS';
 
     var operationsDatatable = $(datatableName).DataTable({
-        dom: 'Bfrltip',
+        dom: 'Brltip',
         colReorder: true,
         "columnDefs": [
             { "width": "5%", "visible": true, "targets": [0] }, // Id

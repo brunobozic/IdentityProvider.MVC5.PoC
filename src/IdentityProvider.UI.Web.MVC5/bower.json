@@ -16,7 +16,7 @@
     "json2": "*",
     "moment": "2.22.2",
     "moment-timezone": "0.5.23",
-    "jquery-validation": "1.18.0",
+    "jquery-validation": "1.19.1",
     "blockUI": "jquery.blockUI#*",
     "spin.js": "4.0.0",
     "signalr": "^2.2.1",
@@ -44,7 +44,7 @@
     "Chart.js": "v1.0.2",
     "jquery": "3.4.1",
     "jQuery": "3.2.0",
-    "bootstrap-datepicker": "v1.8.0",
+    "bootstrap-datepicker": "v1.9.0",
     "gridstack": "v0.4.0",
     "Ionicons": "ionicons#v2.0.1",
     "datatables": "DataTables#1.10.19",
@@ -57,7 +57,11 @@
     "bootstrap-multiselect": "v0.9.14",
     "select2-bootstrap-theme": "0.1.0-beta.9",
     "daterangepicker": "bootstrap-daterangepicker#v3.0.5",
-    "chart.js": "Chart.js#v2.8.0"
+    "chart.js": "Chart.js#v2.8.0",
+    "datatables-bootstrap3": "0.1",
+    "bower-lodash": "4.8.2",
+    "jpdfmake": "0.1.21",
+    "jszip": "jszip-mirror#v2.4.0"
   },
   "resolutions": {
     "bootstrap": "v4.1.3",
@@ -73,6 +77,8 @@
     "sweetalert2": "v7.29.1",
     "datatables.net-plugins": "1.10.19",
     "font-awesome": "5.5.0",
-    "jQuery": "3.3.1"
+    "jQuery": "3.3.1",
+    "jquery-validation": "1.19.1",
+    "bootstrap-datepicker": "v1.9.0"
   }
 }

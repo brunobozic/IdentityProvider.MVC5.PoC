@@ -1,9 +1,9 @@
 ﻿// ======== Datatables wireup ========
 $(document).ready(function () {
     var existTheme = $('.right-sidebar .demo-choose-skin li.active').data('theme');
-    $.fn.dataTable.ext.classes.sLengthSelect = 'btn bg-' + existTheme; // Change Pagination Button Class
-    $.fn.dataTable.ext.classes.sPageButton = 'btn bg-' + existTheme; // Change Pagination Button Class
-    $.fn.dataTable.ext.classes.sPageButtonActive = 'btn bg-' + existTheme; // Change Pagination Button Class
+    $.fn.dataTable.ext.classes.sLengthSelect = 'btn btn-xs bg-' + existTheme; // Change Pagination Button Class
+    $.fn.dataTable.ext.classes.sPageButton = 'btn btn-xs bg-' + existTheme; // Change Pagination Button Class
+    $.fn.dataTable.ext.classes.sPageButtonActive = 'btn btn-xs bg-' + existTheme; // Change Pagination Button Class
 
     //// Setup - add a text input to each footer cell
     //$('#SearchResultTable tfoot th').each( function () {
@@ -15,17 +15,17 @@ $(document).ready(function () {
     var dateFormat = 'DD.MM.YYYY HH:MM:SS';
 
     var auditTrailDatatable = $(datatableName).DataTable({
-        dom: 'Bfrtip',
+        dom: 'Brltip',
         colReorder: true,
         "columnDefs": [
             { "width": "5%", "visible": false, "targets": [0] }, // Id
             { "width": "10%", "searchable": false, "orderable": true, "targets": [1] }, // UpdatedAt
-            { "width": "10%", "searchable": false, "orderable": true, "targets": [2] }, // UserName
-            { "width": "10%", "searchable": false, "orderable": true, "targets": [3] }, // Action
-            { "width": "10%", "searchable": false, "orderable": true, "targets": [4] }, // TableName
-            { "width": "20%", "searchable": false, "orderable": true, "targets": [5] }, // OldData
-            { "width": "20%", "searchable": false, "orderable": true, "targets": [6] }, // NewData
-            { "className": "text-center custom-middle-align", "targets": [3, 4] }
+            { "width": "10%", "searchable": true, "orderable": true, "targets": [2] }, // UserName
+            { "width": "10%", "searchable": true, "orderable": true, "targets": [3] }, // Action
+            { "width": "10%", "searchable": true, "orderable": true, "targets": [4] }, // TableName
+            { "width": "20%", "searchable": true, "orderable": true, "targets": [5] }, // OldData
+            { "width": "20%", "searchable": true, "orderable": true, "targets": [6] }, // NewData
+            { "className": "text-center custom-middle-align", "targets": [3] }
         ],
         select: {
             style: 'multi'
@@ -54,7 +54,7 @@ $(document).ready(function () {
                 titleAttr: 'PDF'
             }
         ],
-        "autoWidth": false,
+        "autoWidth": true,
         "keys": true,
         "fixedHeader": true,
         "sortable": true,
@@ -96,9 +96,9 @@ $(document).ready(function () {
             },
             { "data": "UserName", "name": "UserName", "autoWidth": true },
             { "data": "Action", "name": "Action", "autoWidth": true },
-            { "data": "TableName", "name": "TableName", "autoWidth": false },
-            { "data": "OldData", "name": "OldData", "autoWidth": false },
-            { "data": "NewData", "name": "NewData", "autoWidth": false }
+            { "data": "TableName", "name": "TableName", "autoWidth": true },
+            { "data": "OldData", "name": "OldData", "autoWidth": true },
+            { "data": "NewData", "name": "NewData", "autoWidth": true }
         ],
         "drawCallback": function (settings) {
             
