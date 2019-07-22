@@ -77,6 +77,8 @@ $(document).ready(function () {
                 data.to = end;
                 data.show_inactive = true;
                 data.show_deleted = false;
+                data.search_extra = $('#SearchStringOperationsMainGrid').val();
+                skinChange();
             }
         },
         "language": {
@@ -92,15 +94,15 @@ $(document).ready(function () {
             { "data": "Id", "name": "Id", "autoWidth": true },
             { "data": "Name", "name": "Name", "autoWidth": true },
             { "data": "Description", "name": "Description", "autoWidth": true },
-            { "data": "Active", "name": "Active", "autoWidth": false },
+            { "data": "Active", "name": "Active", "autoWidth": true },
             {
-                "data": "CreatedDate", "name": "CreatedDate", "autoWidth": false, type: "datetime",
+                "data": "CreatedDate", "name": "CreatedDate", "autoWidth": true, type: "datetime",
                 render: function (data, type, row) {
                     return moment(data).format(dateFormat);
                 }
             },
             {
-                "data": "ModifiedDate", "name": "ModifiedDate", "autoWidth": false, type: "datetime",
+                "data": "ModifiedDate", "name": "ModifiedDate", "autoWidth": true, type: "datetime",
                 render: function (data, type, row) {
                     return moment(data).format(dateFormat);
                 }
@@ -113,9 +115,10 @@ $(document).ready(function () {
         ],
         "drawCallback": function (settings) {
             myMuuriGrid.refreshItems().layout();
+            skinChange();
         },
         "initComplete": function (settings, json) {
-
+            skinChange();
         }
     });
 
@@ -212,6 +215,11 @@ $(document).ready(function () {
         //    buttons: 'Delete'
         //});
     });
+
+    $('#searchStringOperationsMainGrid').on('click', function (e) {
+        operationsDatatable.draw();
+    });
+
 
     // Extend dataTables search
     $.fn.dataTable.ext.search.push(

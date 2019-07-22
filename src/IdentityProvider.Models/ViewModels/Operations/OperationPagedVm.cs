@@ -33,5 +33,7 @@ namespace IdentityProvider.Models.ViewModels.Operations
         public string OperationsDashboard_OperationsWidget_DateRange { get; set; }
         public string DateRangePickerOnOperationsStartHidden { get; set; }
         public string DateRangePickerOnOperationsEndHidden { get; set; }
+        public string DateRangePickerOnAuditTrailStartHidden { get; set; }
+        public string DateRangePickerOnAuditTrailEndHidden { get; set; }
     }
 }

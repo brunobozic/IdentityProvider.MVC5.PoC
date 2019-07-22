@@ -100,7 +100,7 @@ namespace IdentityProvider.Controllers.Controllers
             , out int totalResultsCount
             )
         {
-            var searchBy = model.search?.value;
+            var searchBy = model.search?.value ?? model.search_extra;
             var take = model.length;
             var skip = model.start;
             var userId = model.userid;

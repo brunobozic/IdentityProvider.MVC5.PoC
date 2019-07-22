@@ -21,6 +21,8 @@
 
                 $('#mdModal').on('shown.bs.modal', function () {
                 });
+
+                skinChange();
             },
             failure: function (response) {
 
@@ -36,6 +38,7 @@
                 
                 });
 
+                skinChange();
             },
             error: function (response) {
 
@@ -50,6 +53,8 @@
                 $('#mdModal').on('shown.bs.modal', function () {
 
                 });
+
+                skinChange();
             }
         });
     });

@@ -109,7 +109,6 @@
     <Content Include="Scripts\Operations\Dashboard\AuditTrailWidgetDateRangePicker.js" />
     <Content Include="Scripts\Operations\Dashboard\BootstrapMultipleSelect.js" />
     <Content Include="Scripts\Operations\Dashboard\OperationsWidgetDateRangePicker.js" />
-    <Content Include="Views\Operation\Partial\_operationsAuditTrailGetAllPagedPartial.cshtml" />
     <Content Include="Views\Operation\ChartPartial\_pieChartHeaderPartial.cshtml" />
     <Content Include="Views\Operation\ChartPartial\_pieChartPartial.cshtml" />
     <Content Include="Views\AdminLte\Index.cshtml" />

@@ -13,6 +13,7 @@
 <style type="text/css">
     .OperationsDashboard_OperationsDatatable_create {
     }
+
     .dataTables_length {
         float: right !important;
     }
@@ -224,7 +225,7 @@
                             </ul>
                         </div>
 
-                        <div class="" style="background-color: whitesmoke; height: 450px; padding: 10px">
+                        <div class="" style="width: 92%; position: center; background-color: whitesmoke; height: 450px; padding: 10px">
                             @Html.Partial("ChartPartial/_pieChartPartial", Model)
                         </div>
 
@@ -255,14 +256,15 @@
                         @Html.HiddenFor(model => Model.DateRangePickerOnOperationsStartHidden)
                         @Html.HiddenFor(model => Model.DateRangePickerOnOperationsEndHidden)
 
+
                         <!-- Operations pickers -->
-                        <div style="width: 92%; padding-left: 28px; position: center">
-                            <table class="table table-light table-condensed" data-classes="table" style="align-content: center; position: center; width: 90%; background-color: whitesmoke; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                        <div style="width: 100%; padding-right: 15px; padding-left: 15px; position: center">
+                            <table class="table table-light table-condensed" data-classes="table" style="align-content: center; position: center; width: 90%; background-color: #f9f9f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                                 <thead></thead>
                                 <tbody>
-                                    <tr style="padding-top: 1px">
-                                        <td style="padding: 1px; padding-top: 12px">
 
+                                    <tr>
+                                        <td style="width: 50%">
                                             <!-- Date range picker -->
                                             <div class="form-group form-float">
 
@@ -273,7 +275,7 @@
 
                                             </div>
                                         </td>
-                                        <td style="width: 800%; padding: 1px; padding-top: 12px"></td>
+                                        <td style="width: 50%"></td>
                                     </tr>
 
                                     <tr>
@@ -284,6 +286,7 @@
                                                 <input id="ShowDeleted" name="ShowDeleted" class="filled-in chk-col-pink" type="checkbox" @(Model.ShowDeleted ? "checked" : "")>
                                                 <label for="ShowDeleted">Show deleted items (default: not deleted)</label>
                                             </div>
+
                                         </td>
                                         <td style="width: 50%"></td>
                                     </tr>
@@ -300,37 +303,33 @@
                                         <td style="width: 50%"></td>
                                     </tr>
 
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- #END# Operations pickers -->
-
-                        <div style="width: 90%; margin: 0 auto;">
-                            <table>
-                                <tbody>
                                     <tr>
-                                        <td style="width: 20%; margin: 0 auto;">
-                                            <button class="btn btn-xs bg-pink waves-effect OperationsDashboard_OperationsDatatable_create"><i class="material-icons">create</i><span> Add operation</span></button>
-                                        </td>
-
                                         <td style="width: 80%; margin: 0 auto;">
 
-                                            <div class="form-group form-float" style="padding-left: 8px; float: left; width: 60%;">
-                                                <div class="form-line" style="float: left; margin-top: 14px; width: 100%;">
+                                            <div class="form-group form-float" style="padding-left: 12px; float: left; width: 70%;">
+                                                <div class="form-line" style="float: left;width: 100%;">
                                                     @Html.TextBox("searchStringOperationsMainGrid", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Enter search criteria", @value = ViewBag.CurrentFilter, @data_toggle = "tooltip", @data_placement = "top", @title = "", @data_original_title = "Enter search criteria", @style = "float: left;" })
                                                     @Html.ValidationMessage("SearchStringOperationsMainGrid")
                                                 </div>
                                             </div>
 
-                                            <div class="form-group form-float" style="padding-left: 8px; float: right; width: 30%;">
-                                                <button class="btn btn-outline-primary bg-pink waves-effect btn-xs" id="submitSearchOperationsMainGrid" style="float: right; margin-top: 22px" type="submit" name="submitSearchOperationsMainGrid" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i><span> Search</span></button>
+                                            <div class="form-group form-float" style="padding-left: 2px; float: right; width: 30%;">
+                                                <button class="btn btn-outline-primary bg-pink waves-effect btn-xs" id="submitSearchOperationsMainGrid" style="float: left; " type="submit" name="submitSearchOperationsMainGrid" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i><span> Search</span></button>
                                             </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 20%; margin: 0 auto;">
+                                            <button class="btn btn-xs bg-pink waves-effect OperationsDashboard_OperationsDatatable_create"><i class="material-icons">create</i><span> Add operation</span></button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
 
+                        <!-- #END# Operations pickers -->
 
+                        <div style="width: 90%; margin: 0 auto;">
                             <table id="OperationsDashboard_OperationsDatatable" style="width: 100%" class="display table table-striped table-hover">
                                 <thead>
                                     <tr>
@@ -365,7 +364,10 @@
                         </div>
                     </div>
                 </div>
+
             </div>
+
+
             <!-- ============================== -->
             <!-- #END# Operation Datatable card -->
             <!-- ============================== -->
@@ -387,6 +389,9 @@
                                 <small>View the audit trail</small>
                             </em>
                         </div>
+                 
+                        @Html.HiddenFor(model => Model.DateRangePickerOnAuditTrailStartHidden)
+                        @Html.HiddenFor(model => Model.DateRangePickerOnAuditTrailEndHidden)
 
                         <!-- Audit trail pickers -->
                         <div style="width: 100%; padding: 15px; position: center">
@@ -397,12 +402,14 @@
                                     <tr>
                                         <td style="width: 50%">
                                             <!-- Date range picker -->
-                                            <div class="form-group" style="float: left; width: 25%">
-                                                <label style="float: left; padding-left: 12px; padding-right: 24px; padding-top: 12px">Date range</label>
+                                            <div class="form-group form-float">
+
+                                                <div class="form-line" style="float: left; width: 99%; padding-left: 12px; padding-right: 24px; padding-top: 6px">
+                                                    <input class="form-control" type="text" id="OperationsDashboard_AuditTrailDatatable_DateRange" name="OperationsDashboard_AuditTrailDatatable_DateRange" style="float: left; padding-left: 2px; padding-right: 2px; padding-top: 2px" placeholder="Date range" />
+                                                </div>
+
                                             </div>
-                                            <div class="form-line" style="padding-left: 6px; padding-top: 12px">
-                                                <input type="text" id="OperationsDashboard_AuditTrailDatatable_DateRange" name="OperationsDashboard_AuditTrailDatatable_DateRange" style="width: 60%; padding-left: 4px;" />
-                                            </div>
+
                                         </td>
                                         <td style="width: 50%">
                                             <!-- Table name picker -->
@@ -525,12 +532,12 @@
 
                                 <tfoot>
                                     @*<tr>
-                                            <th>UserName</th>
-                                            <th>TableName</th>
-                                            <th>UpdatedAt</th>
-                                            <th>OldValue</th>
-                                            <th>NewValue</th>
-                                        </tr>*@
+                        <th>UserName</th>
+                        <th>TableName</th>
+                        <th>UpdatedAt</th>
+                        <th>OldValue</th>
+                        <th>NewValue</th>
+                    </tr>*@
                                 </tfoot>
 
                             </table>
@@ -543,13 +550,12 @@
                             <hr />
                         </div>
                     </div>
-
                 </div>
             </div>
-            <!-- ====================== -->
-            <!-- #END# Audit trail card -->
-            <!-- ====================== -->
         </div>
-        <!-- #END# Muuri grid -->
+        <!-- ====================== -->
+        <!-- #END# Audit trail card -->
+        <!-- ====================== -->
     </div>
 </div>
+<!-- #END# Muuri grid -->

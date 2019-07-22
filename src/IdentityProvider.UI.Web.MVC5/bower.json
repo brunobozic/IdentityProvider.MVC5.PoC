@@ -61,7 +61,9 @@
     "datatables-bootstrap3": "0.1",
     "bower-lodash": "4.8.2",
     "jpdfmake": "0.1.21",
-    "jszip": "jszip-mirror#v2.4.0"
+    "jszip": "jszip-mirror#v2.4.0",
+    "jquery-validation-unobtrusive": "v3.2.11",
+    "materialize": "v0.98.0"
   },
   "resolutions": {
     "bootstrap": "v4.1.3",

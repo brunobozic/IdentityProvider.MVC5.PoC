@@ -10,6 +10,108 @@ $(function () {
     });
 });
 
+function skinChange() {
+    var existTheme = $('.right-sidebar .demo-choose-skin li.active').data('theme');
+
+    console.log('Current theme: ' + existTheme);
+
+    var $paginatorn = $('#OperationsDashboard_AuditTrailDatatable_next');
+    $paginatorn.removeClass('themed-buttons-' + 'pink');
+    $paginatorn.removeClass('bg-' + 'pink');
+    $paginatorn.removeClass('themed-buttons-' + existTheme);
+    $paginatorn.removeClass('bg-' + existTheme);
+    $paginatorn.addClass('themed-buttons-' + existTheme);
+    $paginatorn.addClass('bg-' + existTheme);
+
+    var $paginatorl = $('#OperationsDashboard_AuditTrailDatatable_last');
+    $paginatorl.removeClass('themed-buttons-' + 'pink');
+    $paginatorl.removeClass('bg-' + 'pink');
+    $paginatorl.removeClass('themed-buttons-' + existTheme);
+    $paginatorl.removeClass('bg-' + existTheme);
+    $paginatorl.addClass('themed-buttons-' + existTheme);
+    $paginatorl.addClass('bg-' + existTheme);
+
+    var $paginatorf = $('#OperationsDashboard_AuditTrailDatatable_first');
+    $paginatorf.removeClass('themed-buttons-' + 'pink');
+    $paginatorf.removeClass('bg-' + 'pink');
+    $paginatorf.removeClass('themed-buttons-' + existTheme);
+    $paginatorf.removeClass('bg-' + existTheme);
+    $paginatorf.addClass('themed-buttons-' + existTheme);
+    $paginatorf.addClass('bg-' + existTheme);
+
+    var $paginatorprev = $('#OperationsDashboard_AuditTrailDatatable_previous');
+    $paginatorprev.removeClass('themed-buttons-' + 'pink');
+    $paginatorprev.removeClass('bg-' + 'pink');
+    $paginatorprev.removeClass('themed-buttons-' + existTheme);
+    $paginatorprev.removeClass('bg-' + existTheme);
+    $paginatorprev.addClass('themed-buttons-' + existTheme);
+    $paginatorprev.addClass('bg-' + existTheme);
+
+    var $paginatornOp = $('#OperationsDashboard_OperationsDatatable_next');
+    $paginatornOp.removeClass('themed-buttons-' + 'pink');
+    $paginatornOp.removeClass('bg-' + 'pink');
+    $paginatornOp.removeClass('themed-buttons-' + existTheme);
+    $paginatornOp.removeClass('bg-' + existTheme);
+    $paginatornOp.addClass('themed-buttons-' + existTheme);
+    $paginatornOp.addClass('bg-' + existTheme);
+
+    var $paginatorlOp = $('#OperationsDashboard_OperationsDatatable_last');
+    $paginatorlOp.removeClass('themed-buttons-' + 'pink');
+    $paginatorlOp.removeClass('bg-' + 'pink');
+    $paginatorlOp.removeClass('themed-buttons-' + existTheme);
+    $paginatorlOp.removeClass('bg-' + existTheme);
+    $paginatorlOp.addClass('themed-buttons-' + existTheme);
+    $paginatorlOp.addClass('bg-' + existTheme);
+
+    var $paginatorfOp = $('#OperationsDashboard_OperationsDatatable_first');
+    $paginatorfOp.removeClass('themed-buttons-' + 'pink');
+    $paginatorfOp.removeClass('bg-' + 'pink');
+    $paginatorfOp.removeClass('themed-buttons-' + existTheme);
+    $paginatorfOp.removeClass('bg-' + existTheme);
+    $paginatorfOp.addClass('themed-buttons-' + existTheme);
+    $paginatorfOp.addClass('bg-' + existTheme);
+
+    var $paginatorprevOp = $('#OperationsDashboard_OperationsDatatable_previous');
+    $paginatorprevOp.removeClass('themed-buttons-' + 'pink');
+    $paginatorprevOp.removeClass('bg-' + 'pink');
+    $paginatorprevOp.removeClass('themed-buttons-' + existTheme);
+    $paginatorprevOp.removeClass('bg-' + existTheme);
+    $paginatorprevOp.addClass('themed-buttons-' + existTheme);
+    $paginatorprevOp.addClass('bg-' + existTheme);
+
+    $.fn.dataTable.ext.classes.sLengthSelect = 'btn bg-' + existTheme;               // Change Pagination Button Class
+    $.fn.dataTable.ext.classes.sPageButton = 'btn bg-' + existTheme;                 // Change Pagination Button Class
+    $.fn.dataTable.ext.classes.sPageButtonActive = 'btn bg-' + existTheme;           // Change Pagination Button Class
+
+    var $buttons = $('button:not(.dt-button)');
+    $buttons.removeClass('themed-buttons-' + 'pink');
+    $buttons.removeClass('bg-' + 'pink');
+    $buttons.removeClass('themed-buttons-' + 'red');
+    $buttons.removeClass('bg-' + 'red');
+    $buttons.removeClass('themed-buttons-' + existTheme);
+    $buttons.removeClass('bg-' + existTheme);
+    $buttons.addClass('themed-buttons-' + existTheme);
+    $buttons.addClass('bg-' + existTheme);
+
+    var $spana = $('span > a');
+    $spana.removeClass('themed-buttons-' + 'pink');
+    $spana.removeClass('bg-' + 'pink');
+    $spana.removeClass('themed-buttons-' + existTheme);
+    $spana.removeClass('bg-' + existTheme);
+    $spana.addClass('themed-buttons-' + existTheme);
+    $spana.addClass('bg-' + existTheme);
+
+    var $select2Selection = $('.select2-selection__choice');
+
+    // TODO: need to reapply this on page redraw
+    $select2Selection.attr('style', 'background-color: blue !important');
+
+
+    var $checkboxes = $(":checkbox");
+    $checkboxes.removeClass('chk-col-' + 'red');
+    $checkboxes.addClass('chk-col-' + existTheme);
+}
+
 //Skin changer
 function skinChanger() {
     $('.right-sidebar .demo-choose-skin li').on('click', function () {
@@ -17,6 +119,8 @@ function skinChanger() {
         var $this = $(this);
 
         var existTheme = $('.right-sidebar .demo-choose-skin li.active').data('theme');
+
+        console.log('Current theme: ' + existTheme);
         $('.right-sidebar .demo-choose-skin li').removeClass('active');
         $body.removeClass('theme-' + existTheme);
         $this.addClass('active');
@@ -24,7 +128,7 @@ function skinChanger() {
 
 
         try {
-            var $buttons = $('button');
+            var $buttons = $('button:not(.dt-button)');
             var $select = $('select');
 
             $buttons.removeClass('themed-buttons-' + 'pink');
@@ -73,10 +177,42 @@ function skinChanger() {
             $paginatorprev.addClass('themed-buttons-' + $this.data('theme'));
             $paginatorprev.addClass('bg-' + $this.data('theme'));
 
+            var $paginatornOp = $('#OperationsDashboard_OperationsDatatable_next');
+            $paginatornOp.removeClass('themed-buttons-' + 'pink');
+            $paginatornOp.removeClass('bg-' + 'pink');
+            $paginatornOp.removeClass('themed-buttons-' + existTheme);
+            $paginatornOp.removeClass('bg-' + existTheme);
+            $paginatornOp.addClass('themed-buttons-' + $this.data('theme'));
+            $paginatornOp.addClass('bg-' + $this.data('theme'));
+
+            var $paginatorlOp = $('#OperationsDashboard_OperationsDatatable_last');
+            $paginatorlOp.removeClass('themed-buttons-' + 'pink');
+            $paginatorlOp.removeClass('bg-' + 'pink');
+            $paginatorlOp.removeClass('themed-buttons-' + existTheme);
+            $paginatorlOp.removeClass('bg-' + existTheme);
+            $paginatorlOp.addClass('themed-buttons-' + $this.data('theme'));
+            $paginatorlOp.addClass('bg-' + $this.data('theme'));
+
+            var $paginatorfOp = $('#OperationsDashboard_OperationsDatatable_first');
+            $paginatorfOp.removeClass('themed-buttons-' + 'pink');
+            $paginatorfOp.removeClass('bg-' + 'pink');
+            $paginatorfOp.removeClass('themed-buttons-' + existTheme);
+            $paginatorfOp.removeClass('bg-' + existTheme);
+            $paginatorfOp.addClass('themed-buttons-' + $this.data('theme'));
+            $paginatorfOp.addClass('bg-' + $this.data('theme'));
+
+            var $paginatorprevOp = $('#OperationsDashboard_OperationsDatatable_previous');
+            $paginatorprevOp.removeClass('themed-buttons-' + 'pink');
+            $paginatorprevOp.removeClass('bg-' + 'pink');
+            $paginatorprevOp.removeClass('themed-buttons-' + existTheme);
+            $paginatorprevOp.removeClass('bg-' + existTheme);
+            $paginatorprevOp.addClass('themed-buttons-' + $this.data('theme'));
+            $paginatorprevOp.addClass('bg-' + $this.data('theme'));
+
             $.fn.dataTable.ext.classes.sLengthSelect = 'btn bg-' + $this.data('theme');               // Change Pagination Button Class
             $.fn.dataTable.ext.classes.sPageButton = 'btn bg-' + $this.data('theme');                 // Change Pagination Button Class
             $.fn.dataTable.ext.classes.sPageButtonActive = 'btn bg-' + $this.data('theme');           // Change Pagination Button Class
-
+   
             var $spana = $('span > a');
             $spana.removeClass('themed-buttons-' + 'pink');
             $spana.removeClass('bg-' + 'pink');
