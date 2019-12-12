@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
@@ -31,16 +32,20 @@ namespace IdentityProvider.Models.Domain.Account
         #region IsActive
 
         public bool Active { get; set; }
+        [DisplayName("Record is active from (date)")]
         public DateTime? ActiveFrom { get; set; }
+        [DisplayName("Record is active to (date)")]
         public DateTime? ActiveTo { get; set; }
 
         #endregion IsActive
 
         [Required]
+        [DisplayName("Name")]
         [MaxLength(50 , ErrorMessage = "The name of the organizational unit must be between 2 and 50 characters"), MinLength(2)]
         public string Name { get; set; }
 
-        [Required]
+
+        [DisplayName("Description")]
         [MaxLength(260 , ErrorMessage = "The description of the organizational unit must be between 2 and 260 characters"), MinLength(2)]
         public string Description { get; set; }
 

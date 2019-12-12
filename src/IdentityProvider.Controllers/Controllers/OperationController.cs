@@ -70,7 +70,7 @@ namespace IdentityProvider.Controllers.Controllers
         {
             // action inside a standard controller
             var res = SearchFunction(model, out var filteredResultsCount, out var totalResultsCount);
-
+      
             var result = new List<OperationsDatatableSearchClass>(res.Count);
 
             result.AddRange(res.Select(s => new OperationsDatatableSearchClass
@@ -100,7 +100,7 @@ namespace IdentityProvider.Controllers.Controllers
             , out int totalResultsCount
             )
         {
-            var searchBy = model.search?.value;
+            var searchBy = model.search?.value ?? model.search_extra;
             var take = model.length;
             var skip = model.start;
             var userId = model.userid;

@@ -90,11 +90,19 @@ namespace IdentityProvider.Controllers.Controllers
                 // use the search string provided with the column to perform server side searching.
             }
 
+            var searchByExtra = model.search_extra;
+            var searchByUserName = model.search_userName;
+            var searchByOldValue = model.search_oldValue;
+            var searchByNewValue = model.search_newValue;
 
             // search the dbase taking into consideration table sorting and paging
             var result = _auditTrailService.GetDataFromDbase(
                 userId
                 , searchBy
+                , searchByExtra
+                , searchByUserName
+                , searchByOldValue
+                , searchByNewValue
                 , take
                 , skip
                 , sortBy

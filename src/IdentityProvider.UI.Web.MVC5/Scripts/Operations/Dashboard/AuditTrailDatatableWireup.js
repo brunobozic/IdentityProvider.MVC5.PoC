@@ -71,8 +71,15 @@ $(document).ready(function () {
             type: 'POST',
             datatype: "json",
             "data": function (data) {
-                data.from = $('#min-date').val();
-                data.to = $('#max-date').val();
+                var start = $('#DateRangePickerOnAuditTrailStartHidden').val();
+                var end = $('#DateRangePickerOnAuditTrailEndHidden').val();
+                data.from = start;
+                data.to = end;
+            
+                data.search_userName = $('#OperationsDashboard_AuditTrailDatatable_SubmitSearchUserName').val();
+                data.search_oldValue = $('#OperationsDashboard_AuditTrailDatatable_SubmitSearchOldValue').val();
+                data.search_newValue = $('#OperationsDashboard_AuditTrailDatatable_SubmitSearchNewValue').val();
+                skinChange();
             }
         },
         "language": {
@@ -101,16 +108,18 @@ $(document).ready(function () {
             { "data": "NewData", "name": "NewData", "autoWidth": true }
         ],
         "drawCallback": function (settings) {
-            
+            myMuuriGrid.refreshItems().layout();
+            skinChange();
         },
         "initComplete": function (settings, json) {
-
+            var existTheme = $('.right-sidebar .demo-choose-skin li.active').data('theme');
+            skinChange();
         }
     });
 
     $(document).ready(function () {
-        $('#SearchResultTable_length').change(function () {
-
+        $(datatableName).change(function () {
+            skinChange();
         });
     });
 

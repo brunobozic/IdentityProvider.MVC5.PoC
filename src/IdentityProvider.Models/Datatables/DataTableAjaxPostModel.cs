@@ -17,6 +17,10 @@ namespace IdentityProvider.Models.Datatables
         public DateTime? to { get; set; }
         public List<Column> columns { get; set; }
         public Search search { get; set; }
+        public string search_extra { get; set; }
+        public string search_userName { get; set; }
+        public string search_oldValue { get; set; }
+        public string search_newValue { get; set; }
         public List<Order> order { get; set; }
     }
 }

@@ -18,7 +18,18 @@ namespace IdentityProvider.Services
 
         protected override void Seed(DataContext context)
         {
-            _seeder.Seed();
+
+
+            try
+            {
+                _seeder.Seed();
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

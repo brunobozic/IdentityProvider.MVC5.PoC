@@ -13,7 +13,7 @@ namespace IdentityProvider.Services.AuditTrailService
     public class AuditTrailService : Service<DbAuditTrail>, IAuditTrailService
     {
         [StructureMap.DefaultConstructor] // Set Default Constructor for StructureMap
-        public AuditTrailService( IRepositoryAsync<DbAuditTrail> repository ) : base(repository)
+        public AuditTrailService(IRepositoryAsync<DbAuditTrail> repository) : base(repository)
         {
 
         }
@@ -21,6 +21,10 @@ namespace IdentityProvider.Services.AuditTrailService
         public List<YourCustomSearchClass> GetDataFromDbase(
             int userId
             , string searchBy
+            , string searchValueExtra
+            , string searchValueUserName
+            , string searchValueOldValue
+            , string searchValueNewValue
             , int take
             , int skip
             , string sortBy
@@ -29,7 +33,13 @@ namespace IdentityProvider.Services.AuditTrailService
             , out int totalResultsCount
         )
         {
-            var whereClause = BuildDynamicWhereClause(searchBy);
+            var whereClause = BuildDynamicWhereClause(
+                searchBy
+                , searchValueExtra
+                , searchValueUserName
+                , searchValueOldValue
+                , searchValueNewValue
+                );
 
             if (string.IsNullOrEmpty(searchBy))
             {
@@ -43,13 +53,13 @@ namespace IdentityProvider.Services.AuditTrailService
                     .Where(whereClause)
                     .Select(m => new YourCustomSearchClass
                     {
-                        Id = m.Id ,
-                        NewData = m.NewData , // GDPR => need to check whether the user has the privileges to see the raw data, else mask the data and provide means to audit log explicit read requests
-                        OldData = m.OldData , // GDPR => need to check whether the user has the privileges to see the raw data, else mask the data and provide means to audit log explicit read requests
-                        TableName = m.TableName , 
-                        UserName = m.UserName , // GDPR => need to check whether the user has the privileges to see the raw data, else mask the data and provide means to audit log explicit read requests
-                        Action = m.Actions ,
-                        TableId = m.TableIdValue ,
+                        Id = m.Id,
+                        NewData = m.NewData, // GDPR => need to check whether the user has the privileges to see the raw data, else mask the data and provide means to audit log explicit read requests
+                        OldData = m.OldData, // GDPR => need to check whether the user has the privileges to see the raw data, else mask the data and provide means to audit log explicit read requests
+                        TableName = m.TableName,
+                        UserName = m.UserName, // GDPR => need to check whether the user has the privileges to see the raw data, else mask the data and provide means to audit log explicit read requests
+                        Action = m.Actions,
+                        TableId = m.TableIdValue,
                         UpdatedAt = m.UpdatedAt
                     });
 
@@ -130,20 +140,46 @@ namespace IdentityProvider.Services.AuditTrailService
             return result;
         }
 
-        private Expression<Func<DbAuditTrail , bool>> BuildDynamicWhereClause(
-            string searchValue )
+        private Expression<Func<DbAuditTrail, bool>> BuildDynamicWhereClause(
+            string searchValue
+            , string searchValueExtra
+            , string searchValueUserName
+            , string searchValueOldValue
+            , string searchValueNewValue
+            )
         {
             // simple method to dynamically plugin a where clause
             var predicate = PredicateBuilder.New<DbAuditTrail>(true); // true -where(true) return all
 
+
             if (string.IsNullOrWhiteSpace(searchValue) == false)
             {
-
                 var searchTerms = searchValue.Split(' ').ToList().ConvertAll(x => x.ToLower());
-                predicate = predicate.Or(s => searchTerms.Any(srch => s.UserName.ToLower().Contains(srch)));
-                predicate = predicate.Or(s => searchTerms.Any(srch => s.OldData.ToLower().Contains(srch)));
-                predicate = predicate.Or(s => searchTerms.Any(srch => s.NewData.ToLower().Contains(srch)));
                 predicate = predicate.Or(s => searchTerms.Any(srch => s.TableName.ToLower().Contains(srch)));
+            }
+
+            if (string.IsNullOrWhiteSpace(searchValueExtra) == false)
+            {
+                var searchTerms = searchValueExtra.Split(' ').ToList().ConvertAll(x => x.ToLower());
+                predicate = predicate.Or(s => searchTerms.Any(srch => s.TableName.ToLower().Contains(srch)));
+            }
+
+            if (string.IsNullOrWhiteSpace(searchValueUserName) == false)
+            {
+                var searchTerms = searchValueUserName.Split(' ').ToList().ConvertAll(x => x.ToLower());
+                predicate = predicate.Or(s => searchTerms.Any(srch => s.UserName.ToLower().Contains(srch)));
+            }
+
+            if (string.IsNullOrWhiteSpace(searchValueOldValue) == false)
+            {
+                var searchTerms = searchValueOldValue.Split(' ').ToList().ConvertAll(x => x.ToLower());
+                predicate = predicate.Or(s => searchTerms.Any(srch => s.OldData.ToLower().Contains(srch)));
+            }
+
+            if (string.IsNullOrWhiteSpace(searchValueNewValue) == false)
+            {
+                var searchTerms = searchValueNewValue.Split(' ').ToList().ConvertAll(x => x.ToLower());
+                predicate = predicate.Or(s => searchTerms.Any(srch => s.NewData.ToLower().Contains(srch)));
             }
 
             return predicate;

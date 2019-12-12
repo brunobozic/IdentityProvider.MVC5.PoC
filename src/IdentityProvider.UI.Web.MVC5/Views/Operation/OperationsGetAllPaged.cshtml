@@ -159,7 +159,6 @@
 
     <div class="row">
         <div class="grid">
-
             <div class="item">
                 <div class="item-content">
                     <div class="info-box bg-green hover-expand-effect">
@@ -169,34 +168,6 @@
                         <div class="content">
                             <div class="text">ACTIVE</div>
                             <div class="number count-to" id="activeOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">0</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="item-content">
-                    <div class="info-box bg-orange hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">playlist_add_check</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">INACTIVE</div>
-                            <div class="number count-to" id="inactiveOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">0</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="item-content">
-                    <div class="info-box bg-red hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">playlist_add_check</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">DELETED</div>
-                            <div class="number count-to" id="deletedOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">0</div>
                         </div>
                     </div>
                 </div>
@@ -228,6 +199,34 @@
                             @Html.Partial("ChartPartial/_pieChartPartial", Model)
                         </div>
 
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-content">
+                    <div class="info-box bg-orange hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">playlist_add_check</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">INACTIVE</div>
+                            <div class="number count-to" id="inactiveOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-content">
+                    <div class="info-box bg-red hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">playlist_add_check</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">DELETED</div>
+                            <div class="number count-to" id="deletedOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">0</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -265,10 +264,10 @@
 
                                             <!-- Date range picker -->
                                             <div class="form-group form-float">
-
+                                                @*<label style="float: left; padding-left: 12px; padding-right: 8px; padding-top: 2px">Date range</label>*@
                                                 <div class="form-line" style="float: left; width: 99%; padding-left: 12px; padding-right: 24px; padding-top: 6px">
-                                                    <input class="form-control" type="text" id="OperationsDashboard_OperationsWidget_DateRange" name="OperationsDashboard_OperationsWidget_DateRange" style="float: left; padding-left: 2px; padding-right: 2px; padding-top: 2px" placeholder="Date range" />
-
+                                                    <input class="form-control" type="text" id="OperationsDashboard_OperationsWidget_DateRange" name="OperationsDashboard_OperationsWidget_DateRange" style="float: left; padding-left: 2px; padding-right: 2px; padding-top: 2px" />
+                                                    <label class="form-label">Date range</label>
                                                 </div>
 
                                             </div>
@@ -372,7 +371,7 @@
             <!-- ====================== -->
             <!-- == Audit trail card == -->
             <!-- ====================== -->
-            <div class="item-half-width">
+            <div class="item-full-width">
                 <div class="item-content">
                     @Html.Partial("../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial", Model)
                     <div class="card">
@@ -389,8 +388,8 @@
                         </div>
 
                         <!-- Audit trail pickers -->
-                        <div style="width: 100%; padding: 15px; position: center">
-                            <table class="table table-light table-condensed" data-classes="table" style="align-content: center; position: center; width: 90%; background-color: #f9f9f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                        <div style="width:100%; padding:15px; position:center">
+                            <table class="table table-light table-condensed" data-classes="table" style="align-content:center; position: center; width:90%; background-color:#f9f9f9; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                                 <thead></thead>
                                 <tbody>
 
@@ -407,7 +406,7 @@
                                         <td style="width: 50%">
                                             <!-- Table name picker -->
                                             <div class="form-group" style="float: left; width: 25%">
-                                                <label style="float: left; padding-left: 12px; padding-right: 24px; padding-top: 12px">Table name</label>
+                                                <label style="float: left; padding-left: 12px; padding-right: 24px; padding-top:12px">Table name</label>
                                             </div>
 
                                             <div class="form-group">
@@ -431,28 +430,28 @@
                                         <td style="width: 50%">
                                             <!-- UserName picker -->
                                             <div class="form-group" style="float: left; width: 25%">
-                                                <label style="float: left; padding-left: 12px; padding-right: 10px; padding-top: 2px">User name</label>
+                                                <label style="float: left; padding-left: 12px; padding-right: 10px; padding-top:2px">User name</label>
                                             </div>
-                                            <div class="form-group" style="padding-left: 12px; float: right; width: 74%">
+                                            <div class="form-group" style=" padding-left: 12px; float: right; width: 74%">
                                                 <div class="" style="">
-                                                    @Html.TextBox("OperationsDashboard_AuditTrailDatatable_SearchStringUserName", null, new
-                                                    {
-                                                        @placeholder = "Search",
-                                                        @data_toggle = "tooltip",
-                                                        @data_placement = "top",
-                                                        @title = "",
-                                                        @data_original_title = "Enter search criteria"
-                                                    })
-                                                    <button class="btn themed-buttons-red waves-effect btn-xs" id="OperationsDashboard_AuditTrailDatatable_SubmitSearchUserName" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearchUserName" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
+                                                    @Html.TextBox("OperationsDashboard_AuditTrailDatatable_SearchStringUserName", null , new
+                                               {
+                                                   @placeholder = "Search" ,
+                                                   @data_toggle = "tooltip" ,
+                                                   @data_placement = "top" ,
+                                                   @title = "" ,
+                                                   @data_original_title = "Enter search criteria"
+                                               })
+                                                    <button class="btn themed-buttons-red waves-effect btn-xs" id="OperationsDashboard_AuditTrailDatatable_SubmitSearchUserName" style="margin: 1px;  margin-bottom: 4px" type="submit" name="submitSearchUserName" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
                                                 </div>
                                             </div>
                                         </td>
                                         <td style="width: 50%">
                                             <!-- Action (Insert, Delete, Update) picker -->
                                             <div class="form-group" style="float: left; width: 25%">
-                                                <label style="float: left; padding-left: 12px; padding-right: 10px; padding-top: 2px">Action</label>
+                                                <label style="float: left; padding-left: 12px; padding-right: 10px; padding-top:2px">Action</label>
                                             </div>
-                                            <div class="form-group multiselect-parent" style="padding-left: 12px; float: right; width: 74%">
+                                            <div class="form-group multiselect-parent" style=" padding-left: 12px; float: right; width: 74%">
 
                                                 <select id="OperationsDashboard_AuditTrailDatatable_Actions_MS" name="OperationsDashboard_AuditTrailDatatable_Actions_MS" multiple="multiple" class="form-control" style="padding-left: 12px; float: right;" data-width="100%">
                                                     <option value="update">Update</option>
@@ -468,15 +467,14 @@
                                         <td style="width: 50%">
                                             <!-- OldValue picker -->
                                             <div class="form-group" style="float: left; width: 25%">
-                                                <label style="float: left; padding-left: 12px; padding-right: 10px; padding-top: 2px">Old value</label>
+                                                <label style="float: left; padding-left: 12px; padding-right: 10px; padding-top:2px">Old value</label>
                                             </div>
                                             <div class="form-group" style="float: right; width: 74%; padding-left: 12px;">
                                                 <div class="" style="">
-                                                    @Html.TextBox("OperationsDashboard_AuditTrailDatatable_SearchStringOldValue", null, new
-                                                    {
-                                                        @placeholder = "Search",
-                                                        @data_original_title = "Enter search criteria"
-                                                    })
+                                                    @Html.TextBox("OperationsDashboard_AuditTrailDatatable_SearchStringOldValue", null , new {
+                                                   @placeholder = "Search",
+                                                   @data_original_title = "Enter search criteria"
+                                               })
 
                                                     <button class="btn themed-buttons-red waves-effect btn-xs" id="OperationsDashboard_AuditTrailDatatable_SubmitSearchOldValue" style="margin: 1px; margin-bottom: 4px" ; padding-left: 12px; type="submit" name="submitSearchOldValue" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
                                                 </div>
@@ -485,18 +483,18 @@
                                         <td style="width: 50%">
                                             <!-- NewValue picker -->
                                             <div class="form-group" style="float: left; width: 25%">
-                                                <label style="float: left; padding-left: 12px; padding-right: 10px; padding-top: 2px">New value</label>
+                                                <label style="float: left; padding-left: 12px; padding-right: 10px; padding-top:2px">New value</label>
                                             </div>
                                             <div class="form-group" style="float: right; width: 74%; padding-left: 12px;">
                                                 <div class="" style="">
-                                                    @Html.TextBox("OperationsDashboard_AuditTrailDatatable_SearchStringNewValue", null, new
-                                                    {
-                                                        @placeholder = "Search",
-                                                        @data_toggle = "tooltip",
-                                                        @data_placement = "top",
-                                                        @title = "",
-                                                        @data_original_title = "Enter search criteria"
-                                                    })
+                                                    @Html.TextBox("OperationsDashboard_AuditTrailDatatable_SearchStringNewValue", null , new
+                                               {
+                                                   @placeholder = "Search",
+                                                   @data_toggle = "tooltip" ,
+                                                   @data_placement = "top" ,
+                                                   @title = "" ,
+                                                   @data_original_title = "Enter search criteria"
+                                               })
                                                     <button class="btn themed-buttons-red waves-effect btn-xs" id="OperationsDashboard_AuditTrailDatatable_SubmitSearchNewValue" style="margin: 1px; margin-bottom: 4px" ; padding-left: 12px; type="submit" name="submitSearchNewValue" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
                                                 </div>
                                             </div>
@@ -508,8 +506,8 @@
                         </div>
                         <!-- #END# Audit trail pickers -->
 
-                        <div style="width: 90%; margin: 0 auto;">
-                            <table id="OperationsDashboard_AuditTrailDatatable" style="width: 100%" class="display table table-striped table-hover">
+                        <div style="width:90%; margin:0 auto;">
+                            <table id="OperationsDashboard_AuditTrailDatatable" style="width:100%" class="display table table-striped table-hover">
 
                                 <thead>
                                     <tr>

@@ -45,7 +45,7 @@
     <link href="~/bower_components/animate.css/animate.css" rel="stylesheet" />
 
     <!-- font-awesome -->
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/bower_components/adminbsb-materialdesign/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 
     <!-- materialize -->
     <link href="~/bower_components/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />
@@ -58,7 +58,7 @@
     <link href="~/bower_components/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link href="~/bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css" rel="stylesheet" />
 
-
+    <link href="~/bower_components/adminbsb-materialdesign/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" />
 
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
@@ -212,9 +212,11 @@
     | Very important scripts here |
     ------------------------------->
     <!-- Jquery Core -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    @*<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>*@
+    <script src="~/bower_components/jQuery/dist/jquery.min.js"></script>
     <script src="~/bower_components/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <script src="~/bower_components/jquery-validation-unobtrusive/src/jquery.validate.unobtrusive.js"></script>
 
     <!-- Bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -295,7 +297,6 @@
     --------------------------->
     @*@Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")*@
 
-    <script src="~/bower_components/modernizr/modernizr.js"></script>
 
     <!-- Lodash -->
     <script src="~/bower_components/lodash/dist/lodash.min.js"></script>
