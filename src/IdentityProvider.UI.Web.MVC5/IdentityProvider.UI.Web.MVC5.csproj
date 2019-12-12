@@ -81,6 +81,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Content Include="Content\admin.js" />
+    <Content Include="Content\demo.js" />
     <Content Include="Views\Operation\Partial\_operationsAuditTrailGetAllPagedPartial.cshtml" />
     <None Include="Views\Operation\Partial\_actionButtonsPartial.cshtml" />
     <Content Include="Content\css\themed-buttons-deep-purple.css" />
