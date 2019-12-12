@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.EFDataContext;
 using Microsoft.AspNet.Identity;
@@ -301,6 +302,22 @@ namespace IdentityProvider.Services.DbSeed
 
             }
 
+            if (!_context.ApplicationResource.Any(u => u.Name == "LockedUserAccount"))
+            {
+                var r = new ApplicationResource
+                {
+                    Name = "LockedUserAccount",
+                    Active = true,
+                    ActiveFrom = DateTime.Now,
+                    ActiveTo = DateTime.Now.AddMonths(6),
+                    TrackingState = TrackingState.Added,
+                    Description = "LockedUserAccount"
+                };
+
+                _context.ApplicationResource.Add(r);
+
+            }
+
             _context.SaveChanges();
 
             #endregion ApplicationResource
@@ -312,7 +329,7 @@ namespace IdentityProvider.Services.DbSeed
 
             var res1 = _context.ApplicationResource.First(u => u.Name == "UserProfileImage");
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileImageDelete"))
+            if (!_context.Permission.Any(u => u.Name == "UserProfileImageDelete"))
             {
                 var rp = new Permission
                 {
@@ -328,9 +345,9 @@ namespace IdentityProvider.Services.DbSeed
                 _context.Permission.Add(rp);
             }
 
-            var res2 = _context.ApplicationResource.First(u => u.Name == "UserProfileImage");
+            _context.SaveChanges();
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileImageUpload"))
+            if (!_context.Permission.Any(u => u.Name == "UserProfileImageUpload"))
             {
                 var rp2 = new Permission
                 {
@@ -339,16 +356,18 @@ namespace IdentityProvider.Services.DbSeed
                     ActiveFrom = DateTime.Now,
                     ActiveTo = DateTime.Now.AddMonths(6),
                     TrackingState = TrackingState.Added,
-                    ApplicationResource = res2,
+                    ApplicationResource = res1,
                     Operation = uploadOperation
                 };
 
                 _context.Permission.Add(rp2);
             }
 
+            _context.SaveChanges();
+
             var res3 = _context.ApplicationResource.First(u => u.Name == "EmployeeController");
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeControllerCreate"))
+            if (!_context.Permission.Any(u => u.Name == "EmployeeControllerCreate"))
             {
                 var rp3 = new Permission
                 {
@@ -363,8 +382,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp3);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeControllerDelete"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "EmployeeControllerDelete"))
             {
                 var rp31 = new Permission
                 {
@@ -379,8 +398,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp31);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeControllerUpdate"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "EmployeeControllerUpdate"))
             {
                 var rp32 = new Permission
                 {
@@ -395,8 +414,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp32);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeControllerRead"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "EmployeeControllerRead"))
             {
                 var rp33 = new Permission
                 {
@@ -411,10 +430,10 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp33);
             }
-
+            _context.SaveChanges();
             var res4 = _context.ApplicationResource.First(u => u.Name == "EmployeeController");
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeDelete"))
+            if (!_context.Permission.Any(u => u.Name == "EmployeeDelete"))
             {
                 var rp4 = new Permission
                 {
@@ -429,10 +448,10 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp4);
             }
+            _context.SaveChanges();
 
-            var res5 = _context.ApplicationResource.First(u => u.Name == "EmployeeController");
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeCreate"))
+            if (!_context.Permission.Any(u => u.Name == "EmployeeCreate"))
             {
                 var rp5 = new Permission
                 {
@@ -441,14 +460,14 @@ namespace IdentityProvider.Services.DbSeed
                     ActiveFrom = DateTime.Now,
                     ActiveTo = DateTime.Now.AddMonths(6),
                     TrackingState = TrackingState.Added,
-                    ApplicationResource = res5,
+                    ApplicationResource = res4,
                     Operation = createOperation
                 };
 
                 _context.Permission.Add(rp5);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeUpdate"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "EmployeeUpdate"))
             {
                 var rp5 = new Permission
                 {
@@ -457,14 +476,14 @@ namespace IdentityProvider.Services.DbSeed
                     ActiveFrom = DateTime.Now,
                     ActiveTo = DateTime.Now.AddMonths(6),
                     TrackingState = TrackingState.Added,
-                    ApplicationResource = res5,
+                    ApplicationResource = res4,
                     Operation = updateOperation
                 };
 
                 _context.Permission.Add(rp5);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeRead"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "EmployeeRead"))
             {
                 var rp5 = new Permission
                 {
@@ -473,16 +492,16 @@ namespace IdentityProvider.Services.DbSeed
                     ActiveFrom = DateTime.Now,
                     ActiveTo = DateTime.Now.AddMonths(6),
                     TrackingState = TrackingState.Added,
-                    ApplicationResource = res5,
+                    ApplicationResource = res4,
                     Operation = readOperation
                 };
 
                 _context.Permission.Add(rp5);
             }
-
+            _context.SaveChanges();
             var res6 = _context.ApplicationResource.First(u => u.Name == "LockedUserAccount");
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "UnlockLockedUserAccount"))
+            if (!_context.Permission.Any(u => u.Name == "UnlockLockedUserAccount"))
             {
                 var rp6 = new Permission
                 {
@@ -497,10 +516,10 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp6);
             }
+            _context.SaveChanges();
 
-            var res7 = _context.ApplicationResource.First(u => u.Name == "LockedUserAccounts");
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "ViewLockedUserAccounts"))
+            if (!_context.Permission.Any(u => u.Name == "ViewLockedUserAccounts"))
             {
                 var rp7 = new Permission
                 {
@@ -509,16 +528,16 @@ namespace IdentityProvider.Services.DbSeed
                     ActiveFrom = DateTime.Now,
                     ActiveTo = DateTime.Now.AddMonths(6),
                     TrackingState = TrackingState.Added,
-                    ApplicationResource = res7,
+                    ApplicationResource = res6,
                     Operation = readOperation
                 };
 
                 _context.Permission.Add(rp7);
             }
-
+            _context.SaveChanges();
             var res8 = _context.ApplicationResource.First(u => u.Name == "HomeController");
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "HomeControllerCreate"))
+            if (!_context.Permission.Any(u => u.Name == "HomeControllerCreate"))
             {
                 var rp8 = new Permission
                 {
@@ -533,8 +552,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp8);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "HomeControlleDelete"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "HomeControlleDelete"))
             {
                 var rp81 = new Permission
                 {
@@ -549,8 +568,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp81);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "HomeControllerRead"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "HomeControllerRead"))
             {
                 var rp82 = new Permission
                 {
@@ -565,8 +584,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp82);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "HomeControllerUpdate"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "HomeControllerUpdate"))
             {
                 var rp83 = new Permission
                 {
@@ -581,10 +600,10 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp83);
             }
-
+            _context.SaveChanges();
             var res9 = _context.ApplicationResource.First(u => u.Name == "OperationController");
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "OperationCreate"))
+            if (!_context.Permission.Any(u => u.Name == "OperationCreate"))
             {
                 var rp9 = new Permission
                 {
@@ -599,8 +618,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp9);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "OperationDelete"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "OperationDelete"))
             {
                 var rp91 = new Permission
                 {
@@ -615,8 +634,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp91);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "OperationRead"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "OperationRead"))
             {
                 var rp92 = new Permission
                 {
@@ -631,8 +650,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp92);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "OperationUpdate"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "OperationUpdate"))
             {
                 var rp93 = new Permission
                 {
@@ -647,10 +666,10 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp93);
             }
-
+            _context.SaveChanges();
             var res10 = _context.ApplicationResource.First(u => u.Name == "ResourceController");
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "ResourceCreate"))
+            if (!_context.Permission.Any(u => u.Name == "ResourceCreate"))
             {
                 var rp10 = new Permission
                 {
@@ -665,8 +684,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp10);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "ResourceDelete"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "ResourceDelete"))
             {
                 var rp101 = new Permission
                 {
@@ -681,8 +700,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp101);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "ResourceRead"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "ResourceRead"))
             {
                 var rp102 = new Permission
                 {
@@ -697,8 +716,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp102);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "ResourceUpdate"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "ResourceUpdate"))
             {
                 var rp103 = new Permission
                 {
@@ -713,10 +732,10 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp103);
             }
-
+            _context.SaveChanges();
             var res12 = _context.ApplicationResource.First(u => u.Name == "OrganizationalUnitController");
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "OrganizationalUnitCreate"))
+            if (!_context.Permission.Any(u => u.Name == "OrganizationalUnitCreate"))
             {
                 var rp12 = new Permission
                 {
@@ -731,8 +750,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp12);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "OrganizationalUnitDelete"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "OrganizationalUnitDelete"))
             {
                 var rp121 = new Permission
                 {
@@ -747,8 +766,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp121);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "OrganizationalUnitRead"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "OrganizationalUnitRead"))
             {
                 var rp122 = new Permission
                 {
@@ -763,8 +782,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp122);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "OrganizationalUnitUpdate"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "OrganizationalUnitUpdate"))
             {
                 var rp123 = new Permission
                 {
@@ -779,10 +798,10 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp123);
             }
-
+            _context.SaveChanges();
             var res13 = _context.ApplicationResource.First(u => u.Name == "RoleGroupController");
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "RoleGroupCreate"))
+            if (!_context.Permission.Any(u => u.Name == "RoleGroupCreate"))
             {
                 var rp13 = new Permission
                 {
@@ -797,8 +816,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp13);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "RoleGroupDelete"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "RoleGroupDelete"))
             {
                 var rp131 = new Permission
                 {
@@ -813,8 +832,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp131);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "RoleGroupRead"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "RoleGroupRead"))
             {
                 var rp132 = new Permission
                 {
@@ -829,8 +848,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp132);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "RoleGroupUpdate"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "RoleGroupUpdate"))
             {
                 var rp133 = new Permission
                 {
@@ -845,10 +864,10 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp133);
             }
-
+            _context.SaveChanges();
             var res14 = _context.ApplicationResource.First(u => u.Name == "UserProfileController");
 
-            if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileCreate"))
+            if (!_context.Permission.Any(u => u.Name == "UserProfileCreate"))
             {
                 var rp14 = new Permission
                 {
@@ -863,8 +882,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp14);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileDelete"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "UserProfileDelete"))
             {
                 var rp141 = new Permission
                 {
@@ -879,8 +898,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp141);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileRead"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "UserProfileRead"))
             {
                 var rp142 = new Permission
                 {
@@ -895,8 +914,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp142);
             }
-
-            if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileUpdate"))
+            _context.SaveChanges();
+            if (!_context.Permission.Any(u => u.Name == "UserProfileUpdate"))
             {
                 var rp143 = new Permission
                 {
@@ -911,8 +930,26 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp143);
             }
-
             _context.SaveChanges();
+            var res15 = _context.ApplicationResource.First(u => u.Name == "EmployeeController");
+
+            if (!_context.Permission.Any(u => u.Name == "EmployeeControllerTotalGrant"))
+            {
+                var rp144 = new Permission
+                {
+                    Name = "EmployeeControllerTotalGrant",
+                    Active = true,
+                    ActiveFrom = DateTime.Now,
+                    ActiveTo = DateTime.Now.AddMonths(6),
+                    TrackingState = TrackingState.Added,
+                    ApplicationResource = res15,
+                    Operation = updateOperation
+                };
+
+                _context.Permission.Add(rp144);
+            }
+            _context.SaveChanges();
+
 
             #endregion Resource Permissions
 
@@ -923,7 +960,7 @@ namespace IdentityProvider.Services.DbSeed
             // "ResourceGroups" each contain an n-number of "Permissions"
             // example: "EmployeeResourceGroup" contains "DeleteEmployee", "CreateEmployee", "EditEmployee" Permissions, that are in turn comprised of an "Employee" resource coupled with (respectively) a "Delete", "Create" and "Edit" "Operation".
 
-            var rperm1 = _context.Permission.First(u => u.Name == "EmployeeControllerTotalGrant");
+            //var rperm1 = _context.Permission.First(u => u.Name == "EmployeeControllerTotalGrant");
             var rperm2 = _context.Permission.First(u => u.Name == "EmployeeDelete");
             var rperm3 = _context.Permission.First(u => u.Name == "EmployeeCreate");
             var rperm4 = _context.Permission.First(u => u.Name == "EmployeeUpdate");
@@ -938,15 +975,15 @@ namespace IdentityProvider.Services.DbSeed
                 TrackingState = TrackingState.Added,
             };
 
-            var rpgrpLink11 = new PermissionGroupOwnsPermissionLink
-            {
-                Active = true,
-                ActiveFrom = DateTime.Now,
-                ActiveTo = DateTime.Now.AddMonths(6),
-                TrackingState = TrackingState.Added,
-                PermissionGroup = rpg1,
-                Permission = rperm1
-            };
+            //var rpgrpLink11 = new PermissionGroupOwnsPermissionLink
+            //{
+            //    Active = true,
+            //    ActiveFrom = DateTime.Now,
+            //    ActiveTo = DateTime.Now.AddMonths(6),
+            //    TrackingState = TrackingState.Added,
+            //    PermissionGroup = rpg1,
+            //    Permission = rperm1
+            //};
 
             var rpgrpLink12 = new PermissionGroupOwnsPermissionLink
             {
@@ -988,13 +1025,13 @@ namespace IdentityProvider.Services.DbSeed
                 Permission = rperm5
             };
 
-            _context.PermissionGroupOwnsPermissionLink.Add(rpgrpLink11);
+            //_context.PermissionGroupOwnsPermissionLink.Add(rpgrpLink11);
             _context.PermissionGroupOwnsPermissionLink.Add(rpgrpLink12);
             _context.PermissionGroupOwnsPermissionLink.Add(rpgrpLink13);
             _context.PermissionGroupOwnsPermissionLink.Add(rpgrpLink14);
             _context.PermissionGroupOwnsPermissionLink.Add(rpgrpLink15);
 
-            var rperm41 = _context.Permission.First(u => u.Name == "UserProfileControllerTotalGrant");
+            //var rperm41 = _context.Permission.First(u => u.Name == "UserProfileControllerTotalGrant");
             var rperm51 = _context.Permission.First(u => u.Name == "UserProfileImageUpload");
             var rperm6 = _context.Permission.First(u => u.Name == "UserProfileImageDelete");
 
@@ -1402,7 +1439,7 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Employee.Add(emp);
             }
-
+            _context.SaveChanges();
             var user2 = _context.Users.SingleOrDefault(u => u.FirstName == "Application" && u.LastName == "Standard User");
 
             if (!_context.Employee.Any(u => u.Name == "Application" && u.Surname == "Standard User"))
@@ -1420,6 +1457,7 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Employee.Add(emp);
             }
+            _context.SaveChanges();
 
             var user3 = _context.Users.SingleOrDefault(u => u.FirstName == "Application" && u.LastName == "Administrator");
 
@@ -1438,26 +1476,27 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Employee.Add(emp);
             }
-
-            var user4 = _context.Users.SingleOrDefault(u => u.FirstName == "Application" && u.LastName == "Administrator");
-
-            if (!_context.Employee.Any(u => u.Name == "Application" && u.Surname == "AutomatedTasks"))
-            {
-                var emp = new Employee
-                {
-                    Name = "Application",
-                    Surname = "AutomatedTasks",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    ActiveTo = DateTime.Now.AddMonths(6),
-                    TrackingState = TrackingState.Added,
-                    ApplicationUser = user4
-                };
-
-                _context.Employee.Add(emp);
-            }
-
             _context.SaveChanges();
+
+            //var user4 = _context.Users.SingleOrDefault(u => u.FirstName == "Application" && u.LastName == "Administrator");
+
+            //if (!_context.Employee.Any(u => u.Name == "Application" && u.Surname == "AutomatedTasks"))
+            //{
+            //    var emp = new Employee
+            //    {
+            //        Name = "Application",
+            //        Surname = "AutomatedTasks",
+            //        Active = true,
+            //        ActiveFrom = DateTime.Now,
+            //        ActiveTo = DateTime.Now.AddMonths(6),
+            //        TrackingState = TrackingState.Added,
+            //        ApplicationUser = user4
+            //    };
+
+            //    _context.Employee.Add(emp);
+            //}
+
+            //_context.SaveChanges();
 
             // Attach Employees to Organizational Units
 
@@ -1478,6 +1517,8 @@ namespace IdentityProvider.Services.DbSeed
                 TrackingState = TrackingState.Added
             };
 
+            _context.SaveChanges();
+
             var empOrgUnit2 = new EmployeeBelongsToOrgUnitLink
             {
                 Employee = employee2,
@@ -1487,6 +1528,8 @@ namespace IdentityProvider.Services.DbSeed
                 ActiveTo = DateTime.Now.AddMonths(6),
                 TrackingState = TrackingState.Added
             };
+
+            _context.SaveChanges();
 
             var empOrgUnit3 = new EmployeeBelongsToOrgUnitLink
             {
@@ -1498,6 +1541,8 @@ namespace IdentityProvider.Services.DbSeed
                 TrackingState = TrackingState.Added
             };
 
+            _context.SaveChanges();
+
             var empOrgUnit11 = new EmployeeBelongsToOrgUnitLink
             {
                 Employee = employee1,
@@ -1507,6 +1552,8 @@ namespace IdentityProvider.Services.DbSeed
                 ActiveTo = DateTime.Now.AddMonths(6),
                 TrackingState = TrackingState.Added
             };
+
+            _context.SaveChanges();
 
             var empOrgUnit22 = new EmployeeBelongsToOrgUnitLink
             {
@@ -1518,6 +1565,8 @@ namespace IdentityProvider.Services.DbSeed
                 TrackingState = TrackingState.Added
             };
 
+            _context.SaveChanges();
+
             var empOrgUnit33 = new EmployeeBelongsToOrgUnitLink
             {
                 Employee = employee3,
@@ -1528,17 +1577,18 @@ namespace IdentityProvider.Services.DbSeed
                 TrackingState = TrackingState.Added
             };
 
-            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit1);
-            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit2);
-            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit3);
-            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit11);
-            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit22);
-            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit33);
+            _context.SaveChanges();
+
+            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit1); _context.SaveChanges();
+            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit2); _context.SaveChanges();
+            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit3); _context.SaveChanges();
+            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit11); _context.SaveChanges();
+            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit22); _context.SaveChanges();
+            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit33); _context.SaveChanges();
 
             _context.SaveChanges();
 
             #endregion Employee
-
 
 
             return true;

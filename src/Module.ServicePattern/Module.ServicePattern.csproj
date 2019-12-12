@@ -11,16 +11,11 @@
 
   <ItemGroup>
     <PackageReference Include="System.Runtime" Version="4.3.1" />
+    <PackageReference Include="TrackableEntities.EF.6" Version="2.5.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Module.Repository.EF\Module.Repository.EF.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="TrackableEntities.Common">
-      <HintPath>..\IdentityProvider.Infrastructure\bin\Debug\TrackableEntities.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

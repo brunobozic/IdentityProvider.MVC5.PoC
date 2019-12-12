@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using IdentityProvider.Infrastructure.Domain;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -18,19 +19,22 @@ namespace IdentityProvider.Models.Domain.Account
             ActiveFrom = DateTime.UtcNow;
         }
 
-        public ApplicationRole( string roleName ) : this()
+        public ApplicationRole(string roleName) : this()
         {
-
-
             base.Name = roleName;
             Active = true;
             ActiveFrom = DateTime.UtcNow;
         }
 
         [Required]
+        [DisplayName("Name")]
+        // [MaxLength(50, ErrorMessage = "The name of the ApplicationRole must be between 2 and 50 characters"), MinLength(2)]
         public string Name { get; set; }
-        [Required]
+   
+        [DisplayName("Description")]
+        [MaxLength(260, ErrorMessage = "The description of the ApplicationRole must be between 2 and 260 characters"), MinLength(2)]
         public string Description { get; set; }
+
         public virtual ApplicationUser UserProfile { get; set; }
         public virtual ICollection<RoleGroupContainsRoleLink> RoleGroups { get; set; }
         public TrackingState TrackingState { get; set; }
@@ -39,7 +43,9 @@ namespace IdentityProvider.Models.Domain.Account
         #region IsActive
 
         public bool Active { get; set; }
+        [DisplayName("Record is active from (date)")]
         public DateTime? ActiveFrom { get; set; }
+        [DisplayName("Record is active to (date)")]
         public DateTime? ActiveTo { get; set; }
 
         #endregion IsActive
