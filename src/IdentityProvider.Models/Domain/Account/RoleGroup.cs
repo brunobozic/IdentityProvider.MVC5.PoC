@@ -23,7 +23,7 @@ namespace IdentityProvider.Models.Domain.Account
         [MaxLength(260 , ErrorMessage = "The description of the role group unit must be between 5 and 260 characters"), MinLength(5)]
         public string Name { get; set; }
 
-        [Required]
+    
         [MaxLength(260 , ErrorMessage = "The description of the role group must be between 5 and 260 characters"), MinLength(5)]
         public string Description { get; set; }
 

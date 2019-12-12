@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
@@ -33,7 +34,18 @@ namespace IdentityProvider.Controllers.Controllers
 
         public ActionResult Index()
         {
-            var seedOk = _doSeed.Seed();
+            bool seedOk = false;
+
+            try
+            {
+                seedOk = _doSeed.Seed();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
 
             return View();
         }

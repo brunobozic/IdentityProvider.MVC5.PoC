@@ -19,7 +19,7 @@ namespace IdentityProvider.Repository.EF.Mapping
 
             Property(e => e.Name)
                 .IsVariableLength()
-                .HasMaxLength(100)
+                // .HasMaxLength(100)
                 .IsRequired();
 
             // Table & Column Mappings

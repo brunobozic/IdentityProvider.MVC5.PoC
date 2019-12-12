@@ -20,12 +20,13 @@ namespace IdentityProvider.Repository.EF.Mapping
 
             Property(e => e.Name)
                 .IsVariableLength()
-                .HasMaxLength(100)
+                // .HasMaxLength(100)
                 .IsRequired();
 
             Property(e => e.Description)
                 .IsVariableLength()
-                .HasMaxLength(100);
+                // .HasMaxLength(100)
+                ;
 
             //Table & Column Mappings
             Property(t => t.RowVersion)

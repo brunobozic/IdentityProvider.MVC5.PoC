@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using IdentityProvider.Infrastructure.Domain;
@@ -20,14 +21,16 @@ namespace IdentityProvider.Models.Domain.Account
         [MaxLength(260 , ErrorMessage = "The description of the resource permission group unit must be between 5 and 260 characters"), MinLength(5)]
         public string Name { get; set; }
 
-        [Required]
+ 
         [MaxLength(260 , ErrorMessage = "The description of the resource permission group must be between 5 and 260 characters"), MinLength(5)]
         public string Description { get; set; }
 
         #region IsActive
 
         public bool Active { get; set; }
+        [DisplayName("Record is active from (date)")]
         public DateTime? ActiveFrom { get; set; }
+        [DisplayName("Record is active to (date)")]
         public DateTime? ActiveTo { get; set; }
 
         #endregion IsActive

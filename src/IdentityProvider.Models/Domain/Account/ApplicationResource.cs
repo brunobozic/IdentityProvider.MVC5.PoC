@@ -13,16 +13,18 @@ namespace IdentityProvider.Models.Domain.Account
     {
         public ApplicationResource()
         {
+            ResourcePermission = new HashSet<Permission>();
             Active = true;
             ActiveFrom = DateTime.UtcNow;
         }
 
         [Required]
         [DisplayName("Resource Name")]
+        [MaxLength(50, ErrorMessage = "The name of the Operation must be between 2 and 50 characters"), MinLength(2)]
         public string Name { get; set; }
 
-        [Required]
         [DisplayName("Resource Description")]
+        [MaxLength(260, ErrorMessage = "The description of the Operation must be between 2 and 260 characters"), MinLength(2)]
         public string Description { get; set; }
 
         #region IsActive
@@ -36,7 +38,8 @@ namespace IdentityProvider.Models.Domain.Account
 
         #endregion IsActive
 
-        public virtual ICollection<Permission> ResourcePermissions { get; set; }
+        public virtual ICollection<Permission> ResourcePermission { get; set; }
+
         public bool MakeActive { get; set; }
         public DateTime? ActiveUntil { get; set; }
 

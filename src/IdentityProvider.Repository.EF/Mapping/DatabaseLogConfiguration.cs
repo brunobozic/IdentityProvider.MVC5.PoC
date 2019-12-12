@@ -21,7 +21,7 @@ namespace IdentityProvider.Repository.EF.Mapping
 
             Property(t => t.Operation)
                 .IsOptional()
-                .HasMaxLength(50)
+                // .HasMaxLength(50)
                 .IsVariableLength();
 
             Property(t => t.CreatedDate)
@@ -35,115 +35,125 @@ namespace IdentityProvider.Repository.EF.Mapping
 
             Property(t => t.Message)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.TrackingNo)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.ErrorLevel)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.InputParams)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.OutputParams)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.FileName)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.MethodName)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.LineNo)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.ColumnNo)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.AbsoluteUrl)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.ADUser)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.ClientBrowser)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.RemoteHost)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.Path)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.Query)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.Referrer)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.RequestId)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.SessionId)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.Method)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
-            Property(t => t.ExceptionType).IsOptional().HasMaxLength(4000).IsVariableLength();
-            Property(t => t.ExceptionMessage).IsOptional().HasMaxLength(4000).IsVariableLength();
-            Property(t => t.ExceptionStackTrace).IsOptional().HasMaxLength(4000).IsVariableLength();
-            Property(t => t.InnerExceptionMessage).IsOptional().HasMaxLength(4000).IsVariableLength();
-            Property(t => t.InnerExceptionSource).IsOptional().HasMaxLength(4000).IsVariableLength();
-            Property(t => t.InnerExceptionStackTrace).IsOptional().HasMaxLength(4000).IsVariableLength();
-            Property(t => t.InnerExceptionTargetSite).IsOptional().HasMaxLength(4000).IsVariableLength();
-            Property(t => t.AssemblyQualifiedName).IsOptional().HasMaxLength(4000).IsVariableLength();
-            Property(t => t.Namespace).IsOptional().HasMaxLength(4000).IsVariableLength();
-            Property(t => t.LogSource).IsOptional().HasMaxLength(4000).IsVariableLength();
+            Property(t => t.ExceptionType).IsOptional()// .HasMaxLength(4000)
+                .IsVariableLength();
+            Property(t => t.ExceptionMessage).IsOptional()// .HasMaxLength(4000)
+                .IsVariableLength();
+            Property(t => t.ExceptionStackTrace).IsOptional()// .HasMaxLength(4000)
+                .IsVariableLength();
+            Property(t => t.InnerExceptionMessage).IsOptional()// .HasMaxLength(4000)
+                .IsVariableLength();
+            Property(t => t.InnerExceptionSource).IsOptional()// .HasMaxLength(4000)
+                .IsVariableLength();
+            Property(t => t.InnerExceptionStackTrace).IsOptional()// .HasMaxLength(4000)
+                .IsVariableLength();
+            Property(t => t.InnerExceptionTargetSite).IsOptional()// .HasMaxLength(4000)
+                .IsVariableLength();
+            Property(t => t.AssemblyQualifiedName).IsOptional()// .HasMaxLength(4000)
+                .IsVariableLength();
+            Property(t => t.Namespace).IsOptional()// .HasMaxLength(4000)
+                .IsVariableLength();
+            Property(t => t.LogSource).IsOptional()// .HasMaxLength(4000)
+                .IsVariableLength();
 
 
             //this.Property(t => t.RegionDescription)
             //	.IsRequired()
             //	.IsFixedLength()
-            //	.HasMaxLength(50).HasColumnAnnotation(
+            //	// .HasMaxLength(50).HasColumnAnnotation(
             //		IndexAnnotation.AnnotationName,
             //		new IndexAnnotation(
             //			new IndexAttribute("IX_RegionDescription", 1) { IsUnique = true })); ;
