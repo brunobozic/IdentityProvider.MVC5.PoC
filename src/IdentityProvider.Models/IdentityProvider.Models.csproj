@@ -124,7 +124,7 @@
     <Compile Include="Enums\Operations.cs" />
     <Compile Include="Domain\Account\ApplicationResource.cs" />
     <Compile Include="Domain\Account\ApplicationRole.cs" />
-    <Compile Include="OperationsDatatableSearchClass.cs" />
+    <Compile Include="ViewModels\Operations\OperationsDatatableSearchClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\AccountViewModels.cs" />
     <Compile Include="ViewModels\Account\ManageViewModels.cs" />
@@ -151,7 +151,7 @@
     <Compile Include="ViewModels\Resources\ResourcePagedVm.cs" />
     <Compile Include="ViewModels\Resources\ResourceToInsertVm.cs" />
     <Compile Include="ViewModels\Resources\ResourceVm.cs" />
-    <Compile Include="YourCustomSearchClass.cs" />
+    <Compile Include="ViewModels\YourCustomSearchClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdentityProvider.Infrastructure\IdentityProvider.Infrastructure.csproj">

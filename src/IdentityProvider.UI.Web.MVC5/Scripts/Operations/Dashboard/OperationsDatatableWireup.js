@@ -25,7 +25,7 @@ $(document).ready(function () {
             { "width": "10%", "searchable": false, "orderable": true, "targets": [4] }, // CreatedDate
             { "width": "20%", "searchable": false, "orderable": true, "targets": [5] }, // ModifiedDate
             { "width": "20%", "searchable": false, "orderable": true, "targets": [6] }, // Actions
-            { "className": "text-center custom-middle-align", "targets": [3, 4,5,6] }
+            { "className": "text-center custom-middle-align", "targets": [3, 4, 5, 6] }
         ],
         select: {
             style: 'multi'
@@ -85,9 +85,9 @@ $(document).ready(function () {
             "search": "",
             "searchPlaceholder": "Search...",
             loadingRecords:
-            '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="http://www.snacklocal.com/images/ajaxload.gif"></div>',
+                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="http://www.snacklocal.com/images/ajaxload.gif"></div>',
             processing:
-            '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="http://www.snacklocal.com/images/ajaxload.gif"></div>'
+                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="http://www.snacklocal.com/images/ajaxload.gif"></div>'
         },
         lengthMenu: [5, 10, 20, 50, 100, 200, 500],
         "columns": [
@@ -208,12 +208,64 @@ $(document).ready(function () {
     // Delete a record
     $('#OperationsDashboard_OperationsDatatable').on('click', 'a.OperationsDashboard_OperationsDatatable_remove', function (e) {
         e.preventDefault();
+        var id = $(this).closest('tr').children('td:first').text();
+        var options = { /*'backdrop': 'static',*/ keyboard: true, focus: true };
+        swal.setDefaults({
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-success w-25 mr-05',
+            cancelButtonClass: 'btn btn-secondary w-25 ml-05'
+        });
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to delete this item?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            confirmButtonColor: "#ec6c62"
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: deleteUrl,
+                    data:
+                    {
+                        "itemToDelete": id
+                    },
+                    type: "POST",
+                    //contentType: "application/json; charset=utf-8",
+                    //dataType: "json",
+                    success: successFunc,
+                    error: errorFunc
+                });
+                function successFunc(data, status) {
 
-        //editor.remove($(this).closest('tr'), {
-        //    title: 'Delete record',
-        //    message: 'Are you sure you wish to remove this record?',
-        //    buttons: 'Delete'
-        //});
+                    swal(
+                        'Deleted!',
+                        'Your item has been deleted.',
+                        'success'
+                    ).then(function () {
+                        location.reload();
+                    });;
+
+                }
+                function errorFunc() {
+
+                    swal(
+                        'Nothing changed!',
+                        'Your item has not been deleted.',
+                        'error'
+                    ).then(function () {
+                        location.reload();
+                    });;
+                }
+
+            } else {
+                swal(
+                    'Nothing changed!',
+                    'Your item has not been deleted.',
+                    'error'
+                );
+            }
+        });
     });
 
     $('#searchStringOperationsMainGrid').on('click', function (e) {
@@ -223,14 +275,14 @@ $(document).ready(function () {
 
     // Extend dataTables search
     $.fn.dataTable.ext.search.push(
-        function(settings, data, dataIndex) {
+        function (settings, data, dataIndex) {
             var min = $('#min-date').val();
             var max = $('#max-date').val();
             var createdAt = data[2] || 0; // Our date column in the table
 
             if (
-                (min == "" || max == "") ||
-                    (moment(createdAt).isSameOrAfter(min) && moment(createdAt).isSameOrBefore(max))
+                (min === "" || max === "") ||
+                (moment(createdAt).isSameOrAfter(min) && moment(createdAt).isSameOrBefore(max))
             ) {
                 return true;
             }
