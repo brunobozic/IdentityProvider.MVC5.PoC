@@ -132,6 +132,7 @@
     </None>
     <None Include="packages.config" />
     <Content Include="Views\Home\TestRepostoryQueries.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdentityProvider.Infrastructure\IdentityProvider.Infrastructure.csproj">

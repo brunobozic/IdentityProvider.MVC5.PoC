@@ -162,6 +162,7 @@ namespace IdentityProvider.UI.Web.MVC5
 
             httpContext.ClearError();
             httpContext.Response.Clear();
+            if(httpContext.Response.StatusCode !=302)
             httpContext.Response.StatusCode = ex is HttpException ? ( ( HttpException ) ex ).GetHttpCode() : 500;
             httpContext.Response.TrySkipIisCustomErrors = true;
 

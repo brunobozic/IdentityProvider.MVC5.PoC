@@ -70,7 +70,7 @@ namespace IdentityProvider.Controllers.Controllers
         {
             // action inside a standard controller
             var res = SearchFunction(model, out var filteredResultsCount, out var totalResultsCount);
-
+      
             var result = new List<OperationsDatatableSearchClass>(res.Count);
 
             result.AddRange(res.Select(s => new OperationsDatatableSearchClass
