@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using HAC.Helpdesk.Infrastructure.ConfigurationFront.Interface;
-using HAC.Helpdesk.Infrastructure.DatabaseLog;
-using HAC.Helpdesk.Infrastructure.LoggingFront.Interface;
-using HAC.Helpdesk.SimpleMembership.Repository.EF.DataContexts;
-using HAC.Helpdesk.SimpleMembership.Repository.EF.UnitOfWork;
 using HAC.Helpdesk.SimpleMembership.Services.Test.StructureMap;
 
 namespace HAC.Helpdesk.SimpleMembership.Services.Test

@@ -105,7 +105,7 @@ module.exports = function(grunt) {
                 }
             },
             js: {
-                files: ["lib/**/*.js", "Script/**/*.js"],
+                files: ["lib/**/*.js", "Scripts/**/*.js"],
                 tasks: ["build:js"],
                 options: {
                     spawn: false

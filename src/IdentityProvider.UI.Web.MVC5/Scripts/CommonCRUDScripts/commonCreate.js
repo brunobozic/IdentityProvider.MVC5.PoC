@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
-    $(".createNewDialog").click(function (event) {
+    $(".OperationsDashboard_OperationsDatatable_create").click(function (event) {
         event.preventDefault();
-        var color = $(this).data('color');
         var $buttonClicked = $(this);
         var id = $buttonClicked.attr('data-id-value');
         var name = $buttonClicked.attr('data-name');
@@ -16,37 +15,46 @@
                 // $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
 
                 $('#mdModal').modal(options);
-
+                $('#mdModal').find('.modal-body').html("");
                 $('#mdModal').modal('show');
+                $('#mdModal').find('.modal-body').html(response);
 
                 $('#mdModal').on('shown.bs.modal', function () {
-                    $('#mdModal').find('.modal-body').html(response);
-                    // $('#mdModal').find('.modal-title').html("Operation details");
                 });
+
+                skinChange();
             },
             failure: function (response) {
 
                 // $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
 
                 $('#mdModal').modal(options);
-
+                $('#mdModal').find('.modal-body').html("");
                 $('#mdModal').modal('show');
+                $('#mdModal').find('.modal-body').html("");
+                $('#mdModal').find('.modal-body').html("Problem loading your data...");
 
                 $('#mdModal').on('shown.bs.modal', function () {
-                    $('#mdModal').find('.modal-body').html("Problem loading your data...");
+                
                 });
+
+                skinChange();
             },
             error: function (response) {
 
                 // $('#mdModal .modal-content').removeAttr('class').addClass('modal-content modal-col-' + color);
 
                 $('#mdModal').modal(options);
-
+                $('#mdModal').find('.modal-body').html("");
                 $('#mdModal').modal('show');
+                $('#mdModal').find('.modal-body').html("");
+                $('#mdModal').find('.modal-body').html("Problem loading your data...");
 
                 $('#mdModal').on('shown.bs.modal', function () {
-                    $('#mdModal').find('.modal-body').html("Problem loading your data...");
+
                 });
+
+                skinChange();
             }
         });
     });

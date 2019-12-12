@@ -6,7 +6,9 @@ namespace IdentityProvider.Controllers.Controllers
     {
         public ActionResult Index()
         {
-            throw new System.NotImplementedException();
+            Response.Redirect("Operation/OperationsGetAllPaged", true);
+
+            return View();
         }
     }
 }

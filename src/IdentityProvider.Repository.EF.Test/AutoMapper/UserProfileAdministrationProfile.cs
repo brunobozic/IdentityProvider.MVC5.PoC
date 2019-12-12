@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using HAC.Helpdesk.Model.Account;
-using HAC.Helpdesk.Services.ViewModels;
+
 
 namespace HAC.Helpdesk.SimpleMembership.Repository.EF.Test.AutoMapper
 {

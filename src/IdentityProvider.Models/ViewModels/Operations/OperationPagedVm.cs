@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using PagedList;
 
@@ -7,7 +8,7 @@ namespace IdentityProvider.Models.ViewModels.Operations
     public class OperationPagedVm
     {
         [Display(Name = "Find by")]
-        public string SearchString { get; set; }
+        public string SearchStringOperationsMainGrid { get; set; }
         [Display(Name = "Sort order")]
         public string SortOrder { get; set; }
         [Display(Name = "Select page size")]
@@ -22,5 +23,17 @@ namespace IdentityProvider.Models.ViewModels.Operations
         public string HeaderBigText { get; set; }
         public string HeaderSmallText { get; set; }
         public bool ShowInactive { get; set; }
+        public bool ShowDeleted { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSortOrder { get; set; }
+
+        public List<HeaderRightSideActionDropdown> HeaderRightSideActionDropdownList { get; set; }
+        public string DateRangePickerOnOperationsStart { get; set; }
+        public string DateRangePickerOnOperationsEnd { get; set; }
+        public string OperationsDashboard_OperationsWidget_DateRange { get; set; }
+        public string DateRangePickerOnOperationsStartHidden { get; set; }
+        public string DateRangePickerOnOperationsEndHidden { get; set; }
+        public string DateRangePickerOnAuditTrailStartHidden { get; set; }
+        public string DateRangePickerOnAuditTrailEndHidden { get; set; }
     }
 }

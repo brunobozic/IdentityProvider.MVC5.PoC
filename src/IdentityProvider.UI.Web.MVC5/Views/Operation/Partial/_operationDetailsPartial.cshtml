@@ -6,81 +6,85 @@
 
 <div class="container-fluid">
     <div class="row clearfix">
-        <div class="header cool-text">
-            <em style="font-size: 1.7em">
-                Operations
-            </em>
-            <em style="font-size: 0.9em">
-                <small>Edit</small>
-            </em>
-        </div>
-        <div class="body" style="width:100% !important">
-            <table class="table-light">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td valign="top">
-                            <b>@Html.DisplayNameFor(item => item.Operation.Name)</b>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(item => item.Operation.Name)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>@Html.DisplayNameFor(item => item.Operation.Description)</b>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(item => item.Operation.Description)
+        <div class="card">
+            <div class="header cool-text">
+                <em style="font-size: 1.7em">
+                    Operations
+                </em>
+                <em style="font-size: 0.9em">
+                    <small>Edit</small>
+                </em>
+            </div>
+            <div class="body container-fluid" style="width: 100% !important">
+                <div class="body" style="width:100% !important">
+                    <table class="table-light table-condensed table-striped table-responsive" style="padding:4px">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td valign="top" style="width:25% !important">
+                                    <b>@Html.DisplayNameFor(item => item.Operation.Name)</b>
+                                </td>
+                                <td style="width:66% !important">
+                                    @Html.DisplayFor(item => item.Operation.Name)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:25% !important">
+                                    <b>@Html.DisplayNameFor(item => item.Operation.Description)</b>
+                                </td>
+                                <td style="width:66% !important">
+                                    @Html.DisplayFor(item => item.Operation.Description)
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="word-wrap: break-word !important;">
-                            <b>@Html.DisplayNameFor(item => item.Operation.Active)</b>
-                        </td>
-                        <td>
-                            @if (Model.Operation.Active)
-                            {
-                                <i class="material-icons align-center" style="cursor: not-allowed; color: green" title="Active">check_circle_outline</i>
-                            }
-                            else
-                            {
-                                <i class="material-icons align-center" style="cursor: not-allowed; color: darkred" title="Inactive">domain_disabled</i>
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="word-wrap: break-word !important;">
-                            <b>@Html.DisplayNameFor(item => item.Operation.ActiveFrom)</b>
-                        </td>
-                        <td>
-                            @if (Model.Operation.ActiveFrom != DateTime.MinValue)
-                            {
-                                @Html.DisplayFor(item => item.Operation.ActiveFrom)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word !important;width:25% !important">
+                                    <b>@Html.DisplayNameFor(item => item.Operation.Active)</b>
+                                </td>
+                                <td style="width:66% !important">
+                                    @if (Model.Operation.Active)
+                                    {
+                                        <i class="material-icons align-center" style="cursor: not-allowed; color: green" title="Active">check_circle_outline</i>
+                                    }
+                                    else
+                                    {
+                                        <i class="material-icons align-center" style="cursor: not-allowed; color: darkred" title="Inactive">domain_disabled</i>
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="word-wrap: break-word !important;width:25% !important">
+                                    <b>@Html.DisplayNameFor(item => item.Operation.ActiveFrom)</b>
+                                </td>
+                                <td style="width:66% !important">
+                                    @if (Model.Operation.ActiveFrom != DateTime.MinValue)
+                                    {
+                                        @Html.DisplayFor(item => item.Operation.ActiveFrom)
 
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>@Html.DisplayNameFor(item => item.Operation.ActiveTo)</b>
-                        </td>
-                        <td>
-                            @if (Model.Operation.ActiveTo != DateTime.MinValue)
-                            {
-                                @Html.DisplayFor(item => item.Operation.ActiveTo)
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:25% !important">
+                                    <b>@Html.DisplayNameFor(item => item.Operation.ActiveTo)</b>
+                                </td>
+                                <td style="width:66% !important">
+                                    @if (Model.Operation.ActiveTo != DateTime.MinValue)
+                                    {
+                                        @Html.DisplayFor(item => item.Operation.ActiveTo)
 
-                            }
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

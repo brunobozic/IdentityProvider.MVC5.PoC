@@ -1,0 +1,54 @@
+﻿@using IdentityProvider.UI.Web.MVC5.Extensions
+@model IdentityProvider.Models.ViewModels.Operations.OperationPagedVm
+
+<div class="body container-fluid" style="width: 100%; padding: 15px; position: center">
+
+    <table class="table table-striped table-light table-condensed my-fixed-layout-table" Id="OperationsGrid">
+        <thead>
+            <tr>
+                <th style="">
+                    <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by name">
+                        @Html.ActionLink("Name", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.NameSortParam))
+                        @Html.SortIdentifier(Model.CurrentSortOrder, "Name")
+                    </span>
+                </th>
+                <th style="">
+                    <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by description">
+                        @Html.ActionLink("Description", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DescriptionSortParam))
+                        @Html.SortIdentifier(Model.CurrentSortOrder, "Description")
+                    </span>
+                </th>
+                <th style="width: 50px">
+                    <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by active status">
+                        @Html.ActionLink("Active", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.ActiveSortParam))
+                        @Html.SortIdentifier(Model.CurrentSortOrder, "Active")
+                    </span>
+                </th>
+                <th style="width: 148px">
+                    <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by created date">
+                        @Html.ActionLink("Created_Date", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DateCreatedSortParam))
+                        @Html.SortIdentifier(Model.CurrentSortOrder, "Created_Date")
+                    </span>
+                </th>
+                <th style="width: 148px">
+                    <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by modified date">
+                        @Html.ActionLink("Modified_Date", "OperationsGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string)ViewBag.DateModifiedSortParam))
+                        @Html.SortIdentifier(Model.CurrentSortOrder, "Modified_Date")
+                    </span>
+                </th>
+                <th style="width: 190px">
+                    <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions available on selected item">
+                        <span>
+                            Actions
+                        </span>
+                        <i class="material-icons" style="font-size: 1em; color: pink" , title="Actions">build</i>
+                    </span>
+                </th>
+            </tr>
+        </thead>
+
+        @Html.Partial("Partial/_operationsPartial", Model)
+
+    </table>
+
+</div>

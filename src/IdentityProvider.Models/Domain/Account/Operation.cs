@@ -13,24 +13,31 @@ namespace IdentityProvider.Models.Domain.Account
     {
         public Operation()
         {
-            ResourcePermissions = new HashSet<Permission>();
+            ResourcePermission = new HashSet<Permission>();
             Active = true;
             ActiveFrom = DateTime.UtcNow;
         }
 
         [Required]
         [DisplayName("Name")]
+        [MaxLength(50, ErrorMessage = "The name of the Operation must be between 2 and 50 characters"), MinLength(2)]
         public string Name { get; set; }
         [DisplayName("Description")]
+        [MaxLength(260, ErrorMessage = "The description of the Operation must be between 2 and 260 characters"), MinLength(2)]
         public string Description { get; set; }
         [DisplayName("Record is active")]
+
+        #region IsActive
+
         public bool Active { get; set; }
         [DisplayName("Record is active from (date)")]
         public DateTime? ActiveFrom { get; set; }
         [DisplayName("Record is active to (date)")]
         public DateTime? ActiveTo { get; set; }
 
-        public virtual ICollection<Permission> ResourcePermissions { get; set; }
+        #endregion IsActive
+
+        public virtual ICollection<Permission> ResourcePermission { get; set; }
 
         public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {

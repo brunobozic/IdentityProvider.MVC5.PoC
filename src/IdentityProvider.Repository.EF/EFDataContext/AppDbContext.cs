@@ -63,7 +63,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
         // public DbSet<ResourcesHaveOperations> ResourcesHaveOperations { get; set; }
         public DbSet<DbAuditTrail> DbAuditTrail { get; set; }
         public Guid InstanceId { get; set; }
-        public Database Database { get; set; }
+        public System.Data.Entity.Database Database { get; set; }
 
         /// <inheritdoc />
         /// <summary>

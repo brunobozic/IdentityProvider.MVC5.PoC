@@ -21,12 +21,12 @@ namespace IdentityProvider.Repository.EF.Mapping
 
             Property(t => t.TableName)
                 .IsOptional()
-                .HasMaxLength(250)
+                // .HasMaxLength(250)
                 .IsVariableLength();
 
             Property(t => t.Actions)
                 .IsOptional()
-                .HasMaxLength(1)
+                // .HasMaxLength(1)
                 .IsVariableLength();
 
             Property(t => t.UserName)
@@ -34,12 +34,12 @@ namespace IdentityProvider.Repository.EF.Mapping
 
             Property(t => t.OldData)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.NewData)
                 .IsOptional()
-                .HasMaxLength(4000)
+                // .HasMaxLength(4000)
                 .IsVariableLength();
 
             Property(t => t.TableIdValue)

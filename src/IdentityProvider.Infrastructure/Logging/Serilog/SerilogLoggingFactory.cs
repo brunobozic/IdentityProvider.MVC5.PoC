@@ -3,7 +3,7 @@ using IdentityProvider.Infrastructure.Caching;
 using IdentityProvider.Infrastructure.ConfigurationProvider;
 using IdentityProvider.Infrastructure.Logging.Serilog.AuditLog;
 using Serilog;
-using Serilog.Sinks.Graylog;
+
 
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog
@@ -102,32 +102,32 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog
 
                     break;
 
-                case SerilogLogTypesEnum.Graylog:
-                    if (shouldUseGraylog)
-                        if (!string.IsNullOrEmpty(graylogIP) && !string.IsNullOrEmpty(graylogPort))
-                        {
-                            _logConfiguration = new LoggerConfiguration().WriteTo.Graylog(new GraylogSinkOptions
-                            {
-                                HostnameOrAdress = graylogIP,
-                                Port = Convert.ToInt32(graylogPort)
-                            });
+                //case SerilogLogTypesEnum.Graylog:
+                //    if (shouldUseGraylog)
+                //        if (!string.IsNullOrEmpty(graylogIP) && !string.IsNullOrEmpty(graylogPort))
+                //        {
+                //            _logConfiguration = new LoggerConfiguration().WriteTo.Graylog(new GraylogSinkOptions
+                //            {
+                //                HostnameOrAdress = graylogIP,
+                //                Port = Convert.ToInt32(graylogPort)
+                //            });
 
-                            if (_memoryCacheProvider.Get<ILogger>("GraylogLog") == null)
-                            {
-                                _internalSerilogLogger = _logConfiguration.CreateLogger();
-                                _memoryCacheProvider.Save(_internalSerilogLogger, "GraylogLog");
-                            }
-                            else
-                            {
-                                return _memoryCacheProvider.Get<ILogger>("GraylogLog");
-                            }
-                        }
-                        else
-                        {
-                            _internalSerilogLogger.Error(Err_Graylog_Settings_Invalid);
-                        }
+                //            if (_memoryCacheProvider.Get<ILogger>("GraylogLog") == null)
+                //            {
+                //                _internalSerilogLogger = _logConfiguration.CreateLogger();
+                //                _memoryCacheProvider.Save(_internalSerilogLogger, "GraylogLog");
+                //            }
+                //            else
+                //            {
+                //                return _memoryCacheProvider.Get<ILogger>("GraylogLog");
+                //            }
+                //        }
+                //        else
+                //        {
+                //            _internalSerilogLogger.Error(Err_Graylog_Settings_Invalid);
+                //        }
 
-                    break;
+                //    break;
 
                 case SerilogLogTypesEnum.ErrorRollingLog:
                     if (!string.IsNullOrEmpty(rollingLogLogPath) && !string.IsNullOrEmpty(rollingLogLogFileName))

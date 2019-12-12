@@ -19,13 +19,8 @@ namespace IdentityProvider.Controllers
                         if (requestContext.HttpContext.Items.Contains(StructuremapNestedContainerKey))
                         {
                             var myContainer =
-                                (IContainer) requestContext.HttpContext.Items[StructuremapNestedContainerKey];
-
-                            var checkWhatIDoHave = myContainer.WhatDoIHave();
-
-                            var instance = myContainer.GetInstance(controllerType) as IController;
-
-                            return instance;
+                                (IContainer)requestContext.HttpContext.Items[StructuremapNestedContainerKey];
+                            return myContainer.GetInstance(controllerType) as IController;
                         }
                     return DependencyResolver.Current.GetService(controllerType) as IController;
                 }
@@ -34,8 +29,7 @@ namespace IdentityProvider.Controllers
             catch (Exception ex)
             {
                 // DependencyResolver.Current.GetService<ILog4NetLoggingService>().LogFatal(this, "Fatal", ex);
-                throw ex;
-                // return null;
+                return null;
             }
         }
     }

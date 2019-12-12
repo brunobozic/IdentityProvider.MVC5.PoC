@@ -10,6 +10,10 @@ namespace IdentityProvider.Services.AuditTrailService
         List<YourCustomSearchClass> GetDataFromDbase(
             int userId
             , string searchBy
+            , string searchValueExtra
+            , string searchValueUserName
+            , string searchValueOldValue
+            , string searchValueNewValue
             , int take
             , int skip
             , string sortBy

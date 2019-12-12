@@ -1,14 +1,11 @@
 ﻿@model IdentityProvider.Models.ViewModels.Operations.OperationToInsertVm
 
-@Html.Partial("../Shared/CommonInsertItemPartials/_styleSectionPartial")
+@*@Html.Partial("../Shared/CommonInsertItemPartials/_styleSectionPartial")*@
 
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionPartial")
 
 <div class="container-fluid">
     <div class="row clearfix">
-
-        @*  A partial view would go in here!  *@
-
         <div class="card">
             <div class="header cool-text">
                 <em style="font-size: 1.7em">
@@ -19,64 +16,65 @@
                 </em>
             </div>
             <div class="body container-fluid" style="width: 100% !important">
-
-                @using (Html.BeginForm("Insert" , "Operation" , FormMethod.Post , new { id = "frmNewItem" , name = "frmNewItem" }))
-                {
-                    <div class="form-group">
-                        <div class="form-line">
-                            <input type="text" class="form-control" placeholder="Enter the name of your item ..." id="Name" name="Name">
-                            @Html.ValidationMessageFor(model => model.Name , "" , new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="form-line">
-                            <input type="text" class="form-control" placeholder="Enter the description of your item ..." id="Description" name="Description">
-                            @Html.ValidationMessageFor(model => model.Description , "" , new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-xs-8 p-t-5">
-                                <input name="MakeActive" id="makeActive" class="filled-in chk-col-purple" type="checkbox">
-                                <label for="makeActive">Item set as active</label>
-                            </div>
-                            <div class="col-xs-8 p-t-5">
-                                <input name="DefineActiveUntil" id="defineActiveUntil" class="filled-in chk-col-purple" type="checkbox">
-                                <label for="defineActiveUntil">Define activation expiration date</label>
+                <div class="body">
+                    @using (Html.BeginForm("Insert", "Operation", FormMethod.Post, new { id = "frmNewItem", name = "frmNewItem" }))
+                    {<div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" class="form-control" id="Name" name="Name">
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                <label class="form-label">Enter the name of your item ...</label>
                             </div>
                         </div>
 
-                        <div class="col-xs-3 p-t-5" id="hiddenSegmentDependantOnCheckbox">
-                            <div class="form-group">
-                                <label for="makeActive">Active until: </label>
-                                <div class="form-line" id="sandbox-container">
-                                    <input type="text" class="form-control" placeholder="Enter the date ..." id="ActiveUntil" name="ActiveUntil">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" class="form-control" id="Description" name="Description">
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                <label class="form-label">Enter the description of your item ...</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-8 p-t-5">
+                                    <input name="MakeActive" id="makeActive" class="filled-in chk-col-pink" type="checkbox">
+                                    <label for="makeActive">Item set as active</label>
+                                </div>
+                                <div class="col-xs-8 p-t-5">
+                                    <input name="DefineActiveUntil" id="defineActiveUntil" class="filled-in chk-col-pink" type="checkbox">
+                                    <label for="defineActiveUntil">Define activation expiration date</label>
                                 </div>
                             </div>
+
+                            <div class="col-xs-3 p-t-5" id="hiddenSegmentDependantOnCheckbox">
+                                <div class="form-group">
+                                    <label for="makeActive">Active until: </label>
+                                    <div class="form-line" id="sandbox-container">
+                                        <input type="text" class="form-control" placeholder="Enter the date ..." id="ActiveUntil" name="ActiveUntil">
+                                    </div>
+                                </div>
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.MakeActive, "", new { @class = "text-danger" })
                         </div>
 
-                        @Html.ValidationMessageFor(model => model.MakeActive , "" , new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group col-xs-8 p-t-5">
-                        <div class="row m-t-15 m-b--20">
-                            <button type="submit" name="btnSubmit" id="btnSubmit" class="btn bg-purple waves-effect btn-xs insertDialog" data-toggle="tooltip" data-placement="right" title="" data-original-title="Submit">
-                                <i class="material-icons">edit</i>
-                                <span>
-                                    Submit
-                                </span>
-                            </button>
+                        <div class="form-group col-xs-8 p-t-5">
+                            <div class="row m-t-15 m-b--20">
+                                <button type="submit" name="btnSubmit" id="btnSubmit" class="btn bg-pink waves-effect btn-xs insertDialog" data-toggle="tooltip" data-placement="right" title="" data-original-title="Submit">
+                                    <i class="material-icons">edit</i>
+                                    <span>
+                                        Submit
+                                    </span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
 
-                <div id="loading">
-                    <p>Loading...</p>
+                    <div id="loading">
+                        <p>Loading...</p>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -87,6 +85,19 @@
 
     $('#btnSubmit').click(function () {
         $('#frmEditItem').submit();
+    });
+
+
+    $(function () {
+        try {
+            $.AdminBSB.dropdownMenu.activate();
+            $.AdminBSB.input.activate();
+            $.AdminBSB.select.activate();
+            // skinChanger();
+        } catch (exception) {
+            alert(exception);
+            console.log("operationEditPartial AdminBsb problem", exception);
+        }
     });
 
 </script>

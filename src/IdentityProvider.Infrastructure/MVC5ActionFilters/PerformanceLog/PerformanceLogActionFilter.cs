@@ -82,11 +82,11 @@ namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog
 
         private static string GetCorrelationId()
         {
-            var returnValue = (string) HttpContext.Current.Items[CorrelationIdItemName];
+            var returnValue = (string)HttpContext.Current.Items[CorrelationIdItemName];
             if (string.IsNullOrEmpty(returnValue))
             {
                 HttpContext.Current.Items[CorrelationIdItemName] = Guid.NewGuid().ToString();
-                returnValue = (string) HttpContext.Current.Items[CorrelationIdItemName];
+                returnValue = (string)HttpContext.Current.Items[CorrelationIdItemName];
             }
 
             return returnValue;
@@ -99,7 +99,9 @@ namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog
                 ? Guid.NewGuid().ToString()
                 : header;
 
-            HttpContext.Current.Response.AddHeader(_headerKey, correlationId);
+
+            if (!HttpContext.Current.Response.IsRequestBeingRedirected)
+                HttpContext.Current.Response.AddHeader(_headerKey, correlationId);
 
             return correlationId;
         }

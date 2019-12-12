@@ -253,7 +253,7 @@
                         {
                             <div class="col-xs-10">
                                 <div class="form-line" style="margin-left: 5px">
-                                    @Html.TextBox("SearchString" , ViewBag.CurrentFilter as string , new { @placeholder = "Search" , @value = ViewBag.CurrentFilter , @data_toggle = "tooltip" , @data_placement = "top" , @title = "" , @data_original_title = "Enter search criteria" })
+                                    @Html.TextBox("SearchStringOperationsMainGrid" , ViewBag.CurrentFilter as string , new { @placeholder = "Search" , @value = ViewBag.CurrentFilter , @data_toggle = "tooltip" , @data_placement = "top" , @title = "" , @data_original_title = "Enter search criteria" })
                                     @Html.ValidationMessage("Search")
                                     <button class="btn bg-purple waves-effect btn-xs" id="submitSearch" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
                                 </div>
@@ -333,7 +333,7 @@
                         @if (Model.Resources.PageCount > 1)
                         {
                             <div class="pager">
-                                @Html.PagedListPager(Model.Resources, page => Url.Action("ResourcesGetAllPaged", new
+                                @*@Html.PagedListPager(Model.Resources, page => Url.Action("ResourcesGetAllPaged", new
                                 {
                                     page,
                                     sortOrder = Model.SortOrder,
@@ -341,7 +341,7 @@
                                     pageNumber = page,
                                     pageSize = Model.PageSize
                                 }))
-                                Page @(Model.Resources.PageCount < Model.Resources.PageNumber ? 0 : Model.Resources.PageNumber) of @Model.Resources.PageCount
+                                Page @(Model.Resources.PageCount < Model.Resources.PageNumber ? 0 : Model.Resources.PageNumber) of @Model.Resources.PageCount*@
                             </div>
                         }
                         else
@@ -391,7 +391,7 @@
                             {
                                 <div class="col-xs-10">
                                     <div class="form-line" style="margin-left: 5px">
-                                        @Html.TextBox("SearchString" , ViewBag.CurrentFilter as string , new { @placeholder = "Search" , @value = ViewBag.CurrentFilter , @data_toggle = "tooltip" , @data_placement = "top" , @title = "" , @data_original_title = "Enter search criteria" })
+                                        @Html.TextBox("SearchStringOperationsMainGrid" , ViewBag.CurrentFilter as string , new { @placeholder = "Search" , @value = ViewBag.CurrentFilter , @data_toggle = "tooltip" , @data_placement = "top" , @title = "" , @data_original_title = "Enter search criteria" })
                                         @Html.ValidationMessage("Search")
                                         <button class="btn bg-purple waves-effect btn-xs" id="submitSearch" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
                                     </div>
@@ -459,7 +459,7 @@
                                     {
                                         page ,
                                         sortOrder = Model.SortOrder,
-                                        currentFilter = Model.SearchString,
+                                        currentFilter = Model.SearchStringOperationsMainGrid,
                                         pageNumber = page ,
                                         pageSize = Model.PageSize
                                     }))

@@ -255,17 +255,17 @@ namespace IdentityProvider.Infrastructure.ApplicationConfiguration
 
         public string GetLogEverythingViaWCF()
         {
-            throw new NotImplementedException();
+            return "false";
         }
 
         public string GetDontLogAnythingViaWCF()
         {
-            throw new NotImplementedException();
+            return "true";
         }
 
         public string GetLogEverythingToFile()
         {
-            throw new NotImplementedException();
+            return "false";
         }
 
         public string GetSendGridApiKey()
