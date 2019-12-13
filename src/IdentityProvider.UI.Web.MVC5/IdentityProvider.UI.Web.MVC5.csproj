@@ -42,6 +42,7 @@
     <WarningLevel>4</WarningLevel>
     <IncludeIisSettings>true</IncludeIisSettings>
     <PlatformTarget>x64</PlatformTarget>
+    <DocumentationFile>bin\IdentityProvider.UI.Web.MVC5.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -83,7 +84,33 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Content Include="Content\admin.js" />
+    <Content Include="Content\css\themed-buttons-amber.css" />
+    <Content Include="Content\css\themed-buttons-black.css" />
+    <Content Include="Content\css\themed-buttons-blue.css" />
+    <Content Include="Content\css\themed-buttons-brown.css" />
+    <Content Include="Content\css\themed-buttons-bue-grey.css" />
+    <Content Include="Content\css\themed-buttons-cyan.css" />
+    <Content Include="Content\css\themed-buttons-deep-orange.css" />
+    <Content Include="Content\css\themed-buttons-green.css" />
+    <Content Include="Content\css\themed-buttons-grey.css" />
+    <Content Include="Content\css\themed-buttons-indigo.css" />
+    <Content Include="Content\css\themed-buttons-light-blue.css" />
+    <Content Include="Content\css\themed-buttons-light-green.css" />
+    <Content Include="Content\css\themed-buttons-lime.css" />
+    <Content Include="Content\css\themed-buttons-orange.css" />
+    <Content Include="Content\css\themed-buttons-pink.css" />
+    <Content Include="Content\css\themed-buttons-purple.css" />
+    <Content Include="Content\css\themed-buttons-teal.css" />
+    <Content Include="Content\css\themed-buttons-yellow.css" />
     <Content Include="Content\demo.js" />
+    <Content Include="Content\iwa-sport-bg-image-light-medium.jpg" />
+    <Content Include="Scripts\admin.js" />
+    <Content Include="Scripts\demo.js" />
+    <Content Include="Scripts\Operations\Dashboard\AuditTrailDatatableWireup.js" />
+    <Content Include="Scripts\Operations\Dashboard\AuditTrailWidgetDateRangePicker.js" />
+    <Content Include="Scripts\Operations\Dashboard\BootstrapMultipleSelect.js" />
+    <Content Include="Scripts\Operations\Dashboard\OperationsDatatableWireup.js" />
+    <Content Include="Scripts\Operations\Dashboard\OperationsWidgetDateRangePicker.js" />
     <Content Include="Views\Operation\Partial\_operationsAuditTrailGetAllPagedPartial.cshtml" />
     <None Include="Views\Operation\Partial\_actionButtonsPartial.cshtml" />
     <Content Include="Content\css\themed-buttons-deep-purple.css" />
@@ -113,6 +140,12 @@
     <Content Include="Views\Operation\Partial\_operationAuditTrailPartial.cshtml" />
     <Content Include="Views\Shared\DashboardCommons\_headerRightSideActionDropdown.cshtml" />
     <Content Include="Views\Operation\Partial\_operationsGetAllPagedPartial.cshtml" />
+    <Content Include="Views\Resource\ResourceDeleteAsync.cshtml" />
+    <Content Include="Views\Resource\ResourceGetAllPaged.cshtml" />
+    <Content Include="Views\Resource\ResourceInsert.cshtml" />
+    <Content Include="Views\Resource\Partial\_failedToInsertResourcePartial.cshtml" />
+    <Content Include="Views\Resource\Partial\_resourceNotFoundPartial.cshtml" />
+    <Content Include="Views\Resource\Partial\_resourcePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\popover-overrides.css" />

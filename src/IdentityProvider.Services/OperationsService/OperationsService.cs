@@ -23,8 +23,8 @@ namespace IdentityProvider.Services.OperationsService
             string searchValue
             , DateTime? from
             , DateTime? to
-            , bool alsoActive = false
-            , bool alsoDeleted = false
+            , bool alsoInActive
+            , bool alsoDeleted
             )
         {
             // simple method to dynamically plugin a where clause
@@ -42,11 +42,10 @@ namespace IdentityProvider.Services.OperationsService
                 predicate = predicate.And(s => s.ModifiedDate <= to && s.ModifiedDate >= from);
             }
 
-            if (alsoActive)
-                predicate = predicate.And(s => s.Active == alsoActive);
+            if (alsoInActive) { } else { predicate = predicate.And(s => s.Active == true); }
 
-            if (alsoDeleted)
-                predicate = predicate.And(s => s.IsDeleted == alsoDeleted);
+            if (alsoDeleted) { } else { predicate = predicate.And(s => s.IsDeleted == false); }
+
 
             return predicate;
         }
@@ -83,6 +82,7 @@ namespace IdentityProvider.Services.OperationsService
                             Name = m.Name,
                             Description = m.Description,
                             Active = m.Active,
+                            Deleted = m.IsDeleted,
                             CreatedDate = m.CreatedDate,
                             ModifiedDate = m.ModifiedDate,
                             Actions = ""

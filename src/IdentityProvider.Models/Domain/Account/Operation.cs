@@ -20,7 +20,7 @@ namespace IdentityProvider.Models.Domain.Account
 
         [Required]
         [DisplayName("Name")]
-        [MaxLength(50, ErrorMessage = "The name of the Operation must be between 2 and 50 characters"), MinLength(2)]
+        [MaxLength(50, ErrorMessage = "The name of the Operation must be between 1 and 50 characters"), MinLength(1)]
         public string Name { get; set; }
         [DisplayName("Description")]
         [MaxLength(260, ErrorMessage = "The description of the Operation must be between 2 and 260 characters"), MinLength(2)]

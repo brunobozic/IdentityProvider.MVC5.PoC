@@ -210,6 +210,10 @@ $(document).ready(function () {
         e.preventDefault();
         var id = $(this).closest('tr').children('td:first').text();
         var options = { /*'backdrop': 'static',*/ keyboard: true, focus: true };
+
+        console.log("id: " + id + "  , deleteUrl: " + deleteUrl);
+
+
         swal.setDefaults({
             buttonsStyling: false,
             confirmButtonClass: 'btn btn-success w-25 mr-05',

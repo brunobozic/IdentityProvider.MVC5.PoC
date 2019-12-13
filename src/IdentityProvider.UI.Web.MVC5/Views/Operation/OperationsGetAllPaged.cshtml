@@ -13,6 +13,7 @@
 <style type="text/css">
     .OperationsDashboard_OperationsDatatable_create {
     }
+
     .dataTables_length {
         float: right !important;
     }
@@ -256,27 +257,25 @@
 
                         <!-- Operations pickers -->
                         <div style="width: 92%; padding-left: 28px; position: center">
-                            <table class="table table-light table-condensed" data-classes="table" style="align-content: center; position: center; width: 90%; background-color: whitesmoke; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                            <table class="table table-light table-condensed" data-classes="table" style="align-content: center; position: center; width: 90%; background-color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
                                 <thead></thead>
                                 <tbody>
                                     <tr style="padding-top: 1px">
-                                        <td style="padding: 1px; padding-top: 12px">
+                                        <td style="padding: 1px; padding-top: 12px; padding-bottom: 12px">
 
                                             <!-- Date range picker -->
                                             <div class="form-group form-float">
-                                                @*<label style="float: left; padding-left: 12px; padding-right: 8px; padding-top: 2px">Date range</label>*@
                                                 <div class="form-line" style="float: left; width: 99%; padding-left: 12px; padding-right: 24px; padding-top: 6px">
                                                     <input class="form-control" type="text" id="OperationsDashboard_OperationsWidget_DateRange" name="OperationsDashboard_OperationsWidget_DateRange" style="float: left; padding-left: 2px; padding-right: 2px; padding-top: 2px" />
-                                                    <label class="form-label">Date range</label>
+                                                    <label class="form-label">Date</label>
                                                 </div>
-
                                             </div>
                                         </td>
                                         <td style="width: 800%; padding: 1px; padding-top: 12px"></td>
                                     </tr>
 
                                     <tr>
-                                        <td style="width: 50%">
+                                        <td style="width: 50% ; background-color: whitesmoke">
                                             <!-- Show deleted records -->
                                             <input type="hidden" id="ShowDeletedHidden" name="ShowDeleted" />
                                             <div style="float: left; width: 99%; padding-left: 12px; padding-right: 24px; padding-top: 2px">
@@ -288,7 +287,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td style="width: 50%">
+                                        <td style="width: 50%; background-color: whitesmoke">
                                             <!-- Show inactive records -->
                                             <input type="hidden" id="ShowInactiveHidden" name="ShowInactive" />
                                             <div style="float: left; width: 99%; padding-left: 12px; padding-right: 24px; padding-top: 2px">
@@ -313,11 +312,10 @@
                                         </td>
 
                                         <td style="width: 80%; margin: 0 auto;">
-
-                                            <div class="form-group form-float" style="padding-left: 8px; float: left; width: 60%;">
-                                                <div class="form-line" style="float: left; margin-top: 14px; width: 100%;">
-                                                    @Html.TextBox("searchStringOperationsMainGrid", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Enter search criteria", @value = ViewBag.CurrentFilter, @data_toggle = "tooltip", @data_placement = "top", @title = "", @data_original_title = "Enter search criteria", @style = "float: left;" })
-                                                    @Html.ValidationMessage("SearchStringOperationsMainGrid")
+                                            <div class="form-group form-float">
+                                                <div class="form-line" style="float: left; width: 99%; padding-left: 12px; padding-right: 24px; padding-top: 6px">
+                                                    <input class="form-control" type="text" id="searchStringOperationsMainGrid" name="searchStringOperationsMainGrid" style="float: left; padding-left: 2px; padding-right: 2px; padding-top: 2px" />
+                                                    <label class="form-label">Search</label>
                                                 </div>
                                             </div>
 
@@ -395,34 +393,34 @@
 
                                     <tr>
                                         <td style="width: 50%">
-                                            <!-- Date range picker -->
                                             <div class="form-group" style="float: left; width: 25%">
                                                 <label style="float: left; padding-left: 12px; padding-right: 24px; padding-top: 12px">Date range</label>
                                             </div>
                                             <div class="form-line" style="padding-left: 6px; padding-top: 12px">
                                                 <input type="text" id="OperationsDashboard_AuditTrailDatatable_DateRange" name="OperationsDashboard_AuditTrailDatatable_DateRange" style="width: 60%; padding-left: 4px;" />
                                             </div>
+
                                         </td>
                                         <td style="width: 50%">
                                             <!-- Table name picker -->
-                                            <div class="form-group" style="float: left; width: 25%">
+                                            <div class="form-group form-float" style="float: left; width: 25%">
                                                 <label style="float: left; padding-left: 12px; padding-right: 24px; padding-top:12px">Table name</label>
                                             </div>
 
                                             <div class="form-group">
                                                 <div class="form-group multiselect-parent" style="float: right; width: 74%; padding-top: 12px; padding-left: 12px;">
+                                                    <div class="form-line" style="float: left; margin-top: 14px; width: 100%;">
+                                                        <select id="OperationsDashboard_AuditTrailDatatable_TableName_MS" multiple="multiple" class="form-control" data-width="90%">
+                                                            <option value="cheese">Cheese</option>
+                                                            <option value="tomatoes">Tomatoes</option>
+                                                            <option value="mozarella">Mozzarella</option>
+                                                            <option value="mushrooms">Mushrooms</option>
+                                                            <option value="pepperoni">Pepperoni</option>
+                                                            <option value="onions">Onions</option>
+                                                        </select>
 
-                                                    <select id="OperationsDashboard_AuditTrailDatatable_TableName_MS" multiple="multiple" class="form-control" data-width="90%">
-                                                        <option value="cheese">Cheese</option>
-                                                        <option value="tomatoes">Tomatoes</option>
-                                                        <option value="mozarella">Mozzarella</option>
-                                                        <option value="mushrooms">Mushrooms</option>
-                                                        <option value="pepperoni">Pepperoni</option>
-                                                        <option value="onions">Onions</option>
-                                                    </select>
-
+                                                    </div>
                                                 </div>
-                                            </div>
                                         </td>
                                     </tr>
 
@@ -434,12 +432,12 @@
                                             </div>
                                             <div class="form-group" style=" padding-left: 12px; float: right; width: 74%">
                                                 <div class="" style="">
-                                                    @Html.TextBox("OperationsDashboard_AuditTrailDatatable_SearchStringUserName", null , new
+                                                    @Html.TextBox("OperationsDashboard_AuditTrailDatatable_SearchStringUserName", null, new
                                                {
-                                                   @placeholder = "Search" ,
-                                                   @data_toggle = "tooltip" ,
-                                                   @data_placement = "top" ,
-                                                   @title = "" ,
+                                                   @placeholder = "Search",
+                                                   @data_toggle = "tooltip",
+                                                   @data_placement = "top",
+                                                   @title = "",
                                                    @data_original_title = "Enter search criteria"
                                                })
                                                     <button class="btn themed-buttons-red waves-effect btn-xs" id="OperationsDashboard_AuditTrailDatatable_SubmitSearchUserName" style="margin: 1px;  margin-bottom: 4px" type="submit" name="submitSearchUserName" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
@@ -471,7 +469,8 @@
                                             </div>
                                             <div class="form-group" style="float: right; width: 74%; padding-left: 12px;">
                                                 <div class="" style="">
-                                                    @Html.TextBox("OperationsDashboard_AuditTrailDatatable_SearchStringOldValue", null , new {
+                                                    @Html.TextBox("OperationsDashboard_AuditTrailDatatable_SearchStringOldValue", null, new
+                                                    {
                                                    @placeholder = "Search",
                                                    @data_original_title = "Enter search criteria"
                                                })
@@ -487,12 +486,12 @@
                                             </div>
                                             <div class="form-group" style="float: right; width: 74%; padding-left: 12px;">
                                                 <div class="" style="">
-                                                    @Html.TextBox("OperationsDashboard_AuditTrailDatatable_SearchStringNewValue", null , new
+                                                    @Html.TextBox("OperationsDashboard_AuditTrailDatatable_SearchStringNewValue", null, new
                                                {
                                                    @placeholder = "Search",
-                                                   @data_toggle = "tooltip" ,
-                                                   @data_placement = "top" ,
-                                                   @title = "" ,
+                                                   @data_toggle = "tooltip",
+                                                   @data_placement = "top",
+                                                   @title = "",
                                                    @data_original_title = "Enter search criteria"
                                                })
                                                     <button class="btn themed-buttons-red waves-effect btn-xs" id="OperationsDashboard_AuditTrailDatatable_SubmitSearchNewValue" style="margin: 1px; margin-bottom: 4px" ; padding-left: 12px; type="submit" name="submitSearchNewValue" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>

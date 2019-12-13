@@ -11,5 +11,6 @@ namespace IdentityProvider.Models
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public string Actions { get; set; }
+        public bool Deleted { get; set; }
     }
 }

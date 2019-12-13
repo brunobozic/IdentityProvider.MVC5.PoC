@@ -106,7 +106,7 @@ namespace IdentityProvider.Controllers.Controllers
             var userId = model.userid;
             var from = model.from;
             var to = model.to;
-            var alsoactive = model.alsoactive;
+            var alsoinactive = model.alsoinactive;
             var alsodeleted = model.alsodeleted;
             var sortBy = "";
             var sortDir = true;
@@ -134,7 +134,7 @@ namespace IdentityProvider.Controllers.Controllers
                 , sortDir
                 , from
                 , to
-                , alsoactive
+                , alsoinactive
                 , alsodeleted
                 , out filteredResultsCount
                 , out totalResultsCount
