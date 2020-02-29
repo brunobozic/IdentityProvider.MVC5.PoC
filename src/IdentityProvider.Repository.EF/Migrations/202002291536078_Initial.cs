@@ -13,10 +13,12 @@ namespace IdentityProvider.Repository.EF.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 100),
-                        Description = c.String(),
+                        Description = c.String(nullable: false),
                         Active = c.Boolean(nullable: false),
                         ActiveFrom = c.DateTime(),
                         ActiveTo = c.DateTime(),
+                        MakeActive = c.Boolean(nullable: false),
+                        ActiveUntil = c.DateTime(),
                         ModifiedById = c.String(),
                         ModifiedDate = c.DateTime(),
                         DeletedById = c.String(),
@@ -30,7 +32,7 @@ namespace IdentityProvider.Repository.EF.Migrations
                 .Index(t => t.Name, unique: true, name: "IX_ApplicationResourceName");
             
             CreateTable(
-                "Application.ResourcePermissions",
+                "Resource.Permissions",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -39,6 +41,8 @@ namespace IdentityProvider.Repository.EF.Migrations
                         Active = c.Boolean(nullable: false),
                         ActiveFrom = c.DateTime(),
                         ActiveTo = c.DateTime(),
+                        ApplicationResourceId = c.Int(nullable: false),
+                        OperationId = c.Int(nullable: false),
                         ModifiedById = c.String(),
                         ModifiedDate = c.DateTime(),
                         DeletedById = c.String(),
@@ -47,15 +51,13 @@ namespace IdentityProvider.Repository.EF.Migrations
                         CreatedDate = c.DateTime(),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         IsDeleted = c.Boolean(nullable: false),
-                        ApplicationResource_Id = c.Int(),
-                        Operation_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("Application.Resources", t => t.ApplicationResource_Id)
-                .ForeignKey("Resource.Operations", t => t.Operation_Id)
+                .ForeignKey("Application.Resources", t => t.ApplicationResourceId, cascadeDelete: true)
+                .ForeignKey("Resource.Operations", t => t.OperationId, cascadeDelete: true)
                 .Index(t => t.Name, unique: true, name: "IX_ResourcePermissionName")
-                .Index(t => t.ApplicationResource_Id)
-                .Index(t => t.Operation_Id);
+                .Index(t => t.ApplicationResourceId)
+                .Index(t => t.OperationId);
             
             CreateTable(
                 "Resource.Operations",
@@ -141,6 +143,8 @@ namespace IdentityProvider.Repository.EF.Migrations
                         TableIdValue = c.Long(),
                         UpdatedAt = c.DateTime(),
                         Actions = c.String(maxLength: 1),
+                        TrackingState = c.Int(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -268,7 +272,7 @@ namespace IdentityProvider.Repository.EF.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        RoleId = c.String(maxLength: 128),
+                        ApplicationRoleId = c.String(maxLength: 128),
                         RoleGroupId = c.Int(nullable: false),
                         Active = c.Boolean(nullable: false),
                         ActiveFrom = c.DateTime(),
@@ -283,9 +287,9 @@ namespace IdentityProvider.Repository.EF.Migrations
                         IsDeleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId)
+                .ForeignKey("dbo.AspNetRoles", t => t.ApplicationRoleId)
                 .ForeignKey("Organization.RoleGroup", t => t.RoleGroupId, cascadeDelete: true)
-                .Index(t => t.RoleId)
+                .Index(t => t.ApplicationRoleId)
                 .Index(t => t.RoleGroupId);
             
             CreateTable(
@@ -451,7 +455,7 @@ namespace IdentityProvider.Repository.EF.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
-                "Organization.PermissionGroupOwnsPermissionLink",
+                "Application.PermissionGroupOwnsPermissionLink",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -468,15 +472,16 @@ namespace IdentityProvider.Repository.EF.Migrations
                         CreatedDate = c.DateTime(),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         IsDeleted = c.Boolean(nullable: false),
+                        Permission_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("Organization.ResourcePermissionGroup", t => t.PermissionGroupId, cascadeDelete: true)
-                .ForeignKey("Application.ResourcePermissions", t => t.ResourcePermissionId, cascadeDelete: true)
-                .Index(t => t.ResourcePermissionId)
-                .Index(t => t.PermissionGroupId);
+                .ForeignKey("Resource.Permissions", t => t.Permission_Id)
+                .ForeignKey("Application.PermissionGroup", t => t.PermissionGroupId, cascadeDelete: true)
+                .Index(t => t.PermissionGroupId)
+                .Index(t => t.Permission_Id);
             
             CreateTable(
-                "Organization.ResourcePermissionGroup",
+                "Application.PermissionGroup",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -497,12 +502,12 @@ namespace IdentityProvider.Repository.EF.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "Organization.RoleContainsResourcePermissionGroupLink",
+                "Organization.RoleContainsPermissionGroupLink",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         ApplicationRoleId = c.String(maxLength: 128),
-                        ResourcePermissionId = c.Int(nullable: false),
+                        PermissionGroupId = c.Int(nullable: false),
                         Active = c.Boolean(nullable: false),
                         ActiveFrom = c.DateTime(),
                         ActiveTo = c.DateTime(),
@@ -514,23 +519,22 @@ namespace IdentityProvider.Repository.EF.Migrations
                         CreatedDate = c.DateTime(),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         IsDeleted = c.Boolean(nullable: false),
-                        ResourcePermissionGroup_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetRoles", t => t.ApplicationRoleId)
-                .ForeignKey("Organization.ResourcePermissionGroup", t => t.ResourcePermissionGroup_Id)
+                .ForeignKey("Application.PermissionGroup", t => t.PermissionGroupId, cascadeDelete: true)
                 .Index(t => t.ApplicationRoleId)
-                .Index(t => t.ResourcePermissionGroup_Id);
+                .Index(t => t.PermissionGroupId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("Organization.RoleContainsResourcePermissionGroupLink", "ResourcePermissionGroup_Id", "Organization.ResourcePermissionGroup");
-            DropForeignKey("Organization.RoleContainsResourcePermissionGroupLink", "ApplicationRoleId", "dbo.AspNetRoles");
+            DropForeignKey("Organization.RoleContainsPermissionGroupLink", "PermissionGroupId", "Application.PermissionGroup");
+            DropForeignKey("Organization.RoleContainsPermissionGroupLink", "ApplicationRoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("Organization.PermissionGroupOwnsPermissionLink", "ResourcePermissionId", "Application.ResourcePermissions");
-            DropForeignKey("Organization.PermissionGroupOwnsPermissionLink", "PermissionGroupId", "Organization.ResourcePermissionGroup");
+            DropForeignKey("Application.PermissionGroupOwnsPermissionLink", "PermissionGroupId", "Application.PermissionGroup");
+            DropForeignKey("Application.PermissionGroupOwnsPermissionLink", "Permission_Id", "Resource.Permissions");
             DropForeignKey("Organization.OrgUnitContainsRoleLink", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("Organization.OrgUnitContainsRoleLink", "OrganizationalUnitId", "Organization.Unit");
             DropForeignKey("Organization.Employee", "ApplicationUser_Id", "dbo.AspNetUsers");
@@ -544,15 +548,15 @@ namespace IdentityProvider.Repository.EF.Migrations
             DropForeignKey("Organization.OrgUnitContainsRoleGroupLink", "OrganizationalUnit_Id", "Organization.Unit");
             DropForeignKey("Organization.EmployeeBelongsToOrgUnitLink", "OrganizationalUnitId", "Organization.Unit");
             DropForeignKey("Organization.EmployeeBelongsToOrgUnitLink", "EmployeeId", "Organization.Employee");
-            DropForeignKey("Organization.RoleGroupContainsRoleLink", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("Organization.RoleGroupContainsRoleLink", "ApplicationRoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("Application.ResourcePermissions", "Operation_Id", "Resource.Operations");
-            DropForeignKey("Application.ResourcePermissions", "ApplicationResource_Id", "Application.Resources");
-            DropIndex("Organization.RoleContainsResourcePermissionGroupLink", new[] { "ResourcePermissionGroup_Id" });
-            DropIndex("Organization.RoleContainsResourcePermissionGroupLink", new[] { "ApplicationRoleId" });
-            DropIndex("Organization.PermissionGroupOwnsPermissionLink", new[] { "PermissionGroupId" });
-            DropIndex("Organization.PermissionGroupOwnsPermissionLink", new[] { "ResourcePermissionId" });
+            DropForeignKey("Resource.Permissions", "OperationId", "Resource.Operations");
+            DropForeignKey("Resource.Permissions", "ApplicationResourceId", "Application.Resources");
+            DropIndex("Organization.RoleContainsPermissionGroupLink", new[] { "PermissionGroupId" });
+            DropIndex("Organization.RoleContainsPermissionGroupLink", new[] { "ApplicationRoleId" });
+            DropIndex("Application.PermissionGroupOwnsPermissionLink", new[] { "Permission_Id" });
+            DropIndex("Application.PermissionGroupOwnsPermissionLink", new[] { "PermissionGroupId" });
             DropIndex("Organization.OrgUnitContainsRoleLink", new[] { "RoleId" });
             DropIndex("Organization.OrgUnitContainsRoleLink", new[] { "OrganizationalUnitId" });
             DropIndex("Account.UserProfile", new[] { "User_Id" });
@@ -567,7 +571,7 @@ namespace IdentityProvider.Repository.EF.Migrations
             DropIndex("Organization.OrgUnitContainsRoleGroupLink", new[] { "OrganizationalUnitId" });
             DropIndex("Organization.RoleGroup", "IX_RoleGroupName");
             DropIndex("Organization.RoleGroupContainsRoleLink", new[] { "RoleGroupId" });
-            DropIndex("Organization.RoleGroupContainsRoleLink", new[] { "RoleId" });
+            DropIndex("Organization.RoleGroupContainsRoleLink", new[] { "ApplicationRoleId" });
             DropIndex("dbo.AspNetRoles", new[] { "UserProfile_Id" });
             DropIndex("dbo.AspNetRoles", "IX_ApplicationRoleName");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
@@ -576,13 +580,13 @@ namespace IdentityProvider.Repository.EF.Migrations
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("Organization.Employee", new[] { "ApplicationUser_Id" });
             DropIndex("Resource.Operations", "IX_OperationName");
-            DropIndex("Application.ResourcePermissions", new[] { "Operation_Id" });
-            DropIndex("Application.ResourcePermissions", new[] { "ApplicationResource_Id" });
-            DropIndex("Application.ResourcePermissions", "IX_ResourcePermissionName");
+            DropIndex("Resource.Permissions", new[] { "OperationId" });
+            DropIndex("Resource.Permissions", new[] { "ApplicationResourceId" });
+            DropIndex("Resource.Permissions", "IX_ResourcePermissionName");
             DropIndex("Application.Resources", "IX_ApplicationResourceName");
-            DropTable("Organization.RoleContainsResourcePermissionGroupLink");
-            DropTable("Organization.ResourcePermissionGroup");
-            DropTable("Organization.PermissionGroupOwnsPermissionLink");
+            DropTable("Organization.RoleContainsPermissionGroupLink");
+            DropTable("Application.PermissionGroup");
+            DropTable("Application.PermissionGroupOwnsPermissionLink");
             DropTable("Organization.OrgUnitContainsRoleLink");
             DropTable("Account.UserProfile");
             DropTable("dbo.AspNetUserRoles");
@@ -599,7 +603,7 @@ namespace IdentityProvider.Repository.EF.Migrations
             DropTable("Audit.DbAuditTrail");
             DropTable("Log.DatabaseLog");
             DropTable("Resource.Operations");
-            DropTable("Application.ResourcePermissions");
+            DropTable("Resource.Permissions");
             DropTable("Application.Resources");
         }
     }

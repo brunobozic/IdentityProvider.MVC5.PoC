@@ -1,12 +1,15 @@
 namespace IdentityProvider.Repository.EF.Migrations
 {
+    using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<IdentityProvider.Repository.EF.EFDataContext.AppDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(IdentityProvider.Repository.EF.EFDataContext.AppDbContext context)
