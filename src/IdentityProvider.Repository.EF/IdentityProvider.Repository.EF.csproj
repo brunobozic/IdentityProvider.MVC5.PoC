@@ -38,26 +38,11 @@
     <Compile Include="Mapping\OrgUnitRoleGroupConfiguration.cs" />
     <Compile Include="Mapping\EmployeeOrgUnitConfiguration.cs" />
     <Compile Include="Mapping\OrganisationalUnitConfiguration.cs" />
-    <Compile Include="Migrations\201905061706500_Initial.cs" />
-    <Compile Include="Migrations\201905061706500_Initial.Designer.cs">
-      <DependentUpon>201905061706500_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202002291555557_Initial.cs" />
+    <Compile Include="Migrations\202002291555557_Initial.designer.cs">
+      <DependentUpon>202002291555557_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912101805596_Dunno.cs" />
-    <Compile Include="Migrations\201912101805596_Dunno.designer.cs">
-      <DependentUpon>201912101805596_Dunno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912101827219_Dunno1.cs" />
-    <Compile Include="Migrations\201912101827219_Dunno1.designer.cs">
-      <DependentUpon>201912101827219_Dunno1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912121639390_Stuff.cs" />
-    <Compile Include="Migrations\201912121639390_Stuff.designer.cs">
-      <DependentUpon>201912121639390_Stuff.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912121648137_Stuff2.cs" />
-    <Compile Include="Migrations\201912121648137_Stuff2.designer.cs">
-      <DependentUpon>201912121648137_Stuff2.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Queries\UserGrants\OrganizationalUnitsDto.cs" />
     <Compile Include="Queries\UserGrants\GrantedPriviligesDto.cs" />
     <Compile Include="Queries\UserGrants\UserGrantQuery.cs" />
@@ -76,7 +61,6 @@
     <Compile Include="Mapping\RoleGroupConfiguration.cs" />
     <Compile Include="Mapping\UserProfileConfiguration.cs" />
     <Compile Include="Mapping\ApplicationRoleConfiguration.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OracleSequence\OracleSequenceHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -203,21 +187,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905061706500_Initial.resx">
-      <DependentUpon>201905061706500_Initial.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912101805596_Dunno.resx">
-      <DependentUpon>201912101805596_Dunno.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912101827219_Dunno1.resx">
-      <DependentUpon>201912101827219_Dunno1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912121639390_Stuff.resx">
-      <DependentUpon>201912121639390_Stuff.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912121648137_Stuff2.resx">
-      <DependentUpon>201912121648137_Stuff2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202002291555557_Initial.resx">
+      <DependentUpon>202002291555557_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

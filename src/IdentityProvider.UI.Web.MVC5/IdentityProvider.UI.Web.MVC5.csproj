@@ -103,6 +103,7 @@
     <Content Include="Content\css\themed-buttons-teal.css" />
     <Content Include="Content\css\themed-buttons-yellow.css" />
     <Content Include="Content\demo.js" />
+    <Content Include="Content\img\ajaxloading.gif" />
     <Content Include="Content\iwa-sport-bg-image-light-medium.jpg" />
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\demo.js" />
@@ -111,7 +112,6 @@
     <Content Include="Scripts\Operations\Dashboard\BootstrapMultipleSelect.js" />
     <Content Include="Scripts\Operations\Dashboard\OperationsDatatableWireup.js" />
     <Content Include="Scripts\Operations\Dashboard\OperationsWidgetDateRangePicker.js" />
-    <Content Include="Views\Operation\Partial\_operationsAuditTrailGetAllPagedPartial.cshtml" />
     <None Include="Views\Operation\Partial\_actionButtonsPartial.cshtml" />
     <Content Include="Content\css\themed-buttons-deep-purple.css" />
     <Content Include="Content\css\themed-buttons-red.css" />

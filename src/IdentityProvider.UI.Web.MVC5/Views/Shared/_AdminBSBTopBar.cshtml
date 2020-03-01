@@ -1,8 +1,4 @@
-﻿@*
-    TODO: All of the content in here is stand-in that must be replaced by the real behavior of your app
-*@
-
-@{
+﻿@{
     ViewBag.Layout = null;
 }
 
@@ -54,6 +50,283 @@
         letter-spacing: 0.07em;
     }
 </style>
+<style>
+    .avatar:hover {
+        /*-moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);*/
+    }
+
+    .avatar {
+        -moz-border-radius: 99em;
+        /*-moz-box-shadow: 1px 4px 4px 0px black;*/
+        -moz-transform: scale(0.9);
+        -moz-transition: All 0.5s ease;
+        -ms-transform: scale(0.9);
+        -o-transform: scale(0.9);
+        -o-transition: All 0.5s ease;
+        -webkit-border-radius: 99em;
+        /*-webkit-box-shadow: 1px 4px 4px 0px black;*/
+        -webkit-transform: scale(0.9);
+        -webkit-transition: All 0.5s ease;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: 1px solid darkred;
+        border-radius: 99em;
+        /*box-shadow: 1px 4px 4px 0px black;*/
+        height: 35px;
+        margin-left: 0px;
+        transform: scale(0.9);
+        transition: All 0.5s ease;
+        width: 35px;
+    }
+
+    .avatar-profile {
+        -moz-border-radius: 99em;
+        -webkit-border-radius: 99em;
+        background-position: center center;
+        border-radius: 99em;
+        bottom: 0;
+        height: 110px;
+        margin-top: 10px;
+        overflow: hidden;
+        position: inherit;
+        width: 110px;
+    }
+
+    /*ul {
+        text-align: center;
+    }
+
+    li {
+        text-align: center;
+    }*/
+
+    .profile-circle {
+        align-content: center;
+        align-items: center;
+        background: grey;
+        /*-webkit-animation: animix 2s 1;
+        -webkit-animation-fill-mode: forwards;
+        -moz-animation: animix 2s 1;
+        -moz-animation-fill-mode: forwards;
+        animation: animix 2s 1;
+        animation-iteration-count: infinite;
+        animation-fill-mode: forwards;*/
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b5bdc8+0,828c95+36,28343b+100;Grey+Black+3D */
+        background: rgb(181, 189, 200); /* Old browsers */
+        background: -moz-radial-gradient(center, ellipse cover, rgba(181, 189, 200, 1) 0%, rgba(130, 140, 149, 1) 36%, rgba(40, 52, 59, 1) 100%); /* FF3.6-15 */
+        background: -webkit-radial-gradient(center, ellipse cover, rgba(181, 189, 200, 1) 0%, rgba(130, 140, 149, 1) 36%, rgba(40, 52, 59, 1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: radial-gradient(ellipse at center, rgba(181, 189, 200, 1) 0%, rgba(130, 140, 149, 1) 36%, rgba(40, 52, 59, 1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        border: 20px solid transparent;
+        border-bottom-color: grey;
+        border-left-color: grey;
+        border-radius: 50%;
+        border-right-color: grey;
+        border-top-color: grey;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b5bdc8', endColorstr='#28343b', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+        height: 18em;
+        margin: 2em auto;
+        text-align: center;
+        /*-webkit-transition: .5s;
+        -moz-transition: .5s;
+        transition: .5s;*/
+        transition: ease-in-out 2s;
+        vertical-align: central;
+        width: 18em;
+    }
+
+    @@keyframes slidein {
+        from {
+            transform: rotate(45deg) skewX(30deg);
+        }
+
+        to {
+            transform: rotate(405deg) skewX(30deg);
+        }
+    }
+
+    .spinner {
+        align-content: center;
+        align-items: center;
+        left: 10px;
+        position: absolute;
+        top: 0px;
+    }
+
+    .spinner-block {
+        align-content: center;
+        align-items: center;
+        display: block;
+        position: relative;
+    }
+
+    .spinner:before {
+        display: block;
+        position: relative;
+    }
+
+    .spinner:after {
+        border-radius: 50%;
+        border-style: dotted;
+        border-width: 20px;
+        content: "";
+        display: block;
+        position: relative;
+    }
+
+    @@-webkit-keyframes rotate-animation {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @@keyframes rotate-animation {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @@-webkit-keyframes anti-rotate-animation {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+        }
+    }
+
+    @@keyframes anti-rotate-animation {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+        }
+    }
+
+    .spinner.spinner-1:before {
+        /*top: 0.8em;
+        left: 0.8em;*/
+        -webkit-animation: rotate-animation 2s linear 0s infinite;
+        animation: rotate-animation 2s linear 0s infinite;
+        border-bottom-color: red;
+        border-left-color: rgba(33, 33, 33, 0);
+        border-right-color: red;
+        border-top-color: rgba(33, 33, 33, 0);
+        height: 14em;
+        width: 14em;
+    }
+
+    .spinner.spinner-1:after {
+        /*top: 0.2em;
+        left: 0.2em;*/
+        -webkit-animation: anti-rotate-animation 2s linear 0s infinite;
+        animation: anti-rotate-animation 2s linear 0s infinite;
+        border-bottom-color: red;
+        border-left-color: rgba(33, 33, 33, 0);
+        border-right-color: red;
+        border-top-color: rgba(33, 33, 33, 0);
+        height: 18em;
+        width: 18em;
+    }
+
+    @@-webkit-keyframes animix {
+        0% {
+            border-bottom-color: grey;
+            border-left-color: grey;
+            border-right-color: grey;
+            border-top-color: grey;
+        }
+
+        25% {
+            border-bottom-color: grey;
+            border-left-color: grey;
+            border-right-color: grey;
+            border-top-color: red;
+        }
+
+        50% {
+            border-bottom-color: grey;
+            border-left-color: grey;
+            border-right-color: red;
+            border-top-color: grey;
+        }
+
+        75% {
+            border-bottom-color: red;
+            border-left-color: grey;
+            border-right-color: grey;
+            border-top-color: grey;
+        }
+
+        100% {
+            border-bottom-color: grey;
+            border-left-color: red;
+            border-right-color: grey;
+            border-top-color: grey;
+        }
+    }
+
+    @@keyframes animix {
+        0% {
+            border-bottom-color: grey;
+            border-left-color: grey;
+            border-right-color: grey;
+            border-top-color: grey;
+        }
+
+        25% {
+            border-bottom-color: grey;
+            border-left-color: grey;
+            border-right-color: grey;
+            border-top-color: red;
+        }
+
+        50% {
+            border-bottom-color: grey;
+            border-left-color: grey;
+            border-right-color: red;
+            border-top-color: grey;
+        }
+
+        75% {
+            border-bottom-color: red;
+            border-left-color: grey;
+            border-right-color: grey;
+            border-top-color: grey;
+        }
+
+        100% {
+            border-bottom-color: grey;
+            border-left-color: red;
+            border-right-color: grey;
+            border-top-color: grey;
+        }
+    }
+</style>
+
 
 <header class="main-header">
     <nav class="navbar">

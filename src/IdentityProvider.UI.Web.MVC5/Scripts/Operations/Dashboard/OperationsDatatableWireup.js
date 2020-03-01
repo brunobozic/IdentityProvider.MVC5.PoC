@@ -19,13 +19,13 @@ $(document).ready(function () {
         colReorder: true,
         "columnDefs": [
             { "width": "5%", "visible": true, "targets": [0] }, // Id
-            { "width": "10%", "searchable": false, "orderable": true, "targets": [1] }, // Name
-            { "width": "10%", "searchable": false, "orderable": true, "targets": [2] }, // Description
-            { "width": "10%", "searchable": false, "orderable": true, "targets": [3] }, // Active
-            { "width": "10%", "searchable": false, "orderable": true, "targets": [4] }, // CreatedDate
-            { "width": "20%", "searchable": false, "orderable": true, "targets": [5] }, // ModifiedDate
-            { "width": "20%", "searchable": false, "orderable": true, "targets": [6] }, // Actions
-            { "className": "text-center custom-middle-align", "targets": [3, 4, 5, 6] }
+            { "width": "5%", "searchable": true, "orderable": true, "targets": [1] }, // Name
+            { "width": "5%", "searchable": true, "orderable": true, "targets": [2] }, // Description
+            { "width": "5%", "searchable": false, "orderable": true, "targets": [3] }, // Active
+            { "width": "5%", "searchable": false, "orderable": true, "targets": [4] }, // CreatedDate
+            { "width": "5%", "searchable": false, "orderable": true, "targets": [5] }, // ModifiedDate
+            { "width": "5%", "searchable": false, "orderable": true, "targets": [6] }, // Actions
+            { "className": "text-center custom-middle-align", "targets": [] }
         ],
         select: {
             style: 'multi'
@@ -54,7 +54,7 @@ $(document).ready(function () {
                 titleAttr: 'PDF'
             }
         ],
-        "autoWidth": false,
+        "autoWidth": true,
         "keys": true,
         "fixedHeader": true,
         "sortable": true,
@@ -77,7 +77,7 @@ $(document).ready(function () {
                 data.to = end;
                 data.show_inactive = true;
                 data.show_deleted = false;
-                data.search_extra = $('#SearchStringOperationsMainGrid').val();
+                data.search_extra = $('#searchStringOperationsMainGrid').val();
                 skinChange();
             }
         },
@@ -85,9 +85,9 @@ $(document).ready(function () {
             "search": "",
             "searchPlaceholder": "Search...",
             loadingRecords:
-                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="http://www.snacklocal.com/images/ajaxload.gif"></div>',
+                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="~/Content/img/ajaxloading.gif"></div>',
             processing:
-                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="http://www.snacklocal.com/images/ajaxload.gif"></div>'
+                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="~/Content/img/ajaxloading.gif"></div>'
         },
         lengthMenu: [5, 10, 20, 50, 100, 200, 500],
         "columns": [
@@ -110,8 +110,8 @@ $(document).ready(function () {
             {
                 data: null,
                 className: "center",
-                defaultContent: '<a href="" class="OperationsDashboard_OperationsDatatable_edit">Edit</a> / <a href="" class="OperationsDashboard_OperationsDatatable_remove">Delete</a>'
-            }
+                defaultContent: '<a href="" class="OperationsDashboard_OperationsDatatable_edit text-center custom-middle-align">Edit</a> / <a href="" class="OperationsDashboard_OperationsDatatable_remove">Delete</a>'
+            }    
         ],
         "drawCallback": function (settings) {
             myMuuriGrid.refreshItems().layout();
@@ -144,6 +144,7 @@ $(document).ready(function () {
                 $('#mdModal').find('.modal-body').html(response);
 
                 $('#mdModal').on('shown.bs.modal', function () {
+
                 });
             },
             failure: function (response) {
@@ -272,10 +273,9 @@ $(document).ready(function () {
         });
     });
 
-    $('#searchStringOperationsMainGrid').on('click', function (e) {
+    $('#submitSearchOperationsMainGrid').on('click', function (e) {
         operationsDatatable.draw();
     });
-
 
     // Extend dataTables search
     $.fn.dataTable.ext.search.push(
