@@ -123,12 +123,6 @@
     <Content Include="Scripts\Muuri\muuriWireup.js" />
     <Content Include="Scripts\Select2\select2Wireup.js" />
     <Content Include="Views\Operation\Partial\_operationsHeaderPartial.cshtml" />
-    <Content Include="Views\Resource\Partial\_actionButtonsPartial.cshtml" />
-    <Content Include="Views\Resource\Partial\_resourceDetailsPartial.cshtml" />
-    <Content Include="Views\Resource\Partial\_resourceEditPartial.cshtml" />
-    <Content Include="Views\Resource\Partial\_resourceInsertPartial.cshtml" />
-    <Content Include="Views\Resource\Partial\_resourcesHeaderPartial.cshtml" />
-    <Content Include="Views\Resource\Partial\_resourcesPartial.cshtml" />
     <Content Include="Views\Resource\ResourcesGetAllPaged.cshtml" />
     <Content Include="Views\Shared\CommonInsertItemPartials\_styleSectionPartial.cshtml" />
     <Content Include="Views\Shared\CommonInsertItemPartials\_javascriptSectionPartial.cshtml" />
@@ -140,12 +134,6 @@
     <Content Include="Views\Operation\Partial\_operationAuditTrailPartial.cshtml" />
     <Content Include="Views\Shared\DashboardCommons\_headerRightSideActionDropdown.cshtml" />
     <Content Include="Views\Operation\Partial\_operationsGetAllPagedPartial.cshtml" />
-    <Content Include="Views\Resource\ResourceDeleteAsync.cshtml" />
-    <Content Include="Views\Resource\ResourceGetAllPaged.cshtml" />
-    <Content Include="Views\Resource\ResourceInsert.cshtml" />
-    <Content Include="Views\Resource\Partial\_failedToInsertResourcePartial.cshtml" />
-    <Content Include="Views\Resource\Partial\_resourceNotFoundPartial.cshtml" />
-    <Content Include="Views\Resource\Partial\_resourcePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\popover-overrides.css" />
@@ -352,6 +340,7 @@
     <Folder Include="Scripts\Operations\Partials\" />
     <Folder Include="Scripts\Resources\Dashboard\" />
     <Folder Include="Scripts\Resources\Partials\" />
+    <Folder Include="Views\Resource\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

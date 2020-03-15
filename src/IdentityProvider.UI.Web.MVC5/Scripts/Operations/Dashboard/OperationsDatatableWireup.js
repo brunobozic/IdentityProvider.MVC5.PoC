@@ -24,8 +24,9 @@ $(document).ready(function () {
             { "width": "5%", "searchable": false, "orderable": true, "targets": [3] }, // Active
             { "width": "5%", "searchable": false, "orderable": true, "targets": [4] }, // CreatedDate
             { "width": "5%", "searchable": false, "orderable": true, "targets": [5] }, // ModifiedDate
-            { "width": "5%", "searchable": false, "orderable": true, "targets": [6] }, // Actions
-            { "className": "text-center custom-middle-align", "targets": [] }
+            { "width": "5%", "searchable": false, "orderable": false, "targets": [6] }, // Actions
+            { "className": "text-center custom-middle-align", "targets": [] },
+            { "className": "id-column", "targets": [0] }
         ],
         select: {
             style: 'multi'
@@ -91,10 +92,14 @@ $(document).ready(function () {
         },
         lengthMenu: [5, 10, 20, 50, 100, 200, 500],
         "columns": [
-            { "data": "Id", "name": "Id", "autoWidth": true },
+            { "data": "Id", "name": "Id", "autoWidth": false },
             { "data": "Name", "name": "Name", "autoWidth": true },
             { "data": "Description", "name": "Description", "autoWidth": true },
-            { "data": "Active", "name": "Active", "autoWidth": true },
+            {
+                "data": "Active", "name": "Active", "autoWidth": true,
+                "render": function (data, type, row) {
+                    return (data === true) ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-remove" ></span>';}
+            },
             {
                 "data": "CreatedDate", "name": "CreatedDate", "autoWidth": true, type: "datetime",
                 render: function (data, type, row) {
@@ -107,11 +112,12 @@ $(document).ready(function () {
                     return moment(data).format(dateFormat);
                 }
             },
-            {
-                data: null,
-                className: "center",
-                defaultContent: '<a href="" class="OperationsDashboard_OperationsDatatable_edit text-center custom-middle-align">Edit</a> / <a href="" class="OperationsDashboard_OperationsDatatable_remove">Delete</a>'
-            }    
+            { "data": "Actions", "name": "Actions", "autoWidth": true },
+            //{
+            //    data: null,
+            //    className: "center",
+            //    defaultContent: '<a href="" class="OperationsDashboard_OperationsDatatable_edit text-center custom-middle-align">Edit</a> / <a href="" class="OperationsDashboard_OperationsDatatable_remove">Delete</a>'
+            //}    
         ],
         "drawCallback": function (settings) {
             myMuuriGrid.refreshItems().layout();
@@ -177,7 +183,11 @@ $(document).ready(function () {
     $('#OperationsDashboard_OperationsDatatable').on('click', 'a.OperationsDashboard_OperationsDatatable_edit', function (e) {
         e.preventDefault();
 
-        var id = $(this).closest('tr').children('td:first').text();
+        var id = $(this).data('id');
+      
+
+        console.log("id: " + id + "  , editUrl: " + editUrl);
+
         var options = { /*'backdrop': 'static',*/ keyboard: true, focus: true };
 
         $.ajax({

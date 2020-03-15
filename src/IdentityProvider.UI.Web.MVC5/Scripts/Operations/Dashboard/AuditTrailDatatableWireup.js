@@ -25,7 +25,8 @@ $(document).ready(function () {
             { "width": "5%", "searchable": true, "orderable": true, "targets": [4] },  // OldData
             { "width": "5%", "searchable": true, "orderable": true, "targets": [5] },  // NewData  
             { "width": "5%", "searchable": true, "orderable": true, "targets": [6] },  // UserName  
-            { "className": "text-center custom-middle-align", "targets": [] }
+            { "className": "text-center custom-middle-align", "targets": [] },
+            { "className": "id-column", "targets": [0] }
         ],
         select: {
             style: 'multi'

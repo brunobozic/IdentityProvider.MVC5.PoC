@@ -81,7 +81,7 @@ namespace IdentityProvider.Controllers.Controllers
                 Active = s.Active,
                 CreatedDate = s.CreatedDate,
                 ModifiedDate = s.ModifiedDate,
-                Actions = s.Actions
+                Actions = string.Format("<a href=\"\" class=\"OperationsDashboard_OperationsDatatable_edit text-center\" data-id=\"{0}\" custom-middle-align\">Edit</a> / <a href=\"\" class=\"OperationsDashboard_OperationsDatatable_remove\" data-id=\"{0}\">Delete</a>", s.Id)
             }));
 
             return Json(new

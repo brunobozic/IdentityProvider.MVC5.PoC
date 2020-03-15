@@ -382,7 +382,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp3);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "EmployeeControllerDelete"))
             {
                 var rp31 = new Permission
@@ -398,7 +400,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp31);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "EmployeeControllerUpdate"))
             {
                 var rp32 = new Permission
@@ -414,7 +418,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp32);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "EmployeeControllerRead"))
             {
                 var rp33 = new Permission
@@ -430,7 +436,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp33);
             }
+
             _context.SaveChanges();
+
             var res4 = _context.ApplicationResource.First(u => u.Name == "EmployeeController");
 
             if (!_context.Permission.Any(u => u.Name == "EmployeeDelete"))
@@ -448,6 +456,7 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp4);
             }
+
             _context.SaveChanges();
 
 
@@ -466,7 +475,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp5);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "EmployeeUpdate"))
             {
                 var rp5 = new Permission
@@ -482,7 +493,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp5);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "EmployeeRead"))
             {
                 var rp5 = new Permission
@@ -498,7 +511,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp5);
             }
+
             _context.SaveChanges();
+
             var res6 = _context.ApplicationResource.First(u => u.Name == "LockedUserAccount");
 
             if (!_context.Permission.Any(u => u.Name == "UnlockLockedUserAccount"))
@@ -516,8 +531,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp6);
             }
-            _context.SaveChanges();
 
+            _context.SaveChanges();
 
             if (!_context.Permission.Any(u => u.Name == "ViewLockedUserAccounts"))
             {
@@ -534,7 +549,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp7);
             }
+
             _context.SaveChanges();
+
             var res8 = _context.ApplicationResource.First(u => u.Name == "HomeController");
 
             if (!_context.Permission.Any(u => u.Name == "HomeControllerCreate"))
@@ -552,7 +569,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp8);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "HomeControlleDelete"))
             {
                 var rp81 = new Permission
@@ -568,7 +587,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp81);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "HomeControllerRead"))
             {
                 var rp82 = new Permission
@@ -584,7 +605,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp82);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "HomeControllerUpdate"))
             {
                 var rp83 = new Permission
@@ -600,7 +623,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp83);
             }
+
             _context.SaveChanges();
+
             var res9 = _context.ApplicationResource.First(u => u.Name == "OperationController");
 
             if (!_context.Permission.Any(u => u.Name == "OperationCreate"))
@@ -618,7 +643,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp9);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "OperationDelete"))
             {
                 var rp91 = new Permission
@@ -634,7 +661,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp91);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "OperationRead"))
             {
                 var rp92 = new Permission
@@ -650,7 +679,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp92);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "OperationUpdate"))
             {
                 var rp93 = new Permission
@@ -666,7 +697,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp93);
             }
+
             _context.SaveChanges();
+
             var res10 = _context.ApplicationResource.First(u => u.Name == "ResourceController");
 
             if (!_context.Permission.Any(u => u.Name == "ResourceCreate"))
@@ -684,7 +717,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp10);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "ResourceDelete"))
             {
                 var rp101 = new Permission
@@ -700,7 +735,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp101);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "ResourceRead"))
             {
                 var rp102 = new Permission
@@ -716,7 +753,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp102);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "ResourceUpdate"))
             {
                 var rp103 = new Permission
@@ -732,7 +771,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp103);
             }
+
             _context.SaveChanges();
+
             var res12 = _context.ApplicationResource.First(u => u.Name == "OrganizationalUnitController");
 
             if (!_context.Permission.Any(u => u.Name == "OrganizationalUnitCreate"))
@@ -750,7 +791,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp12);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "OrganizationalUnitDelete"))
             {
                 var rp121 = new Permission
@@ -766,7 +809,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp121);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "OrganizationalUnitRead"))
             {
                 var rp122 = new Permission
@@ -782,7 +827,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp122);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "OrganizationalUnitUpdate"))
             {
                 var rp123 = new Permission
@@ -798,7 +845,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp123);
             }
+
             _context.SaveChanges();
+
             var res13 = _context.ApplicationResource.First(u => u.Name == "RoleGroupController");
 
             if (!_context.Permission.Any(u => u.Name == "RoleGroupCreate"))
@@ -816,7 +865,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp13);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "RoleGroupDelete"))
             {
                 var rp131 = new Permission
@@ -832,7 +883,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp131);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "RoleGroupRead"))
             {
                 var rp132 = new Permission
@@ -848,7 +901,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp132);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "RoleGroupUpdate"))
             {
                 var rp133 = new Permission
@@ -864,7 +919,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp133);
             }
+
             _context.SaveChanges();
+
             var res14 = _context.ApplicationResource.First(u => u.Name == "UserProfileController");
 
             if (!_context.Permission.Any(u => u.Name == "UserProfileCreate"))
@@ -882,7 +939,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp14);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "UserProfileDelete"))
             {
                 var rp141 = new Permission
@@ -898,7 +957,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp141);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "UserProfileRead"))
             {
                 var rp142 = new Permission
@@ -914,7 +975,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp142);
             }
+
             _context.SaveChanges();
+
             if (!_context.Permission.Any(u => u.Name == "UserProfileUpdate"))
             {
                 var rp143 = new Permission
@@ -930,7 +993,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp143);
             }
+
             _context.SaveChanges();
+
             var res15 = _context.ApplicationResource.First(u => u.Name == "EmployeeController");
 
             if (!_context.Permission.Any(u => u.Name == "EmployeeControllerTotalGrant"))
@@ -1395,14 +1460,14 @@ namespace IdentityProvider.Services.DbSeed
                 manager.AddToRole(user.Id, "Standard");
             }
 
-            if (!_context.Users.Any(u => u.UserName == "bruno.bozic@blink.hr"))
+            if (!_context.Users.Any(u => u.UserName == "bruno.bozic@gmail.com"))
             {
                 var store = new UserStore<ApplicationUser>(_context);
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser
                 {
                     Id = Guid.NewGuid().ToString(),
-                    UserName = "bruno.bozic@blink.hr",
+                    UserName = "bruno.bozic@gmail.com",
                     FirstName = "Bruno",
                     LastName = "Božić",
                     Active = true,
@@ -1439,7 +1504,9 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Employee.Add(emp);
             }
+
             _context.SaveChanges();
+
             var user2 = _context.Users.SingleOrDefault(u => u.FirstName == "Application" && u.LastName == "Standard User");
 
             if (!_context.Employee.Any(u => u.Name == "Application" && u.Surname == "Standard User"))
@@ -1457,6 +1524,7 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Employee.Add(emp);
             }
+
             _context.SaveChanges();
 
             var user3 = _context.Users.SingleOrDefault(u => u.FirstName == "Application" && u.LastName == "Administrator");
@@ -1476,6 +1544,7 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Employee.Add(emp);
             }
+
             _context.SaveChanges();
 
             //var user4 = _context.Users.SingleOrDefault(u => u.FirstName == "Application" && u.LastName == "Administrator");
