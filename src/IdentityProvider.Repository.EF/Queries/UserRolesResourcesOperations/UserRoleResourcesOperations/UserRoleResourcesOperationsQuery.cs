@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using IdentityProvider.Repository.EF.EFDataContext;
+﻿using IdentityProvider.Repository.EF.EFDataContext;
+using System.Collections.Generic;
 
 namespace IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.UserRoleResourcesOperations
 {
@@ -14,14 +13,14 @@ namespace IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.Us
         public string OperationNameLike { get; set; }
         public string ResourceNameLike { get; set; }
 
-        public UserRoleResourcesOperationsQuery( AppDbContext context )
+        public UserRoleResourcesOperationsQuery(AppDbContext context)
         {
             _context = context;
         }
 
         public IEnumerable<UserRoleResourcesOperationsDto> Execute()
         {
-            var identityContext = _context as AppDbContext;
+            var identityContext = _context;
             return null;
             //return (IEnumerable<UserRoleResourcesOperationsDto>)(from resource in _context.ApplicationResource
             //                                               from operation in resource.Operations

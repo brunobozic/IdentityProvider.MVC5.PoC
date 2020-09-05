@@ -1,16 +1,16 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
     /// <summary>
     /// This is a **link** table between the "ApplicationResource" table and the "Operation" table
     /// </summary>
-    [Table("Permissions" , Schema = "Resource")]
+    [Table("Permissions", Schema = "Resource")]
     public class Permission : DomainEntity<int>, IActive
     {
         public Permission()
@@ -46,7 +46,7 @@ namespace IdentityProvider.Models.Domain.Account
 
         #region IValidatable Entity contract implementation
 
-        public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             throw new NotImplementedException();
         }

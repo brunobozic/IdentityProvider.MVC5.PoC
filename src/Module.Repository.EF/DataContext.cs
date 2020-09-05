@@ -1,9 +1,9 @@
+using Module.Repository.EF.DataContextInterfaces;
 using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Module.Repository.EF.DataContextInterfaces;
 using TrackableEntities;
 using TrackableEntities.EF6;
 
@@ -139,7 +139,7 @@ namespace Module.Repository.EF
         public void SyncObjectsStatePostCommit()
         {
             foreach (var dbEntityEntry in ChangeTracker.Entries())
-                ((ITrackable) dbEntityEntry.Entity).TrackingState = StateHelper.ConvertState(dbEntityEntry.State);
+                ((ITrackable)dbEntityEntry.Entity).TrackingState = StateHelper.ConvertState(dbEntityEntry.State);
         }
 
         private void SyncObjectsStatePreCommit()

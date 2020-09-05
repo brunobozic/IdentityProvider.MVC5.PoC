@@ -1,9 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using IdentityProvider.Controllers.Helpers;
+﻿using IdentityProvider.Controllers.Helpers;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
@@ -14,6 +9,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using StructureMap;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -32,8 +32,8 @@ namespace IdentityProvider.Controllers.Controllers
             , ApplicationUserManager userManager
             , ApplicationSignInManager signInManager
             , IAuthenticationManager authenticationManager
-            , IErrorLogService errorLogService 
-            , IApplicationConfiguration applicationConfiguration 
+            , IErrorLogService errorLogService
+            , IApplicationConfiguration applicationConfiguration
             )
             : base(
                 cookieStorageService
@@ -51,7 +51,7 @@ namespace IdentityProvider.Controllers.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login( string returnUrl )
+        public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
 
@@ -62,14 +62,14 @@ namespace IdentityProvider.Controllers.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> LoginBootstrap( LoginViewModel model , string returnUrl )
+        public async Task<ActionResult> LoginBootstrap(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await _webSecurity.PasswordSignInAsync(model.Username , model.Password , model.RememberMe , true);
+            var result = await _webSecurity.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, true);
 
             switch (result)
             {
@@ -78,10 +78,10 @@ namespace IdentityProvider.Controllers.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode" , new { ReturnUrl = returnUrl , model.RememberMe });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("" , "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return View(model);
             }
         }
@@ -90,14 +90,14 @@ namespace IdentityProvider.Controllers.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login( LoginViewModel model , string returnUrl )
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await _webSecurity.PasswordSignInAsync(model.Username , model.Password , model.RememberMe , true);
+            var result = await _webSecurity.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, true);
 
             switch (result)
             {
@@ -106,10 +106,10 @@ namespace IdentityProvider.Controllers.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode" , new { ReturnUrl = returnUrl , model.RememberMe });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("" , "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return View(model);
             }
         }
@@ -117,13 +117,13 @@ namespace IdentityProvider.Controllers.Controllers
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode( string provider , string returnUrl , bool rememberMe )
+        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
             if (!await _webSecurity.HasBeenVerifiedAsync())
                 return View("Error");
 
-            return View(new VerifyCodeViewModel { Provider = provider , ReturnUrl = returnUrl , RememberMe = rememberMe });
+            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         //
@@ -131,7 +131,7 @@ namespace IdentityProvider.Controllers.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyCode( VerifyCodeViewModel model )
+        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -140,7 +140,7 @@ namespace IdentityProvider.Controllers.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await _webSecurity.TwoFactorSignInAsync(model.Provider , model.Code , model.RememberMe ,
+            var result = await _webSecurity.TwoFactorSignInAsync(model.Provider, model.Code, model.RememberMe,
                 model.RememberBrowser);
 
             switch (result)
@@ -151,7 +151,7 @@ namespace IdentityProvider.Controllers.Controllers
                     return View("Lockout");
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("" , "Invalid code.");
+                    ModelState.AddModelError(string.Empty, "Invalid code.");
                     return View(model);
             }
         }
@@ -171,20 +171,20 @@ namespace IdentityProvider.Controllers.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register( RegisterViewModel model )
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
                 {
-                    UserName = model.DesiredUserName ,
-                    Email = model.Email ,
-                    FirstName = model.FirstName ,
+                    UserName = model.DesiredUserName,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
                     LastName = model.LastName,
-                  
+
                 };
 
-                var result = await _webSecurity.CreateAsync(user , model.Password);
+                var result = await _webSecurity.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
@@ -194,13 +194,13 @@ namespace IdentityProvider.Controllers.Controllers
                     // Send an email with this link
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
-                    var callbackUrl = Url.Action("ConfirmEmail" , "Account" , new { userId = user.Id , code } ,
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code },
                         Request.Url.Scheme);
 
-                    await _userManager.SendEmailAsync(user.Id , "Confirm your account (md.proof of concept application)" ,
+                    await _userManager.SendEmailAsync(user.Id, "Confirm your account (md.proof of concept application)",
                         "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index" , "Home");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 AddErrors(result);
@@ -216,12 +216,12 @@ namespace IdentityProvider.Controllers.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail( string userId , string code )
+        public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
                 return View("Error");
 
-            var result = await _webSecurity.ConfirmEmailAsync(userId , code);
+            var result = await _webSecurity.ConfirmEmailAsync(userId, code);
 
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
@@ -239,7 +239,7 @@ namespace IdentityProvider.Controllers.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword( ForgotPasswordViewModel model )
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -252,13 +252,13 @@ namespace IdentityProvider.Controllers.Controllers
                 // Send an email with this link
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user.Id);
 
-                var callbackUrl = Url.Action("ResetPassword" , "Account" , new { userId = user.Id , code } ,
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code },
                     Request.Url.Scheme);
 
-                await _userManager.SendEmailAsync(user.Id , "Reset Password" ,
+                await _userManager.SendEmailAsync(user.Id, "Reset Password",
                     "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                return RedirectToAction("ForgotPasswordConfirmation" , "Account");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -276,7 +276,7 @@ namespace IdentityProvider.Controllers.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword( string code )
+        public ActionResult ResetPassword(string code)
         {
             return code == null ? View("Error") : View();
         }
@@ -286,7 +286,7 @@ namespace IdentityProvider.Controllers.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword( ResetPasswordViewModel model )
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -294,12 +294,12 @@ namespace IdentityProvider.Controllers.Controllers
             var user = await _webSecurity.FindByNameAsync(model.Email);
 
             if (user == null)
-                return RedirectToAction("ResetPasswordConfirmation" , "Account");
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
 
-            var result = await _webSecurity.ResetPasswordAsync(user.Id , model.Code , model.Password);
+            var result = await _webSecurity.ResetPasswordAsync(user.Id, model.Code, model.Password);
 
             if (result.Succeeded)
-                return RedirectToAction("ResetPasswordConfirmation" , "Account");
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
 
             AddErrors(result);
 
@@ -319,17 +319,17 @@ namespace IdentityProvider.Controllers.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin( string provider , string returnUrl )
+        public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider ,
-                Url.Action("ExternalLoginCallback" , "Account" , new { ReturnUrl = returnUrl }));
+            return new ChallengeResult(provider,
+                Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
         //
         // GET: /Account/SendCode
         [AllowAnonymous]
-        public async Task<ActionResult> SendCode( string returnUrl , bool rememberMe )
+        public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await _webSecurity.GetVerifiedUserIdAsync();
 
@@ -338,13 +338,13 @@ namespace IdentityProvider.Controllers.Controllers
 
             var userFactors = await _webSecurity.GetValidTwoFactorProvidersAsync(userId)
                 ;
-            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose , Value = purpose })
+            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose })
                 .ToList();
 
             return View(new SendCodeViewModel
             {
-                Providers = factorOptions ,
-                ReturnUrl = returnUrl ,
+                Providers = factorOptions,
+                ReturnUrl = returnUrl,
                 RememberMe = rememberMe
             });
         }
@@ -354,7 +354,7 @@ namespace IdentityProvider.Controllers.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendCode( SendCodeViewModel model )
+        public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
             if (!ModelState.IsValid)
                 return View();
@@ -363,14 +363,14 @@ namespace IdentityProvider.Controllers.Controllers
             if (!await _webSecurity.SendTwoFactorCodeAsync(model.SelectedProvider))
                 return View("Error");
 
-            return RedirectToAction("VerifyCode" ,
-                new { Provider = model.SelectedProvider , model.ReturnUrl , model.RememberMe });
+            return RedirectToAction("VerifyCode",
+                new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
         }
 
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback( string returnUrl )
+        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
 
@@ -378,7 +378,7 @@ namespace IdentityProvider.Controllers.Controllers
                 return RedirectToAction("Login");
 
             // Sign in the user with this external login provider if the user already has a login
-            var result = await _webSecurity.ExternalSignInAsync(loginInfo , false);
+            var result = await _webSecurity.ExternalSignInAsync(loginInfo, false);
 
             switch (result)
             {
@@ -387,13 +387,13 @@ namespace IdentityProvider.Controllers.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode" , new { ReturnUrl = returnUrl , RememberMe = false });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation" ,
+                    return View("ExternalLoginConfirmation",
                         new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
@@ -403,11 +403,11 @@ namespace IdentityProvider.Controllers.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation( ExternalLoginConfirmationViewModel model ,
-            string returnUrl )
+        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model,
+            string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
-                return RedirectToAction("Index" , "Manage");
+                return RedirectToAction("Index", "Manage");
 
             if (ModelState.IsValid)
             {
@@ -417,17 +417,17 @@ namespace IdentityProvider.Controllers.Controllers
                 if (info == null)
                     return View("ExternalLoginFailure");
 
-                var user = new ApplicationUser { UserName = model.Email , Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
 
                 var result = await _webSecurity.CreateAsync(user);
 
                 if (result.Succeeded)
                 {
-                    result = await _webSecurity.AddLoginAsync(user.Id , info.Login);
+                    result = await _webSecurity.AddLoginAsync(user.Id, info.Login);
 
                     if (result.Succeeded)
                     {
-                        await _webSecurity.SignInAsync(user , false , false);
+                        await _webSecurity.SignInAsync(user, false, false);
 
                         return RedirectToLocal(returnUrl);
                     }
@@ -449,7 +449,7 @@ namespace IdentityProvider.Controllers.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
-            return RedirectToAction("Index" , "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         //
@@ -460,7 +460,7 @@ namespace IdentityProvider.Controllers.Controllers
             return View();
         }
 
-        protected override void Dispose( bool disposing )
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -473,17 +473,17 @@ namespace IdentityProvider.Controllers.Controllers
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
-        private void AddErrors( IdentityResult result )
+        private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
-                ModelState.AddModelError("" , error);
+                ModelState.AddModelError(string.Empty, error);
         }
 
-        private ActionResult RedirectToLocal( string returnUrl )
+        private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
-            return RedirectToAction("Index" , "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         #endregion

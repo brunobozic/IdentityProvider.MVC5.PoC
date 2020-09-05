@@ -3,7 +3,7 @@ using Module.ServicePattern;
 
 namespace IdentityProvider.Services.ResourceService
 {
-    public interface IApplicationResourceService: IService<ApplicationResource>
+    public interface IApplicationResourceService : IService<ApplicationResource>
     {
     }
 }

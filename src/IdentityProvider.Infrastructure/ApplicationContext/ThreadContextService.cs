@@ -1,7 +1,7 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.IO;
 using System.Threading;
-using AutoMapper;
 
 namespace IdentityProvider.Infrastructure.ApplicationContext
 {

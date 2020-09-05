@@ -1,14 +1,14 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Batch;
+using IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Extensions;
+using Serilog.Core;
+using Serilog.Debugging;
+using Serilog.Events;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.Linq;
-using IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Batch;
-using IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Extensions;
-using Serilog.Core;
-using Serilog.Debugging;
-using Serilog.Events;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
 {
@@ -34,7 +34,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
 
             if (retentionPeriod.HasValue)
                 // impose a min retention period of 1 minute
-                _retentionPeriod = new[] {retentionPeriod.Value, TimeSpan.FromMinutes(1)}.Max();
+                _retentionPeriod = new[] { retentionPeriod.Value, TimeSpan.FromMinutes(1) }.Max();
 
             InitializeDatabase();
         }
@@ -50,7 +50,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
 
         private static string CreateConnectionString(string dbPath)
         {
-            return new SQLiteConnectionStringBuilder {DataSource = dbPath}.ConnectionString;
+            return new SQLiteConnectionStringBuilder { DataSource = dbPath }.ConnectionString;
         }
 
         private void InitializeDatabase()

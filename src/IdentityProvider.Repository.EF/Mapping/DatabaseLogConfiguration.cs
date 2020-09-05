@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using IdentityProvider.Infrastructure.DatabaseLog.Model;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using IdentityProvider.Infrastructure.DatabaseLog.Model;
 
 namespace IdentityProvider.Repository.EF.Mapping
 {

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using IdentityProvider.Models;
+﻿using IdentityProvider.Models;
 using IdentityProvider.Models.Domain.Account;
 using Module.ServicePattern;
+using System.Collections.Generic;
 
 namespace IdentityProvider.Services.OperationsService
 {

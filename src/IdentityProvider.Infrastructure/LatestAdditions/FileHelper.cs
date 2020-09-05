@@ -7,16 +7,16 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
 {
     public static class FileHelper
     {
-        public static byte[] GetData( this Stream fs )
+        public static byte[] GetData(this Stream fs)
         {
-            using (var ms = new MemoryStream(( int ) fs.Length))
+            using (var ms = new MemoryStream((int)fs.Length))
             {
                 fs.CopyTo(ms);
                 return ms.GetBuffer();
             }
         }
 
-        private static readonly Dictionary<string , string> MimeTypes = new Dictionary<string , string>
+        private static readonly Dictionary<string, string> MimeTypes = new Dictionary<string, string>
             {
                 {".bmp", "image/bmp"},
                 {".gif", "image/gif"},
@@ -50,21 +50,21 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
                 {".qt", "video/quicktime"}
             };
 
-        public static string GetContentType( string fileName )
+        public static string GetContentType(string fileName)
         {
             var extension = new FileInfo(fileName).Extension;
-            return MimeTypes.ContainsKey(extension) ? MimeTypes[ extension ] : "application/octet-stream";
+            return MimeTypes.ContainsKey(extension) ? MimeTypes[extension] : "application/octet-stream";
         }
 
-        public static string GetFileExtension( string mimeType )
+        public static string GetFileExtension(string mimeType)
         {
             mimeType = mimeType.Split(';').First();
             return MimeTypes.Values.Contains(mimeType) ? MimeTypes.First(x => x.Value == mimeType).Key : null;
         }
 
-        public static string ReplaceIllegalCharacters( string filename , char replaceChar = '_' )
+        public static string ReplaceIllegalCharacters(string filename, char replaceChar = '_')
         {
-            return Regex.Replace(filename , $"[{Path.GetInvalidFileNameChars().Join("|")}]" , replaceChar.ToString());
+            return Regex.Replace(filename, $"[{Path.GetInvalidFileNameChars().Join("|")}]", replaceChar.ToString());
         }
     }
 }

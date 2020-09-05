@@ -1,3 +1,3 @@
-﻿namespace IdentityProvider.UI.Web.MVC5
+﻿namespace IdentityProvider.UI.Web.MVC5.App_Start
 {
 }

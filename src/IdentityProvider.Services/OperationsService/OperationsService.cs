@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using IdentityProvider.Models;
+﻿using IdentityProvider.Models;
 using IdentityProvider.Models.Domain.Account;
 using LinqKit;
 using Module.Repository.EF.Repositories;
 using Module.ServicePattern;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 
 namespace IdentityProvider.Services.OperationsService
@@ -85,7 +85,7 @@ namespace IdentityProvider.Services.OperationsService
                             Deleted = m.IsDeleted,
                             CreatedDate = m.CreatedDate,
                             ModifiedDate = m.ModifiedDate,
-                            Actions = ""
+                            Actions = string.Empty
                         });
 
             switch (sortBy)

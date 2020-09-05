@@ -1,14 +1,14 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure;
+using IdentityProvider.Infrastructure.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using IdentityProvider.Infrastructure;
-using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    [Table("Operations" , Schema = "Resource")]
+    [Table("Operations", Schema = "Resource")]
     public class Operation : DomainEntity<int>, IActive, IAuditTrail
     {
         public Operation()
@@ -39,19 +39,19 @@ namespace IdentityProvider.Models.Domain.Account
 
         public virtual ICollection<Permission> ResourcePermission { get; set; }
 
-        public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var name = new[] { "Name" };
             var description = new[] { "Description" };
 
             if (string.IsNullOrEmpty(Name) && name.Length > 0)
             {
-                yield return new ValidationResult("Operation name is required." , name);
+                yield return new ValidationResult("Operation name is required.", name);
             }
 
             if (string.IsNullOrEmpty(Description) && description.Length > 0)
             {
-                yield return new ValidationResult("Description is required." , description);
+                yield return new ValidationResult("Description is required.", description);
             }
         }
     }

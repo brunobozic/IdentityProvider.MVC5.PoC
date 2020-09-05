@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models;
@@ -18,6 +10,14 @@ using IdentityProvider.Models.ViewModels.Operations.Extensions;
 using IdentityProvider.Services.OperationsService;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using StructureMap;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using TrackableEntities;
 
 namespace IdentityProvider.Controllers.Controllers
@@ -53,7 +53,7 @@ namespace IdentityProvider.Controllers.Controllers
             var returnValue = new OperationPagedVm
             {
                 HeaderRightSideActionDropdownList = new List<HeaderRightSideActionDropdown>()
-       
+
             };
 
             returnValue.HeaderRightSideActionDropdownList.Add(new HeaderRightSideActionDropdown
@@ -70,7 +70,7 @@ namespace IdentityProvider.Controllers.Controllers
         {
             // action inside a standard controller
             var res = SearchFunction(model, out var filteredResultsCount, out var totalResultsCount);
-      
+
             var result = new List<OperationsDatatableSearchClass>(res.Count);
 
             result.AddRange(res.Select(s => new OperationsDatatableSearchClass
@@ -108,7 +108,7 @@ namespace IdentityProvider.Controllers.Controllers
             var to = model.to;
             var alsoinactive = model.alsoinactive;
             var alsodeleted = model.alsodeleted;
-            var sortBy = "";
+            var sortBy = string.Empty;
             var sortDir = true;
 
             if (model.order != null)
@@ -181,7 +181,7 @@ namespace IdentityProvider.Controllers.Controllers
                 Console.WriteLine(e);
                 Debug.WriteLine(e);
                 _errorLogService.LogError(this, e.Message, e);
-                retVal.Message = e.Message ?? "";
+                retVal.Message = e.Message ?? string.Empty;
             }
 
             retVal.Success = true;
@@ -252,7 +252,7 @@ namespace IdentityProvider.Controllers.Controllers
                 Console.WriteLine(e);
                 Debug.WriteLine(e);
                 _errorLogService.LogError(this, e.Message, e);
-                retVal.Message = e.Message ?? "";
+                retVal.Message = e.Message ?? string.Empty;
             }
 
             retVal.WasInserted = inserted;
@@ -286,7 +286,7 @@ namespace IdentityProvider.Controllers.Controllers
                 Console.WriteLine(e);
                 Debug.WriteLine(e);
                 _errorLogService.LogError(this, e.Message, e);
-                retVal.Error = e.Message ?? "";
+                retVal.Error = e.Message ?? string.Empty;
             }
 
             return Json(retVal.WasDeleted, JsonRequestBehavior.AllowGet);
@@ -299,7 +299,7 @@ namespace IdentityProvider.Controllers.Controllers
             var retVal = new OperationVm
             {
                 Success = false,
-                Message = ""
+                Message = string.Empty
             };
 
             if (id <= 0)
@@ -334,7 +334,7 @@ namespace IdentityProvider.Controllers.Controllers
             var retVal = new OperationVm
             {
                 Success = false,
-                Message = ""
+                Message = string.Empty
             };
 
             if (ModelState.IsValid)
@@ -417,7 +417,7 @@ namespace IdentityProvider.Controllers.Controllers
                     where ModelState[x].Errors.Count > 0
                     select new
                     {
-                        key = x.First().ToString().ToUpper() + string.Join("", x.Skip(1)),
+                        key = x.First().ToString().ToUpper() + string.Join(string.Empty, x.Skip(1)),
                         errors = ModelState[x].Errors.
                             Select(y => y.ErrorMessage).
                             ToArray()
@@ -437,7 +437,7 @@ namespace IdentityProvider.Controllers.Controllers
             var retVal = new OperationVm
             {
                 Success = false,
-                Message = ""
+                Message = string.Empty
             };
 
             if (id <= 0)

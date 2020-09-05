@@ -4,7 +4,7 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
 {
     public static class StringExtensions
     {
-        public static Stream GetStreamFromString( this string str )
+        public static Stream GetStreamFromString(this string str)
         {
             var stream = new MemoryStream();
             var writer = new StreamWriter(stream);

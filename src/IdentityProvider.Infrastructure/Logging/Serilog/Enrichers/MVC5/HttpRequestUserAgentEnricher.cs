@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System;
-using System.Web;
 using Serilog.Core;
 using Serilog.Events;
+using System;
+using System.Web;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.Enrichers.MVC5
 {

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    [Table("OrgUnitContainsRoleLink" , Schema = "Organization")]
+    [Table("OrgUnitContainsRoleLink", Schema = "Organization")]
     public class OrgUnitContainsRoleLink : DomainEntity<int>, IActive
     {
         public OrgUnitContainsRoleLink()
@@ -23,7 +23,7 @@ namespace IdentityProvider.Models.Domain.Account
 
         #region IValidatable Entity contract implementation
 
-        public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             throw new NotImplementedException();
         }

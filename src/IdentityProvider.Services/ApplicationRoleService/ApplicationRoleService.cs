@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.EFDataContext;
@@ -15,6 +9,12 @@ using Module.Repository.EF.Repositories;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using Module.ServicePattern;
 using StructureMap;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using TrackableEntities;
 
 namespace IdentityProvider.Services.ApplicationRoleService

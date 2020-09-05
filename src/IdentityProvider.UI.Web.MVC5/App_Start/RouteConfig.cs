@@ -1,18 +1,18 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace IdentityProvider.UI.Web.MVC5
+namespace IdentityProvider.UI.Web.MVC5.App_Start
 {
     public class RouteConfig
     {
-        public static void RegisterRoutes( RouteCollection routes )
+        public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "Default" ,
-                "{controller}/{action}/{id}" ,
-                new { controller = "Home" , action = "Index" , id = UrlParameter.Optional }
+                "Default",
+                "{controller}/{action}/{id}",
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

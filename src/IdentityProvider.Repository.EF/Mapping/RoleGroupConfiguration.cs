@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using IdentityProvider.Models.Domain.Account;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration;
-using IdentityProvider.Models.Domain.Account;
 
 namespace IdentityProvider.Repository.EF.Mapping
 {
@@ -29,9 +29,9 @@ namespace IdentityProvider.Repository.EF.Mapping
 
             Property(t => t.Name)
                 .HasColumnAnnotation(
-                    IndexAnnotation.AnnotationName ,
+                    IndexAnnotation.AnnotationName,
                     new IndexAnnotation(
-                        new IndexAttribute("IX_RoleGroupName" , 1) { IsUnique = true }));
+                        new IndexAttribute("IX_RoleGroupName", 1) { IsUnique = true }));
 
         }
     }

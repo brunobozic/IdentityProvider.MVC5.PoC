@@ -112,11 +112,11 @@ namespace IdentityProvider.Infrastructure
         public override bool Equals(object obj)
         {
             if (obj is ShortGuid)
-                return _guid.Equals(((ShortGuid) obj)._guid);
+                return _guid.Equals(((ShortGuid)obj)._guid);
             if (obj is Guid)
-                return _guid.Equals((Guid) obj);
+                return _guid.Equals((Guid)obj);
             if (obj is string)
-                return _guid.Equals(((ShortGuid) obj)._guid);
+                return _guid.Equals(((ShortGuid)obj)._guid);
             return false;
         }
 
@@ -208,7 +208,7 @@ namespace IdentityProvider.Infrastructure
         /// <returns></returns>
         public static bool operator ==(ShortGuid x, ShortGuid y)
         {
-            if ((object) x == null) return (object) y == null;
+            if ((object)x == null) return (object)y == null;
             return x._guid == y._guid;
         }
 

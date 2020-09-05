@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CommonServiceLocator;
+using Module.Repository.EF.Repositories;
+using Module.Repository.EF.RowLevelSecurity;
+using Module.Repository.EF.UnitOfWorkInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -6,10 +10,6 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
-using CommonServiceLocator;
-using Module.Repository.EF.Repositories;
-using Module.Repository.EF.RowLevelSecurity;
-using Module.Repository.EF.UnitOfWorkInterfaces;
 using TrackableEntities;
 
 namespace Module.Repository.EF
@@ -19,13 +19,13 @@ namespace Module.Repository.EF
         private readonly DbContext _context;
         private readonly IRowAuthPoliciesContainer _rowAuthPoliciesContainer;
         protected DbTransaction Transaction;
-        protected Dictionary<string , dynamic> Repositories;
+        protected Dictionary<string, dynamic> Repositories;
 
-        public UnitOfWork( DbContext context , IRowAuthPoliciesContainer rowAuthPoliciesContainer )
+        public UnitOfWork(DbContext context, IRowAuthPoliciesContainer rowAuthPoliciesContainer)
         {
             _context = context;
             _rowAuthPoliciesContainer = rowAuthPoliciesContainer;
-            Repositories = new Dictionary<string , dynamic>();
+            Repositories = new Dictionary<string, dynamic>();
         }
 
         public virtual IRepository<TEntity> Repository<TEntity>() where TEntity : class, ITrackable
@@ -51,7 +51,7 @@ namespace Module.Repository.EF
             return _context.SaveChangesAsync();
         }
 
-        public virtual Task<int> SaveChangesAsync( CancellationToken cancellationToken )
+        public virtual Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             return _context.SaveChangesAsync(cancellationToken);
         }
@@ -65,43 +65,43 @@ namespace Module.Repository.EF
 
             if (Repositories == null)
             {
-                Repositories = new Dictionary<string , dynamic>();
+                Repositories = new Dictionary<string, dynamic>();
             }
 
             var type = typeof(TEntity).Name;
 
             if (Repositories.ContainsKey(type))
             {
-                return ( IRepositoryAsync<TEntity> ) Repositories[ type ];
+                return (IRepositoryAsync<TEntity>)Repositories[type];
             }
 
             var repositoryType = typeof(Repository<>);
 
             var genericType = repositoryType.MakeGenericType(typeof(TEntity));
 
-            Repositories.Add(type , Activator.CreateInstance(genericType , _context , this , _rowAuthPoliciesContainer));
+            Repositories.Add(type, Activator.CreateInstance(genericType, _context, this, _rowAuthPoliciesContainer));
 
-            return Repositories[ type ];
+            return Repositories[type];
         }
 
-        public virtual int ExecuteSqlCommand( string sql , params object[] parameters )
+        public virtual int ExecuteSqlCommand(string sql, params object[] parameters)
         {
-            return _context.Database.ExecuteSqlCommand(sql , parameters);
+            return _context.Database.ExecuteSqlCommand(sql, parameters);
         }
 
-        public virtual async Task<int> ExecuteSqlCommandAsync( string sql , params object[] parameters )
+        public virtual async Task<int> ExecuteSqlCommandAsync(string sql, params object[] parameters)
         {
-            return await _context.Database.ExecuteSqlCommandAsync(sql , parameters);
+            return await _context.Database.ExecuteSqlCommandAsync(sql, parameters);
         }
 
-        public virtual async Task<int> ExecuteSqlCommandAsync( string sql , CancellationToken cancellationToken , params object[] parameters )
+        public virtual async Task<int> ExecuteSqlCommandAsync(string sql, CancellationToken cancellationToken, params object[] parameters)
         {
-            return await _context.Database.ExecuteSqlCommandAsync(sql , cancellationToken , parameters);
+            return await _context.Database.ExecuteSqlCommandAsync(sql, cancellationToken, parameters);
         }
 
-        public virtual void BeginTransaction( IsolationLevel isolationLevel = IsolationLevel.Unspecified )
+        public virtual void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified)
         {
-            var objectContext = ( ( IObjectContextAdapter ) _context ).ObjectContext;
+            var objectContext = ((IObjectContextAdapter)_context).ObjectContext;
             if (objectContext.Connection.State != ConnectionState.Open)
             {
                 objectContext.Connection.Open();

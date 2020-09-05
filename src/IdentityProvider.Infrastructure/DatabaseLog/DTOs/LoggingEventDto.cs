@@ -1,7 +1,7 @@
-﻿using System;
-using log4net.Core;
+﻿using log4net.Core;
 using log4net.Repository;
 using log4net.Util;
+using System;
 
 namespace IdentityProvider.Infrastructure.DatabaseLog.DTOs
 {

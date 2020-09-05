@@ -1,50 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Common;
-using System.Globalization;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace IdentityProvider.Infrastructure.GlobalAsaxHelpers
 {
     public static class ReflectionExtensions
     {
-        public static T GetPropertyValue<T>( object o , string propertyName )
+        public static T GetPropertyValue<T>(object o, string propertyName)
         {
-            return ( T ) o.GetType().GetProperty(propertyName)?.GetValue(o , null);
+            return (T)o.GetType().GetProperty(propertyName)?.GetValue(o, null);
         }
 
-        public static TOut GetPropertyValueStatic<TIn, TOut>( string propertyName )
+        public static TOut GetPropertyValueStatic<TIn, TOut>(string propertyName)
         {
-            return ( TOut ) ( typeof(TIn).GetProperty(propertyName)?.GetValue(null) );
+            return (TOut)(typeof(TIn).GetProperty(propertyName)?.GetValue(null));
         }
 
-        public static object GetPropertyValue( object o , string propertyName )
+        public static object GetPropertyValue(object o, string propertyName)
         {
-            return o.GetType().GetProperty(propertyName)?.GetValue(o , null);
+            return o.GetType().GetProperty(propertyName)?.GetValue(o, null);
         }
 
-        public static void SetPropertyValueWithTypeChange<T>( object o , string propertyName , T propertyValue )
-        {
-            PropertyInfo propertyInfo = o.GetType().GetProperty(propertyName);
-            propertyInfo.SetValue(o , Convert.ChangeType(propertyValue , propertyInfo.PropertyType) , null);
-        }
-
-        public static void SetPropertyValue( object o , string propertyName , object propertyValue )
+        public static void SetPropertyValueWithTypeChange<T>(object o, string propertyName, T propertyValue)
         {
             PropertyInfo propertyInfo = o.GetType().GetProperty(propertyName);
-            propertyInfo.SetValue(o , propertyValue);
+            propertyInfo.SetValue(o, Convert.ChangeType(propertyValue, propertyInfo.PropertyType), null);
         }
 
-        public static Object ConvertValue( Type originalType , object value )
+        public static void SetPropertyValue(object o, string propertyName, object propertyValue)
+        {
+            PropertyInfo propertyInfo = o.GetType().GetProperty(propertyName);
+            propertyInfo.SetValue(o, propertyValue);
+        }
+
+        public static Object ConvertValue(Type originalType, object value)
         {
             var underlyingType = Nullable.GetUnderlyingType(originalType);
 
-            object instance = Convert.ChangeType(value , underlyingType ?? originalType);
+            object instance = Convert.ChangeType(value, underlyingType ?? originalType);
 
             return instance;
         }
@@ -69,24 +62,24 @@ namespace IdentityProvider.Infrastructure.GlobalAsaxHelpers
         //    return !string.IsNullOrWhiteSpace(propertyValueString) ? propertyValueString : "-";
         //}
 
-        public static Func<TMnModel , Guid?> CreateSelectExpression<TMnModel>( String fieldName )
+        public static Func<TMnModel, Guid?> CreateSelectExpression<TMnModel>(String fieldName)
         {
-            var parameterExp = Expression.Parameter(typeof(TMnModel) , "x");
-            var cast = Expression.Convert(parameterExp , typeof(TMnModel));
-            var fieldProp = Expression.PropertyOrField(cast , fieldName);
-            var lambda = Expression.Lambda<Func<TMnModel , Guid?>>(fieldProp , parameterExp);
+            var parameterExp = Expression.Parameter(typeof(TMnModel), "x");
+            var cast = Expression.Convert(parameterExp, typeof(TMnModel));
+            var fieldProp = Expression.PropertyOrField(cast, fieldName);
+            var lambda = Expression.Lambda<Func<TMnModel, Guid?>>(fieldProp, parameterExp);
 
             return lambda.Compile();
         }
 
-        public static T To<T>( this IConvertible obj )
+        public static T To<T>(this IConvertible obj)
         {
             var t = typeof(T);
             var underlyingType = Nullable.GetUnderlyingType(t);
 
             return underlyingType != null
-                ? ( ( obj == null ) ? default(T) : ( T ) Convert.ChangeType(obj , underlyingType) )
-                : ( T ) Convert.ChangeType(obj , t);
+                ? ((obj == null) ? default(T) : (T)Convert.ChangeType(obj, underlyingType))
+                : (T)Convert.ChangeType(obj, t);
         }
     }
 }

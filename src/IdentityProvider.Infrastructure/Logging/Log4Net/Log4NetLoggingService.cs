@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.DatabaseLog;
 using log4net;
@@ -9,6 +7,8 @@ using log4net.Config;
 using log4net.Core;
 using log4net.Layout;
 using log4net.Repository.Hierarchy;
+using System;
+using System.IO;
 
 namespace IdentityProvider.Infrastructure.Logging.Log4Net
 {
@@ -221,7 +221,7 @@ namespace IdentityProvider.Infrastructure.Logging.Log4Net
                 };
 
                 Appender.ActivateOptions();
-                var root = ((Hierarchy) LogManager.GetRepository()).Root;
+                var root = ((Hierarchy)LogManager.GetRepository()).Root;
                 root.RemoveAllAppenders();
                 root.AddAppender(Appender);
                 root.Repository.Configured = true;
@@ -270,25 +270,23 @@ namespace IdentityProvider.Infrastructure.Logging.Log4Net
                             exc);
                     }
 
-                loggingEvent.Properties["ExceptionType"] = exception == null ? "" : exception.GetType().ToString();
-                loggingEvent.Properties["ExceptionMessage"] = exception == null ? "" : exception.Message;
-                loggingEvent.Properties["ExceptionStackTrace"] = exception == null ? "" : exception.StackTrace;
+                loggingEvent.Properties["ExceptionType"] = exception == null ? string.Empty : exception.GetType().ToString();
+                loggingEvent.Properties["ExceptionMessage"] = exception == null ? string.Empty : exception.Message;
+                loggingEvent.Properties["ExceptionStackTrace"] = exception == null ? string.Empty : exception.StackTrace;
 
                 if (exception?.InnerException != null)
                 {
                     loggingEvent.Properties["InnerException.Message"] = exception.InnerException.Message;
-                    loggingEvent.Properties["InnerException.Source"] = exception.InnerException.Source ?? "";
-                    loggingEvent.Properties["InnerException.StackTrace"] = exception.InnerException.StackTrace ?? "";
+                    loggingEvent.Properties["InnerException.Source"] = exception.InnerException.Source ?? string.Empty;
+                    loggingEvent.Properties["InnerException.StackTrace"] = exception.InnerException.StackTrace ?? string.Empty;
                     loggingEvent.Properties["InnerException.TargetSite"] = exception.InnerException.TargetSite ==
                                                                            null
-                        ? ""
-                        : exception.InnerException.TargetSite.ToString();
+                        ? string.Empty : exception.InnerException.TargetSite.ToString();
                 }
 
                 loggingEvent.Properties["AssemblyQualifiedName"] = exception == null
-                    ? ""
-                    : exception.GetType().AssemblyQualifiedName;
-                loggingEvent.Properties["Namespace"] = exception == null ? "" : exception.GetType().Namespace;
+                    ? string.Empty : exception.GetType().AssemblyQualifiedName;
+                loggingEvent.Properties["Namespace"] = exception == null ? string.Empty : exception.GetType().Namespace;
 
                 if (logSource != null)
                     loggingEvent.Properties["LogSource"] = logSource.GetType().ToString();

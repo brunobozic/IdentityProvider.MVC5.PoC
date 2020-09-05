@@ -1,4 +1,11 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure;
+using IdentityProvider.Infrastructure.DatabaseAudit;
+using IdentityProvider.Infrastructure.DatabaseLog.Model;
+using IdentityProvider.Infrastructure.Domain;
+using IdentityProvider.Models.Domain.Account;
+using Microsoft.AspNet.Identity.EntityFramework;
+using StructureMap;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
@@ -12,15 +19,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using IdentityProvider.Infrastructure;
-using IdentityProvider.Infrastructure.DatabaseAudit;
-using IdentityProvider.Infrastructure.DatabaseLog.Model;
-using IdentityProvider.Infrastructure.Domain;
-using IdentityProvider.Models.Domain.Account;
-using Microsoft.AspNet.Identity.EntityFramework;
-using StructureMap;
-using Database = System.Data.Entity.Database;
 using ModelValidationException = IdentityProvider.Infrastructure.ModelValidationException;
+using Database = System.Data.Entity.Database;
 
 namespace IdentityProvider.Repository.EF.EFDataContext
 {
@@ -153,8 +153,8 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                 {
                     var entityList =
                         ChangeTracker.Entries<IAuditTrail>()
-                            .Where(p => p.State == EntityState.Added 
-                            || p.State == EntityState.Deleted 
+                            .Where(p => p.State == EntityState.Added
+                            || p.State == EntityState.Deleted
                             || p.State == EntityState.Modified);
 
                     foreach (var entity in entityList)
@@ -486,8 +486,8 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                 {
                     var entityList =
                         ChangeTracker.Entries<IAuditTrail>()
-                            .Where(p => p.State == EntityState.Added 
-                            || p.State == EntityState.Deleted 
+                            .Where(p => p.State == EntityState.Added
+                            || p.State == EntityState.Deleted
                             || p.State == EntityState.Modified);
 
                     foreach (var entity in entityList)
@@ -699,7 +699,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
             // Disable this default EF behaviour (we dont want to cascade delete many to many)
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            base.OnModelCreating((System.Data.Entity.DbModelBuilder)modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
 
         //private class DbInitializer<T> : DropCreateDatabaseAlways<DataContextAsync>
@@ -711,7 +711,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
         //}
         public void Dispose()
         {
-        
+
         }
     }
 }

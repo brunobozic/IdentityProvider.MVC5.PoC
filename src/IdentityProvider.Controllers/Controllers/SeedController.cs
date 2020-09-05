@@ -1,10 +1,10 @@
-﻿using System;
-using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Services.DbSeed;
 using StructureMap;
+using System;
+using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {

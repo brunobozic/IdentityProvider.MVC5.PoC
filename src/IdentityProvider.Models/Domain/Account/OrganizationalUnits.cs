@@ -1,15 +1,15 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Linq;
-using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    [Table("Unit" , Schema = "Organization")]
+    [Table("Unit", Schema = "Organization")]
     public class OrganizationalUnit : DomainEntity<int>, IActive
     {
         public OrganizationalUnit()
@@ -22,7 +22,7 @@ namespace IdentityProvider.Models.Domain.Account
 
         #region IValidatable Entity contract implementation
 
-        public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             throw new NotImplementedException();
         }
@@ -41,16 +41,16 @@ namespace IdentityProvider.Models.Domain.Account
 
         [Required]
         [DisplayName("Name")]
-        [MaxLength(50 , ErrorMessage = "The name of the organizational unit must be between 2 and 50 characters"), MinLength(2)]
+        [MaxLength(50, ErrorMessage = "The name of the organizational unit must be between 2 and 50 characters"), MinLength(2)]
         public string Name { get; set; }
 
 
         [DisplayName("Description")]
-        [MaxLength(260 , ErrorMessage = "The description of the organizational unit must be between 2 and 260 characters"), MinLength(2)]
+        [MaxLength(260, ErrorMessage = "The description of the organizational unit must be between 2 and 260 characters"), MinLength(2)]
         public string Description { get; set; }
 
         [Required]
-        [Range(0 , 50)]
+        [Range(0, 50)]
         public int SecurityWeight { get; set; }
 
         public ICollection<EmployeeBelongsToOrgUnitLink> Employees { get; set; }

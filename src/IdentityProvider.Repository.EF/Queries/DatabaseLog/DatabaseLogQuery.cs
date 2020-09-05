@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq.Expressions;
-using IdentityProvider.Infrastructure.DatabaseLog.Model;
+﻿using IdentityProvider.Infrastructure.DatabaseLog.Model;
 using Module.Repository.EF;
+using System;
+using System.Linq.Expressions;
 
 namespace IdentityProvider.Repository.EF.Queries.DatabaseLog
 {

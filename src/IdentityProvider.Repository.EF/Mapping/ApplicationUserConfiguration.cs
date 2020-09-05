@@ -1,6 +1,6 @@
 ﻿
-using System.Data.Entity.ModelConfiguration;
 using IdentityProvider.Models.Domain.Account;
+using System.Data.Entity.ModelConfiguration;
 
 namespace IdentityProvider.Repository.EF.Mapping
 {

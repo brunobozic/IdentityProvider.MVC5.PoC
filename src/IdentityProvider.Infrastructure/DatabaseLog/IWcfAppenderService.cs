@@ -1,6 +1,6 @@
-﻿using System;
+﻿using log4net.Core;
+using System;
 using System.Collections.Generic;
-using log4net.Core;
 
 namespace IdentityProvider.Infrastructure.DatabaseLog
 {

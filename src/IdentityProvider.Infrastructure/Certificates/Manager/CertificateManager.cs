@@ -1,13 +1,13 @@
-﻿using System;
-using System.Data;
-using System.Security.Cryptography.X509Certificates;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource;
 using IdentityProvider.Infrastructure.Certificates.FromStore;
 using IdentityProvider.Infrastructure.ConfigurationProvider;
 using IdentityProvider.Infrastructure.Email;
 using IdentityProvider.Infrastructure.Enums;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
+using System;
+using System.Data;
+using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityProvider.Infrastructure.Certificates.Manager
 {

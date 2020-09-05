@@ -1,11 +1,11 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure.Domain;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using IdentityProvider.Infrastructure.Domain;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using TrackableEntities;
 
 namespace IdentityProvider.Models.Domain.Account
@@ -20,7 +20,7 @@ namespace IdentityProvider.Models.Domain.Account
             ActiveFrom = DateTime.UtcNow;
         }
 
-        public ApplicationUser( string userName ) : this()
+        public ApplicationUser(string userName) : this()
         {
             UserName = userName;
             Active = true;
@@ -64,10 +64,10 @@ namespace IdentityProvider.Models.Domain.Account
 
         public virtual UserProfile UserProfile { get; set; }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync( UserManager<ApplicationUser> manager )
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            var userIdentity = await manager.CreateIdentityAsync(this , DefaultAuthenticationTypes.ApplicationCookie);
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
         }

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
@@ -16,6 +8,14 @@ using IdentityProvider.Services.ResourceService;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using PagedList;
 using StructureMap;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -51,7 +51,7 @@ namespace IdentityProvider.Controllers.Controllers
             , int pageSize = 10
         )
         {
-            ViewBag.searchQuery = string.IsNullOrEmpty(searchString) ? "" : searchString;
+            ViewBag.searchQuery = string.IsNullOrEmpty(searchString) ? string.Empty : searchString;
 
             pageNumber = pageNumber > 0 ? pageNumber : 1;
 
@@ -80,12 +80,12 @@ namespace IdentityProvider.Controllers.Controllers
             var query = _resourceService.Queryable().Where(o => o.Active && !o.IsDeleted).Select(i =>
                  new ResourceDto
                  {
-                     Active = i.Active ,
-                     Name = i.Name ,
-                     Description = i.Description ,
-                     Deleted = i.IsDeleted ,
-                     DateCreated = i.CreatedDate ,
-                     DateModified = i.ModifiedDate ,
+                     Active = i.Active,
+                     Name = i.Name,
+                     Description = i.Description,
+                     Deleted = i.IsDeleted,
+                     DateCreated = i.CreatedDate,
+                     DateModified = i.ModifiedDate,
                      Id = i.Id
                  });
 
@@ -137,9 +137,9 @@ namespace IdentityProvider.Controllers.Controllers
                     break;
             }
 
-            var pageNo = ( pageNumber ?? 1 );
+            var pageNo = (pageNumber ?? 1);
 
-            var selListItem = CreateListOfDefaultForPaginator(out var selListItem2 , out var selListItem3 , out var selListItem4);
+            var selListItem = CreateListOfDefaultForPaginator(out var selListItem2, out var selListItem3, out var selListItem4);
 
             // Create a list of select list items - this will be returned as your select list
             var newList =
@@ -156,49 +156,49 @@ namespace IdentityProvider.Controllers.Controllers
             selectedOne.Selected = true;
 
             // Return the list of selectlistitems as a selectlist
-            var list = new SelectList(newList , "Value" , "Text" , null);
+            var list = new SelectList(newList, "Value", "Text", null);
 
             var returnValue = new ResourcePagedVm
             {
-                Resources = query.ToPagedList(pageNo , int.Parse(selectedOne.Text)) ,
-                PageSize = int.Parse(selectedOne.Value) ,
-                PageSizeList = list ,
-                SearchString = searchString ,
+                Resources = query.ToPagedList(pageNo, int.Parse(selectedOne.Text)),
+                PageSize = int.Parse(selectedOne.Value),
+                PageSizeList = list,
+                SearchString = searchString,
                 SortOrder = sortOrder
             };
 
             return View(returnValue);
         }
 
-        private static SelectListItem CreateListOfDefaultForPaginator( out SelectListItem selListItem2 ,
-            out SelectListItem selListItem3 , out SelectListItem selListItem4 )
+        private static SelectListItem CreateListOfDefaultForPaginator(out SelectListItem selListItem2,
+            out SelectListItem selListItem3, out SelectListItem selListItem4)
         {
             // Create the select list item you want to add
             var selListItem = new SelectListItem
             {
-                Text = "2" ,
-                Value = "2" ,
+                Text = "2",
+                Value = "2",
                 Selected = false
             };
 
             selListItem2 = new SelectListItem
             {
-                Text = "10" ,
-                Value = "10" ,
+                Text = "10",
+                Value = "10",
                 Selected = false
             };
 
             selListItem3 = new SelectListItem
             {
-                Text = "20" ,
-                Value = "20" ,
+                Text = "20",
+                Value = "20",
                 Selected = false
             };
 
             selListItem4 = new SelectListItem
             {
-                Text = "50" ,
-                Value = "50" ,
+                Text = "50",
+                Value = "50",
                 Selected = false
             };
 
@@ -210,10 +210,10 @@ namespace IdentityProvider.Controllers.Controllers
         {
             var retVal = new InfoOnResourcesVm
             {
-                ActiveItemCount = 0 ,
-                DeletedItemCount = 0 ,
-                InactiveItemCount = 0 ,
-                Success = false ,
+                ActiveItemCount = 0,
+                DeletedItemCount = 0,
+                InactiveItemCount = 0,
+                Success = false,
                 Message = string.Empty
             };
 
@@ -222,8 +222,8 @@ namespace IdentityProvider.Controllers.Controllers
                 var queryResult = await _unitOfWorkAsync.RepositoryAsync<ApplicationResource>().Queryable().AsNoTracking().Select(i =>
                     new ResourceCountsDto
                     {
-                        Name = i.Name ,
-                        Active = i.Active ,
+                        Name = i.Name,
+                        Active = i.Active,
                         Deleted = i.IsDeleted
                     }).ToListAsync();
 
@@ -235,13 +235,13 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 Console.WriteLine(e);
                 Debug.WriteLine(e);
-                _errorLogService.LogError(this , e.Message , e);
-                retVal.Message = e.Message ?? "";
+                _errorLogService.LogError(this, e.Message, e);
+                retVal.Message = e.Message ?? string.Empty;
             }
 
             retVal.Success = true;
 
-            return Json(retVal , JsonRequestBehavior.AllowGet);
+            return Json(retVal, JsonRequestBehavior.AllowGet);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -251,7 +251,7 @@ namespace IdentityProvider.Controllers.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public async Task<ActionResult> Insert( ApplicationResource resourceToInsert )
+        public async Task<ActionResult> Insert(ApplicationResource resourceToInsert)
         {
             var retVal = new ResourceInsertedVm { Success = false };
 
@@ -265,10 +265,10 @@ namespace IdentityProvider.Controllers.Controllers
 
             var res = new ApplicationResource
             {
-                Name = resourceToInsert.Name ,
-                Description = resourceToInsert.Description ,
-                Active = resourceToInsert.MakeActive ,
-                ActiveFrom = DateTime.Now ,
+                Name = resourceToInsert.Name,
+                Description = resourceToInsert.Description,
+                Active = resourceToInsert.MakeActive,
+                ActiveFrom = DateTime.Now,
                 ActiveTo = resourceToInsert.ActiveUntil
             };
 
@@ -285,10 +285,10 @@ namespace IdentityProvider.Controllers.Controllers
                     sb.Append(validation.ErrorMessage);
                 }
 
-                ModelState.AddModelError("Name" , sb.ToString());
+                ModelState.AddModelError("Name", sb.ToString());
                 retVal.ValidationIssues = sb.ToString();
 
-                return Json(retVal , JsonRequestBehavior.AllowGet);
+                return Json(retVal, JsonRequestBehavior.AllowGet);
             }
 
             var inserted = -1;
@@ -302,19 +302,19 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 Console.WriteLine(e);
                 Debug.WriteLine(e);
-                _errorLogService.LogError(this , e.Message , e);
-                retVal.Message = e.Message ?? "";
+                _errorLogService.LogError(this, e.Message, e);
+                retVal.Message = e.Message ?? string.Empty;
             }
 
             retVal.WasInserted = inserted;
             retVal.Success = true;
 
-            return Json(retVal , JsonRequestBehavior.AllowGet);
+            return Json(retVal, JsonRequestBehavior.AllowGet);
         }
 
         // POST: /Resource/Delete/5
-        [AcceptVerbs( HttpVerbs.Post)]
-        public async Task<ActionResult> Delete( string itemToDelete )
+        [AcceptVerbs(HttpVerbs.Post)]
+        public async Task<ActionResult> Delete(string itemToDelete)
         {
             var retVal = new ResourceDeletedVm { WasDeleted = false };
 
@@ -336,28 +336,28 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 Console.WriteLine(e);
                 Debug.WriteLine(e);
-                _errorLogService.LogError(this , e.Message , e);
-                retVal.Error = e.Message ?? "";
+                _errorLogService.LogError(this, e.Message, e);
+                retVal.Error = e.Message ?? string.Empty;
             }
 
-            return Json(retVal.WasDeleted , JsonRequestBehavior.AllowGet);
+            return Json(retVal.WasDeleted, JsonRequestBehavior.AllowGet);
         }
 
         // GET: /Resource/Edit/5
         [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Edit( int? id )
+        public ActionResult Edit(int? id)
         {
             var retVal = new ResourceVm
             {
-                Success = false ,
-                Message = ""
+                Success = false,
+                Message = string.Empty
             };
 
             if (id <= 0)
             {
                 retVal.Message = "Please provide an id.";
                 // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                return PartialView("Partial/_resourceEditPartial" , retVal);
+                return PartialView("Partial/_resourceEditPartial", retVal);
             }
 
             var result = _resourceService.Find(id);
@@ -372,20 +372,20 @@ namespace IdentityProvider.Controllers.Controllers
                 retVal.Message = "Item with requested Id was not found.";
             }
 
-            return PartialView("Partial/_resourceEditPartial" , retVal);
+            return PartialView("Partial/_resourceEditPartial", retVal);
         }
 
         // POST: /Resource/Edit/5
         [AcceptVerbs(HttpVerbs.Post)]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit( [Bind(Include = "Id, Name, Description, Active, ActiveFrom, ActiveTo")] ApplicationResource resource )
+        public async Task<ActionResult> Edit([Bind(Include = "Id, Name, Description, Active, ActiveFrom, ActiveTo")] ApplicationResource resource)
         {
             // https://stackoverflow.com/questions/39533599/mvc-5-with-bootstrap-modal-from-partial-view-validation-not-working
             // https://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
             var retVal = new ResourceVm
             {
-                Success = false ,
-                Message = ""
+                Success = false,
+                Message = string.Empty
             };
 
             if (ModelState.IsValid)
@@ -415,26 +415,26 @@ namespace IdentityProvider.Controllers.Controllers
             }
             else
             {
-                retVal.FormErrors = ModelState.Select(kvp => new { key = kvp.Key , errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+                retVal.FormErrors = ModelState.Select(kvp => new { key = kvp.Key, errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
                 retVal.Message = "Model state invalid";
             }
 
-            return PartialView("Partial/_resourceEditPartial" , retVal);
+            return PartialView("Partial/_resourceEditPartial", retVal);
         }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
-        public async Task<ActionResult> Detail( int id )
+        public async Task<ActionResult> Detail(int id)
         {
             var retVal = new ResourceVm
             {
-                Success = false ,
-                Message = ""
+                Success = false,
+                Message = string.Empty
             };
 
             if (id <= 0)
             {
                 retVal.Message = "Please provide an id.";
-                return PartialView("Partial/_resourceDetailsPartial" , retVal);
+                return PartialView("Partial/_resourceDetailsPartial", retVal);
             }
 
             var result = await _resourceService.FindAsync(id);
@@ -453,7 +453,7 @@ namespace IdentityProvider.Controllers.Controllers
                 retVal.Message = "Item with requested Id was not found.";
             }
 
-            return PartialView("Partial/_resourceDetailsPartial" , retVal);
+            return PartialView("Partial/_resourceDetailsPartial", retVal);
         }
     }
 }

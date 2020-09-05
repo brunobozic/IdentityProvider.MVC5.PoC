@@ -216,6 +216,8 @@ function skinChanger() {
             var $spana = $('span > a');
             $spana.removeClass('themed-buttons-' + 'pink');
             $spana.removeClass('bg-' + 'pink');
+            $spana.removeClass('themed-buttons-' + 'red');
+            $spana.removeClass('bg-' + 'red');
             $spana.removeClass('themed-buttons-' + existTheme);
             $spana.removeClass('bg-' + existTheme);
             $spana.addClass('themed-buttons-' + $this.data('theme'));

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Module.Repository.EF.Repositories;
+using System;
 using System.Collections.Generic;
-using Module.Repository.EF.Repositories;
 
 namespace IdentityProvider.Repository.EF.Repositories.DbLog.Extensions
 {

@@ -1,7 +1,7 @@
-﻿using System;
-using IdentityProvider.Infrastructure.ConfigurationProvider;
+﻿using IdentityProvider.Infrastructure.ConfigurationProvider;
 using IdentityProvider.Infrastructure.Enums;
 using StructureMap;
+using System;
 
 namespace IdentityProvider.Infrastructure.ApplicationConfiguration
 {

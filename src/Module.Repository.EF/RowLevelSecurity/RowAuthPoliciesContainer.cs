@@ -1,8 +1,8 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Security.Claims;
-using IdentityProvider.Infrastructure;
 
 namespace Module.Repository.EF.RowLevelSecurity
 {
@@ -10,11 +10,11 @@ namespace Module.Repository.EF.RowLevelSecurity
     {
         private readonly ICachedUserAuthorizationGrantsProvider _userAuthorizationGrantsProvider;
 
-        public RowAuthPoliciesContainer( ICachedUserAuthorizationGrantsProvider userAuthorizationGrantsProvider )
+        public RowAuthPoliciesContainer(ICachedUserAuthorizationGrantsProvider userAuthorizationGrantsProvider)
         {
             _userAuthorizationGrantsProvider = userAuthorizationGrantsProvider;
-            _userAuthorizationGrantsProvider.OrganizationalUnits = new[] { 1 , 2 , 3 , 4 , 5 , 6 , 7 };
-            _userAuthorizationGrantsProvider.ExplicitlyAssignedToProjects = new[] { 1 , 2 , 3 , 4 , 5 , 6 , 7 };
+            _userAuthorizationGrantsProvider.OrganizationalUnits = new[] { 1, 2, 3, 4, 5, 6, 7 };
+            _userAuthorizationGrantsProvider.ExplicitlyAssignedToProjects = new[] { 1, 2, 3, 4, 5, 6, 7 };
         }
 
         public RowAuthPoliciesContainer()
@@ -22,18 +22,18 @@ namespace Module.Repository.EF.RowLevelSecurity
 
         }
 
-        readonly Dictionary<Type , object> _policies = new Dictionary<Type , object>();
+        readonly Dictionary<Type, object> _policies = new Dictionary<Type, object>();
 
-        public RowAuthPolicy<TEntity , TProperty> Register<TEntity, TProperty>( Expression<Func<TEntity , TProperty>> selector )
+        public RowAuthPolicy<TEntity, TProperty> Register<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> selector)
         {
-            var policy = new RowAuthPolicy<TEntity , TProperty>(selector , this);
-            _policies.Add(policy.EntityType , policy);
+            var policy = new RowAuthPolicy<TEntity, TProperty>(selector, this);
+            _policies.Add(policy.EntityType, policy);
             return policy;
         }
 
         public IRowAuthPolicy<TEntity> GetPolicy<TEntity>()
         {
-            return ( IRowAuthPolicy<TEntity> ) _policies[ typeof(TEntity) ];
+            return (IRowAuthPolicy<TEntity>)_policies[typeof(TEntity)];
         }
 
         public bool HasPolicy<TEntity>()
@@ -90,12 +90,12 @@ namespace Module.Repository.EF.RowLevelSecurity
 
     internal class ClaimsValuesCache
     {
-        public static int GetArea( string areaClaimValue )
+        public static int GetArea(string areaClaimValue)
         {
             throw new NotImplementedException();
         }
 
-        public static string GetCountryCode( string countryClaimValue )
+        public static string GetCountryCode(string countryClaimValue)
         {
             throw new NotImplementedException();
         }

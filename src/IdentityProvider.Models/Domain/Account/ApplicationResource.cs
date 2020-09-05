@@ -1,14 +1,14 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure;
+using IdentityProvider.Infrastructure.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using IdentityProvider.Infrastructure;
-using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    [Table("Resources" , Schema = "Application")]
+    [Table("Resources", Schema = "Application")]
     public class ApplicationResource : DomainEntity<int>, IActive, IAuditTrail
     {
         public ApplicationResource()
@@ -43,13 +43,13 @@ namespace IdentityProvider.Models.Domain.Account
         public bool MakeActive { get; set; }
         public DateTime? ActiveUntil { get; set; }
 
-        public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var name = new[] { "Name" };
 
             if (string.IsNullOrEmpty(Name) && name.Length > 0)
             {
-                yield return new ValidationResult("Application Resource name is required." , name);
+                yield return new ValidationResult("Application Resource name is required.", name);
             }
         }
     }

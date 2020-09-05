@@ -1,6 +1,6 @@
-﻿using System;
-using log4net.Appender;
+﻿using log4net.Appender;
 using log4net.Core;
+using System;
 
 namespace IdentityProvider.Infrastructure.Logging.Log4Net
 {

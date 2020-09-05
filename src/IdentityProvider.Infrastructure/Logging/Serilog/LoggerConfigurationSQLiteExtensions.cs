@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite;
+﻿using IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite;
 using Serilog;
 using Serilog.Configuration;
 using Serilog.Debugging;
 using Serilog.Events;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog
 {

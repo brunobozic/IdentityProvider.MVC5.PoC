@@ -14,9 +14,9 @@ namespace IdentityProvider.UI.Web.MVC5.Extensions
         /// <param name="sortOrder">the current sort order being used on the page</param>
         /// <param name="field">the field that we are attaching this sort identifier to</param>
         /// <returns>MvcHtmlString used to indicate the sort order of the field</returns>
-        public static IHtmlString SortIdentifier( this HtmlHelper htmlHelper , string sortOrder , string field )
+        public static IHtmlString SortIdentifier(this HtmlHelper htmlHelper, string sortOrder, string field)
         {
-            if (string.IsNullOrEmpty(sortOrder) || ( sortOrder.Trim() != field && sortOrder.Replace("_Desc" , "").Trim() != field )) return null;
+            if (string.IsNullOrEmpty(sortOrder) || (sortOrder.Trim() != field && sortOrder.Replace("_Desc", string.Empty).Trim() != field)) return null;
 
             string glyph = "glyphicon glyphicon-chevron-up";
 
@@ -26,7 +26,7 @@ namespace IdentityProvider.UI.Web.MVC5.Extensions
             }
 
             var span = new TagBuilder("span");
-            span.Attributes[ "class" ] = glyph;
+            span.Attributes["class"] = glyph;
 
             return MvcHtmlString.Create(span.ToString());
         }
@@ -39,7 +39,7 @@ namespace IdentityProvider.UI.Web.MVC5.Extensions
         /// <param name="newKey">the name of a key to add to the RouteValueDictionary</param>
         /// <param name="newValue">the value associated with newKey to add to the RouteValueDictionary</param>
         /// <returns>A RouteValueDictionary containing all of the keys in collection, as well as {newKey: newValue} if they are not null</returns>
-        public static RouteValueDictionary ToRouteValueDictionary( this NameValueCollection collection , string newKey , string newValue )
+        public static RouteValueDictionary ToRouteValueDictionary(this NameValueCollection collection, string newKey, string newValue)
         {
             var routeValueDictionary = new RouteValueDictionary();
 
@@ -49,7 +49,7 @@ namespace IdentityProvider.UI.Web.MVC5.Extensions
                 if (routeValueDictionary.ContainsKey(key))
                     routeValueDictionary.Remove(key);
 
-                routeValueDictionary.Add(key , collection[ key ]);
+                routeValueDictionary.Add(key, collection[key]);
             }
 
             if (string.IsNullOrEmpty(newValue))
@@ -61,7 +61,7 @@ namespace IdentityProvider.UI.Web.MVC5.Extensions
                 if (routeValueDictionary.ContainsKey(newKey))
                     routeValueDictionary.Remove(newKey);
 
-                routeValueDictionary.Add(newKey , newValue);
+                routeValueDictionary.Add(newKey, newValue);
             }
 
             return routeValueDictionary;

@@ -1,13 +1,13 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    [Table("PermissionGroupOwnsPermissionLink" , Schema = "Application")]
+    [Table("PermissionGroupOwnsPermissionLink", Schema = "Application")]
     public class PermissionGroupOwnsPermissionLink : DomainEntity<int>, IActive
     {
         public PermissionGroupOwnsPermissionLink()
@@ -24,7 +24,7 @@ namespace IdentityProvider.Models.Domain.Account
 
         #region IValidatable Entity contract implementation
 
-        public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             throw new NotImplementedException();
         }

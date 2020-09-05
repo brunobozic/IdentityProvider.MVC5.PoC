@@ -1,9 +1,9 @@
-﻿using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.ViewModels.Error;
 using StructureMap;
+using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -14,7 +14,7 @@ namespace IdentityProvider.Controllers.Controllers
         public ErrorController(
             ICookieStorageService cookieStorageService
             , IErrorLogService errorLogService
-            , IApplicationConfiguration applicationConfiguration )
+            , IApplicationConfiguration applicationConfiguration)
         : base(
             cookieStorageService
             , errorLogService
@@ -26,14 +26,14 @@ namespace IdentityProvider.Controllers.Controllers
 
         public ViewResult Error()
         {
-            var evm = ( ErrorViewModel ) TempData[ "ErrorViewModel" ];
+            var evm = (ErrorViewModel)TempData["ErrorViewModel"];
 
             return View(evm);
         }
 
         public ViewResult UserFriendlyError()
         {
-            var evm = ( HandleErrorInfo ) TempData[ "HandleErrorInfo" ];
+            var evm = (HandleErrorInfo)TempData["HandleErrorInfo"];
 
             return View(evm);
         }

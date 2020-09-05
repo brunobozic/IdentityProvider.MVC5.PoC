@@ -6,11 +6,11 @@
         {
             var returnValue = string.Empty;
 
-            serilogProperty = serilogProperty.Replace("[", "");
-            serilogProperty = serilogProperty.Replace("]", "");
-            serilogProperty = serilogProperty.Replace(" ", "");
-            serilogProperty = serilogProperty.Replace(",", "");
-            serilogProperty = serilogProperty.Replace("\"", "");
+            serilogProperty = serilogProperty.Replace("[", string.Empty);
+            serilogProperty = serilogProperty.Replace("]", string.Empty);
+            serilogProperty = serilogProperty.Replace(" ", string.Empty);
+            serilogProperty = serilogProperty.Replace(",", string.Empty);
+            serilogProperty = serilogProperty.Replace("\"", string.Empty);
 
             returnValue = serilogProperty;
 

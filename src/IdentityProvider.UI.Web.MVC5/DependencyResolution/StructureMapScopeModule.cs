@@ -1,7 +1,9 @@
+using IdentityProvider.UI.Web.MVC5.App_Start;
+
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 {
-    using System.Web;
     using StructureMap.Web.Pipeline;
+    using System.Web;
 
     public class StructureMapScopeModule : IHttpModule
     {
@@ -11,10 +13,10 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
         {
         }
 
-        public void Init( HttpApplication context )
+        public void Init(HttpApplication context)
         {
-            context.BeginRequest += ( sender , e ) => StructuremapMvc.StructureMapDependencyScope.CreateNestedContainer();
-            context.EndRequest += ( sender , e ) =>
+            context.BeginRequest += (sender, e) => StructuremapMvc.StructureMapDependencyScope.CreateNestedContainer();
+            context.EndRequest += (sender, e) =>
             {
                 HttpContextLifecycle.DisposeAndClearAll();
                 StructuremapMvc.StructureMapDependencyScope.DisposeNestedContainer();

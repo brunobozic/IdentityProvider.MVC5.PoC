@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace IdentityProvider.Infrastructure.LatestAdditions
 {
     public class ByteArrayConverter : JsonConverter
     {
-        public override bool CanConvert( Type objectType )
+        public override bool CanConvert(Type objectType)
         {
             return objectType == typeof(byte[]);
         }
 
-        public override object ReadJson( JsonReader reader , Type objectType , object existingValue , JsonSerializer serializer )
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             if (reader.TokenType == JsonToken.Null)
             {
@@ -36,12 +36,12 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
             return numArray;
         }
 
-        byte[] GetByteArray( object value )
+        byte[] GetByteArray(object value)
         {
             return value as byte[];
         }
 
-        byte[] ReadByteArray( JsonReader reader )
+        byte[] ReadByteArray(JsonReader reader)
         {
             var list = new List<byte>();
 
@@ -53,7 +53,7 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
 
                         continue;
                     case JsonToken.Integer:
-                        list.Add(Convert.ToByte(reader.Value , System.Globalization.CultureInfo.InvariantCulture));
+                        list.Add(Convert.ToByte(reader.Value, System.Globalization.CultureInfo.InvariantCulture));
 
                         continue;
                     case JsonToken.EndArray:
@@ -66,7 +66,7 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
             throw new Exception("Unexpected end when reading bytes.");
         }
 
-        public override void WriteJson( JsonWriter writer , object value , JsonSerializer serializer )
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             if (value == null)
             {
@@ -74,34 +74,34 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
             }
             else
             {
-                var arr = ( byte[] ) value;
+                var arr = (byte[])value;
                 var y = arr.Select(Convert.ToInt32).ToArray();
-                var z = string.Join(", " , y);
-                var val = @"[" + z.Replace("\"" , "") + "]";
+                var z = string.Join(", ", y);
+                var val = @"[" + z.Replace("\"", string.Empty) + "]";
 
                 writer.WriteRawValue(val);
             }
         }
 
-        private int[] GetIntArrayFromByteArray( byte[] byteArray )
+        private int[] GetIntArrayFromByteArray(byte[] byteArray)
         {
-            var intArray = new int[ byteArray.Length / 4 ];
+            var intArray = new int[byteArray.Length / 4];
 
-            for (var i = 0 ; i < byteArray.Length ; i += 4)
+            for (var i = 0; i < byteArray.Length; i += 4)
             {
-                intArray[ i / 4 ] = BitConverter.ToInt32(byteArray , i);
+                intArray[i / 4] = BitConverter.ToInt32(byteArray, i);
             }
 
             return intArray;
         }
 
-        private byte[] GetByteArrayFromIntArray( int[] intArray )
+        private byte[] GetByteArrayFromIntArray(int[] intArray)
         {
-            var data = new byte[ intArray.Length * 4 ];
+            var data = new byte[intArray.Length * 4];
 
-            for (var i = 0 ; i < intArray.Length ; i++)
+            for (var i = 0; i < intArray.Length; i++)
             {
-                Array.Copy(BitConverter.GetBytes(intArray[ i ]) , 0 , data , i * 4 , 4);
+                Array.Copy(BitConverter.GetBytes(intArray[i]), 0, data, i * 4, 4);
             }
 
             return data;

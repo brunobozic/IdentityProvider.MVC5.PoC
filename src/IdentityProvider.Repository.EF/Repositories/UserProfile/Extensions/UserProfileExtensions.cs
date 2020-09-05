@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using IdentityProvider.Models.Domain.Account;
-using Module.Repository.EF.Repositories;
-using MyApplicationUserGetQuery = IdentityProvider.Repository.EF.Queries.UserProfile.MyApplicationUserGetQuery;
-
-namespace IdentityProvider.Repository.EF.Repositories.UserProfile.Extensions
+﻿namespace IdentityProvider.Repository.EF.Repositories.UserProfile.Extensions
 {
     public static class ApplicationUserRepositoryExtensions
     {

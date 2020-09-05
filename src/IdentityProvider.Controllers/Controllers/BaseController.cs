@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ControllerAlertHelpers;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using StructureMap;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -50,7 +50,7 @@ namespace IdentityProvider.Controllers.Controllers
         private void AddAlert(string alertStyle, string message, bool dismissable)
         {
             var alerts = TempData.ContainsKey(Alert.TempDataKey)
-                ? (List<Alert>) TempData[Alert.TempDataKey]
+                ? (List<Alert>)TempData[Alert.TempDataKey]
                 : new List<Alert>();
 
             alerts.Add(new Alert
@@ -71,7 +71,7 @@ namespace IdentityProvider.Controllers.Controllers
 
             if (_errorLogService == null)
                 _errorLogService =
-                    (RollingFileErrorLogProvider) DependencyResolver.Current.GetService(typeof(IErrorLogService));
+                    (RollingFileErrorLogProvider)DependencyResolver.Current.GetService(typeof(IErrorLogService));
 
             if (errorLogService == null) errorLogService = _errorLogService;
 

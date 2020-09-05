@@ -1,10 +1,10 @@
-﻿using System;
+﻿using IdentityProvider.Models.Domain.Account;
+using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
-using IdentityProvider.Models.Domain.Account;
 
 namespace IdentityProvider.Controllers.Authorize
 {

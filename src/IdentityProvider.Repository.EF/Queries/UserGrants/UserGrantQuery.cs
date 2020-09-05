@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using IdentityProvider.Infrastructure.Logging.Serilog;
+﻿using IdentityProvider.Infrastructure.Logging.Serilog;
 using IdentityProvider.Repository.EF.EFDataContext;
+using System;
+using System.Diagnostics;
 
 namespace IdentityProvider.Repository.EF.Queries.UserGrants
 {
@@ -21,7 +19,7 @@ namespace IdentityProvider.Repository.EF.Queries.UserGrants
             _loggingFactory = loggingFactory;
         }
 
-        public string UserId { private get; set; } = "";
+        public string UserId { private get; set; } = string.Empty;
 
         public int EmployeeId { private get; set; } = 0;
 
@@ -29,8 +27,8 @@ namespace IdentityProvider.Repository.EF.Queries.UserGrants
         {
             var retVal = new UserGrantQueryResponse
             {
-                Succes = false ,
-                Message = "" ,
+                Succes = false,
+                Message = string.Empty,
             };
 
             try
@@ -110,7 +108,7 @@ namespace IdentityProvider.Repository.EF.Queries.UserGrants
             {
                 Console.WriteLine(e);
                 Debug.WriteLine(e);
-                _loggingFactory.GetLogger(SerilogLogTypesEnum.ErrorDbLog).Error(e , "{Exception}");
+                _loggingFactory.GetLogger(SerilogLogTypesEnum.ErrorDbLog).Error(e, "{Exception}");
                 retVal.Message = e.Message;
             }
 

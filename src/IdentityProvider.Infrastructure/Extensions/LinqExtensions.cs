@@ -18,9 +18,9 @@ namespace IdentityProvider.Infrastructure.Extensions
         /// </summary>
         public static string Join<TSource>(this IEnumerable<TSource> source, string on)
         {
-            var ret = "";
+            var ret = string.Empty;
             foreach (var item in source)
-                ret = ret == "" ? item.ToString() : string.Format("{0}{1}{2}", ret, on, item);
+                ret = ret == string.Empty ? item.ToString() : string.Format("{0}{1}{2}", ret, on, item);
 
             return ret;
         }
@@ -39,12 +39,12 @@ namespace IdentityProvider.Infrastructure.Extensions
             Func<T1, T2, bool> match)
         {
             var left = from a in one
-                from b in two.Where(b => match(a, b)).DefaultIfEmpty()
-                select new Tuple<T1, T2>(a, b);
+                       from b in two.Where(b => match(a, b)).DefaultIfEmpty()
+                       select new Tuple<T1, T2>(a, b);
 
             var right = from b in two
-                from a in one.Where(a => match(a, b)).DefaultIfEmpty()
-                select new Tuple<T1, T2>(a, b);
+                        from a in one.Where(a => match(a, b)).DefaultIfEmpty()
+                        select new Tuple<T1, T2>(a, b);
 
             return left.Concat(right).Distinct();
         }

@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models;
 using IdentityProvider.Models.Datatables;
 using IdentityProvider.Services.AuditTrailService;
 using Module.Repository.EF.UnitOfWorkInterfaces;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -74,7 +74,7 @@ namespace IdentityProvider.Controllers.Controllers
             var skip = model.start;
             var userId = model.userid;
 
-            var sortBy = "";
+            var sortBy = string.Empty;
             var sortDir = true;
 
             if (model.order != null)
@@ -121,18 +121,18 @@ namespace IdentityProvider.Controllers.Controllers
             return result;
         }
 
-        private MultiSelectList GetMultiSelectListDropDownForTableName( List<int> selectedValues )
+        private MultiSelectList GetMultiSelectListDropDownForTableName(List<int> selectedValues)
         {
-            
+
             List<SelectListItem> items;
 
             if (selectedValues != null)
             {
                 items = _auditTrailService.Queryable().OrderBy(a => a.TableName).AsNoTracking().Select(c => new SelectListItem
                 {
-                    Value = c.Id.ToString() ,
-                    Text = c.TableName ,
-                    Selected = selectedValues.Contains(c.Id) ,
+                    Value = c.Id.ToString(),
+                    Text = c.TableName,
+                    Selected = selectedValues.Contains(c.Id),
                     Disabled = selectedValues.Contains(c.Id) // this will make the dropdown checkboxes disabled for all those items that already exist in the db, to prevent deletion
                 }).ToList();
             }
@@ -140,13 +140,13 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 items = _auditTrailService.Queryable().OrderBy(a => a.TableName).AsNoTracking().Select(c => new SelectListItem
                 {
-                    Value = c.Id.ToString() ,
-                    Text = c.TableName ,
+                    Value = c.Id.ToString(),
+                    Text = c.TableName,
                     Selected = false
                 }).ToList();
             }
 
-            var msl = new MultiSelectList(items , "Value" , "Text" , selectedValues , selectedValues);
+            var msl = new MultiSelectList(items, "Value", "Text", selectedValues, selectedValues);
 
             return msl;
         }

@@ -11,7 +11,7 @@ namespace IdentityProvider.Infrastructure.SessionStorageFactories
         {
             T objectContext = null;
             if (HttpContext.Current.Items.Contains(StorageKey))
-                objectContext = (T) HttpContext.Current.Items[StorageKey];
+                objectContext = (T)HttpContext.Current.Items[StorageKey];
             return objectContext;
         }
 

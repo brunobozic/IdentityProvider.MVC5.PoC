@@ -1,9 +1,9 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure.Domain;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using IdentityProvider.Infrastructure.Domain;
-using Microsoft.AspNet.Identity.EntityFramework;
 using TrackableEntities;
 
 namespace IdentityProvider.Models.Domain.Account
@@ -30,7 +30,7 @@ namespace IdentityProvider.Models.Domain.Account
         [DisplayName("Name")]
         // [MaxLength(50, ErrorMessage = "The name of the ApplicationRole must be between 2 and 50 characters"), MinLength(2)]
         public string Name { get; set; }
-   
+
         [DisplayName("Description")]
         [MaxLength(260, ErrorMessage = "The description of the ApplicationRole must be between 2 and 260 characters"), MinLength(2)]
         public string Description { get; set; }

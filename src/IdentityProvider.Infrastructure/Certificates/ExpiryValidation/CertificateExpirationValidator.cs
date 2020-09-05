@@ -1,9 +1,9 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Email;
 using IdentityProvider.Infrastructure.Enums;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
+using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityProvider.Infrastructure.Certificates.ExpiryValidation
 {

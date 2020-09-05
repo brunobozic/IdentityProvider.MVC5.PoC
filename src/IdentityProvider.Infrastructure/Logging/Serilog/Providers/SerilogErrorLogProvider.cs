@@ -1,6 +1,6 @@
-﻿using System;
-using IdentityProvider.Infrastructure.ApplicationContext;
+﻿using IdentityProvider.Infrastructure.ApplicationContext;
 using Serilog;
+using System;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.Providers
 {

@@ -3,6 +3,6 @@
     public interface IUserGrantService
     {
         GrantedPriviligesResponse OrgUnitGrantedPriviligesByUser(string userId);
-        GrantedPriviligesResponse OrgUnitGrantedPriviligesByEmployee( int employeeId );
+        GrantedPriviligesResponse OrgUnitGrantedPriviligesByEmployee(int employeeId);
     }
 }

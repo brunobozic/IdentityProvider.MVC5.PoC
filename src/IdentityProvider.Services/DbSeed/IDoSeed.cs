@@ -1,9 +1,7 @@
-﻿using System.Threading.Tasks;
-
-namespace IdentityProvider.Services.DbSeed
+﻿namespace IdentityProvider.Services.DbSeed
 {
     public interface IDoSeed
     {
-       bool Seed();
+        bool Seed();
     }
 }

@@ -21,7 +21,7 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
             var audit = new DbAuditTrail
             {
                 UserId =
-                    1, 
+                    1,
                 // System.Web.HttpContext.Current.User.Identity.Name; 
                 // TODO: Change this line according to your needs
                 TableName = GetTableName(entry),
@@ -32,31 +32,31 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
             switch (entry.State)
             {
                 case EntityState.Added:
-                {
-                    var newValues = new StringBuilder();
-                    SetAddedProperties(entry, newValues);
-                    audit.NewData = newValues.ToString();
-                    audit.Actions = AuditActions.I.ToString();
-                    break;
-                }
+                    {
+                        var newValues = new StringBuilder();
+                        SetAddedProperties(entry, newValues);
+                        audit.NewData = newValues.ToString();
+                        audit.Actions = AuditActions.I.ToString();
+                        break;
+                    }
                 case EntityState.Deleted:
-                {
-                    var oldValues = new StringBuilder();
-                    SetDeletedProperties(entry, oldValues);
-                    audit.OldData = oldValues.ToString();
-                    audit.Actions = AuditActions.D.ToString();
-                    break;
-                }
+                    {
+                        var oldValues = new StringBuilder();
+                        SetDeletedProperties(entry, oldValues);
+                        audit.OldData = oldValues.ToString();
+                        audit.Actions = AuditActions.D.ToString();
+                        break;
+                    }
                 case EntityState.Modified:
-                {
-                    var oldValues = new StringBuilder();
-                    var newValues = new StringBuilder();
-                    SetModifiedProperties(entry, oldValues, newValues);
-                    audit.OldData = oldValues.ToString();
-                    audit.NewData = newValues.ToString();
-                    audit.Actions = AuditActions.U.ToString();
-                    break;
-                }
+                    {
+                        var oldValues = new StringBuilder();
+                        var newValues = new StringBuilder();
+                        SetModifiedProperties(entry, oldValues, newValues);
+                        audit.OldData = oldValues.ToString();
+                        audit.NewData = newValues.ToString();
+                        audit.Actions = AuditActions.U.ToString();
+                        break;
+                    }
 
                 case EntityState.Detached:
                     break;
@@ -116,7 +116,7 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
         public long? GetKeyValue(DbEntityEntry entry)
         {
             var objectStateEntry =
-                ((IObjectContextAdapter) _context).ObjectContext.ObjectStateManager.GetObjectStateEntry(entry.Entity);
+                ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.GetObjectStateEntry(entry.Entity);
             long id = 0;
             if (objectStateEntry.EntityKey.EntityKeyValues != null)
                 id = Convert.ToInt64(objectStateEntry.EntityKey.EntityKeyValues[0].Value);

@@ -1,10 +1,10 @@
-﻿using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Infrastructure.Logging.Serilog;
 using IdentityProvider.Repository.EF.EFDataContext;
 using IdentityProvider.Repository.EF.Queries.UserGrants;
 using StructureMap;
+using System.Web.Mvc;
 
 
 namespace IdentityProvider.Services.RowLeveLSecurityUserGrantService
@@ -33,14 +33,14 @@ namespace IdentityProvider.Services.RowLeveLSecurityUserGrantService
             _roleManager = roleManager;
         }
 
-        public GrantedPriviligesResponse OrgUnitGrantedPriviligesByUser( string userId )
+        public GrantedPriviligesResponse OrgUnitGrantedPriviligesByUser(string userId)
         {
             var retVal = new GrantedPriviligesResponse();
 
-            var context = ( AppDbContext ) DependencyResolver.Current.GetService(typeof(AppDbContext));
-            var loggingFactory = ( ISerilogLoggingFactory ) DependencyResolver.Current.GetService(typeof(ISerilogLoggingFactory));
+            var context = (AppDbContext)DependencyResolver.Current.GetService(typeof(AppDbContext));
+            var loggingFactory = (ISerilogLoggingFactory)DependencyResolver.Current.GetService(typeof(ISerilogLoggingFactory));
 
-            var q = new UserGrantQuery(context , loggingFactory) { UserId = userId };
+            var q = new UserGrantQuery(context, loggingFactory) { UserId = userId };
 
             var queryResponse = q.Execute();
 
@@ -59,14 +59,14 @@ namespace IdentityProvider.Services.RowLeveLSecurityUserGrantService
             return retVal;
         }
 
-        public GrantedPriviligesResponse OrgUnitGrantedPriviligesByEmployee( int employeeId )
+        public GrantedPriviligesResponse OrgUnitGrantedPriviligesByEmployee(int employeeId)
         {
             var retVal = new GrantedPriviligesResponse();
 
-            var context = ( AppDbContext ) DependencyResolver.Current.GetService(typeof(AppDbContext));
-            var loggingFactory = ( ISerilogLoggingFactory ) DependencyResolver.Current.GetService(typeof(ISerilogLoggingFactory));
+            var context = (AppDbContext)DependencyResolver.Current.GetService(typeof(AppDbContext));
+            var loggingFactory = (ISerilogLoggingFactory)DependencyResolver.Current.GetService(typeof(ISerilogLoggingFactory));
 
-            var q = new UserGrantQuery(context , loggingFactory) { EmployeeId = employeeId };
+            var q = new UserGrantQuery(context, loggingFactory) { EmployeeId = employeeId };
 
             var queryResponse = q.Execute();
 

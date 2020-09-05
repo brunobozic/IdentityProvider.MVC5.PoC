@@ -1,5 +1,5 @@
-﻿using System;
-using IdentityProvider.Infrastructure.DatabaseLog.DTOs;
+﻿using IdentityProvider.Infrastructure.DatabaseLog.DTOs;
+using System;
 
 namespace IdentityProvider.Infrastructure.DatabaseLog
 {

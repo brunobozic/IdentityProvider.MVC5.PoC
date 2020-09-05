@@ -1,12 +1,12 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
+using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Extensions;
+using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Model;
+using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;
+using System;
 using System.Diagnostics;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
-using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Extensions;
-using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Model;
-using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;
 
 namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog
 {
@@ -28,8 +28,8 @@ namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var jsonPostedData = "";
-            var jsonResponseData = "";
+            var jsonPostedData = string.Empty;
+            var jsonResponseData = string.Empty;
 
             if (HttpContext.Current == null)
                 return;
@@ -57,8 +57,8 @@ namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog
 
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            var jsonPostedData = "";
-            var jsonResponseData = "";
+            var jsonPostedData = string.Empty;
+            var jsonResponseData = string.Empty;
 
             var sw = filterContext.HttpContext.Items[_stopwatchKey] as Stopwatch;
 
@@ -120,11 +120,11 @@ namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog
             return new PerformanceLogTick
             {
                 Action = "1",
-                Url = WebUtility.UrlDecode(filterContext.HttpContext?.Request.Url?.AbsoluteUri ?? ""),
-                RequestJson = jsonPostedData == "" ? null : jsonPostedData,
-                Browser = filterContext.HttpContext?.Request.Browser?.Type ?? "",
+                Url = WebUtility.UrlDecode(filterContext.HttpContext?.Request.Url?.AbsoluteUri ?? string.Empty),
+                RequestJson = jsonPostedData == string.Empty ? null : jsonPostedData,
+                Browser = filterContext.HttpContext?.Request.Browser?.Type ?? string.Empty,
                 HttpResponseStatusCode = filterContext.HttpContext?.Response.StatusCode.ToString(),
-                HttpResponse = filterContext.HttpContext?.Response.StatusDescription ?? "",
+                HttpResponse = filterContext.HttpContext?.Response.StatusDescription ?? string.Empty,
                 Stopwatch = sw,
                 CorrelationId = GetCorrelationId(),
                 CorrelationHeaderId = GetHeaderCorrelationId(),
@@ -141,11 +141,11 @@ namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog
             return new PerformanceLogTick
             {
                 Action = "0",
-                Url = WebUtility.UrlDecode(filterContext.HttpContext?.Request.Url?.AbsoluteUri ?? ""),
-                RequestJson = jsonPostedData == "" ? null : jsonPostedData,
-                Browser = filterContext.HttpContext?.Request.Browser?.Type ?? "",
+                Url = WebUtility.UrlDecode(filterContext.HttpContext?.Request.Url?.AbsoluteUri ?? string.Empty),
+                RequestJson = jsonPostedData == string.Empty ? null : jsonPostedData,
+                Browser = filterContext.HttpContext?.Request.Browser?.Type ?? string.Empty,
                 HttpResponseStatusCode = filterContext.HttpContext?.Response.StatusCode.ToString(),
-                HttpResponse = filterContext.HttpContext?.Response.StatusDescription ?? "",
+                HttpResponse = filterContext.HttpContext?.Response.StatusDescription ?? string.Empty,
                 Stopwatch = sw,
                 CorrelationId = GetCorrelationId(),
                 CorrelationHeaderId = GetHeaderCorrelationId(),

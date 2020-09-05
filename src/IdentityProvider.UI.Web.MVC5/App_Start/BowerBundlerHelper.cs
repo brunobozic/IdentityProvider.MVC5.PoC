@@ -12,16 +12,16 @@
 
 #endregion
 
+using B4BCore;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Security.Cryptography;
 using System.Web.Hosting;
 using System.Web.Mvc;
-using B4BCore;
 
 
-namespace IdentityProvider.UI.Web.MVC5
+namespace IdentityProvider.UI.Web.MVC5.App_Start
 {
     /// <summary>
     ///     This class contains extention methods to provide a the inclusings of CSS and JavaScript files in your views
@@ -48,11 +48,11 @@ namespace IdentityProvider.UI.Web.MVC5
     {
         private static BundlerForBower _bundler;
 
-        private static readonly ConcurrentDictionary<string , MvcHtmlString> IncludeCache =
-            new ConcurrentDictionary<string , MvcHtmlString>();
+        private static readonly ConcurrentDictionary<string, MvcHtmlString> IncludeCache =
+            new ConcurrentDictionary<string, MvcHtmlString>();
 
-        private static readonly ConcurrentDictionary<string , string> StaticCachebusterCache =
-            new ConcurrentDictionary<string , string>();
+        private static readonly ConcurrentDictionary<string, string> StaticCachebusterCache =
+            new ConcurrentDictionary<string, string>();
 
         /// <summary>
         ///     This returns the CSS links using caching if forceState is null
@@ -65,12 +65,12 @@ namespace IdentityProvider.UI.Web.MVC5
         /// </param>
         /// <param name="forceState">if not null then true forces into debug state and false forces production state</param>
         /// <returns></returns>
-        public static MvcHtmlString HtmlCssCached( this HtmlHelper helper , string bundleName , bool? forceState = null )
+        public static MvcHtmlString HtmlCssCached(this HtmlHelper helper, string bundleName, bool? forceState = null)
         {
             return forceState == null
-                ? IncludeCache.GetOrAdd(bundleName ,
-                    setup => CreateHtmlIncludes(helper , bundleName , CssOrJs.Css , forceState))
-                : CreateHtmlIncludes(helper , bundleName , CssOrJs.Css , forceState);
+                ? IncludeCache.GetOrAdd(bundleName,
+                    setup => CreateHtmlIncludes(helper, bundleName, CssOrJs.Css, forceState))
+                : CreateHtmlIncludes(helper, bundleName, CssOrJs.Css, forceState);
         }
 
         /// <summary>
@@ -84,13 +84,13 @@ namespace IdentityProvider.UI.Web.MVC5
         /// </param>
         /// <param name="forceState">if not null then true forces into debug state and false forces production state</param>
         /// <returns></returns>
-        public static MvcHtmlString HtmlScriptsCached( this HtmlHelper helper , string bundleName ,
-            bool? forceState = null )
+        public static MvcHtmlString HtmlScriptsCached(this HtmlHelper helper, string bundleName,
+            bool? forceState = null)
         {
             return forceState == null
-                ? IncludeCache.GetOrAdd(bundleName ,
-                    setup => CreateHtmlIncludes(helper , bundleName , CssOrJs.Js , forceState))
-                : CreateHtmlIncludes(helper , bundleName , CssOrJs.Js , forceState);
+                ? IncludeCache.GetOrAdd(bundleName,
+                    setup => CreateHtmlIncludes(helper, bundleName, CssOrJs.Js, forceState))
+                : CreateHtmlIncludes(helper, bundleName, CssOrJs.Js, forceState);
         }
 
         /// <summary>
@@ -106,16 +106,16 @@ namespace IdentityProvider.UI.Web.MVC5
         ///     If you provide a precalculated a cachebuster value, say created at build time, then that will be used instead
         /// </param>
         /// <returns></returns>
-        public static string AddCacheBusterCached( this HtmlHelper helper , string relFilePath ,
-            string precalculatedCacheBuster = null )
+        public static string AddCacheBusterCached(this HtmlHelper helper, string relFilePath,
+            string precalculatedCacheBuster = null)
         {
             if (precalculatedCacheBuster == null)
                 precalculatedCacheBuster =
-                    StaticCachebusterCache.GetOrAdd(relFilePath , setup => GetChecksumFromRelPath(relFilePath));
+                    StaticCachebusterCache.GetOrAdd(relFilePath, setup => GetChecksumFromRelPath(relFilePath));
 
             var bundler = GetBundlerForBowerCached(helper);
             var urlHelper = new UrlHelper(helper.ViewContext.RequestContext);
-            return bundler.FormStaticFileWithCacheBuster(urlHelper.Content(relFilePath) , precalculatedCacheBuster);
+            return bundler.FormStaticFileWithCacheBuster(urlHelper.Content(relFilePath), precalculatedCacheBuster);
         }
 
         /// <summary>
@@ -125,15 +125,15 @@ namespace IdentityProvider.UI.Web.MVC5
         /// </summary>
         /// <param name="absFilePath"></param>
         /// <returns>a checksum string which is http safe</returns>
-        public static string GetChecksumBasedOnFileContent( string absFilePath )
+        public static string GetChecksumBasedOnFileContent(string absFilePath)
         {
             using (var stream = File.OpenRead(absFilePath))
             {
                 var sha = new SHA256Managed();
                 var checksum = sha.ComputeHash(stream);
                 var base64 = Convert.ToBase64String(checksum);
-                return base64.Replace("/" , "_").Replace("+" , "-")
-                    .Substring(0 , base64.Length - 1); //make valid HTTP parameter string
+                return base64.Replace("/", "_").Replace("+", "-")
+                    .Substring(0, base64.Length - 1); //make valid HTTP parameter string
             }
         }
 
@@ -148,31 +148,31 @@ namespace IdentityProvider.UI.Web.MVC5
         /// <param name="cssOrJs">This says if its css or javascript. NOTE: the enum string is used as the dir and the file type</param>
         /// <param name="forceState">if not null then true forces into debug state and false forces production state</param>
         /// <returns></returns>
-        private static MvcHtmlString CreateHtmlIncludes( this HtmlHelper helper , string bundleName , CssOrJs cssOrJs ,
-            bool? forceState = null )
+        private static MvcHtmlString CreateHtmlIncludes(this HtmlHelper helper, string bundleName, CssOrJs cssOrJs,
+            bool? forceState = null)
         {
             var isDebug = false;
 #if DEBUG
             isDebug = true;
 #endif
             if (forceState != null)
-                isDebug = ( bool ) forceState;
+                isDebug = (bool)forceState;
 
             var bundler = GetBundlerForBowerCached(helper);
             var urlHelper = new UrlHelper(helper.ViewContext.RequestContext);
-            return new MvcHtmlString(bundler.CalculateHtmlIncludes(bundleName , cssOrJs , isDebug , urlHelper.Content));
+            return new MvcHtmlString(bundler.CalculateHtmlIncludes(bundleName, cssOrJs, isDebug, urlHelper.Content));
         }
 
-        private static string GetChecksumFromRelPath( string fileRelPath )
+        private static string GetChecksumFromRelPath(string fileRelPath)
         {
             return GetChecksumBasedOnFileContent(HostingEnvironment.MapPath(fileRelPath));
         }
 
-        private static BundlerForBower GetBundlerForBowerCached( HtmlHelper helper )
+        private static BundlerForBower GetBundlerForBowerCached(HtmlHelper helper)
         {
             return _bundler ??
-                   ( _bundler = new BundlerForBower(AppDomain.CurrentDomain.GetData("DataDirectory").ToString() ,
-                       HostingEnvironment.MapPath , GetChecksumFromRelPath) );
+                   (_bundler = new BundlerForBower(AppDomain.CurrentDomain.GetData("DataDirectory").ToString(),
+                       HostingEnvironment.MapPath, GetChecksumFromRelPath));
         }
     }
 }

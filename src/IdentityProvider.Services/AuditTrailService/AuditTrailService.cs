@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using IdentityProvider.Infrastructure.DatabaseAudit;
+﻿using IdentityProvider.Infrastructure.DatabaseAudit;
 using IdentityProvider.Models;
 using LinqKit;
 using Module.Repository.EF.Repositories;
 using Module.ServicePattern;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace IdentityProvider.Services.AuditTrailService
 {

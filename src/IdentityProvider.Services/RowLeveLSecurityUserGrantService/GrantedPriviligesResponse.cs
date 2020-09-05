@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using IdentityProvider.Repository.EF.Queries.UserGrants;
+﻿using IdentityProvider.Repository.EF.Queries.UserGrants;
+using System.Collections.Generic;
 
 namespace IdentityProvider.Services.RowLeveLSecurityUserGrantService
 {
@@ -12,7 +12,7 @@ namespace IdentityProvider.Services.RowLeveLSecurityUserGrantService
         public GrantedPriviligesResponse()
         {
             Success = false;
-            Message = "";
+            Message = string.Empty;
         }
     }
 }

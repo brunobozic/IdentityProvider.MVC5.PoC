@@ -1,14 +1,14 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Linq;
-using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
-    [Table("RoleGroup" , Schema = "Organization")]
+    [Table("RoleGroup", Schema = "Organization")]
     public class RoleGroup : DomainEntity<int>, IActive
     {
         public RoleGroup()
@@ -20,11 +20,11 @@ namespace IdentityProvider.Models.Domain.Account
         }
 
         [Required]
-        [MaxLength(260 , ErrorMessage = "The description of the role group unit must be between 5 and 260 characters"), MinLength(5)]
+        [MaxLength(260, ErrorMessage = "The description of the role group unit must be between 5 and 260 characters"), MinLength(5)]
         public string Name { get; set; }
 
-    
-        [MaxLength(260 , ErrorMessage = "The description of the role group must be between 5 and 260 characters"), MinLength(5)]
+
+        [MaxLength(260, ErrorMessage = "The description of the role group must be between 5 and 260 characters"), MinLength(5)]
         public string Description { get; set; }
 
         #region IsActive
@@ -40,7 +40,7 @@ namespace IdentityProvider.Models.Domain.Account
 
         #region IValidatable Entity contract implementation
 
-        public override IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
+        public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             throw new NotImplementedException();
         }

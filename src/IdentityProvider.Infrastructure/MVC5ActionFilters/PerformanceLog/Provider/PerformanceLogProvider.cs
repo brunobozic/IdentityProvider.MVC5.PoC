@@ -1,9 +1,9 @@
-﻿using System;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.Logging.Serilog;
 using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Model;
 using Serilog;
+using System;
 
 namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider
 {
@@ -39,13 +39,13 @@ namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provi
                 _loggingService.Information(
                     Pattern,
                     _applicationConfiguration.GetCurrentEnvironment().ToString(),
-                    _applicationConfiguration.GetApplicationId() ?? "",
-                    _applicationConfiguration.GetInstanceId() ?? "",
-                    t.Action ?? "",
-                    t.Url ?? "",
-                    t.HttpResponse ?? "",
-                    t.HttpResponseStatusCode ?? "",
-                    t.Browser ?? "",
+                    _applicationConfiguration.GetApplicationId() ?? string.Empty,
+                    _applicationConfiguration.GetInstanceId() ?? string.Empty,
+                    t.Action ?? string.Empty,
+                    t.Url ?? string.Empty,
+                    t.HttpResponse ?? string.Empty,
+                    t.HttpResponseStatusCode ?? string.Empty,
+                    t.Browser ?? string.Empty,
                     t.RequestJson,
                     t.ResponseJson,
                     t.Stopwatch.ElapsedMilliseconds,
@@ -58,13 +58,13 @@ namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provi
                 _loggingService.Information(
                     Pattern,
                     _applicationConfiguration.GetCurrentEnvironment().ToString(),
-                    _applicationConfiguration.GetApplicationId() ?? "",
-                    _applicationConfiguration.GetInstanceId() ?? "",
-                    t.Action ?? "",
-                    t.Url ?? "",
-                    t.HttpResponse ?? "",
-                    t.HttpResponseStatusCode ?? "",
-                    t.Browser ?? "",
+                    _applicationConfiguration.GetApplicationId() ?? string.Empty,
+                    _applicationConfiguration.GetInstanceId() ?? string.Empty,
+                    t.Action ?? string.Empty,
+                    t.Url ?? string.Empty,
+                    t.HttpResponse ?? string.Empty,
+                    t.HttpResponseStatusCode ?? string.Empty,
+                    t.Browser ?? string.Empty,
                     t.RequestJson,
                     t.ResponseJson,
                     t.Miliseconds,

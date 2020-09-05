@@ -1,5 +1,5 @@
-﻿using System.Text;
-using IdentityProvider.Infrastructure.Logging.Log4Net;
+﻿using IdentityProvider.Infrastructure.Logging.Log4Net;
+using System.Text;
 
 namespace IdentityProvider.Infrastructure.Email
 {

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using IdentityProvider.Infrastructure.Domain;
 using TrackableEntities;
 
 namespace IdentityProvider.Infrastructure.DatabaseAudit
@@ -11,7 +11,7 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
     {
         public DbAuditTrail()
         {
-         
+
         }
 
         public string TableName { get; set; }

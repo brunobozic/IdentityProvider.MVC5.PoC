@@ -16,18 +16,18 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
         /// </summary>
         /// <param name="list"></param>
         /// <param name="dependencies">Dependency: Item2 depends on Item1.</param>
-        public static void TopologicalSort<T>( List<T> list , IEnumerable<SortDependency<T>> dependencies )
+        public static void TopologicalSort<T>(List<T> list, IEnumerable<SortDependency<T>> dependencies)
         {
-            var dependenciesByDependent = new Dictionary<T , List<T>>();
+            var dependenciesByDependent = new Dictionary<T, List<T>>();
 
             foreach (var relation in dependencies)
             {
                 List<T> group;
 
-                if (!dependenciesByDependent.TryGetValue(relation.Dependency , out group))
+                if (!dependenciesByDependent.TryGetValue(relation.Dependency, out group))
                 {
                     group = new List<T>();
-                    dependenciesByDependent.Add(relation.Dependency , group);
+                    dependenciesByDependent.Add(relation.Dependency, group);
                 }
 
                 group.Add(relation.Key);
@@ -40,7 +40,7 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
 
             foreach (var element in list)
             {
-                AddDependenciesBeforeElement(element , result , givenList , dependenciesByDependent , processed ,
+                AddDependenciesBeforeElement(element, result, givenList, dependenciesByDependent, processed,
                     analysisStarted);
             }
 
@@ -49,7 +49,7 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
             list.AddRange(result);
         }
 
-        private static void AddDependenciesBeforeElement<T>( T element , List<T> result , HashSet<T> givenList , Dictionary<T , List<T>> dependencies , HashSet<T> processed , List<T> analysisStarted )
+        private static void AddDependenciesBeforeElement<T>(T element, List<T> result, HashSet<T> givenList, Dictionary<T, List<T>> dependencies, HashSet<T> processed, List<T> analysisStarted)
         {
             if (!processed.Contains(element) && givenList.Contains(element))
             {
@@ -57,16 +57,16 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
                 {
                     int circularReferenceIndex = analysisStarted.IndexOf(element);
                     throw new Exception(
-                        $"Circular dependency detected on elements:\r\n{string.Join(",\r\n" , analysisStarted.GetRange(circularReferenceIndex , analysisStarted.Count - circularReferenceIndex))}.");
+                        $"Circular dependency detected on elements:\r\n{string.Join(",\r\n", analysisStarted.GetRange(circularReferenceIndex, analysisStarted.Count - circularReferenceIndex))}.");
                 }
 
                 analysisStarted.Add(element);
 
                 if (dependencies.ContainsKey(element))
                 {
-                    foreach (T dependency in dependencies[ element ])
+                    foreach (T dependency in dependencies[element])
                     {
-                        AddDependenciesBeforeElement(dependency , result , givenList , dependencies , processed ,
+                        AddDependenciesBeforeElement(dependency, result, givenList, dependencies, processed,
                             analysisStarted);
                     }
                 }

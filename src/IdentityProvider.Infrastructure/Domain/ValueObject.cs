@@ -23,7 +23,7 @@ namespace IdentityProvider.Infrastructure.Domain
         /// </param>
         public bool Equals(T other)
         {
-            if ((object) other == null)
+            if ((object)other == null)
                 return false;
 
             if (ReferenceEquals(this, other))
@@ -85,8 +85,8 @@ namespace IdentityProvider.Infrastructure.Domain
                 return true;
             var item = obj as ValueObject<T>;
 
-            if ((object) item != null)
-                return Equals((T) item);
+            if ((object)item != null)
+                return Equals((T)item);
             return false;
         }
 

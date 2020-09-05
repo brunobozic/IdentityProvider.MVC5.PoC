@@ -1,9 +1,9 @@
-﻿using System;
+﻿using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
+using System;
 using System.Data;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
-using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 
 namespace IdentityProvider.Infrastructure.Certificates.FromStore
 {

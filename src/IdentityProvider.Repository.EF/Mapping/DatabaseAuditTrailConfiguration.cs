@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using IdentityProvider.Infrastructure.DatabaseAudit;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using IdentityProvider.Infrastructure.DatabaseAudit;
 
 namespace IdentityProvider.Repository.EF.Mapping
 {
@@ -59,7 +59,7 @@ namespace IdentityProvider.Repository.EF.Mapping
             Property(t => t.OldData).HasColumnName("OldData");
             Property(t => t.NewData).HasColumnName("NewData");
             Property(t => t.UpdatedAt).HasColumnName("UpdatedAt");
-          
+
         }
     }
 }

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Security.Authentication;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
-using AutoMapper;
+﻿using AutoMapper;
 using IdentityProvider.Infrastructure;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
@@ -15,10 +7,15 @@ using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.Factories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using Module.Repository.EF;
 using Module.Repository.EF.RowLevelSecurity;
 using Module.Repository.EF.UnitOfWorkInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Security.Authentication;
+using System.Threading.Tasks;
 using TrackableEntities;
 
 namespace IdentityProvider.Services

@@ -1,10 +1,10 @@
-﻿using System;
-using IdentityProvider.Infrastructure.Email;
+﻿using IdentityProvider.Infrastructure.Email;
 using IdentityProvider.Infrastructure.SMS;
 using IdentityProvider.Models.Domain.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
+using System;
 
 namespace IdentityProvider.Services
 {
@@ -24,17 +24,17 @@ namespace IdentityProvider.Services
             // Configure validation logic for usernames
             UserValidator = new UserValidator<ApplicationUser>(this)
             {
-                AllowOnlyAlphanumericUserNames = false ,
+                AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
 
             // Configure validation logic for passwords
             PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 8 ,
-                RequireNonLetterOrDigit = true ,
-                RequireDigit = true ,
-                RequireLowercase = true ,
+                RequiredLength = 8,
+                RequireNonLetterOrDigit = true,
+                RequireDigit = true,
+                RequireLowercase = true,
                 RequireUppercase = true
             };
 
@@ -45,14 +45,14 @@ namespace IdentityProvider.Services
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            RegisterTwoFactorProvider("Phone Code" , new PhoneNumberTokenProvider<ApplicationUser>
+            RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
             {
                 MessageFormat = "Your security code is {0}"
             });
 
-            RegisterTwoFactorProvider("Email Code" , new EmailTokenProvider<ApplicationUser>
+            RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
             {
-                Subject = "Security Code" ,
+                Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
             });
 

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ServiceModel;
-using AutoMapper;
+﻿using AutoMapper;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.DatabaseLog.DTOs;
 using IdentityProvider.Infrastructure.Logging.Log4Net;
 using log4net.Core;
+using System;
+using System.Collections.Generic;
+using System.ServiceModel;
 
 namespace IdentityProvider.Infrastructure.DatabaseLog
 {

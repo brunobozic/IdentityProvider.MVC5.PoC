@@ -1,15 +1,15 @@
-﻿using System;
-using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Logging.Serilog.PerformanceLogger;
 using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog;
 using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;
+using System;
+using System.Web.Mvc;
 
-namespace IdentityProvider.UI.Web.MVC5
+namespace IdentityProvider.UI.Web.MVC5.App_Start
 {
     public class FilterConfig
     {
-        public static void RegisterGlobalFilters( GlobalFilterCollection filters )
+        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
 
@@ -26,7 +26,7 @@ namespace IdentityProvider.UI.Web.MVC5
 
                 if (performanceLogProvider == null) return;
                 var performanceLogActionFilter =
-                    new PerformanceLogActionFilter(performanceLogProvider , applicationConfiguration);
+                    new PerformanceLogActionFilter(performanceLogProvider, applicationConfiguration);
 
                 filters.Add(performanceLogActionFilter);
             }

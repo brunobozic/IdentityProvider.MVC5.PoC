@@ -13,7 +13,7 @@ namespace Module.ServicePattern
     {
         TEntity Find(params object[] keyValues);
         IQueryable<TEntity> SelectQuery(string query, params object[] parameters);
-        void Insert(TEntity entity , bool traverseGraph = true );
+        void Insert(TEntity entity, bool traverseGraph = true);
         void InsertRange(IEnumerable<TEntity> entities);
         void ApplyChanges(TEntity entity);
         [Obsolete(
@@ -33,7 +33,7 @@ namespace Module.ServicePattern
         Task<TEntity> FindAsync(CancellationToken cancellationToken, params object[] keyValues);
         Task<bool> DeleteAsync(params object[] keyValues);
         Task<bool> DeleteAsync(CancellationToken cancellationToken, params object[] keyValues);
-        Task<bool> DeleteAsyncSoftDeletedAsync( CancellationToken cancellationToken , bool softDeleted, params object[] keyValues );
+        Task<bool> DeleteAsyncSoftDeletedAsync(CancellationToken cancellationToken, bool softDeleted, params object[] keyValues);
         IQueryable<TEntity> Queryable();
     }
 }

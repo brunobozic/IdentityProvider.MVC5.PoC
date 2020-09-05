@@ -62,11 +62,11 @@ namespace IdentityProvider.Infrastructure.ApplicationContext
 
                 if (request != null)
                 {
-                    _properties.UserAgent = request.Browser == null ? "" : request.Browser.Browser;
+                    _properties.UserAgent = request.Browser == null ? string.Empty : request.Browser.Browser;
                     _properties.RemoteHost = request.ServerVariables["REMOTE_HOST"];
                     _properties.Path = request.Url.AbsolutePath;
                     _properties.Query = request.Url.Query;
-                    _properties.Referrer = request.UrlReferrer == null ? "" : request.UrlReferrer.ToString();
+                    _properties.Referrer = request.UrlReferrer == null ? string.Empty : request.UrlReferrer.ToString();
                     _properties.Method = request.HttpMethod;
                 }
 

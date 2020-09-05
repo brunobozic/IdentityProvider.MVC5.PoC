@@ -1,6 +1,6 @@
-﻿using System;
-using IdentityProvider.Infrastructure.DatabaseLog.DTOs;
+﻿using IdentityProvider.Infrastructure.DatabaseLog.DTOs;
 using IdentityProvider.Infrastructure.Logging.Log4Net;
+using System;
 
 namespace IdentityProvider.Infrastructure.DatabaseLog.Model.ExtensionMethods
 {

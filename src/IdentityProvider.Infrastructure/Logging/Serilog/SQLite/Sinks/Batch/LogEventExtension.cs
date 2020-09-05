@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Serilog.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Serilog.Events;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Batch
 {
@@ -23,7 +23,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Batch
 
                 if (myListOfStructuredProperties.Count > 0)
                     returnValue = myListOfStructuredProperties?.Where(i => i.Name.ToUpper().Equals(subPropertyName))
-                                      .Select(i => i.Value).Single()?.ToString() ?? "";
+                                      .Select(i => i.Value).Single()?.ToString() ?? string.Empty;
             }
             catch (Exception)
             {

@@ -1,6 +1,6 @@
-﻿using System.Threading;
+﻿using Module.Repository.EF.Repositories;
+using System.Threading;
 using System.Threading.Tasks;
-using Module.Repository.EF.Repositories;
 using TrackableEntities;
 
 namespace Module.Repository.EF.UnitOfWorkInterfaces

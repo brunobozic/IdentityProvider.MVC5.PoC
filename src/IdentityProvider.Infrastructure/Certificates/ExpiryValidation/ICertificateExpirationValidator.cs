@@ -1,5 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using IdentityProvider.Infrastructure.Enums;
+﻿using IdentityProvider.Infrastructure.Enums;
+using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityProvider.Infrastructure.Certificates.ExpiryValidation
 {

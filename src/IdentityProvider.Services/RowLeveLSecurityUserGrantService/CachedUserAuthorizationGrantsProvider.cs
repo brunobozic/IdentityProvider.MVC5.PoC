@@ -22,7 +22,7 @@ namespace IdentityProvider.Services.RowLeveLSecurityUserGrantService
             var response = _userGrantService.OrgUnitGrantedPriviligesByUser(userId);
         }
 
-        public void FetchUsersGrantsByEmployee( int employeeId )
+        public void FetchUsersGrantsByEmployee(int employeeId)
         {
             var response = _userGrantService.OrgUnitGrantedPriviligesByEmployee(employeeId);
         }

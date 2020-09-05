@@ -16,7 +16,7 @@ namespace IdentityProvider.Infrastructure.Cookies
             var cookie = HttpContext.Current.Request.Cookies[key];
             if (cookie != null)
                 return cookie.Value;
-            return "";
+            return string.Empty;
         }
     }
 }

@@ -7,6 +7,6 @@ namespace Module.Repository.EF.RowLevelSecurity
     {
         bool HasPolicy<TEntity>();
         IRowAuthPolicy<TEntity> GetPolicy<TEntity>();
-        RowAuthPolicy<TEntity , TProperty> Register<TEntity, TProperty>( Expression<Func<TEntity , TProperty>> selector );
+        RowAuthPolicy<TEntity, TProperty> Register<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> selector);
     }
 }

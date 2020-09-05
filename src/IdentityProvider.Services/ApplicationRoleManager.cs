@@ -9,7 +9,7 @@ namespace IdentityProvider.Services
         private readonly AppDbContext _context;
 
         public ApplicationRoleManager(IRoleStore<ApplicationRole, string> roleStore,
-            AppDbContext context ) :
+            AppDbContext context) :
             base(roleStore)
         {
             _context = context;

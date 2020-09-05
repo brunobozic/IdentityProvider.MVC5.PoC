@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Serilog.Core;
+using Serilog.Events;
 using System;
 using System.Threading;
 using System.Web;
-using Serilog.Core;
-using Serilog.Events;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.Enrichers.MVC5
 {
@@ -54,7 +54,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.Enrichers.MVC5
                 HttpContext.Current.Items[RequestNumberItemName] =
                     requestNumber = Interlocked.Increment(ref LastRequestNumber);
             else
-                requestNumber = (int) requestNumberItem;
+                requestNumber = (int)requestNumberItem;
 
             var requestNumberProperty =
                 new LogEventProperty(HttpRequestNumberPropertyName, new ScalarValue(requestNumber));

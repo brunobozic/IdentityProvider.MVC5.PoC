@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNet.Identity.EntityFramework;
 using TrackableEntities;
 
 namespace IdentityProvider.Infrastructure.Domain
 {
     public abstract class DomainEntity<TK> : IFullAudit, ISoftDeletable, IHandlesConcurrency, ITrackable
     {
-        
+
         public TK Id { get; set; }
 
         public string ModifiedById { get; set; }

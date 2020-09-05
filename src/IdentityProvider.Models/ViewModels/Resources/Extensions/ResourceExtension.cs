@@ -1,30 +1,30 @@
-﻿using System;
-using IdentityProvider.Models.Domain.Account;
+﻿using IdentityProvider.Models.Domain.Account;
+using System;
 
 namespace IdentityProvider.Models.ViewModels.Resources.Extensions
 {
     public static class ResourceExtension
     {
-        public static ResourceDto ConvertToViewModel( this ApplicationResource resource )
+        public static ResourceDto ConvertToViewModel(this ApplicationResource resource)
         {
             var vm = new ResourceDto
             {
-               
-                    Deleted = resource?.IsDeleted ?? false ,
-                    Active = resource?.Active ?? false ,
-                    CreatedBy = resource?.CreatedById ?? "" ,
-                    DeletedBy = resource?.DeletedById ?? "" ,
-                    ModifiedBy = resource?.ModifiedById ?? "" ,
-                    DateCreated = resource?.CreatedDate ?? DateTime.MinValue ,
-                    DateModified = resource?.ModifiedDate ?? DateTime.MinValue ,
-                    DateDeleted = resource?.DeletedDate ?? DateTime.MinValue ,
-                    Description = resource?.Description ?? "" ,
-                    Id = resource?.Id ,
-                    Name = resource.Name ?? "" ,
-                    UserMayViewCreatedProp = true ,
-                    UserMayViewDeletedProp = true ,
-                    UserMayViewLastModifieddProp = true
-               
+
+                Deleted = resource?.IsDeleted ?? false,
+                Active = resource?.Active ?? false,
+                CreatedBy = resource?.CreatedById ?? string.Empty,
+                DeletedBy = resource?.DeletedById ?? string.Empty,
+                ModifiedBy = resource?.ModifiedById ?? string.Empty,
+                DateCreated = resource?.CreatedDate ?? DateTime.MinValue,
+                DateModified = resource?.ModifiedDate ?? DateTime.MinValue,
+                DateDeleted = resource?.DeletedDate ?? DateTime.MinValue,
+                Description = resource?.Description ?? string.Empty,
+                Id = resource?.Id,
+                Name = resource.Name ?? string.Empty,
+                UserMayViewCreatedProp = true,
+                UserMayViewDeletedProp = true,
+                UserMayViewLastModifieddProp = true
+
             };
 
             return vm;

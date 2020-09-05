@@ -75,24 +75,24 @@ namespace IdentityProvider.Models.ViewModels.Account
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100 , ErrorMessage = "The {0} must be at least {2} characters long." , MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password" , ErrorMessage =
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage =
             "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
 
         [Display(Name = "Mobile phone area code")]
-        [Range(100 , 999 , ErrorMessage = "Area code must be a number within the range of 100 and 999.")]
+        [Range(100, 999, ErrorMessage = "Area code must be a number within the range of 100 and 999.")]
         public int? MobilePhoneCountryCode { get; set; }
 
         [Display(Name = "Mobile phone operator code")]
-        [Range(1 , 500 , ErrorMessage = "Operator code must be a number within the range of 1 and 50.")]
+        [Range(1, 500, ErrorMessage = "Operator code must be a number within the range of 1 and 50.")]
         public int? MobilePhoneOperatorCode { get; set; }
 
         [DataType(DataType.PhoneNumber)]
@@ -101,17 +101,17 @@ namespace IdentityProvider.Models.ViewModels.Account
 
         [Required]
         [Display(Name = "First name")]
-        [StringLength(100 , ErrorMessage = "The {0} must be at least {2} characters long." , MinimumLength = 1)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         public string FirstName { get; set; }
 
         [Required]
         [Display(Name = "Last name")]
-        [StringLength(100 , ErrorMessage = "The {0} must be at least {2} characters long." , MinimumLength = 1)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         public string LastName { get; set; }
 
         [Required]
         [Display(Name = "User name you would like to use to log in")]
-        [StringLength(20 , ErrorMessage = "The {0} must be at least {2} characters long." , MinimumLength = 1)]
+        [StringLength(20, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         public string DesiredUserName { get; set; }
     }
 
@@ -123,14 +123,14 @@ namespace IdentityProvider.Models.ViewModels.Account
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100 , ErrorMessage = "The {0} must be at least {2} characters long." , MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password" , ErrorMessage =
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage =
             "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 

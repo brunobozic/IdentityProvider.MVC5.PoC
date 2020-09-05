@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using PagedList;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using PagedList;
 
 namespace IdentityProvider.Models.ViewModels.Operations
 {

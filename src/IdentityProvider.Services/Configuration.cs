@@ -1,6 +1,6 @@
-using System.Data.Entity.Migrations;
 using IdentityProvider.Services.DbSeed;
 using Module.Repository.EF;
+using System.Data.Entity.Migrations;
 
 namespace IdentityProvider.Services
 {

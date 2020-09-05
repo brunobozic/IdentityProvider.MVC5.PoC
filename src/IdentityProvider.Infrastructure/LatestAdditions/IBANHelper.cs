@@ -34,7 +34,7 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
         public bool IsValid;
         public string Message;
 
-        public IbanStatus( string message , bool isValid = false )
+        public IbanStatus(string message, bool isValid = false)
         {
             IsValid = isValid;
             Message = message;
@@ -58,7 +58,7 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
         /// <summary>
         /// http://www.tbg5-finance.org/checkiban.js
         /// </summary>
-        public static Dictionary<string , IbanHelper> IbanCountryValidations => new Dictionary<string , IbanHelper>
+        public static Dictionary<string, IbanHelper> IbanCountryValidations => new Dictionary<string, IbanHelper>
         {
             { "AD", new IbanHelper("AD", 24, @"\d{8}[a-zA-Z0-9]{12}", false, "AD1200012030200359100100") },
             { "AL", new IbanHelper("AL", 28, @"\d{8}[a-zA-Z0-9]{16}", false, "AL47212110090000000235698741") },
@@ -117,55 +117,55 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
         /// <typeparam name="iban">IBAN code to be checked</typeparam>
         /// <typeparam name="cleanText">If your IBAN code contains white space and/or not all capital you can pass true to this method. 
         /// If true it will clear and capitalize the supplied IBAN number</typeparam>
-        public static IbanStatus Check( string iban , bool cleanText = true )
+        public static IbanStatus Check(string iban, bool cleanText = true)
         {
             if (iban == null)
             {
-                return new IbanStatus(ValidationMessages.Valid , true);
+                return new IbanStatus(ValidationMessages.Valid, true);
             }
 
             try
             {
                 if (cleanText)
                 {
-                    iban = Regex.Replace(iban , @"\s" , "")
+                    iban = Regex.Replace(iban, @"\s", string.Empty)
                         .ToUpper(); // remove empty space & convert all uppercase       
                 }
 
-                if (Regex.IsMatch(iban , @"\W")) // contains chars other than (a-zA-Z0-9)
+                if (Regex.IsMatch(iban, @"\W")) // contains chars other than (a-zA-Z0-9)
                 {
                     return new IbanStatus(ValidationMessages.IllegalCharactersFound);
                 }
 
-                if (!Regex.IsMatch(iban , @"^\D\D\d\d.+"))
+                if (!Regex.IsMatch(iban, @"^\D\D\d\d.+"))
                 {
                     // first chars are letter letter digit digit
                     return new IbanStatus(ValidationMessages.WrongStructure);
                 }
 
-                if (Regex.IsMatch(iban , @"^\D\D00.+|^\D\D01.+|^\D\D99.+"))
+                if (Regex.IsMatch(iban, @"^\D\D00.+|^\D\D01.+|^\D\D99.+"))
                 {
                     // check digit are 00 or 01 or 99
                     return new IbanStatus(ValidationMessages.WrongCheckDigits);
                 }
 
-                var countryCode = iban.Substring(0 , 2);
+                var countryCode = iban.Substring(0, 2);
 
-                var currentIbanData = IbanCountryValidations[ countryCode ];
+                var currentIbanData = IbanCountryValidations[countryCode];
 
                 if (currentIbanData == null)
                 {
                     // test if country respected
-                    return new IbanStatus(string.Format(ValidationMessages.CountryIbanNotDefined , countryCode));
+                    return new IbanStatus(string.Format(ValidationMessages.CountryIbanNotDefined, countryCode));
                 }
 
                 if (iban.Length != currentIbanData.Length)
                 { // fits length to country
-                    return new IbanStatus(string.Format(ValidationMessages.CountryWrongLength , countryCode ,
+                    return new IbanStatus(string.Format(ValidationMessages.CountryWrongLength, countryCode,
                         currentIbanData.Length));
                 }
 
-                if (!Regex.IsMatch(iban.Remove(0 , 4) , currentIbanData.Regex))
+                if (!Regex.IsMatch(iban.Remove(0, 4), currentIbanData.Regex))
                 {
                     // check country specific structure
                     return new IbanStatus(ValidationMessages.CountryWrongStructure);
@@ -179,15 +179,15 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
                 // 3- Replace each letter in the string with two digits, thereby expanding the string, where A=10, B=11, ..., Z=35. 
                 // 4- Interpret the string as a decimal integer and compute the remainder of that number on division by 97. 
                 // The IBAN number can only be valid if the remainder is 1.
-                var modifiedIban = iban.ToUpper().Substring(4) + iban.Substring(0 , 4);
+                var modifiedIban = iban.ToUpper().Substring(4) + iban.Substring(0, 4);
 
-                modifiedIban = Regex.Replace(modifiedIban , @"\D" , m => ( m.Value[ 0 ] - 55 ).ToString());
+                modifiedIban = Regex.Replace(modifiedIban, @"\D", m => (m.Value[0] - 55).ToString());
 
                 var remainer = 0;
 
                 while (modifiedIban.Length >= 7)
                 {
-                    remainer = int.Parse(remainer + modifiedIban.Substring(0 , 7)) % 97;
+                    remainer = int.Parse(remainer + modifiedIban.Substring(0, 7)) % 97;
                     modifiedIban = modifiedIban.Substring(7);
                 }
 
@@ -198,7 +198,7 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
                     return new IbanStatus(ValidationMessages.Invalid);
                 }
 
-                return new IbanStatus(ValidationMessages.Valid , true);
+                return new IbanStatus(ValidationMessages.Valid, true);
             }
             catch (Exception)
             {

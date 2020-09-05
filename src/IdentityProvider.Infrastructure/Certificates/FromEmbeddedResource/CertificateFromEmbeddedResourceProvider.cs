@@ -1,10 +1,10 @@
-﻿using System;
-using System.Data;
-using System.Security.Cryptography.X509Certificates;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Certificates.ExpiryValidation;
 using IdentityProvider.Infrastructure.Enums;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
+using System;
+using System.Data;
+using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource
 {
@@ -48,10 +48,10 @@ namespace IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource
 
             if (_applicationConfiguration.GetCurrentEnvironment() == AppEnvironmentEnum.Test)
             {
-                var testApplicationCertificate = new X509Certificate2("", testPwd);
+                var testApplicationCertificate = new X509Certificate2(string.Empty, testPwd);
 
                 LogExtraInformation(
-                    "",
+string.Empty,
                     testApplicationCertificate,
                     testPwd,
                     CertificateTypeEnum.TestApplication
@@ -61,10 +61,10 @@ namespace IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource
             }
             else if (_applicationConfiguration.GetCurrentEnvironment() == AppEnvironmentEnum.Demo)
             {
-                var demoApplicationCertificate = new X509Certificate2("", demoPwd);
+                var demoApplicationCertificate = new X509Certificate2(string.Empty, demoPwd);
 
                 LogExtraInformation(
-                    "",
+string.Empty,
                     demoApplicationCertificate,
                     demoPwd,
                     CertificateTypeEnum.DemoApplication
@@ -84,10 +84,10 @@ namespace IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource
                 try
                 {
                     _errorLog.LogInfo(this,
-                        string.Format("APP_CERT_LENGTH_OF_EMBEDDED_RESOURCE", ""?.Length)
+                        string.Format("APP_CERT_LENGTH_OF_EMBEDDED_RESOURCE", string.Empty?.Length)
                     );
 
-                    productionApplicationCertificate = new X509Certificate2("", productionPwd);
+                    productionApplicationCertificate = new X509Certificate2(string.Empty, productionPwd);
                 }
                 catch (Exception certificateException)
                 {

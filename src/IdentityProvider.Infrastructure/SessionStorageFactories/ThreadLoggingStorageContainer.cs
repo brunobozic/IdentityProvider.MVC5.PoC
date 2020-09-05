@@ -20,7 +20,7 @@ namespace IdentityProvider.Infrastructure.SessionStorageFactories
             T context = null;
 
             if (StoredContexts.Contains(GetThreadName()))
-                context = (T) StoredContexts[GetThreadName()];
+                context = (T)StoredContexts[GetThreadName()];
             return context;
         }
 

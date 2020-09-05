@@ -1,10 +1,10 @@
-﻿using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Services.ApplicationRoleService;
 using IdentityProvider.Services.DbSeed;
 using StructureMap;
+using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -62,7 +62,7 @@ namespace IdentityProvider.Controllers.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            Response.Redirect("");
+            Response.Redirect(string.Empty);
 
             return View();
         }
