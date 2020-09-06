@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace IdentityProvider.Models.ViewModels.Account
 {
-    public class IndexViewModel
+    public class AccountAdministrationLandingViewModel
     {
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }

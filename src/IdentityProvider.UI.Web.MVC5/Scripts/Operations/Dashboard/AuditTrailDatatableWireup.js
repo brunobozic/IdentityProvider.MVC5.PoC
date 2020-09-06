@@ -94,9 +94,9 @@ $(document).ready(function () {
             "search": "",
             "searchPlaceholder": " Search...",
             loadingRecords:
-                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="~/Content/img/ajaxloading.gif"></div>',
+                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="/Content/img/ajaxloading.gif"></div>',
             processing:
-                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="~/Content/img/ajaxloading.gif"></div>'
+                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="/Content/img/ajaxloading.gif"></div>'
         },
         "columns": [
             { "data": "Id", "name": "Id", "autoWidth": true },

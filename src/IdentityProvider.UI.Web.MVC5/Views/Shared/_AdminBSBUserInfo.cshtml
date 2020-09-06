@@ -4,69 +4,111 @@
     ViewBag.Layout = null;
 }
 
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
 <li class="dropdown">
 
     @if (Request.IsAuthenticated)
     {
-        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-        {
-            @Html.AntiForgeryToken()
+        @*using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                @Html.AntiForgeryToken()
 
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", null, new { title = "Manage" })
-                </li>
-                <li>
-                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-                </li>
-            </ul>
-        }
-    }
-    else
-    {
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", null, new { title = "Manage" })
+                    </li>
+                    <li>
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                    </li>
+                </ul>
+            }*@
 
-    }
 
-    @if (Request.IsAuthenticated)
-    {
-        <ul class="dropdown-menu">
-            <li class="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <img src="~/Content/img/guest-image4.png" alt="User" class="avatar" />
-            </li>
+        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+            <img src="~/Content/img/guest-image4.jpg" alt="User" style="margin-bottom:15px" class="avatarCustomSmall" />
+        </a>
 
+        <ul class="dropdown-menu" style="padding-top: 10px; width: 270px">
 
             <!-- User image -->
-            <li class="user-header">
-                <img src="~/Content/img/guest-image4.png" class="avatar" alt="User Image" />
-                <p>
-                    Bruno Bozic - Web Developer
-                    <small>Member since Nov. 2012</small>
-                </p>
+            <li class="user-header" style="padding: 5px">
+                <div class="" style="text-align:center;">
+                    <p>
+                        <b>Bruno Bozic - Developer</b>
+                        <br />
+                        <small>Member since Nov. 2012</small>
+                    </p>
+                </div>
             </li>
+
             <li role="separator" class="divider"></li>
 
             <!-- Menu Body -->
-            <li class="user-body">
-                <div class="col-xs-4 text-center">
-                    <a href="#"><i class="material-icons">group</i>Followers</a>
+            <li class="user-body" style="padding:8px">
+                <div style="text-align:center;">
+                    <div class="avatarCustom">
+                        <img src="~/Content/img/guest-image4.jpg" alt="User Image" />
+                    </div>
                 </div>
-                <div class="col-xs-4 text-center">
-                    <a href="#"><i class="material-icons">shopping_cart</i>Sales</a>
+
+                <!-- Quote -->
+                <div style="text-align:center;">
+                    <p>
+                        <blockquote>Enough of this. Vader, release him!</blockquote>
+                    </p>
                 </div>
-                <div class="col-xs-4 text-center">
-                    <a href="#"><i class="material-icons">favorite</i>Friends</a>
-                </div>
+
+                <!-- Render the test partial here -->
+                <!-- need to get data somehow at this point and pass into the partial view -->
+                @*@Html.Partial("../AccountAdministration/Partial/_accountAdministrationLanding", Model)*@
+
+                <a href="@Url.Action("ChangePassword", "Account")" class="btn bg-pink m-t-15 waves-effect">
+                    <i class="material-icons">create</i>
+                    <span>
+                        <strong>Change your password</strong>
+                    </span>
+                </a>
+
+
+                <p style="font-size:small">Last login:</p>
+                <p style="font-size:small">Email confirmed</p>
+                <p style="font-size:small">Locked out:</p>
+
+
+                <!-- Other items -->
+                @*<div class="col-xs-4 text-center">
+                <a href="#"><i class="material-icons">group</i>Followers</a>
+            </div>
+            <div class="col-xs-4 text-center">
+                <a href="#"><i class="material-icons">shopping_cart</i>Sales</a>
+            </div>
+            <div class="col-xs-4 text-center">
+                <a href="#"><i class="material-icons">favorite</i>Friends</a>
+        </div>*@
             </li>
 
-            <li role="separator" class="divider"></li>
 
             <!-- Menu Footer-->
-            <li class="user-footer">
+            <li class="user-footer box" style="padding: 5px">
                 <div class="pull-left">
-                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    <a href="@Url.Action("LogOff", "Account")" class="btn bg-pink m-t-15 waves-effect">
+                        <i class="material-icons">create</i>
+                        <span>
+                            <strong>Log Off</strong>
+                        </span>
+                    </a>
                 </div>
+
                 <div class="pull-right">
-                    <a href="#" class="btn btn-default btn-flat"><i class="material-icons">input</i>Sign out</a>
+                    @*@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", null, new { title = "Manage" })*@
+                    <a href="@Url.Action("AdministerAccount", "AccountAdministration")" class="btn bg-pink m-t-15 waves-effect">
+                        <i class="material-icons">create</i>
+                        <span>
+                            <strong>Administer account</strong>
+                        </span>
+                    </a>
                 </div>
             </li>
         </ul>
@@ -74,11 +116,11 @@
     else
     {
         @*<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="align-self:center" role="button">
-                <img src="~/Content/img/guest-image.jpg" alt="User" class="avatar" style="margin-bottom:15px" />
+                    <img src="~/Content/img/guest-image.jpg" alt="User" class="avatar" style="margin-bottom:15px" />
             </a>*@
 
         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-            <img src="~/Content/img/guest-image.jpg" alt="User" class="avatar" style="margin-bottom:15px" />
+            <img src="~/Content/img/guest-image.jpg" alt="User" class="avatarCustomSmall" style="margin-bottom:15px" />
         </a>
 
         <ul class="dropdown-menu" style="padding-top: 10px; width: 270px">
@@ -100,21 +142,23 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Other items -->
                 @*<div class="col-xs-4 text-center">
-                        <a href="#"><i class="material-icons">group</i>Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <a href="#"><i class="material-icons">shopping_cart</i>Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <a href="#"><i class="material-icons">favorite</i>Friends</a>
-                </div>*@
+                    <a href="#"><i class="material-icons">group</i>Followers</a>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <a href="#"><i class="material-icons">shopping_cart</i>Sales</a>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <a href="#"><i class="material-icons">favorite</i>Friends</a>
+                    </div>*@
             </li>
 
             <!-- Menu Footer-->
             <li class="user-footer box" style="padding: 5px">
                 <div class="pull-left">
-                    <a href="@Url.Action("Login", "Account")" class="btn btn-primary m-t-15 waves-effect">
+                    <a href="@Url.Action("Login", "Account")" class="btn bg-pink m-t-15 waves-effect">
                         <i class="material-icons">account_circle</i>
                         <span>
                             <strong>Log In</strong>
@@ -123,7 +167,7 @@
                 </div>
 
                 <div class="pull-right">
-                    <a href="@Url.Action("Register", "Account")" class="btn btn-primary m-t-15 waves-effect">
+                    <a href="@Url.Action("Register", "Account")" class="btn bg-pink m-t-15 waves-effect">
                         <i class="material-icons">create</i>
                         <span>
                             <strong>Register</strong>
@@ -133,5 +177,108 @@
             </li>
         </ul>
     }
-
 </li>
+
+<script>
+
+    var accountAdministrationUrl = "@Url.Action("Index", "AccountAdministration")";
+
+    console.log('accountAdministrationUrl: ' + accountAdministrationUrl);
+
+    $(document).ready(function () {
+        $(".dropdown-menu").click(function (event) {
+
+           // event.preventDefault();
+
+            var options = { /*'backdrop': 'static',*/ keyboard: true, focus: true };
+
+            console.log('fetching data from: ' + accountAdministrationUrl);
+
+            //$.ajax({
+            //    type: "GET",
+            //    url: accountAdministrationUrl,
+            //    contentType: "application/json; charset=utf-8",
+            //    dataType: "html",
+            //    success: function (response) {
+            //        $('#mdModal').modal(options);
+            //        $('#mdModal').find('.modal-body').html("");
+            //        $('#mdModal').modal('show');
+            //        $('#mdModal').find('.modal-body').html(response);
+            //    },
+            //    failure: function (response) {
+            //        $('#mdModal').modal(options);
+            //        $('#mdModal').find('.modal-body').html("");
+            //        $('#mdModal').modal('show');
+            //        $('#mdModal').find('.modal-body').html("Problem loading your data...");
+            //    },
+            //    error: function (response) {
+            //        $('#mdModal').modal(options);
+            //        $('#mdModal').find('.modal-body').html("");
+            //        $('#mdModal').modal('show');
+            //        $('#mdModal').find('.modal-body').html("Problem loading your data...");
+            //    }
+            //});
+        });
+    });
+</script>
+
+<style>
+    .avatarCustomSmall {
+        border: solid 2px #54BE69;
+        border-left-color: #D5EDDA;
+        padding: 2px;
+        display: inline-block;
+        border-radius: 50%;
+        position: relative;
+        height: 40px;
+        width: 40px;
+    }
+
+    .avatarCustom {
+        border: solid 4px #54BE69;
+        border-left-color: #D5EDDA;
+        padding: 6px;
+        display: inline-block;
+        border-radius: 50%;
+        position: relative;
+        height: 180px;
+        width: 180px;
+        transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+    }
+
+        .avatarCustom img {
+            display: block;
+            border-radius: 50%;
+            transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+
+        .avatarCustom:before, .avatarCustom:after {
+            content: '';
+            position: absolute;
+            background: #fff;
+            z-index: -1;
+            transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+
+        .avatarCustom:before {
+            height: 4px;
+            top: 50%;
+            left: 4px;
+            right: -10px;
+            margin-top: -2px;
+        }
+
+        .avatarCustom:after {
+            width: 4px;
+            left: 50%;
+            top: 4px;
+            bottom: -10px;
+            margin-left: -2px;
+        }
+</style>

@@ -3,4 +3,8 @@
     public interface IUserProfileAdministrationService
     {
     }
+
+    public class UserProfileAdministrationService: IUserProfileAdministrationService
+    {
+    }
 }

@@ -107,6 +107,7 @@
     <Content Include="Content\img\ajaxloading.gif" />
     <Content Include="Content\iwa-sport-bg-image-light-medium.jpg" />
     <Content Include="Scripts\admin.js" />
+    <Content Include="Scripts\CommonCRUDScripts\commonAccountAdministrationScripts.js" />
     <Content Include="Scripts\demo.js" />
     <Content Include="Scripts\Operations\Dashboard\AuditTrailDatatableWireup.js" />
     <Content Include="Scripts\Operations\Dashboard\AuditTrailWidgetDateRangePicker.js" />
@@ -295,12 +296,12 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\AccountAdministration\Partial\_addPhoneNumber.cshtml" />
+    <Content Include="Views\AccountAdministration\Partial\_changePassword.cshtml" />
+    <Content Include="Views\AccountAdministration\Partial\_accountAdministrationLanding.cshtml" />
+    <Content Include="Views\AccountAdministration\Partial\_manageLogins.cshtml" />
+    <Content Include="Views\AccountAdministration\Partial\_setPassword.cshtml" />
+    <Content Include="Views\AccountAdministration\Partial\_verifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Profile.cshtml" />
@@ -320,7 +321,6 @@
     <Content Include="Views\Error\UserFriendlyError.cshtml" />
     <Content Include="Views\Home\Seed.cshtml" />
     <Content Include="Views\Seed\Index.cshtml" />
-    <Content Include="Views\Administration\Index.cshtml" />
     <Content Include="Views\Home\ProtectedActionForTesting.cshtml" />
     <Content Include="Views\Operation\OperationsGetAllPaged.cshtml" />
     <Content Include="Views\Operation\Partial\_operationsPartial.cshtml" />
@@ -336,6 +336,7 @@
     <Folder Include="Scripts\Operations\Partials\" />
     <Folder Include="Scripts\Resources\Dashboard\" />
     <Folder Include="Scripts\Resources\Partials\" />
+    <Folder Include="Views\Account\Partial\" />
     <Folder Include="Views\Resource\Partial\" />
   </ItemGroup>
   <ItemGroup>

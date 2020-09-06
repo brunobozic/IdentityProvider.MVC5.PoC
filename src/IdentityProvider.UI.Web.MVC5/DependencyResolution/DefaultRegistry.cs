@@ -32,6 +32,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
     using IdentityProvider.Infrastructure.DatabaseLog;
     using IdentityProvider.Infrastructure.Email;
     using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;
+    using IdentityProvider.Services.UserProfileService;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Module.Repository.EF;
@@ -175,6 +176,22 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             For<IContextProvider>().Use<HttpContextProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IApplicationConfiguration>().Use<ApplicationConfiguration>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IGlobalAsaxHelpers>().Use<GlobalAsaxHelpers>().LifecycleIs<UniquePerRequestLifecycle>();
+
+
+
+
+
+
+
+
+
+            For<IUserProfileAdministrationService>().Use<UserProfileAdministrationService>().LifecycleIs<UniquePerRequestLifecycle>();
+
+            
+
+
+
+
 
 
             // WCF based logging sink (endpoint)

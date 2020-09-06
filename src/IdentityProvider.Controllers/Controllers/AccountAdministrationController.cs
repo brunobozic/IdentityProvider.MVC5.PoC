@@ -4,6 +4,7 @@ using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.ViewModels.Account;
 using IdentityProvider.Services;
+using IdentityProvider.Services.UserProfileService;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using StructureMap;
@@ -14,20 +15,24 @@ using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
-    [Authorize]
-    public class ManageController : BaseController
+    public class AccountAdministrationController : BaseController
     {
         private readonly ApplicationSignInManager _signInManager;
         private IAuthenticationManager _authenticationManager;
         private ApplicationUserManager _userManager;
+        private readonly IUserProfileAdministrationService _administrationService;
+        private readonly IWebSecurity _webSecurity;
+
         [DefaultConstructor]
-        public ManageController(
-            ApplicationSignInManager signInManager
-            , ApplicationUserManager userManager
-            , IAuthenticationManager authenticationManager
+        public AccountAdministrationController(
+            IWebSecurity webSecurity
+            , IUserProfileAdministrationService administrationService
             , ICookieStorageService cookieStorageService
             , IErrorLogService errorLogService
             , IApplicationConfiguration applicationConfiguration
+            , ApplicationSignInManager signInManager
+            , ApplicationUserManager userManager
+            , IAuthenticationManager authenticationManager
         )
             : base(
                   cookieStorageService
@@ -35,42 +40,50 @@ namespace IdentityProvider.Controllers.Controllers
                   , applicationConfiguration
                   )
         {
+            _administrationService = administrationService;
+            _webSecurity = webSecurity;
+            _errorLogService = errorLogService;
             _userManager = userManager;
             _signInManager = signInManager;
             _authenticationManager = authenticationManager;
         }
 
-        //
-        // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public ActionResult UsersActiveGetAll()
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess
-                    ? "Your password has been changed."
-                    : message == ManageMessageId.SetPasswordSuccess
-                        ? "Your password has been set."
-                        : message == ManageMessageId.SetTwoFactorSuccess
-                            ? "Your two-factor authentication provider has been set."
-                            : message == ManageMessageId.Error
-                                ? "An error has occurred."
-                                : message == ManageMessageId.AddPhoneSuccess
-                                    ? "Your phone number was added."
-                                    : message == ManageMessageId.RemovePhoneSuccess
-                                        ? "Your phone number was removed."
-                                        : string.Empty;
+            return View(_webSecurity.UsersActiveGetAll());
+        }
 
+        public ViewResult UserDetails(int id)
+        {
+            //var response = new UserDetailsGetByIdResponse();
+            //var request = new UserDetailsGetByIdRequest {UserProfileId = id};
+
+            //// SetViewBagData(id);
+            //return View(response.UserProfile);
+
+            return null;
+        }
+
+        //
+        // GET: /AccountAdministration/Index
+        public async Task<ActionResult> Index()
+        {
             var userId = User.Identity.GetUserId();
 
-
-            var model = new IndexViewModel
+            if (userId != null)
             {
-                HasPassword = HasPassword(),
-                PhoneNumber = await _userManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await _userManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await _userManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-            };
-            return View(model);
+                var retVal = new AccountAdministrationLandingViewModel
+                {
+                    HasPassword = HasPassword(),
+                    PhoneNumber = await _userManager.GetPhoneNumberAsync(userId),
+                    TwoFactor = await _userManager.GetTwoFactorEnabledAsync(userId),
+                    Logins = await _userManager.GetLoginsAsync(userId),
+                    BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                };
+
+                return PartialView("Partial/_accountAdministrationLanding", retVal);
+            }
+            else { return PartialView("Partial/_accountAdministrationLanding", new AccountAdministrationLandingViewModel { HasPassword = false, BrowserRemembered = false, Logins = null, PhoneNumber = "", TwoFactor = false }); }
         }
 
         //
