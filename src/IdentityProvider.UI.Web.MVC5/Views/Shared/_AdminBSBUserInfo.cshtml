@@ -47,6 +47,7 @@
 
             <!-- Menu Body -->
             <li class="user-body" style="padding:8px">
+
                 <div style="text-align:center;">
                     <div class="avatarCustom">
                         <img src="~/Content/img/guest-image4.jpg" alt="User Image" />
@@ -60,33 +61,54 @@
                     </p>
                 </div>
 
+
+
                 <!-- Render the test partial here -->
                 <!-- need to get data somehow at this point and pass into the partial view -->
                 @*@Html.Partial("../AccountAdministration/Partial/_accountAdministrationLanding", Model)*@
 
-                <a href="@Url.Action("ChangePassword", "Account")" class="btn bg-pink m-t-15 waves-effect">
-                    <i class="material-icons">create</i>
-                    <span>
-                        <strong>Change your password</strong>
-                    </span>
-                </a>
+                <div class="" style="padding-bottom:12px">
+                    <a href="@Url.Action("ChangePassword", "Account")" class="">
+                        @*<i class="material-icons">edit</i>*@
+                        <span>
+                            <strong>Change your password</strong>
+                        </span>
+                    </a>
+                </div>
 
 
-                <p style="font-size:small">Last login:</p>
-                <p style="font-size:small">Email confirmed</p>
-                <p style="font-size:small">Locked out:</p>
 
+                <div class="card" style="padding:12px">
+                    <p style="padding-bottom:2px; font-size:small;">
+                        LogonUserIdentity: @Request.LogonUserIdentity.Name
+                    </p>
+                    <p style="padding-bottom:2px; font-size:small;">
+                        UserName: @Request.GetOwinContext().Authentication.User.Identity.Name
+                    </p>
+                    <p style="padding-bottom:2px; font-size:small;">
+                        Browser: @Request.Browser.Browser
+                    </p>
+                    <p style="padding-bottom:2px; font-size:small;">
+                        Last login:
+                    </p>
+                    <p style="padding-bottom:2px; font-size:small;">
+                        Email confirmed:
+                    </p>
+                    <p style="padding-bottom:0px; font-size:small;">
+                        Locked out:
+                    </p>
+                </div>
 
                 <!-- Other items -->
                 @*<div class="col-xs-4 text-center">
-                <a href="#"><i class="material-icons">group</i>Followers</a>
-            </div>
-            <div class="col-xs-4 text-center">
-                <a href="#"><i class="material-icons">shopping_cart</i>Sales</a>
-            </div>
-            <div class="col-xs-4 text-center">
-                <a href="#"><i class="material-icons">favorite</i>Friends</a>
-        </div>*@
+                            <a href="#"><i class="material-icons">group</i>Followers</a>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <a href="#"><i class="material-icons">shopping_cart</i>Sales</a>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <a href="#"><i class="material-icons">favorite</i>Friends</a>
+                    </div>*@
             </li>
 
 
