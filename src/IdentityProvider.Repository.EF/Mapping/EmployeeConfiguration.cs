@@ -22,7 +22,7 @@ namespace IdentityProvider.Repository.EF.Mapping
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed);
 
             HasRequired(e => e.ApplicationUser)
-                .WithOptional(a => a.Employee1)
+                .WithOptional(a => a.Employee)
                 .Map(configuration => configuration.MapKey("ApplicationUser_Id"));
         }
     }
