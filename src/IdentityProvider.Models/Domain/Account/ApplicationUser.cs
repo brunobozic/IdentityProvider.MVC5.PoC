@@ -73,6 +73,6 @@ namespace IdentityProvider.Models.Domain.Account
         }
 
         public TrackingState TrackingState { get; set; }
-        public Employee Employee1 { get; set; }
+        public Employee Employee { get; set; }
     }
 }
