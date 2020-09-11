@@ -10,38 +10,38 @@ using StructureMap;
 
 namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
 {
-	public static class Ioc
-	{
-		public static IContainer GetContainer()
-		{
-			return new Container(c =>
-			{
-				c.Scan(scan =>
-				{
-					scan.WithDefaultConventions();
-				});
+    public static class Ioc
+    {
+        public static IContainer GetContainer()
+        {
+            return new Container(c =>
+            {
+                c.Scan(scan =>
+                {
+                    scan.WithDefaultConventions();
+                });
 
-				c.For<IApplicationConfiguration>().Use<ApplicationConfiguration>();
+                c.For<IApplicationConfiguration>().Use<ApplicationConfiguration>();
 
-				// This is used for Log4Net Logger, contains http request context data to improve the detail level of logging
-				c.For<IAddLoggingContextProvider>().Use<LoggingContextProvider>();
+                // This is used for Log4Net Logger, contains http request context data to improve the detail level of logging
+                c.For<IAddLoggingContextProvider>().Use<LoggingContextProvider>();
 
-				// This is used for Log4Net Logger, contains http request context data to improve the detail level of logging
-				c.For<ILog4NetLoggingService>().Use<Log4NetLoggingService>();
+                // This is used for Log4Net Logger, contains http request context data to improve the detail level of logging
+                c.For<ILog4NetLoggingService>().Use<Log4NetLoggingService>();
 
-				// Email Service                 
-				c.For<IEmailService>().Use<TextLoggingEmailService>();
+                // Email Service                 
+                c.For<IEmailService>().Use<TextLoggingEmailService>();
 
-				c.For<IDbLogService>().Use<DbLogService>();
+                c.For<IDbLogService>().Use<DbLogService>();
 
-				c.For<IUnitOfWorkAsync>().Use<UnitOfWork>();
+                c.For<IUnitOfWorkAsync>().Use<UnitOfWork>();
 
-				c.For(typeof (IRepositoryAsync<>)).Use(typeof (Repository<>));
+                c.For(typeof(IRepositoryAsync<>)).Use(typeof(Repository<>));
 
-				c.For<IWcfAppenderService>().Use<WcfAppenderService>();
+                c.For<IWcfAppenderService>().Use<WcfAppenderService>();
 
-				c.For<ILogWcf>().Use<LogWcfService>();
-			});
-		}
-	}
+                c.For<ILogWcf>().Use<LogWcfService>();
+            });
+        }
+    }
 }

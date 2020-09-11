@@ -1,5 +1,4 @@
-﻿using System;
-using IdentityProvider.Infrastructure;
+﻿using IdentityProvider.Infrastructure;
 using IdentityProvider.Infrastructure.DatabaseLog;
 using IdentityProvider.Infrastructure.DatabaseLog.DTOs;
 using IdentityProvider.Infrastructure.DatabaseLog.Model;
@@ -9,6 +8,7 @@ using IdentityProvider.Repository.EF.Factories;
 using Module.Repository.EF;
 using Module.Repository.EF.RowLevelSecurity;
 using Module.Repository.EF.UnitOfWorkInterfaces;
+using System;
 
 namespace HAC.Helpdesk.Services.Logging.WCF
 {
@@ -73,7 +73,7 @@ namespace HAC.Helpdesk.Services.Logging.WCF
             {
                 try
                 {
-                  
+
                 }
                 catch (Exception disposeException)
                 {
@@ -142,7 +142,7 @@ namespace HAC.Helpdesk.Services.Logging.WCF
                 {
                     try
                     {
-                        
+
                     }
                     catch (Exception)
                     {

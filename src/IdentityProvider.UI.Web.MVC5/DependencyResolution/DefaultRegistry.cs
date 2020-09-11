@@ -187,7 +187,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 
             For<IUserProfileAdministrationService>().Use<UserProfileAdministrationService>().LifecycleIs<UniquePerRequestLifecycle>();
 
-            
+
 
 
 

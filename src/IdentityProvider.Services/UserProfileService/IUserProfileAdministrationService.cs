@@ -4,7 +4,7 @@
     {
     }
 
-    public class UserProfileAdministrationService: IUserProfileAdministrationService
+    public class UserProfileAdministrationService : IUserProfileAdministrationService
     {
     }
 }
