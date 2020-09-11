@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using IdentityProvider.UI.Web.MVC5;
 using IdentityProvider.UI.Web.MVC5.Controllers;
+using IdentityProvider.Controllers.Controllers;
 
 namespace IdentityProvider.UI.Web.MVC5.Tests.Controllers
 {
