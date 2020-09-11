@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityProvider.Repository
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityProvider", "IdentityProvider", "{87CD3FC4-F8A8-42AC-B17C-9705B4BB6CA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityProvider.Services.Test", "src\IdentityProvider.Services.Test\IdentityProvider.Services.Test.csproj", "{6E6E488B-E178-4A11-B05C-36562E2A8E83}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityProvider.Models", "src\IdentityProvider.Models\IdentityProvider.Models.csproj", "{37F80328-35AC-4FED-8C50-59AFB2987B12}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityProvider.Infrastructure", "src\IdentityProvider.Infrastructure\IdentityProvider.Infrastructure.csproj", "{9C5177D6-B929-4082-B97F-0A2EC4954B19}"
@@ -25,13 +23,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GenericModules", "GenericMo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityProvider.UI.Web.MVC5", "src\IdentityProvider.UI.Web.MVC5\IdentityProvider.UI.Web.MVC5.csproj", "{211DBDC6-7985-49C1-84E3-AAC6FC6A8824}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityProvider.UI.Web.MVC5.Tests", "src\IdentityProvider.UI.Web.MVC5.Tests\IdentityProvider.UI.Web.MVC5.Tests.csproj", "{4CE06F79-B3C9-4D96-8B2B-59A402A1E596}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Module.Repository.EF", "src\Module.Repository.EF\Module.Repository.EF.csproj", "{57C00358-6CBC-460C-A358-1C9D02637CE9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Module.ServicePattern", "src\Module.ServicePattern\Module.ServicePattern.csproj", "{AF040061-07CF-4791-8D69-2E1E617A12F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module.Repository.EF.IntegrationTests", "src\Module.Repository.EF.IntegrationTests\Module.Repository.EF.IntegrationTests.csproj", "{19407B2F-CA47-4F58-A037-448E0E6DD3D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{334AA5A3-158A-4B95-8C2C-9F7D35DD15EC}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\nuget.exe = .nuget\nuget.exe
+		.nuget\nuget.rar = .nuget\nuget.rar
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,10 +59,6 @@ Global
 		{47CECEF5-DD70-44EB-955D-A07B2962E2BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47CECEF5-DD70-44EB-955D-A07B2962E2BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47CECEF5-DD70-44EB-955D-A07B2962E2BA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E6E488B-E178-4A11-B05C-36562E2A8E83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E6E488B-E178-4A11-B05C-36562E2A8E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E6E488B-E178-4A11-B05C-36562E2A8E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E6E488B-E178-4A11-B05C-36562E2A8E83}.Release|Any CPU.Build.0 = Release|Any CPU
 		{37F80328-35AC-4FED-8C50-59AFB2987B12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{37F80328-35AC-4FED-8C50-59AFB2987B12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37F80328-35AC-4FED-8C50-59AFB2987B12}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,10 +75,6 @@ Global
 		{211DBDC6-7985-49C1-84E3-AAC6FC6A8824}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{211DBDC6-7985-49C1-84E3-AAC6FC6A8824}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{211DBDC6-7985-49C1-84E3-AAC6FC6A8824}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4CE06F79-B3C9-4D96-8B2B-59A402A1E596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CE06F79-B3C9-4D96-8B2B-59A402A1E596}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CE06F79-B3C9-4D96-8B2B-59A402A1E596}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CE06F79-B3C9-4D96-8B2B-59A402A1E596}.Release|Any CPU.Build.0 = Release|Any CPU
 		{57C00358-6CBC-460C-A358-1C9D02637CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{57C00358-6CBC-460C-A358-1C9D02637CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57C00358-6CBC-460C-A358-1C9D02637CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU

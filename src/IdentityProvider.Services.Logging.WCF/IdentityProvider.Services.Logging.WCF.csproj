@@ -129,7 +129,7 @@
   <ItemGroup>
     <ProjectReference Include="..\IdentityProvider.Repository.EF\IdentityProvider.Repository.EF.csproj">
       <Project>{0CA9D23C-1325-485B-904C-8E8CDF9EE5A7}</Project>
-      <Name>HAC.Helpdesk.SimpleMembership.Repository.EF</Name>
+      <Name>IdentityProvider.Repository.EF</Name>
     </ProjectReference>
     <ProjectReference Include="..\IdentityProvider.Infrastructure\IdentityProvider.Infrastructure.csproj">
       <Project>{9c5177d6-b929-4082-b97f-0a2ec4954b19}</Project>

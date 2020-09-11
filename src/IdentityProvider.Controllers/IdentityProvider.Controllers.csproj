@@ -144,11 +144,11 @@
     </ProjectReference>
     <ProjectReference Include="..\IdentityProvider.Repository.EF\IdentityProvider.Repository.EF.csproj">
       <Project>{0CA9D23C-1325-485B-904C-8E8CDF9EE5A7}</Project>
-      <Name>HAC.Helpdesk.SimpleMembership.Repository.EF</Name>
+      <Name>IdentityProvider.Repository.EF</Name>
     </ProjectReference>
     <ProjectReference Include="..\IdentityProvider.Services\IdentityProvider.Services.csproj">
       <Project>{7D969281-FD71-4DFA-ACF3-7CE772F950A5}</Project>
-      <Name>HAC.Helpdesk.SimpleMembership.Services</Name>
+      <Name>IdentityProvider.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Module.Repository.EF\Module.Repository.EF.csproj">
       <Project>{57C00358-6CBC-460C-A358-1C9D02637CE9}</Project>
