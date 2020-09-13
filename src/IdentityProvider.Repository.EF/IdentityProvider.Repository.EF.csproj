@@ -54,7 +54,6 @@
     <Compile Include="Factories\DataContextFactory.cs" />
     <Compile Include="Mapping\ApplicationUserConfiguration.cs" />
     <Compile Include="Mapping\DatabaseAuditTrailConfiguration.cs" />
-    <Compile Include="Mapping\DatabaseLogConfiguration.cs" />
     <Compile Include="Mapping\OperationConfiguration.cs" />
     <Compile Include="Mapping\ApplicationResourceConfiguration.cs" />
     <Compile Include="Mapping\RoleGroupConfiguration.cs" />
@@ -69,8 +68,6 @@
     </Compile>
     <Compile Include="Queries\UserRolesResourcesOperations\UserRoleResourcesOperations\UserRoleResourcesOperationsDto.cs" />
     <Compile Include="Queries\UserRolesResourcesOperations\UserRoleResourcesOperations\UserRoleResourcesOperationsQuery.cs" />
-    <Compile Include="Queries\DatabaseLog\DatabaseLogQuery.cs" />
-    <Compile Include="Repositories\DbLog\Extensions\DbLogExtensions.cs" />
     <Compile Include="Queries\UserProfile\UserProfileGetQuery.cs" />
     <Compile Include="Repositories\UserProfile\Extensions\UserProfileExtensions.cs" />
   </ItemGroup>
@@ -104,6 +101,7 @@
   <ItemGroup>
     <Folder Include="Fakes\" />
     <Folder Include="Repositories\AuditTrail\" />
+    <Folder Include="Repositories\DbLog\Extensions\" />
     <Folder Include="Repositories\Operations\" />
     <Folder Include="Repositories\Resources\" />
     <Folder Include="Repositories\Roles\" />

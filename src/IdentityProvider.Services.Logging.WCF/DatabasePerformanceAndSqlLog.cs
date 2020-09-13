@@ -1,4 +1,5 @@
-﻿using IdentityProvider.Infrastructure.DatabaseLog;
+﻿
+using Logging.WCF.Infrastructure.Contracts;
 using System;
 using System.Diagnostics;
 using System.Text;
@@ -54,7 +55,7 @@ namespace HAC.Helpdesk.Services.Logging.WCF
 
         public void TraceApi(string componentName, string method, TimeSpan timespan)
         {
-            TraceApi(componentName, method, timespan, "");
+            TraceApi(componentName, method, timespan, string.Empty);
         }
 
         public void TraceApi(string componentName, string method, TimeSpan timespan, string fmt, params object[] vars)

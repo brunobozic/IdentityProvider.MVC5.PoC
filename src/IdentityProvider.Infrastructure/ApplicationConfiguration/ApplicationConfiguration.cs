@@ -104,16 +104,16 @@ namespace IdentityProvider.Infrastructure.ApplicationConfiguration
                     "SerilogSqlLiteErrorLogPath", "C:\\Logs\\");
             _serilogSqlLiteErrorLogFileName =
                 configurationProvider1.GetConfigurationValueOrDefaultAndNotifyIfPropertyNotFound(
-                    "SerilogSqlLiteErrorLogFileName", "NIAS-Error-Log.db");
+                    "SerilogSqlLiteErrorLogFileName", "NIAS-Error-LogToWCF.db");
             _serilogSqlLiteAuditLogPath =
                 configurationProvider1.GetConfigurationValueOrDefaultAndNotifyIfPropertyNotFound(
                     "SerilogSqlLiteAuditLogPath", "C:\\Logs\\");
             _serilogSqlLiteAuditLogFileName =
                 configurationProvider1.GetConfigurationValueOrDefaultAndNotifyIfPropertyNotFound(
-                    "SerilogSqlLiteAuditLogFileName", "NIAS-Audit-Log.db");
+                    "SerilogSqlLiteAuditLogFileName", "NIAS-Audit-LogToWCF.db");
             SerilogSqlLitePerformanceLogFileName =
                 configurationProvider1.GetConfigurationValueOrDefaultAndNotifyIfPropertyNotFound(
-                    "SerilogSqlLitePerformanceLogFileName", "NIAS-Performance-Log.db");
+                    "SerilogSqlLitePerformanceLogFileName", "NIAS-Performance-LogToWCF.db");
             SerilogSqlLitePerformanceLogPath =
                 configurationProvider1.GetConfigurationValueOrDefaultAndNotifyIfPropertyNotFound(
                     "SerilogSqlLitePerformanceLogPath", "C:\\Logs\\");
@@ -135,7 +135,7 @@ namespace IdentityProvider.Infrastructure.ApplicationConfiguration
                     "SerilogSqlLitePerformanceLogPath", "C:\\Logs\\");
             SerilogSqlLitePerformanceLogFileName =
                 configurationProvider1.GetConfigurationValueOrDefaultAndNotifyIfPropertyNotFound(
-                    "serilogSqlLitePerformanceLogFileName", "NIAS-Performance-Log.db");
+                    "serilogSqlLitePerformanceLogFileName", "NIAS-Performance-LogToWCF.db");
         }
 
 

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.EFDataContext;
 using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.RoleOperationResource;
 using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.UserRoleResourcesOperations;
+using Logging.WCF.Models.Log4Net;
 using Microsoft.AspNet.Identity;
 using Module.Repository.EF.Repositories;
 using Module.Repository.EF.UnitOfWorkInterfaces;

@@ -47,7 +47,7 @@
       <HintPath>..\..\packages\LinqKit.1.1.17\lib\net45\LinqKit.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.9.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\log4net.2.0.9\lib\net45\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.10\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -90,6 +90,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
@@ -97,6 +98,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -132,6 +134,8 @@
     <Compile Include="DbSeed\DoSeed.cs" />
     <Compile Include="DbSeed\IDoSeed.cs" />
     <Compile Include="AuditTrailService\IAuditTrailService.cs" />
+    <Compile Include="Log4NetLogFactory.cs" />
+    <Compile Include="Log4NetLoggingService.cs" />
     <Compile Include="OperationsService\IOperationService.cs" />
     <Compile Include="ResourceService\IApplicationResourceService.cs" />
     <Compile Include="RowLeveLSecurityUserGrantService\CachedUserAuthorizationGrantsProvider.cs" />
@@ -153,6 +157,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Logging.WCF.Infrastructure\Logging.WCF.Infrastructure.csproj">
+      <Project>{C2B01C53-71B7-43E8-A35B-CB7B88D55071}</Project>
+      <Name>Logging.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logging.WCF.Models\Logging.WCF.Models.csproj">
+      <Project>{D8F42392-C88F-407A-90D1-A9A5342AF05E}</Project>
+      <Name>Logging.WCF.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logging.WCF.Services\Logging.WCF.Services.csproj">
+      <Project>{A229B885-F520-4C9A-975E-B0FE90E51D38}</Project>
+      <Name>Logging.WCF.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IdentityProvider.Repository.EF\IdentityProvider.Repository.EF.csproj">
       <Project>{0CA9D23C-1325-485B-904C-8E8CDF9EE5A7}</Project>
       <Name>IdentityProvider.Repository.EF</Name>

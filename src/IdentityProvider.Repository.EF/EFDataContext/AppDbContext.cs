@@ -1,6 +1,5 @@
 ﻿using IdentityProvider.Infrastructure;
 using IdentityProvider.Infrastructure.DatabaseAudit;
-using IdentityProvider.Infrastructure.DatabaseLog.Model;
 using IdentityProvider.Infrastructure.Domain;
 using IdentityProvider.Models.Domain.Account;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -19,8 +18,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Database = System.Data.Entity.Database;
 using ModelValidationException = IdentityProvider.Infrastructure.ModelValidationException;
+using Database = System.Data.Entity.Database;
 
 namespace IdentityProvider.Repository.EF.EFDataContext
 {
@@ -59,7 +58,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
         public DbSet<EmployeeBelongsToOrgUnitLink> EmployeesBelongToOgranizationalUnits { get; set; }
         public DbSet<OrgUnitContainsRoleGroupLink> OrganizationalUnitsHaveRoleGroups { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
-        public DbSet<DbLog> DatabaseLog { get; set; }
+
         // public DbSet<ResourcesHaveOperations> ResourcesHaveOperations { get; set; }
         public DbSet<DbAuditTrail> DbAuditTrail { get; set; }
         public Guid InstanceId { get; set; }

@@ -1,4 +1,5 @@
 ﻿using IdentityProvider.Infrastructure;
+using StructureMap;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -6,6 +7,7 @@ using System.Security.Claims;
 
 namespace Module.Repository.EF.RowLevelSecurity
 {
+
     public class RowAuthPoliciesContainer : IRowAuthPoliciesContainer
     {
         private readonly ICachedUserAuthorizationGrantsProvider _userAuthorizationGrantsProvider;
@@ -17,6 +19,7 @@ namespace Module.Repository.EF.RowLevelSecurity
             _userAuthorizationGrantsProvider.ExplicitlyAssignedToProjects = new[] { 1, 2, 3, 4, 5, 6, 7 };
         }
 
+        [DefaultConstructor]
         public RowAuthPoliciesContainer()
         {
 

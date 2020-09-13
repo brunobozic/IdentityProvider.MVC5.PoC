@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.3" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="StructureMap" Version="4.7.1" />
     <PackageReference Include="System.Runtime" Version="4.3.1" />
     <PackageReference Include="TrackableEntities.EF.6" Version="2.5.7" />
   </ItemGroup>

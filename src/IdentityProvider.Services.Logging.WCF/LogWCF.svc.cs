@@ -1,5 +1,6 @@
 ﻿using HAC.Helpdesk.Services.Logging.WCF.StructureMap;
-using IdentityProvider.Infrastructure.DatabaseLog;
+using Logging.WCF.Infrastructure.Contracts;
+using Logging.WCF.Models;
 using System.ServiceModel;
 
 namespace HAC.Helpdesk.Services.Logging.WCF
@@ -7,21 +8,21 @@ namespace HAC.Helpdesk.Services.Logging.WCF
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     public class LogWcfService : ILogWcf
     {
-        private readonly IDbLogService _service;
+        private readonly ILogSinkerService _service;
 
-        public LogWcfService(IDbLogService dbLogService)
+        public LogWcfService(ILogSinkerService dbLogService)
         {
             _service = dbLogService;
         }
 
         public LogWcfService()
         {
-            _service = Ioc.GetContainer().GetInstance<IDbLogService>();
+            _service = Ioc.GetContainer().GetInstance<ILogSinkerService>();
         }
 
-        public void AppendToLog(LogToDatabaseRequest request)
+        public void LogToWcf(LogToWCFServiceRequest request)
         {
-            _service.LogToDatabase(request.LoggingEventDto);
+            _service.LogAsync(request.LoggingEventDto);
         }
     }
 }

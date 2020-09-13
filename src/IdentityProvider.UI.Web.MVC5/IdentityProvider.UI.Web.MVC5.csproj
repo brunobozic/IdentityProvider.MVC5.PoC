@@ -373,6 +373,18 @@
     <Folder Include="Views\Resource\Partial\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Logging.WCF.Infrastructure\Logging.WCF.Infrastructure.csproj">
+      <Project>{C2B01C53-71B7-43E8-A35B-CB7B88D55071}</Project>
+      <Name>Logging.WCF.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logging.WCF.Models\Logging.WCF.Models.csproj">
+      <Project>{D8F42392-C88F-407A-90D1-A9A5342AF05E}</Project>
+      <Name>Logging.WCF.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logging.WCF.Services\Logging.WCF.Services.csproj">
+      <Project>{A229B885-F520-4C9A-975E-B0FE90E51D38}</Project>
+      <Name>Logging.WCF.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IdentityProvider.Controllers\IdentityProvider.Controllers.csproj">
       <Project>{968C767D-9FE8-4067-9706-2C7BB3EE5095}</Project>
       <Name>IdentityProvider.Controllers</Name>
@@ -388,6 +400,10 @@
     <ProjectReference Include="..\IdentityProvider.Repository.EF\IdentityProvider.Repository.EF.csproj">
       <Project>{0ca9d23c-1325-485b-904c-8e8cdf9ee5a7}</Project>
       <Name>IdentityProvider.Repository.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IdentityProvider.Services.Logging.WCF\IdentityProvider.Services.Logging.WCF.csproj">
+      <Project>{42AB1D01-5837-4709-ADDB-F41225AC98DB}</Project>
+      <Name>IdentityProvider.Services.Logging.WCF</Name>
     </ProjectReference>
     <ProjectReference Include="..\IdentityProvider.Services\IdentityProvider.Services.csproj">
       <Project>{7d969281-fd71-4dfa-acf3-7ce772f950a5}</Project>
@@ -433,6 +449,10 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.9.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.10\lib\net45\log4net.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
@@ -565,6 +585,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.113.1\lib\net46\System.Data.SQLite.dll</HintPath>
     </Reference>

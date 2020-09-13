@@ -2,9 +2,9 @@
 using IdentityProvider.Infrastructure;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
-using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.Factories;
+using Logging.WCF.Models.Log4Net;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Module.Repository.EF;
@@ -22,13 +22,69 @@ namespace IdentityProvider.Services
 {
     public class WebSecurity : IWebSecurity, IDisposable
     {
+        private readonly ICachedUserAuthorizationGrantsProvider _cachedUserAuthorizationGrantsProvider;
         private readonly IApplicationConfiguration _configurationRepository;
+        private ILog4NetLoggingService _loggingService;
         private readonly IMapper _mapper;
         private readonly ApplicationSignInManager _signInManager;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
-        private ILog4NetLoggingService _loggingService;
         private ApplicationUserManager _userManager;
-        private readonly ICachedUserAuthorizationGrantsProvider _cachedUserAuthorizationGrantsProvider;
+
+        private ApplicationUser GetUser(string userName)
+        {
+            if (string.IsNullOrEmpty(userName))
+                throw new ArgumentNullException(nameof(userName));
+
+            return _unitOfWorkAsync.RepositoryAsync<ApplicationUser>().Find(userName.Trim());
+        }
+
+        public async Task<ApplicationUser> GetUserAsync(string userName)
+        {
+            if (string.IsNullOrEmpty(userName))
+                throw new ArgumentNullException(nameof(userName));
+
+            ApplicationUser retVal = null;
+
+            try
+            {
+                retVal =
+                    await _unitOfWorkAsync.RepositoryAsync<ApplicationUser>()
+                        .FindAsync(userName.Trim());
+            }
+            catch (Exception ex)
+            {
+                // FetchLoggerAndLog(ex);
+            }
+
+            return retVal;
+        }
+
+        public string GetUserIdFromPasswordToken(string passwordResetToken)
+        {
+            if (string.IsNullOrEmpty(passwordResetToken))
+                throw new ArgumentNullException(nameof(passwordResetToken));
+
+            string id = null;
+
+            var user = _unitOfWorkAsync.RepositoryAsync<ApplicationUser>().Queryable()
+                .SingleOrDefault(u => u.PasswordResetToken.Equals(passwordResetToken.Trim()));
+
+            if (user != null)
+                id = user.Id;
+
+            return id?.Trim();
+        }
+
+        public List<ApplicationUser> UsersActiveGetAll()
+        {
+            return
+                _unitOfWorkAsync.Repository<ApplicationUser>()
+                    .Queryable()
+                    .Where(u => u.Active)
+                    .OrderBy(u => u.LastName)
+                    .ThenBy(u => u.FirstName)
+                    .ToList();
+        }
 
         //public IAuthenticationManager AuthenticationManager => HttpContext.Current.GetOwinContext().Authentication;
 
@@ -78,15 +134,14 @@ namespace IdentityProvider.Services
                 var dbContextAsync = DataContextFactory.GetDataContextAsync();
                 dbContextAsync.GetDatabase().Initialize(true);
 
-                if (_loggingService == null)
-                    _loggingService = Log4NetLoggingFactory.GetLogger();
+
 
                 _unitOfWorkAsync = new UnitOfWork(dbContextAsync, new RowAuthPoliciesContainer(_cachedUserAuthorizationGrantsProvider));
                 // UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_dbContextAsync as DbContext));
             }
             catch (Exception ex)
             {
-                FetchLoggerAndLog(ex);
+                // FetchLoggerAndLog(ex);
             }
         }
 
@@ -114,7 +169,7 @@ namespace IdentityProvider.Services
                 }
                 catch (Exception disposeException)
                 {
-                    FetchLoggerAndLog(disposeException);
+                    // FetchLoggerAndLog(disposeException);
 
                     _loggingService.LogWarning(this, "IDisposable problem disposing", disposeException);
                 }
@@ -123,68 +178,6 @@ namespace IdentityProvider.Services
         #endregion Dispose
 
 
-        public List<ApplicationUser> UsersActiveGetAll()
-        {
-            return
-                _unitOfWorkAsync.Repository<ApplicationUser>()
-                    .Queryable()
-                    .Where(u => u.Active)
-                    .OrderBy(u => u.LastName)
-                    .ThenBy(u => u.FirstName)
-                    .ToList();
-        }
-
-        private ApplicationUser GetUser(string userName)
-        {
-            if (string.IsNullOrEmpty(userName))
-                throw new ArgumentNullException(nameof(userName));
-
-            return _unitOfWorkAsync.RepositoryAsync<ApplicationUser>().Find(userName.Trim());
-        }
-
-        public async Task<ApplicationUser> GetUserAsync(string userName)
-        {
-            if (string.IsNullOrEmpty(userName))
-                throw new ArgumentNullException(nameof(userName));
-
-            ApplicationUser retVal = null;
-
-            try
-            {
-                retVal =
-                    await _unitOfWorkAsync.RepositoryAsync<ApplicationUser>()
-                        .FindAsync(userName.Trim());
-            }
-            catch (Exception ex)
-            {
-                FetchLoggerAndLog(ex);
-            }
-
-            return retVal;
-        }
-
-        public string GetUserIdFromPasswordToken(string passwordResetToken)
-        {
-            if (string.IsNullOrEmpty(passwordResetToken))
-                throw new ArgumentNullException(nameof(passwordResetToken));
-
-            string id = null;
-
-            var user = _unitOfWorkAsync.RepositoryAsync<ApplicationUser>().Queryable()
-                .SingleOrDefault(u => u.PasswordResetToken.Equals(passwordResetToken.Trim()));
-
-            if (user != null)
-                id = user.Id;
-
-            return id?.Trim();
-        }
-
-        private void FetchLoggerAndLog(Exception ex)
-        {
-            if (_loggingService != null) return;
-            _loggingService = Log4NetLoggingFactory.GetLogger();
-            _loggingService.LogWarning(this, "IDisposable problem disposing", ex);
-        }
 
 
         #region Identity 2.0

@@ -1,4 +1,4 @@
-﻿using IdentityProvider.Infrastructure.Logging.Log4Net;
+﻿
 using System.Text;
 
 namespace IdentityProvider.Infrastructure.Email
@@ -14,7 +14,7 @@ namespace IdentityProvider.Infrastructure.Email
             email.AppendLine($"Subject: {subject}");
             email.AppendLine($"Body: {body}");
 
-            Log4NetLoggingFactory.GetLogger().LogInfo(this, email.ToString());
+            // Log4NetLoggingFactory.GetLogger().LogInfo(this, email.ToString());
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
-using IdentityProvider.Infrastructure.ApplicationContext;
+﻿using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.ConfigurationProvider;
+using IdentityProvider.Infrastructure.Enums;
 using Serilog;
 using System;
 

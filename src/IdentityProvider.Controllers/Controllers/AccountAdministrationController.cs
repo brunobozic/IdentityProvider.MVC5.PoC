@@ -161,7 +161,7 @@ namespace IdentityProvider.Controllers.Controllers
 
                 return PartialView("Partial/_accountAdministrationLanding", retVal);
             }
-            else { return PartialView("Partial/_accountAdministrationLanding", new AccountAdministrationLandingViewModel { HasPassword = false, BrowserRemembered = false, Logins = null, PhoneNumber = "", TwoFactor = false }); }
+            else { return PartialView("Partial/_accountAdministrationLanding", new AccountAdministrationLandingViewModel { HasPassword = false, BrowserRemembered = false, Logins = null, PhoneNumber = string.Empty, TwoFactor = false }); }
         }
 
         //

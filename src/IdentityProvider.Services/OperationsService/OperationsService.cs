@@ -1,6 +1,8 @@
-﻿using IdentityProvider.Models;
+﻿
+using IdentityProvider.Models;
 using IdentityProvider.Models.Domain.Account;
 using LinqKit;
+using Logging.WCF.Models.Log4Net;
 using Module.Repository.EF.Repositories;
 using Module.ServicePattern;
 using System;
@@ -13,10 +15,15 @@ namespace IdentityProvider.Services.OperationsService
 {
     public class OperationsService : Service<Operation>, IOperationService
     {
+        private readonly ILog4NetLoggingService _loggingService;
         [StructureMap.DefaultConstructor] // Set Default Constructor for StructureMap
-        public OperationsService(IRepositoryAsync<Operation> repository) : base(repository)
+        public OperationsService(
+            IRepositoryAsync<Operation> repository
+            , ILog4NetLoggingService loggingService
+            )
+            : base(repository)
         {
-
+            _loggingService = loggingService;
         }
 
         private Expression<Func<Operation, bool>> BuildDynamicWhereClause(
@@ -137,6 +144,8 @@ namespace IdentityProvider.Services.OperationsService
             totalResultsCount = _repository
                 .Queryable()
                 .Count();
+
+            _loggingService.LogInfo(this, "Test", null, true);
 
             return result;
         }

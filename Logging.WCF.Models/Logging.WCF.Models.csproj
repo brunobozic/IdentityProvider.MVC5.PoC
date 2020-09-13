@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="log4net" Version="2.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\src\IdentityProvider.UI.Web.MVC5\Bin\log4net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DatabaseLog\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/log4net.Core" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/log4net.Core" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:61234/LogWCF.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:61234/LogWCF.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="LocationInfo">
+    <xs:sequence>
+      <xs:element name="m_className" nillable="true" type="xs:string" />
+      <xs:element name="m_fileName" nillable="true" type="xs:string" />
+      <xs:element name="m_fullInfo" nillable="true" type="xs:string" />
+      <xs:element name="m_lineNumber" nillable="true" type="xs:string" />
+      <xs:element name="m_methodName" nillable="true" type="xs:string" />
+      <xs:element name="m_stackFrames" nillable="true" type="tns:ArrayOfStackFrameItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LocationInfo" nillable="true" type="tns:LocationInfo" />
+  <xs:complexType name="ArrayOfStackFrameItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StackFrameItem" nillable="true" type="tns:StackFrameItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStackFrameItem" nillable="true" type="tns:ArrayOfStackFrameItem" />
+  <xs:complexType name="StackFrameItem">
+    <xs:sequence>
+      <xs:element name="m_className" nillable="true" type="xs:string" />
+      <xs:element name="m_fileName" nillable="true" type="xs:string" />
+      <xs:element name="m_fullInfo" nillable="true" type="xs:string" />
+      <xs:element name="m_lineNumber" nillable="true" type="xs:string" />
+      <xs:element name="m_method" nillable="true" type="tns:MethodItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StackFrameItem" nillable="true" type="tns:StackFrameItem" />
+  <xs:complexType name="MethodItem">
+    <xs:sequence>
+      <xs:element name="m_name" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="m_parameters" nillable="true" type="q1:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MethodItem" nillable="true" type="tns:MethodItem" />
+  <xs:complexType name="LoggingEventData">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Domain" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExceptionString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Identity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Level" nillable="true" type="tns:Level" />
+      <xs:element minOccurs="0" name="LocationInfo" nillable="true" type="tns:LocationInfo" />
+      <xs:element minOccurs="0" name="LoggerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Properties" nillable="true" type="q2:ArrayOfKeyValueOfanyTypeanyType" />
+      <xs:element minOccurs="0" name="ThreadName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TimeStamp" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TimeStampUtc" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LoggingEventData" nillable="true" type="tns:LoggingEventData" />
+  <xs:complexType name="Level">
+    <xs:sequence>
+      <xs:element name="m_levelDisplayName" nillable="true" type="xs:string" />
+      <xs:element name="m_levelName" nillable="true" type="xs:string" />
+      <xs:element name="m_levelValue" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Level" nillable="true" type="tns:Level" />
+</xs:schema>

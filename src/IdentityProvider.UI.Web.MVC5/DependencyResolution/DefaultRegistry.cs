@@ -7,7 +7,6 @@ using IdentityProvider.Infrastructure.ConfigurationProvider;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.DatabaseAudit;
 using IdentityProvider.Infrastructure.GlobalAsaxHelpers;
-using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Infrastructure.Logging.Serilog;
 using IdentityProvider.Infrastructure.Logging.Serilog.AuditLog;
 using IdentityProvider.Infrastructure.Logging.Serilog.PerformanceLogger;
@@ -19,6 +18,7 @@ using IdentityProvider.Services.AuditTrailService;
 using IdentityProvider.Services.OperationsService;
 using IdentityProvider.Services.ResourceService;
 using IdentityProvider.Services.RowLeveLSecurityUserGrantService;
+using Logging.WCF.Infrastructure.Contracts;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
 using StructureMap.Pipeline;
@@ -26,13 +26,12 @@ using StructureMap.Pipeline;
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 {
     using AutoMapper;
-    using IdentityProvider.Infrastructure.ApplicationConfiguration;
     using IdentityProvider.Infrastructure.Caching;
     using IdentityProvider.Infrastructure.Certificates.FromStore;
-    using IdentityProvider.Infrastructure.DatabaseLog;
     using IdentityProvider.Infrastructure.Email;
-    using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;
     using IdentityProvider.Services.UserProfileService;
+    using Logging.WCF.Models.Log4Net;
+    using Logging.WCF.Services;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Module.Repository.EF;
@@ -43,6 +42,9 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
     using System.Data.Entity;
     using System.Linq;
     using System.Web;
+    using ApplicationConfiguration = Infrastructure.ApplicationConfiguration.ApplicationConfiguration;
+    using IAddLoggingContextProvider = Infrastructure.ApplicationContext.IAddLoggingContextProvider;
+    using TextLoggingEmailService = Infrastructure.Email.TextLoggingEmailService;
 
     public class DefaultRegistry : Registry
     {
@@ -117,11 +119,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             //    .Is("SimpleMembership");
 
             For<IMemoryCacheProvider>().Use<MemoryCacheProvider>().LifecycleIs<UniquePerRequestLifecycle>();
-
-            For<IdentityProvider.Infrastructure.ConfigurationProvider.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>().LifecycleIs<UniquePerRequestLifecycle>();
-
-            For<IAddLoggingContextProvider>().Use<LoggingContextProvider>().LifecycleIs<UniquePerRequestLifecycle>();
-
+            For<Infrastructure.ConfigurationProvider.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             For<ISerilogLoggingFactory>().Use<LoggingFactory>().LifecycleIs<UniquePerRequestLifecycle>();
             For<ICertificateFromStoreProvider>().Use<CertificateFromStoreProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IAuditLogService>().Use<SerilogAuditLogProvider>().LifecycleIs<UniquePerRequestLifecycle>();
@@ -131,7 +129,6 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             For<ICertificateExpirationValidator>().Use<CertificateExpirationValidator>().LifecycleIs<UniquePerRequestLifecycle>();
             For<ICachedUserAuthorizationGrantsProvider>().Use<CachedUserAuthorizationGrantsProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             // ================================================================================
-
             For<IApplicationRoleService>().Use<ApplicationRoleService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IOperationService>().Use<OperationsService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IApplicationResourceService>().Use<ApplicationResourceService>().LifecycleIs<UniquePerRequestLifecycle>();
@@ -150,8 +147,8 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             //    //    new ApplicationConfiguration(Infrastructure.ConfigurationProvider.IConfigurationProvider, true))
             //    ;
 
-            For<IPerformanceLogProvider>().Use<PerformanceLogProvider>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<IPerformanceLogger>().Use<PerformanceLogger>().LifecycleIs<UniquePerRequestLifecycle>();
+            //For<IPerformanceLogProvider>().Use<PerformanceLogProvider>().LifecycleIs<UniquePerRequestLifecycle>();
+            //For<IPerformanceLogger>().Use<PerformanceLogger>().LifecycleIs<UniquePerRequestLifecycle>();
 
             // This is how we pass a primitive value into class constructor
             //For<IAuditedDbContext<ApplicationUser>>().Use(i => new IdentityProvider.Repository.EF.EFDataContext.AppDbContext("SimpleMembership")).LifecycleIs<UniquePerRequestLifecycle>();
@@ -169,35 +166,17 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             For<ICookieStorageService>().Use<CookieStorageService>().LifecycleIs<UniquePerRequestLifecycle>();
 
             For<IEmailService>().Use<TextLoggingEmailService>().LifecycleIs<UniquePerRequestLifecycle>();
-
+            For<IdentityProvider.Infrastructure.ConfigurationProvider.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IWcfLoggingManager>().Use<WCFLoggingManager>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IIdentityMessageService>().Use<GmailEmailService>().LifecycleIs<UniquePerRequestLifecycle>();
 
             For<ILog4NetLoggingService>().Use<Log4NetLoggingService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IContextProvider>().Use<HttpContextProvider>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<IApplicationConfiguration>().Use<ApplicationConfiguration>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<Infrastructure.ApplicationConfiguration.IApplicationConfiguration>().Use<ApplicationConfiguration>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IGlobalAsaxHelpers>().Use<GlobalAsaxHelpers>().LifecycleIs<UniquePerRequestLifecycle>();
-
-
-
-
-
-
-
-
+            For<IAddLoggingContextProvider>().Use<LoggingContextProvider>().LifecycleIs<UniquePerRequestLifecycle>();
 
             For<IUserProfileAdministrationService>().Use<UserProfileAdministrationService>().LifecycleIs<UniquePerRequestLifecycle>();
-
-
-
-
-
-
-
-
-            // WCF based logging sink (endpoint)
-            For<IWcfAppenderService>().Use<WcfAppenderService>().LifecycleIs<UniquePerRequestLifecycle>();
-            // For<ILogWcf>().Use<LogWcf>();
-
 
             // Identity 2.0 Facade
             For<IWebSecurity>().Use<WebSecurity>().LifecycleIs<UniquePerRequestLifecycle>();
@@ -220,7 +199,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             var mapper = config.CreateMapper();
 
             // Register the DI interfaces with their implementation
-            For<IConfigurationProvider>().Use(config);
+            For<AutoMapper.IConfigurationProvider>().Use(config);
             For<IMapper>().Use(mapper);
         }
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="bba2ee45-103c-458b-bc26-9bb74045b327" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:61234/LogWCF.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="LogWCF.xsd" MetadataType="Schema" ID="dfb6f9a0-1567-4e3c-bbf7-4ac0d4e77dff" SourceId="1" SourceUrl="http://localhost:61234/LogWCF.svc?xsd=xsd4" />
+    <MetadataFile FileName="LogWCF1.xsd" MetadataType="Schema" ID="b36c78bd-3fd8-4e55-959a-eecf2157851b" SourceId="1" SourceUrl="http://localhost:61234/LogWCF.svc?xsd=xsd5" />
+    <MetadataFile FileName="LogWCF2.xsd" MetadataType="Schema" ID="57fe766c-01e5-495b-b2a1-90f0287944b2" SourceId="1" SourceUrl="http://localhost:61234/LogWCF.svc?xsd=xsd6" />
+    <MetadataFile FileName="LogWCF3.xsd" MetadataType="Schema" ID="8a33f9e5-866b-4b6e-b3c5-6a200ae93add" SourceId="1" SourceUrl="http://localhost:61234/LogWCF.svc?xsd=xsd0" />
+    <MetadataFile FileName="LogWCF.disco" MetadataType="Disco" ID="bba70a11-58f7-4ee5-9989-b64a99f996b9" SourceId="1" SourceUrl="http://localhost:61234/LogWCF.svc?disco" />
+    <MetadataFile FileName="LogWCF4.xsd" MetadataType="Schema" ID="d83305e3-cd26-4418-ad43-ffd4e71263d4" SourceId="1" SourceUrl="http://localhost:61234/LogWCF.svc?xsd=xsd2" />
+    <MetadataFile FileName="LogWCF5.xsd" MetadataType="Schema" ID="45d5aaed-85f3-44c5-bf85-076c8380ce21" SourceId="1" SourceUrl="http://localhost:61234/LogWCF.svc?xsd=xsd3" />
+    <MetadataFile FileName="LogWcfService.wsdl" MetadataType="Wsdl" ID="798685bf-c979-40ff-93fe-bb4fa99f1cb4" SourceId="1" SourceUrl="http://localhost:61234/LogWCF.svc?wsdl" />
+    <MetadataFile FileName="LogWCF6.xsd" MetadataType="Schema" ID="8a269e71-df95-483b-9b98-1063858a86d7" SourceId="1" SourceUrl="http://localhost:61234/LogWCF.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

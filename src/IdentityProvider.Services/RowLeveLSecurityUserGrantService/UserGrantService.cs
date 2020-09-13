@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Infrastructure.Logging.Serilog;
 using IdentityProvider.Repository.EF.EFDataContext;
 using IdentityProvider.Repository.EF.Queries.UserGrants;
+using Logging.WCF.Models.Log4Net;
 using StructureMap;
 using System.Web.Mvc;
 
