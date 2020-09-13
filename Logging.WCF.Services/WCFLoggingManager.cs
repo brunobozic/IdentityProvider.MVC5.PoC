@@ -1,4 +1,5 @@
-﻿using log4net.Core;
+﻿using log4net;
+using log4net.Core;
 using Logging.WCF.Infrastructure.Contracts;
 using Logging.WCF.Models;
 using Logging.WCF.Models.DTOs;
@@ -39,8 +40,8 @@ namespace Logging.WCF.Services
             }
             catch (Exception exc)
             {// todo:
-                //Log4NetLoggingFactory.GetLogger()
-                //    .LogFatal(typeof(WCFLoggingManager), "CreateChannelToWcfService", exc);
+                ILog logger = LogManager.GetLogger("");
+                logger.Fatal(exc);
             }
         }
 
@@ -82,8 +83,8 @@ namespace Logging.WCF.Services
             catch (Exception exc)
             {// todo:
                 //  "{"There was no endpoint listening at http://localhost:63247/LogWCF.svc that could accept the message. This is often caused by an incorrect address or SOAP action. See InnerException, if present, for more details."}"
-                //Log4NetLoggingFactory.GetLogger()
-                //    .LogFatal(typeof(WCFLoggingManager), "LogToWCF(LoggingEvent loggingEvent)", exc);
+                ILog logger = LogManager.GetLogger("");
+                logger.Fatal(exc);
             }
         }
 
@@ -151,8 +152,8 @@ namespace Logging.WCF.Services
             catch (Exception exc)
             {
                 // todo:
-                //Log4NetLoggingFactory.GetLogger()
-                //    .LogFatal(typeof(WCFLoggingManager), "LogToWCF(LoggingEvent loggingEvent)", exc);
+                ILog logger = LogManager.GetLogger("");
+                logger.Fatal(exc);
             }
         }
 

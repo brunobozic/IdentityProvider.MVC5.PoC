@@ -1,4 +1,5 @@
-﻿using Logging.WCF.Infrastructure.Contracts;
+﻿using log4net;
+using Logging.WCF.Infrastructure.Contracts;
 using Logging.WCF.Models.DTOs;
 using Logging.WCF.Repository.EF;
 using Logging.WCF.Repository.EF.ExtensionMethods;
@@ -45,6 +46,8 @@ namespace Logging.WCF.Services
                     string.Format("		[ DB ] ====>		Db exception while saving exception: [ {0} ]   [ {1} ]",
                         dbException.Message, dbException.InnerException);
                 // LogToWCF to file...
+                ILog logger = LogManager.GetLogger(this.GetType());
+                logger.Fatal(dbException);
             }
 
             return retVal;
@@ -101,7 +104,8 @@ namespace Logging.WCF.Services
                        dbException.Message, dbException.InnerException);
 
                 // LogToWCF to file... is not relevant to this test
-                // LogFactory.GetLogger().LogWarning(this, myLog.ExceptionMessage, dbException);
+                ILog logger = LogManager.GetLogger(this.GetType());
+                logger.Fatal(dbException);
             }
 
             return retVal;

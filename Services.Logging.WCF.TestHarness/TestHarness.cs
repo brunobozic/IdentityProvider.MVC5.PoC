@@ -1,12 +1,7 @@
-﻿using Services.Logging.WCF.TestHarness.WcfLogServiceReference;
+﻿using log4net;
+using Services.Logging.WCF.TestHarness.WcfLogServiceReference;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Services.Logging.WCF.TestHarness
@@ -20,31 +15,35 @@ namespace Services.Logging.WCF.TestHarness
 
         private void button1_Click(object sender, EventArgs e)
         {
-            WcfLogServiceReference.LogWcfClient c = new WcfLogServiceReference.LogWcfClient();
-            LogToDatabaseRequest r = new LogToDatabaseRequest();
-            r.LoggingEventDto = new LoggingEventDto();
-            r.LoggingEventDto.DisplayName = "";
-            r.LoggingEventDto.Domain = "";
-            r.LoggingEventDto.ExceptionString = "";
-            r.LoggingEventDto.Identity = "";
-            r.LoggingEventDto.LoggerName = "";
-            r.LoggingEventDto.RenderedMessage = "";
-            r.LoggingEventDto.ThreadName = "";
+            var c = new LogWcfClient();
+            var r = new LogToDatabaseRequest
+            {
+                LoggingEventDto = new LoggingEventDto()
+            };
+            r.LoggingEventDto.DisplayName = string.Empty;
+            r.LoggingEventDto.Domain = string.Empty;
+            r.LoggingEventDto.ExceptionString = string.Empty;
+            r.LoggingEventDto.Identity = string.Empty;
+            r.LoggingEventDto.LoggerName = string.Empty;
+            r.LoggingEventDto.RenderedMessage = string.Empty;
+            r.LoggingEventDto.ThreadName = string.Empty;
             r.LoggingEventDto.TimeStamp = DateTime.UtcNow;
-            r.LoggingEventDto.UserName = "";
+            r.LoggingEventDto.UserName = string.Empty;
             r.LoggingEventDto.LoggingEventData = new LoggingEventData();
 
             try
             {
-                textBox1.Text += textBox1.Text + "Attempting to log" + Environment.NewLine;
+                textBox1.Text += "Attempting to log" + Environment.NewLine;
                 c.AppendToLog(r);
+                textBox1.Text += "Logging done" + Environment.NewLine;
             }
             catch (Exception ex)
             {
-                textBox1.Text += textBox1.Text + "Error: " + ex.Message + Environment.NewLine; 
-          
+                textBox1.Text += "Error: " + ex.Message + Environment.NewLine;
+                ILog logger = LogManager.GetLogger(string.Empty);
+                logger.Fatal(ex);
             }
-        
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

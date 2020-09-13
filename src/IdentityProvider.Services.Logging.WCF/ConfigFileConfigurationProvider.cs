@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 
@@ -6,7 +7,17 @@ namespace IdentityProvider.Services.Logging.WCF
 {
     public class ConfigFileConfigurationProvider : IConfigurationProvider
     {
-        public Dictionary<string, string> FakeSettingsDictionary => throw new NotImplementedException();
+
+        Dictionary<string, string> IConfigurationProvider.FakeSettingsDictionary
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            Disposed = true;
+        }
 
         public T GetConfigurationValue<T>(string key)
         {
@@ -42,17 +53,6 @@ namespace IdentityProvider.Services.Logging.WCF
             }
         }
 
-        Dictionary<string, string> IConfigurationProvider.FakeSettingsDictionary
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-            Disposed = true;
-        }
-
         public T GetConfigurationValueAndNotifyIfPropertyNotFound<T>(string key)
         {
             var value = ConfigurationManager.AppSettings[key];
@@ -66,7 +66,8 @@ namespace IdentityProvider.Services.Logging.WCF
             }
             catch (Exception ex)
             {
-                // _log.LogFatal(this, KeyNotFound, ex);
+                ILog logger = LogManager.GetLogger(this.GetType());
+                logger.Fatal(ex);
                 throw ex;
             }
         }
@@ -88,6 +89,8 @@ namespace IdentityProvider.Services.Logging.WCF
                 return defaultValue;
             }
         }
+
+        public Dictionary<string, string> FakeSettingsDictionary => throw new NotImplementedException();
 
         #region Ctor
 
