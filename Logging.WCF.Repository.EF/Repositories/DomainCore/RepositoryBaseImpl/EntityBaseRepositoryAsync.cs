@@ -98,7 +98,7 @@ namespace Logging.WCF.Repository.EF.Repositories.DomainCore.RepositoryBaseImpl
 
         public virtual async Task CommitAsync()
         {
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
-using IdentityProvider.Infrastructure.ApplicationContext;
-using log4net;
+﻿using log4net;
 using log4net.Appender;
 using log4net.Config;
 using log4net.Core;

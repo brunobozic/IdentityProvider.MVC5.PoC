@@ -3,12 +3,8 @@ using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.SessionStorageFactories;
 using Logging.WCF.Models.Log4Net;
-using Logging.WCF.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 

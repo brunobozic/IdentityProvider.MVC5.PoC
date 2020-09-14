@@ -40,7 +40,7 @@ namespace Logging.WCF.Services
             }
             catch (Exception exc)
             {// todo:
-                ILog logger = LogManager.GetLogger("");
+                ILog logger = LogManager.GetLogger(string.Empty);
                 logger.Fatal(exc);
             }
         }
@@ -83,7 +83,7 @@ namespace Logging.WCF.Services
             catch (Exception exc)
             {// todo:
                 //  "{"There was no endpoint listening at http://localhost:63247/LogWCF.svc that could accept the message. This is often caused by an incorrect address or SOAP action. See InnerException, if present, for more details."}"
-                ILog logger = LogManager.GetLogger("");
+                ILog logger = LogManager.GetLogger(string.Empty);
                 logger.Fatal(exc);
             }
         }
@@ -152,7 +152,7 @@ namespace Logging.WCF.Services
             catch (Exception exc)
             {
                 // todo:
-                ILog logger = LogManager.GetLogger("");
+                ILog logger = LogManager.GetLogger(string.Empty);
                 logger.Fatal(exc);
             }
         }

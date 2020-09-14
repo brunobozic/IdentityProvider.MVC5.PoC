@@ -4,9 +4,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Logging.WCF.Dummy.Entry
 {

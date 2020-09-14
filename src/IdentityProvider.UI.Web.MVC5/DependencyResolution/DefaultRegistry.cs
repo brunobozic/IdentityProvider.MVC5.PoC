@@ -9,7 +9,6 @@ using IdentityProvider.Infrastructure.DatabaseAudit;
 using IdentityProvider.Infrastructure.GlobalAsaxHelpers;
 using IdentityProvider.Infrastructure.Logging.Serilog;
 using IdentityProvider.Infrastructure.Logging.Serilog.AuditLog;
-using IdentityProvider.Infrastructure.Logging.Serilog.PerformanceLogger;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Services;

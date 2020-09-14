@@ -38,7 +38,7 @@ namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
                 logger.Fatal(ex);
                 throw;
             }
-          
+
         }
     }
 }
