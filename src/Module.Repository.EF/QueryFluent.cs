@@ -7,7 +7,6 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TrackableEntities;
 
-
 namespace Module.Repository.EF
 {
     public sealed class QueryFluent<TEntity> : IQueryFluent<TEntity> where TEntity : class, ITrackable, ISoftDeletable

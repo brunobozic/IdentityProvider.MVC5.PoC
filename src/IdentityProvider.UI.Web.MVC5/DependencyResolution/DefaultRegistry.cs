@@ -29,6 +29,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
     using IdentityProvider.Infrastructure.Caching;
     using IdentityProvider.Infrastructure.Certificates.FromStore;
     using IdentityProvider.Infrastructure.Email;
+    using IdentityProvider.Repository.EF.EFDataContext;
     using IdentityProvider.Services.UserProfileService;
     using Logging.WCF.Models.Log4Net;
     using Logging.WCF.Services;
@@ -75,7 +76,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             For<IUserStore<ApplicationUser>>()
                 .Use<UserStore<ApplicationUser>>()
                 .Ctor<DbContext>()
-                .Is<Repository.EF.EFDataContext.AppDbContext>((SmartInstance<Repository.EF.EFDataContext.AppDbContext, DbContext> cfg) => cfg.SelectConstructor(() => new Repository.EF.EFDataContext.AppDbContext("connectionStringName"))
+                .Is<AppDbContext>((SmartInstance<AppDbContext, DbContext> cfg) => cfg.SelectConstructor(() => new Repository.EF.EFDataContext.AppDbContext("connectionStringName"))
                 .Ctor<string>()
                 .Is("SimpleMembership"));
 
@@ -153,11 +154,11 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             // This is how we pass a primitive value into class constructor
             //For<IAuditedDbContext<ApplicationUser>>().Use(i => new IdentityProvider.Repository.EF.EFDataContext.AppDbContext("SimpleMembership")).LifecycleIs<UniquePerRequestLifecycle>();
 
-            For<DbContext>().Use(i => new IdentityProvider.Repository.EF.EFDataContext.AppDbContext("SimpleMembership")).LifecycleIs<UniquePerRequestLifecycle>();
+            For<DbContext>().Use(i => new AppDbContext("SimpleMembership")).LifecycleIs<UniquePerRequestLifecycle>();
 
             For(typeof(IRoleStore<ApplicationRole, string>)).Use(typeof(RoleStore<ApplicationRole>))
             .Ctor<DbContext>()
-            .Is<Repository.EF.EFDataContext.AppDbContext>((SmartInstance<Repository.EF.EFDataContext.AppDbContext, DbContext> cfg) => cfg.SelectConstructor(() => new Repository.EF.EFDataContext.AppDbContext("connectionStringName"))
+            .Is<AppDbContext>((SmartInstance<AppDbContext, DbContext> cfg) => cfg.SelectConstructor(() => new Repository.EF.EFDataContext.AppDbContext("connectionStringName"))
             .Ctor<string>()
             .Is("SimpleMembership"));
 
