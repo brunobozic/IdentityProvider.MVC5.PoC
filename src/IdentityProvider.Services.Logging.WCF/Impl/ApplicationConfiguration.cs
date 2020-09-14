@@ -1,11 +1,10 @@
-﻿
-using IdentityProvider.Services.Logging.WCF;
+﻿using HAC.Helpdesk.Services.Logging.WCF.Contracts.Configuration;
 using Logging.WCF.Infrastructure;
 using Logging.WCF.Infrastructure.Contracts;
 using StructureMap;
 using System;
 
-namespace HAC.Helpdesk.Services.Logging.WCF
+namespace HAC.Helpdesk.Services.Logging.WCF.Impl
 {
     public class ApplicationConfiguration : IApplicationConfiguration
     {

@@ -4,7 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 
-namespace HAC.Helpdesk.Services.Logging.WCF
+namespace HAC.Helpdesk.Services.Logging.WCF.Database.Performance
 {
     public class DatabasePerformanceAndSqlLog : IDatabasePerformanceAndSqlLog
     {

@@ -14,6 +14,7 @@ using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Services;
 using IdentityProvider.Services.ApplicationRoleService;
 using IdentityProvider.Services.AuditTrailService;
+using IdentityProvider.Services.Log4Net;
 using IdentityProvider.Services.OperationsService;
 using IdentityProvider.Services.ResourceService;
 using IdentityProvider.Services.RowLeveLSecurityUserGrantService;

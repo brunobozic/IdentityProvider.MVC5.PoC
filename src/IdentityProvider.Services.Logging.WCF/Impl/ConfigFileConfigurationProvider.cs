@@ -1,9 +1,10 @@
-﻿using log4net;
+﻿using HAC.Helpdesk.Services.Logging.WCF.Contracts.Configuration;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 
-namespace IdentityProvider.Services.Logging.WCF
+namespace HAC.Helpdesk.Services.Logging.WCF.Impl
 {
     public class ConfigFileConfigurationProvider : IConfigurationProvider
     {

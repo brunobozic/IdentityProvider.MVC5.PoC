@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace IdentityProvider.Services
+namespace IdentityProvider.Services.Log4Net
 {
     public class Log4NetLogFactory
     {

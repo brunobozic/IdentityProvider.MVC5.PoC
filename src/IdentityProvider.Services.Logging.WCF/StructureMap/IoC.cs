@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using IdentityProvider.Services.Logging.WCF;
+using HAC.Helpdesk.Services.Logging.WCF.Database.Log;
+using HAC.Helpdesk.Services.Logging.WCF.Impl;
 using Logging.WCF.Infrastructure;
 using Logging.WCF.Infrastructure.Contracts;
 using Logging.WCF.Repository.EF.EFDataContext;
@@ -14,7 +15,6 @@ using StructureMap;
 using StructureMap.Pipeline;
 using System;
 using System.Linq;
-using IConfigurationProvider = IdentityProvider.Services.Logging.WCF.IConfigurationProvider;
 
 namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
 {
@@ -39,14 +39,14 @@ namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
                 c.For<IUnitOfWorkAsync>().Use<UnitOfWork>();
 
                 c.For<IWcfLoggingManager>().Use<WCFLoggingManager>();
-                c.For<IConfigurationProvider>().Use<ConfigFileConfigurationProvider>();
+                c.For<Contracts.Configuration.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>();
                 c.For<ILogWcf>().Use<LogWcfService>();
 
                 // c.For<DbContext>().Use(i => new MyAppDbContext()).LifecycleIs<UniquePerRequestLifecycle>();
 
                 c.For<IRowAuthPoliciesContainer>().Use<RowAuthPoliciesContainer>();
 
-                c.For<IConfigurationProvider>().Use<ConfigFileConfigurationProvider>();
+                c.For<Contracts.Configuration.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>();
 
                 c.For(typeof(IEntityBaseRepositoryAsync<>)).Use(typeof(EntityBaseRepositoryAsync<>));
                 c.For(typeof(IEntityBaseRepository<>)).Use(typeof(EntityBaseRepository<>));

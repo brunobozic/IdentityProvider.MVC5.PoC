@@ -134,8 +134,8 @@
     <Compile Include="DbSeed\DoSeed.cs" />
     <Compile Include="DbSeed\IDoSeed.cs" />
     <Compile Include="AuditTrailService\IAuditTrailService.cs" />
-    <Compile Include="Log4NetLogFactory.cs" />
-    <Compile Include="Log4NetLoggingService.cs" />
+    <Compile Include="Log4Net\Log4NetLogFactory.cs" />
+    <Compile Include="Log4Net\Log4NetLoggingService.cs" />
     <Compile Include="OperationsService\IOperationService.cs" />
     <Compile Include="ResourceService\IApplicationResourceService.cs" />
     <Compile Include="RowLeveLSecurityUserGrantService\CachedUserAuthorizationGrantsProvider.cs" />
@@ -190,6 +190,7 @@
       <Name>Module.ServicePattern</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

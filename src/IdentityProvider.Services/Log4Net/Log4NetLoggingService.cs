@@ -10,7 +10,7 @@ using Logging.WCF.Services;
 using System;
 using System.IO;
 
-namespace IdentityProvider.Services
+namespace IdentityProvider.Services.Log4Net
 {
     public class Log4NetLoggingService : ILog4NetLoggingService
     {

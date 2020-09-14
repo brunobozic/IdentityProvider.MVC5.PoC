@@ -9,7 +9,7 @@ using Module.Repository.EF.UnitOfWorkInterfaces;
 using System;
 using System.Threading.Tasks;
 
-namespace HAC.Helpdesk.Services.Logging.WCF
+namespace HAC.Helpdesk.Services.Logging.WCF.Database.Log
 {
     /// <inheritdoc />
     public class DatabaseLogService : ILogSinkerService
@@ -91,7 +91,7 @@ namespace HAC.Helpdesk.Services.Logging.WCF
             try
             {
                 _dbLogRepository.AddLogEntry(myLog);
-                _dbLogRepository.CommitAsync();
+                await _dbLogRepository.CommitAsync();
                 retVal = 1;
             }
             catch (Exception dbException)
