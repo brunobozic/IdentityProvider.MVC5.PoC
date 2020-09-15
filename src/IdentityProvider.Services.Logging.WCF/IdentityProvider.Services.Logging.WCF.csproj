@@ -247,11 +247,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationConfiguration.cs" />
-    <Compile Include="ConfigFileConfigurationProvider.cs" />
-    <Compile Include="DatabasePerformanceAndSqlLog.cs" />
-    <Compile Include="DatabaseLogService.cs" />
-    <Compile Include="IConfigurationProvider.cs" />
     <Compile Include="LogWCF.svc.cs">
       <DependentUpon>LogWCF.svc</DependentUpon>
     </Compile>

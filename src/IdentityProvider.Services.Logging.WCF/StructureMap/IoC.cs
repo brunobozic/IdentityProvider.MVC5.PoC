@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using HAC.Helpdesk.Services.Logging.WCF.Database.Log;
-using HAC.Helpdesk.Services.Logging.WCF.Impl;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
+using IdentityProvider.Infrastructure.ConfigurationProvider;
 using Logging.WCF.Infrastructure;
 using Logging.WCF.Infrastructure.Contracts;
 using Logging.WCF.Repository.EF.EFDataContext;
@@ -29,24 +29,24 @@ namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
                     scan.WithDefaultConventions();
                 });
 
-                c.For<IApplicationConfiguration>().Use<ApplicationConfiguration>();
+                c.For<IdentityProvider.Infrastructure.ApplicationConfiguration.IApplicationConfiguration>().Use<ApplicationConfiguration>();
 
                 // Email Service                 
                 c.For<IEmailService>().Use<TextLoggingEmailService>();
 
-                c.For<ILogSinkerService>().Use<DatabaseLogService>();
+                c.For<ILogSinkerService>().Use<DatabaseLoggingProvider>();
 
                 c.For<IUnitOfWorkAsync>().Use<UnitOfWork>();
 
                 c.For<IWcfLoggingManager>().Use<WCFLoggingManager>();
-                c.For<Contracts.Configuration.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>();
+                c.For<IdentityProvider.Infrastructure.ConfigurationProvider.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>();
                 c.For<ILogWcf>().Use<LogWcfService>();
 
                 // c.For<DbContext>().Use(i => new MyAppDbContext()).LifecycleIs<UniquePerRequestLifecycle>();
 
                 c.For<IRowAuthPoliciesContainer>().Use<RowAuthPoliciesContainer>();
 
-                c.For<Contracts.Configuration.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>();
+                c.For<IdentityProvider.Infrastructure.ConfigurationProvider.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>();
 
                 c.For(typeof(IEntityBaseRepositoryAsync<>)).Use(typeof(EntityBaseRepositoryAsync<>));
                 c.For(typeof(IEntityBaseRepository<>)).Use(typeof(EntityBaseRepository<>));
