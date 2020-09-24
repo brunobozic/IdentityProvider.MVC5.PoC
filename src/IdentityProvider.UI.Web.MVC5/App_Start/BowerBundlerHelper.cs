@@ -13,6 +13,7 @@
 #endregion
 
 using B4BCore;
+using PagedList.Mvc;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
@@ -65,7 +66,7 @@ namespace IdentityProvider.UI.Web.MVC5.App_Start
         /// </param>
         /// <param name="forceState">if not null then true forces into debug state and false forces production state</param>
         /// <returns></returns>
-        public static MvcHtmlString HtmlCssCached(this HtmlHelper helper, string bundleName, bool? forceState = null)
+        public static MvcHtmlString HtmlCssCached(this System.Web.Mvc.HtmlHelper helper, string bundleName, bool? forceState = null)
         {
             return forceState == null
                 ? IncludeCache.GetOrAdd(bundleName,
@@ -84,7 +85,7 @@ namespace IdentityProvider.UI.Web.MVC5.App_Start
         /// </param>
         /// <param name="forceState">if not null then true forces into debug state and false forces production state</param>
         /// <returns></returns>
-        public static MvcHtmlString HtmlScriptsCached(this HtmlHelper helper, string bundleName,
+        public static MvcHtmlString HtmlScriptsCached(this System.Web.Mvc.HtmlHelper helper, string bundleName,
             bool? forceState = null)
         {
             return forceState == null
@@ -106,7 +107,7 @@ namespace IdentityProvider.UI.Web.MVC5.App_Start
         ///     If you provide a precalculated a cachebuster value, say created at build time, then that will be used instead
         /// </param>
         /// <returns></returns>
-        public static string AddCacheBusterCached(this HtmlHelper helper, string relFilePath,
+        public static string AddCacheBusterCached(this System.Web.Mvc.HtmlHelper helper, string relFilePath,
             string precalculatedCacheBuster = null)
         {
             if (precalculatedCacheBuster == null)
@@ -148,7 +149,7 @@ namespace IdentityProvider.UI.Web.MVC5.App_Start
         /// <param name="cssOrJs">This says if its css or javascript. NOTE: the enum string is used as the dir and the file type</param>
         /// <param name="forceState">if not null then true forces into debug state and false forces production state</param>
         /// <returns></returns>
-        private static MvcHtmlString CreateHtmlIncludes(this HtmlHelper helper, string bundleName, CssOrJs cssOrJs,
+        private static MvcHtmlString CreateHtmlIncludes(this System.Web.Mvc.HtmlHelper helper, string bundleName, CssOrJs cssOrJs,
             bool? forceState = null)
         {
             var isDebug = false;
@@ -168,7 +169,7 @@ namespace IdentityProvider.UI.Web.MVC5.App_Start
             return GetChecksumBasedOnFileContent(HostingEnvironment.MapPath(fileRelPath));
         }
 
-        private static BundlerForBower GetBundlerForBowerCached(HtmlHelper helper)
+        private static BundlerForBower GetBundlerForBowerCached(System.Web.Mvc.HtmlHelper helper)
         {
             return _bundler ??
                    (_bundler = new BundlerForBower(AppDomain.CurrentDomain.GetData("DataDirectory").ToString(),

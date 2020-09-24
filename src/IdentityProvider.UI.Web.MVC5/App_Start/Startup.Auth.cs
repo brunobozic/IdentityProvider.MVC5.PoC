@@ -1,5 +1,7 @@
 ﻿using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Services;
+using Microsoft.AspNet.Authentication.Cookies;
+using Microsoft.AspNet.DataProtection;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -7,7 +9,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
 using System;
-
+using IDataProtectionProvider = Microsoft.Owin.Security.DataProtection.IDataProtectionProvider;
 
 namespace IdentityProvider.UI.Web.MVC5
 {
@@ -30,7 +32,7 @@ namespace IdentityProvider.UI.Web.MVC5
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             // Configure the sign in cookie
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            app.UseCookieAuthentication(new Microsoft.Owin.Security.Cookies.CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),

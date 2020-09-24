@@ -22,3 +22,99 @@ Exception rethrown at [0]:
    at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
    at Logging.WCF.Infrastructure.Contracts.ILogWcf.LogToWcf(LogToWCFServiceRequest request)
    at Logging.WCF.Services.WCFLoggingManager.LogToWCF(LoggingEvent loggingEvent)]]></log4net:message><log4net:properties><log4net:data name="log4net:UserName" value="DESKTOP-OPEURE7\BrunoBozic" /><log4net:data name="log4net:Identity" value="" /><log4net:data name="log4net:HostName" value="DESKTOP-OPEURE7" /></log4net:properties></log4net:event>
+<log4net:event logger="" timestamp="2020-09-25T00:36:39.2360484+02:00" level="FATAL" thread="6" domain="/LM/W3SVC/3/ROOT-1-132454605519837946" username="DESKTOP-OPEURE7\BrunoBozic"><log4net:message><![CDATA[System.ServiceModel.EndpointNotFoundException: There was no endpoint listening at http://localhost:61234/LogWCF.svc that could accept the message. This is often caused by an incorrect address or SOAP action. See InnerException, if present, for more details. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:61234
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.ServiceModel.Channels.HttpOutput.WebRequestHttpOutput.GetOutputStream()
+   --- End of inner exception stack trace ---
+
+Server stack trace: 
+   at System.ServiceModel.Channels.HttpOutput.WebRequestHttpOutput.GetOutputStream()
+   at System.ServiceModel.Channels.HttpOutput.Send(TimeSpan timeout)
+   at System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.SendRequest(Message message, TimeSpan timeout)
+   at System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   at System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   at Logging.WCF.Infrastructure.Contracts.ILogWcf.LogToWcf(LogToWCFServiceRequest request)
+   at Logging.WCF.Services.WCFLoggingManager.LogToWCF(LoggingEvent loggingEvent)]]></log4net:message><log4net:properties><log4net:data name="log4net:UserName" value="DESKTOP-OPEURE7\BrunoBozic" /><log4net:data name="log4net:Identity" value="" /><log4net:data name="log4net:HostName" value="DESKTOP-OPEURE7" /></log4net:properties></log4net:event>
+<log4net:event logger="" timestamp="2020-09-25T00:51:00.1296082+02:00" level="FATAL" thread="96" domain="/LM/W3SVC/3/ROOT-1-132454605519837946" username="DESKTOP-OPEURE7\BrunoBozic"><log4net:message><![CDATA[System.ServiceModel.EndpointNotFoundException: There was no endpoint listening at http://localhost:61234/LogWCF.svc that could accept the message. This is often caused by an incorrect address or SOAP action. See InnerException, if present, for more details. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:61234
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.ServiceModel.Channels.HttpOutput.WebRequestHttpOutput.GetOutputStream()
+   --- End of inner exception stack trace ---
+
+Server stack trace: 
+   at System.ServiceModel.Channels.HttpOutput.WebRequestHttpOutput.GetOutputStream()
+   at System.ServiceModel.Channels.HttpOutput.Send(TimeSpan timeout)
+   at System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.SendRequest(Message message, TimeSpan timeout)
+   at System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   at System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   at Logging.WCF.Infrastructure.Contracts.ILogWcf.LogToWcf(LogToWCFServiceRequest request)
+   at Logging.WCF.Services.WCFLoggingManager.LogToWCF(LoggingEvent loggingEvent)]]></log4net:message><log4net:properties><log4net:data name="log4net:UserName" value="DESKTOP-OPEURE7\BrunoBozic" /><log4net:data name="log4net:Identity" value="" /><log4net:data name="log4net:HostName" value="DESKTOP-OPEURE7" /></log4net:properties></log4net:event>
+<log4net:event logger="" timestamp="2020-09-25T00:53:31.8444037+02:00" level="FATAL" thread="34" domain="/LM/W3SVC/3/ROOT-1-132454605519837946" username="DESKTOP-OPEURE7\BrunoBozic"><log4net:message><![CDATA[System.ServiceModel.EndpointNotFoundException: There was no endpoint listening at http://localhost:61234/LogWCF.svc that could accept the message. This is often caused by an incorrect address or SOAP action. See InnerException, if present, for more details. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:61234
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.ServiceModel.Channels.HttpOutput.WebRequestHttpOutput.GetOutputStream()
+   --- End of inner exception stack trace ---
+
+Server stack trace: 
+   at System.ServiceModel.Channels.HttpOutput.WebRequestHttpOutput.GetOutputStream()
+   at System.ServiceModel.Channels.HttpOutput.Send(TimeSpan timeout)
+   at System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.SendRequest(Message message, TimeSpan timeout)
+   at System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   at System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   at Logging.WCF.Infrastructure.Contracts.ILogWcf.LogToWcf(LogToWCFServiceRequest request)
+   at Logging.WCF.Services.WCFLoggingManager.LogToWCF(LoggingEvent loggingEvent)]]></log4net:message><log4net:properties><log4net:data name="log4net:UserName" value="DESKTOP-OPEURE7\BrunoBozic" /><log4net:data name="log4net:Identity" value="" /><log4net:data name="log4net:HostName" value="DESKTOP-OPEURE7" /></log4net:properties></log4net:event>
+<log4net:event logger="" timestamp="2020-09-25T00:53:48.5394225+02:00" level="FATAL" thread="34" domain="/LM/W3SVC/3/ROOT-1-132454605519837946" username="DESKTOP-OPEURE7\BrunoBozic"><log4net:message><![CDATA[System.ServiceModel.EndpointNotFoundException: There was no endpoint listening at http://localhost:61234/LogWCF.svc that could accept the message. This is often caused by an incorrect address or SOAP action. See InnerException, if present, for more details. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:61234
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at System.ServiceModel.Channels.HttpOutput.WebRequestHttpOutput.GetOutputStream()
+   --- End of inner exception stack trace ---
+
+Server stack trace: 
+   at System.ServiceModel.Channels.HttpOutput.WebRequestHttpOutput.GetOutputStream()
+   at System.ServiceModel.Channels.HttpOutput.Send(TimeSpan timeout)
+   at System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.SendRequest(Message message, TimeSpan timeout)
+   at System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   at System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   at System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   at System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   at System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   at System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   at Logging.WCF.Infrastructure.Contracts.ILogWcf.LogToWcf(LogToWCFServiceRequest request)
+   at Logging.WCF.Services.WCFLoggingManager.LogToWCF(LoggingEvent loggingEvent)]]></log4net:message><log4net:properties><log4net:data name="log4net:UserName" value="DESKTOP-OPEURE7\BrunoBozic" /><log4net:data name="log4net:Identity" value="" /><log4net:data name="log4net:HostName" value="DESKTOP-OPEURE7" /></log4net:properties></log4net:event>
