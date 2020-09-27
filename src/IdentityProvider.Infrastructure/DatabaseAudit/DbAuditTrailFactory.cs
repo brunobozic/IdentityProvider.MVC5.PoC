@@ -36,7 +36,7 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
                         var newValues = new StringBuilder();
                         SetAddedProperties(entry, newValues);
                         audit.NewData = newValues.ToString();
-                        audit.Actions = AuditActions.I.ToString();
+                        audit.Actions = AuditActions.Insert.ToString();
                         break;
                     }
                 case EntityState.Deleted:
@@ -44,7 +44,7 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
                         var oldValues = new StringBuilder();
                         SetDeletedProperties(entry, oldValues);
                         audit.OldData = oldValues.ToString();
-                        audit.Actions = AuditActions.D.ToString();
+                        audit.Actions = AuditActions.Delete.ToString();
                         break;
                     }
                 case EntityState.Modified:
@@ -54,7 +54,7 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
                         SetModifiedProperties(entry, oldValues, newValues);
                         audit.OldData = oldValues.ToString();
                         audit.NewData = newValues.ToString();
-                        audit.Actions = AuditActions.U.ToString();
+                        audit.Actions = AuditActions.Update.ToString();
                         break;
                     }
 
@@ -136,8 +136,8 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
 
     public enum AuditActions
     {
-        I,
-        U,
-        D
+        Insert,
+        Update,
+        Delete
     }
 }

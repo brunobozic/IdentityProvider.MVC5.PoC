@@ -56,7 +56,7 @@ $(document).ready(function () {
                 titleAttr: 'PDF'
             }
         ],
-        "autoWidth": true,
+        "autoWidth": false,
         "keys": true,
         "fixedHeader": true,
         "sortable": true,
@@ -81,7 +81,12 @@ $(document).ready(function () {
                 data.search_userName = $('#OperationsDashboard_AuditTrailDatatable_SubmitSearchUserName').val();
                 data.search_oldValue = $('#OperationsDashboard_AuditTrailDatatable_SubmitSearchOldValue').val();
                 data.search_newValue = $('#OperationsDashboard_AuditTrailDatatable_SubmitSearchNewValue').val();
-                // skinChanger();
+
+                data.tables = $('#OperationsDashboard_AuditTrailDatatable_TableName_MS').val();
+                console.log('OperationsDashboard_AuditTrailDatatable_TableName_MS: ' + $('#OperationsDashboard_AuditTrailDatatable_TableName_MS').val());
+                data.actions = $('#OperationsDashboard_AuditTrailDatatable_Actions_MS').val();
+                console.log('OperationsDashboard_AuditTrailDatatable_Actions_MS: ' + $('#OperationsDashboard_AuditTrailDatatable_Actions_MS').val());
+
                 var existTheme = $('.right-sidebar .demo-choose-skin li.active').data('theme');
                 $.fn.dataTable.ext.classes.sLengthSelect = 'btn btn-xs bg-' + existTheme; // Change Pagination Button Class
                 $.fn.dataTable.ext.classes.sPageButton = 'btn btn-xs bg-' + existTheme; // Change Pagination Button Class
@@ -99,21 +104,21 @@ $(document).ready(function () {
                 '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="/Content/img/ajaxloading.gif"></div>'
         },
         "columns": [
-            { "data": "Id", "name": "Id", "autoWidth": true },
-            { "data": "TableName", "name": "TableName", "autoWidth": true },
-            { "data": "Action", "name": "Action", "autoWidth": true },
+            { "data": "Id", "name": "Id", "autoWidth": false },
+            { "data": "TableName", "name": "TableName", "autoWidth": false },
+            { "data": "Action", "name": "Action", "autoWidth": false },
             {
                 "data": "UpdatedAt",
                 "name": "UpdatedAt",
-                "autoWidth": true,
+                "autoWidth": false,
                 type: "datetime",
                 render: function (data, type, row) {
                     return moment(data).format(dateFormat);
                 }
             },
-            { "data": "OldData", "name": "OldData", "autoWidth": true },
-            { "data": "NewData", "name": "NewData", "autoWidth": true },
-            { "data": "UserName", "name": "UserName", "autoWidth": true }
+            { "data": "OldData", "name": "OldData", "autoWidth": false },
+            { "data": "NewData", "name": "NewData", "autoWidth": false },
+            { "data": "UserName", "name": "UserName", "autoWidth": false }
         ],
         "drawCallback": function (settings) {
             myMuuriGrid.refreshItems().layout();
@@ -206,6 +211,9 @@ $(document).ready(function () {
         });
     });
 
+    $('#OperationsDashboard_AuditTrailDatatable_SubmitSearchUserName').on('click', function (e) {
+        auditTrailDatatable.draw();
+    });
     //// Extend dataTables search
     //$.fn.dataTable.ext.search.push(
     //    function(settings, data, dataIndex) {

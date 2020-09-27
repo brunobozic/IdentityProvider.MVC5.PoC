@@ -3,7 +3,7 @@
 $(function () {
     $('input[name="OperationsDashboard_OperationsWidget_DateRange"]').daterangepicker({
         timePicker: true,
-        startDate: moment().startOf('hour').add(-1,'month'),
+        startDate: moment().startOf('hour').add(-1, 'month'),
         endDate: moment().startOf('hour').add(24, 'hour'),
         autoUpdateInput: false,
         locale: {
@@ -37,6 +37,8 @@ $(function () {
 
         $('#DateRangePickerOnOperationsStartHidden').val(picker.startDate.format(dateFormat));
         $('#DateRangePickerOnOperationsEndHidden').val(picker.endDate.format(dateFormat));
+        // refocus the input field due to material design specifics
+        $(this).closest('.form-line').addClass('focused');
     });
 
     $('input[name="OperationsDashboard_OperationsWidget_DateRange"]').on('show.daterangepicker', function (ev, picker) {
@@ -51,6 +53,8 @@ $(function () {
         }
         if (start && end) {
             $(this).val(picker.startDate.format(dateFormat) + ' - ' + picker.endDate.format(dateFormat));
+            // refocus the input field due to material design specifics
+            $(this).closest('.form-line').addClass('focused');
         }
     });
 

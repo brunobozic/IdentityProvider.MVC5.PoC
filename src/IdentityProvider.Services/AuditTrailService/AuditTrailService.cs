@@ -25,6 +25,8 @@ namespace IdentityProvider.Services.AuditTrailService
             , string searchValueUserName
             , string searchValueOldValue
             , string searchValueNewValue
+            , List<string> searchByTableNames
+            , List<string> searchByActionNames
             , int take
             , int skip
             , string sortBy
@@ -39,6 +41,8 @@ namespace IdentityProvider.Services.AuditTrailService
                 , searchValueUserName
                 , searchValueOldValue
                 , searchValueNewValue
+                , searchByTableNames
+                , searchByActionNames
                 );
 
             if (string.IsNullOrEmpty(searchBy))
@@ -146,6 +150,8 @@ namespace IdentityProvider.Services.AuditTrailService
             , string searchValueUserName
             , string searchValueOldValue
             , string searchValueNewValue
+            , List<string> searchByTableNames
+            , List<string> searchByActionNames
             )
         {
             // simple method to dynamically plugin a where clause
@@ -180,6 +186,22 @@ namespace IdentityProvider.Services.AuditTrailService
             {
                 var searchTerms = searchValueNewValue.Split(' ').ToList().ConvertAll(x => x.ToLower());
                 predicate = predicate.Or(s => searchTerms.Any(srch => s.NewData.ToLower().Contains(srch)));
+            }
+
+            if (searchByTableNames != null && searchByTableNames.Any() && searchByActionNames == null && !searchByActionNames.Any())
+            {
+                predicate = predicate.Or(s => searchByTableNames.Any(srch => s.TableName.ToLower().Contains(srch.ToLower())));
+            }
+
+            if (searchByActionNames != null && searchByActionNames.Any() && searchByTableNames == null && !searchByTableNames.Any())
+            {
+                predicate = predicate.Or(s => searchByActionNames.Any(srch => s.Actions.ToLower().Contains(srch.ToLower())));
+            }
+
+            if (searchByActionNames != null && searchByTableNames != null && searchByActionNames.Any() && searchByTableNames.Any())
+            {
+                predicate = predicate.And(s => searchByActionNames.Any(srch => s.Actions.ToLower().Contains(srch.ToLower())));
+                predicate = predicate.And(s => searchByTableNames.Any(srch => s.TableName.ToLower().Contains(srch.ToLower())));
             }
 
             return predicate;

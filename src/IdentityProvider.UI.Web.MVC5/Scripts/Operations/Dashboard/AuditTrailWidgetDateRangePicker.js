@@ -37,6 +37,9 @@ $(function () {
 
         $('#DateRangePickerOnAuditTrailStartHidden').val(picker.startDate.format(dateFormat));
         $('#DateRangePickerOnAuditTrailEndHidden').val(picker.endDate.format(dateFormat));
+
+        // refocus the input field due to material design specifics
+        $(this).closest('.form-line').addClass('focused');
     });
 
     $('input[name="OperationsDashboard_AuditTrailDatatable_DateRange"]').on('show.daterangepicker', function (ev, picker) {
@@ -51,6 +54,9 @@ $(function () {
         }
         if (start && end) {
             $(this).val(picker.startDate.format(dateFormat) + ' - ' + picker.endDate.format(dateFormat));
+
+            // refocus the input field due to material design specifics
+            $(this).closest('.form-line').addClass('focused');
         }
     });
 

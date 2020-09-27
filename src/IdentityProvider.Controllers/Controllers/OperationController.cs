@@ -79,9 +79,10 @@ namespace IdentityProvider.Controllers.Controllers
                 Name = s.Name,
                 Description = s.Description,
                 Active = s.Active,
+                Deleted = s.Deleted,
                 CreatedDate = s.CreatedDate,
                 ModifiedDate = s.ModifiedDate,
-                Actions = string.Format("<a href=\"\" class=\"OperationsDashboard_OperationsDatatable_edit text-center\" data-id=\"{0}\" custom-middle-align\">Edit</a> / <a href=\"\" class=\"OperationsDashboard_OperationsDatatable_remove\" data-id=\"{0}\">Delete</a>", s.Id)
+                Actions = s.Deleted == false ? string.Format("<a href=\"\" class=\"OperationsDashboard_OperationsDatatable_edit text-center\" data-id=\"{0}\" custom-middle-align\">Edit</a> / <a href=\"\" class=\"OperationsDashboard_OperationsDatatable_remove\" data-id=\"{0}\">Delete</a>", s.Id) : string.Format("<a href=\"\" class=\"OperationsDashboard_OperationsDatatable_edit text-center\" data-id=\"{0}\" custom-middle-align\">Edit</a>", s.Id)
             }));
 
             return Json(new
@@ -106,8 +107,11 @@ namespace IdentityProvider.Controllers.Controllers
             var userId = model.userid;
             var from = model.from;
             var to = model.to;
-            var alsoinactive = model.alsoinactive;
-            var alsodeleted = model.alsodeleted;
+            var alsoinactive = true;
+            var alsodeleted = false;
+            if (model.alsoinactive == "true") { alsoinactive = true; } else { alsoinactive = false; }
+            if (model.alsodeleted == "true") { alsodeleted = true; }
+            
             var sortBy = string.Empty;
             var sortDir = true;
 
@@ -134,8 +138,8 @@ namespace IdentityProvider.Controllers.Controllers
                 , sortDir
                 , from
                 , to
-                , alsoinactive
                 , alsodeleted
+                , alsoinactive
                 , out filteredResultsCount
                 , out totalResultsCount
             );

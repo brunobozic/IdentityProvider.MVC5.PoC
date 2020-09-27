@@ -143,6 +143,8 @@
     var datatablesConString = "@Url.Action("AuditTrailDatatables", "AuditTrail")";
     var datatablesConStringForOperations = "@Url.Action("OperationsGetAll", "Operation")";
     var existTheme = $('.right-sidebar .demo-choose-skin li.active').data('theme');
+
+
 </script>
 
 <script src="~/Scripts/Operations/Dashboard/BootstrapMultipleSelect.js"></script>
@@ -251,13 +253,16 @@
                                         <tr>
 
                                             <td style="background-color: whitesmoke">
+
                                                 <!-- Date range picker -->
-                                                <div class="form-group form-float">
-                                                    <div class="form-line" style="float: left; width: 99%">
-                                                        <input class="form-control" type="text" id="OperationsDashboard_OperationsWidget_DateRange" name="OperationsDashboard_OperationsWidget_DateRange" style="float: left; background-color: whitesmoke" />
-                                                        <label class="form-label">Select a date range</label>
+
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <input type="text" class="form-control" id="OperationsDashboard_OperationsWidget_DateRange" name="OperationsDashboard_OperationsWidget_DateRange" style=" background-color: whitesmoke">
+                                                        <label class="form-label">Date range</label>
                                                     </div>
                                                 </div>
+
                                             </td>
 
                                         </tr>
@@ -282,7 +287,7 @@
                                                 <input type="hidden" id="ShowInactiveHidden" name="ShowInactive" />
                                                 <div style="float: left;">
                                                     <input id="ShowInactive" name="ShowInactive" class="filled-in chk-col-pink" type="checkbox" @(Model.ShowInactive ? "checked" : "")>
-                                                    <label for="ShowInactive">Show inactive (dafault: yes)</label>
+                                                    <label for="ShowInactive">Show inactive (default: yes)</label>
                                                 </div>
                                             </td>
 
@@ -294,7 +299,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line" style="float: left;">
                                                         <input class="form-control" type="text" id="searchStringOperationsMainGrid" name="searchStringOperationsMainGrid" style="float: left; background-color: whitesmoke" />
-                                                        <label class="form-label"> Enter a search criteria...</label>
+                                                        <label class="form-label"> Enter search criteria...</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group form-float" style="padding-left: 0px; float: left; width: 99%; background-color: whitesmoke">
@@ -333,6 +338,7 @@
                                         <th>Name</th>
                                         <th>Description</th>
                                         <th>Active</th>
+                                        <th>Deleted</th>
                                         <th>CreatedDate</th>
                                         <th>ModifiedDate</th>
                                         <th>Actions</th>
@@ -391,6 +397,22 @@
                                     <thead></thead>
 
                                     <tbody>
+                                        <tr>
+
+                                            <td style="background-color: whitesmoke">
+
+                                                <!-- UserName picker -->
+                                                <div class="form-group form-float">
+                                                    <div class="form-line" style="float: left;">
+                                                        <input class="form-control" type="text" id="OperationsDashboard_AuditTrailDatatable_SearchStringUserName" name="OperationsDashboard_AuditTrailDatatable_SearchStringUserName" style="float: left; background-color: whitesmoke" />
+                                                        <label class="form-label"> User name </label>
+                                                    </div>
+                                                </div>
+
+
+                                            </td>
+
+                                        </tr>
 
                                         <tr>
 
@@ -400,7 +422,7 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line" style="float: left; width: 99%">
                                                         <input class="form-control" type="text" id="OperationsDashboard_AuditTrailDatatable_DateRange" name="OperationsDashboard_AuditTrailDatatable_DateRange" style="float: left; background-color: whitesmoke" />
-                                                        <label class="form-label">Select a date range</label>
+                                                        <label class="form-label"> Date range </label>
                                                     </div>
                                                 </div>
 
@@ -414,19 +436,13 @@
 
                                                 <!-- Table name picker -->
                                                 <div class="form-group form-float">
-                                                    <label style="float: left;">Table name</label>
+                                                    <label style="float: left;"> Table name </label>
                                                 </div>
 
 
                                                 <div class="multiselect-parent form-group" style="float: right;">
                                                     <div class="form-line" style="float: left; width: 100%;">
-                                                        <select id="OperationsDashboard_AuditTrailDatatable_TableName_MS" multiple="multiple" class="form-control" data-width="90%">
-                                                            <option value="cheese">Cheese</option>
-                                                            <option value="tomatoes">Tomatoes</option>
-                                                            <option value="mozarella">Mozzarella</option>
-                                                            <option value="mushrooms">Mushrooms</option>
-                                                            <option value="pepperoni">Pepperoni</option>
-                                                            <option value="onions">Onions</option>
+                                                        <select id="OperationsDashboard_AuditTrailDatatable_TableName_MS" multiple="multiple" class="form-control" data-width="100%">
                                                         </select>
 
                                                     </div>
@@ -440,28 +456,9 @@
 
                                             <td style="background-color: whitesmoke">
 
-                                                <!-- UserName picker -->
-                                                <div class="form-group form-float">
-                                                    <div class="form-line" style="float: left;">
-                                                        <input class="form-control" type="text" id="OperationsDashboard_AuditTrailDatatable_SearchStringUserName" name="OperationsDashboard_AuditTrailDatatable_SearchStringUserName" style="float: left; background-color: whitesmoke" />
-                                                        <label class="form-label"> Enter a user name...</label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group form-float" style="margin-bottom: 0px; float: left; width: 99%; background-color: whitesmoke">
-                                                    <button class="btn bg-pink waves-effect btn-xs" id="OperationsDashboard_AuditTrailDatatable_SubmitSearchUserName" style="float: left; background-color: whitesmoke" type="submit" name="submitSearchOperationsMainGrid" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i><span> Search</span></button>
-                                                </div>
-
-                                            </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                            <td style="background-color: whitesmoke">
-
                                                 <!-- Action (Insert, Delete, Update) picker -->
                                                 <div class="form-group form-float">
-                                                    <label style="float: left;">Action</label>
+                                                    <label style="float: left;"> Action </label>
                                                 </div>
                                                 <div class="multiselect-parent form-group" style="float: right;">
                                                     <div class="form-line" style="float: left; width: 100%;">
@@ -486,12 +483,12 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line" style="float: left;">
                                                         <input class="form-control" type="text" id="OperationsDashboard_AuditTrailDatatable_SearchStringOldValue" name="OperationsDashboard_AuditTrailDatatable_SearchStringOldValue" style="float: left; background-color: whitesmoke" />
-                                                        <label class="form-label"> Enter a user name...</label>
+                                                        <label class="form-label"> Old value </label>
                                                     </div>
                                                 </div>
-                                                <div class="form-group form-float" style="margin-bottom: 0px; float: left; width: 99%; background-color: whitesmoke">
-                                                    <button class="btn bg-pink waves-effect btn-xs" id="OperationsDashboard_AuditTrailDatatable_SubmitSearchOldValue" style="float: left; background-color: whitesmoke" type="submit" name="submitSearchOperationsMainGrid" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i><span> Search</span></button>
-                                                </div>
+                                                @*<div class="form-group form-float" style="margin-bottom: 0px; float: left; width: 99%; background-color: whitesmoke">
+                                                        <button class="btn bg-pink waves-effect btn-xs" id="OperationsDashboard_AuditTrailDatatable_SubmitSearchOldValue" style="float: left; background-color: whitesmoke" type="submit" name="submitSearchOperationsMainGrid" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i><span> Search</span></button>
+                                                    </div>*@
 
                                             </td>
 
@@ -506,13 +503,15 @@
                                                 <div class="form-group form-float">
                                                     <div class="form-line" style="float: left;">
                                                         <input class="form-control" type="text" id="OperationsDashboard_AuditTrailDatatable_SearchStringNewValue" name="OperationsDashboard_AuditTrailDatatable_SearchStringNewValue" style="float: left; background-color: whitesmoke" />
-                                                        <label class="form-label"> Enter a user name...</label>
+                                                        <label class="form-label"> New value </label>
                                                     </div>
                                                 </div>
+                                                @*<div class="form-group form-float" style="margin-bottom: 0px; float: left; width: 99%; background-color: whitesmoke">
+                                                        <button class="btn bg-pink waves-effect btn-xs" id="OperationsDashboard_AuditTrailDatatable_SubmitSearchNewValue" style="float: left; background-color: whitesmoke" type="submit" name="submitSearchOperationsMainGrid" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i><span> Search</span></button>
+                                                    </div>*@
                                                 <div class="form-group form-float" style="margin-bottom: 0px; float: left; width: 99%; background-color: whitesmoke">
-                                                    <button class="btn bg-pink waves-effect btn-xs" id="OperationsDashboard_AuditTrailDatatable_SubmitSearchNewValue" style="float: left; background-color: whitesmoke" type="submit" name="submitSearchOperationsMainGrid" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i><span> Search</span></button>
+                                                    <button class="btn bg-pink waves-effect btn-xs" id="OperationsDashboard_AuditTrailDatatable_SubmitSearchUserName" style="float: left; background-color: whitesmoke" type="submit" name="OperationsDashboard_AuditTrailDatatable_SubmitSearchUserName" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i><span> Search</span></button>
                                                 </div>
-
                                             </td>
 
                                         </tr>

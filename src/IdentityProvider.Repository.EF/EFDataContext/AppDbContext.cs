@@ -240,7 +240,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                     var i = 0;
                     foreach (var audit in _auditList)
                     {
-                        if (audit.Actions == AuditActions.I.ToString())
+                        if (audit.Actions == AuditActions.Insert.ToString())
                             audit.TableIdValue = _auditFactory.GetKeyValue(_list[i]);
                         DbAuditTrail.Add(audit);
                         i++;
@@ -573,7 +573,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                     var i = 0;
                     foreach (var audit in _auditList)
                     {
-                        if (audit.Actions == AuditActions.I.ToString())
+                        if (audit.Actions == AuditActions.Insert.ToString())
                             audit.TableIdValue = _auditFactory.GetKeyValue(_list[i]);
                         DbAuditTrail.Add(audit);
                         i++;

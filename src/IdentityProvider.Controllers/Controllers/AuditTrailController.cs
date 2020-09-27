@@ -1,4 +1,5 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using IdentityProvider.Infrastructure;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models;
@@ -50,7 +51,9 @@ namespace IdentityProvider.Controllers.Controllers
                 TableName = s.TableName,
                 OldData = s.OldData,
                 NewData = s.NewData,
-                TableId = s.TableId
+                TableId = s.TableId,
+                Tables = s.Tables,
+                Actions = s.Actions
             }));
 
             return Json(new
@@ -94,7 +97,8 @@ namespace IdentityProvider.Controllers.Controllers
             var searchByUserName = model.search_userName;
             var searchByOldValue = model.search_oldValue;
             var searchByNewValue = model.search_newValue;
-
+            var searchByTableNames = model.tables;
+            var searchByActionNames = model.actions;
             // search the dbase taking into consideration table sorting and paging
             var result = _auditTrailService.GetDataFromDbase(
                 userId
@@ -103,6 +107,8 @@ namespace IdentityProvider.Controllers.Controllers
                 , searchByUserName
                 , searchByOldValue
                 , searchByNewValue
+                , searchByTableNames
+                , searchByActionNames
                 , take
                 , skip
                 , sortBy
@@ -152,9 +158,47 @@ namespace IdentityProvider.Controllers.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
-        public JsonResult GetTableNameMultiselectDropdown()
+        public JsonResult GetTableNameMultiselectDropdown(string search)
         {
-            return null;
+            List<Select2Model> items = null;
+
+            var distinctTableNames = _auditTrailService
+                .Queryable()
+                .GroupBy(par => par.TableName, (key, g) => g.OrderBy(e => e.TableName)
+                .FirstOrDefault())
+                .ToList();
+
+            if (search != null)
+            {
+
+                items = distinctTableNames
+                    .Where(x => x.TableName.Contains(search))
+                    .Select(c => new Select2Model
+                    {
+                        value = c.Id.ToString(),
+                        text = c.TableName,
+                        selected = false,
+                        id = c.Id
+                    })
+                  .ToList();
+            }
+            else
+            {
+                items = distinctTableNames
+                    .Select(c => new Select2Model
+                    {
+                        value = c.Id.ToString(),
+                        text = c.TableName,
+                        selected = false,
+                        id = c.Id
+                    }).ToList();
+            }
+            var modifiedData = items.Select(x => new
+            {
+                id = x.text,
+                text = x.text
+            });
+            return Json(modifiedData, JsonRequestBehavior.AllowGet);
         }
 
         [AcceptVerbs(HttpVerbs.Get)]

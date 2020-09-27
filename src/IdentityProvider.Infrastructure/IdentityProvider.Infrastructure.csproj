@@ -79,6 +79,7 @@
     <Compile Include="LatestAdditions\ListExtensions.cs" />
     <Compile Include="LatestAdditions\RandomNumberGenerator.cs" />
     <Compile Include="LatestAdditions\StringExtensions.cs" />
+    <Compile Include="Select2Model.cs" />
     <Compile Include="SessionStorageFactories\DataContextStorageFactory.cs" />
     <Compile Include="SessionStorageFactories\HttpDataContextStorageContainer.cs" />
     <Compile Include="SessionStorageFactories\HttpLoggingStorageContainer.cs" />

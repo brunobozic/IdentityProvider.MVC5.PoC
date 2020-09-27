@@ -22,9 +22,10 @@ $(document).ready(function () {
             { "width": "5%", "searchable": true, "orderable": true, "targets": [1] }, // Name
             { "width": "5%", "searchable": true, "orderable": true, "targets": [2] }, // Description
             { "width": "5%", "searchable": false, "orderable": true, "targets": [3] }, // Active
-            { "width": "5%", "searchable": false, "orderable": true, "targets": [4] }, // CreatedDate
-            { "width": "5%", "searchable": false, "orderable": true, "targets": [5] }, // ModifiedDate
-            { "width": "5%", "searchable": false, "orderable": false, "targets": [6] }, // Actions
+            { "width": "5%", "searchable": false, "orderable": true, "targets": [4] }, // Deleted
+            { "width": "5%", "searchable": false, "orderable": true, "targets": [5] }, // CreatedDate
+            { "width": "5%", "searchable": false, "orderable": true, "targets": [6] }, // ModifiedDate
+            { "width": "5%", "searchable": false, "orderable": false, "targets": [7] }, // Actions
             { "className": "text-center custom-middle-align", "targets": [] },
             { "className": "id-column", "targets": [0] }
         ],
@@ -76,8 +77,8 @@ $(document).ready(function () {
                 var end = $('#DateRangePickerOnOperationsEndHidden').val();
                 data.from = start;
                 data.to = end;
-                data.show_inactive = true;
-                data.show_deleted = false;
+                data.alsoinactive = $('#ShowDeleted').is(':checked');
+                data.alsodeleted = $('#ShowInactive').is(':checked');
                 data.search_extra = $('#searchStringOperationsMainGrid').val();
             }
         },
@@ -97,7 +98,14 @@ $(document).ready(function () {
             {
                 "data": "Active", "name": "Active", "autoWidth": true,
                 "render": function (data, type, row) {
-                    return (data === true) ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-remove" ></span>';}
+                    return (data === true) ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-remove" ></span>';
+                }
+            },
+            {
+                "data": "Deleted", "name": "Deleted", "autoWidth": true,
+                "render": function (data, type, row) {
+                    return (data === true) ? '<i class="material-icons" style="color:red" data-toggle="tooltip" data-placement="top" title="This item was deleted by user: [Guest] at [DateDeleted]">delete_forever </i>' : ' ';
+                }
             },
             {
                 "data": "CreatedDate", "name": "CreatedDate", "autoWidth": true, type: "datetime",
@@ -196,10 +204,10 @@ $(document).ready(function () {
             $spana.removeClass('bg-' + existTheme);
             $spana.addClass('themed-buttons-' + existTheme);
             $spana.addClass('bg-' + existTheme);
-          
+
         },
         "initComplete": function (settings, json) {
-           
+
         }
     });
 
@@ -259,7 +267,7 @@ $(document).ready(function () {
         e.preventDefault();
 
         var id = $(this).data('id');
-      
+
         console.log("id: " + id + "  , editUrl: " + editUrl);
 
         var options = { /*'backdrop': 'static',*/ keyboard: true, focus: true };
