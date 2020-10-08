@@ -9,6 +9,11 @@ using System.ServiceModel;
 
 namespace Logging.WCF.Services
 {
+    /// <summary>
+    /// This class is a wrapper to enable programmatic configuration and access to a remote WCF service.
+    /// As such it does not belong in the callee service layer but in the caller service/business layer.
+    /// It is given here as an example of proper use.
+    /// </summary>
     public class WCFLoggingManager : IWcfLoggingManager
     {
         private static ILogWcf _wcfLogService;
@@ -39,7 +44,8 @@ namespace Logging.WCF.Services
                 _wcfLogService = ChannelFactory<ILogWcf>.CreateChannel(binding, address);
             }
             catch (Exception exc)
-            {// todo:
+            {
+                // todo:
                 ILog logger = LogManager.GetLogger(string.Empty);
                 logger.Fatal(exc);
             }
@@ -47,8 +53,8 @@ namespace Logging.WCF.Services
 
 
         public void Dispose()
-        {// todo:
-            // throw new NotImplementedException();
+        {
+            if (_wcfLogService != null) _wcfLogService.Dispose();
         }
 
         public void LogToWCF(LoggingEvent loggingEvent)
@@ -78,10 +84,10 @@ namespace Logging.WCF.Services
 
                 // send this string message to wcf service
                 request.LoggingEventDto = dto;
-                _wcfLogService.LogToWcf(request);
+                _wcfLogService.LogToWcfAsync(request);
             }
             catch (Exception exc)
-            {// todo:
+            {
                 //  "{"There was no endpoint listening at http://localhost:63247/LogWCF.svc that could accept the message. This is often caused by an incorrect address or SOAP action. See InnerException, if present, for more details."}"
                 ILog logger = LogManager.GetLogger(string.Empty);
                 logger.Fatal(exc);
@@ -114,7 +120,8 @@ namespace Logging.WCF.Services
 
 
         public void Dispose()
-        {// todo:
+        {
+            // todo:
             throw new NotImplementedException();
         }
 

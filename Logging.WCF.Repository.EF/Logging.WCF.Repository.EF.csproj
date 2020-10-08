@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Queries\**" />
+    <EmbeddedResource Remove="Queries\**" />
+    <None Remove="Queries\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LinqKit" Version="1.1.17" />
     <PackageReference Include="log4net" Version="2.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
@@ -26,10 +32,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Logging.WCF.Infrastructure\Logging.WCF.Infrastructure.csproj" />
     <ProjectReference Include="..\Logging.WCF.Models\Logging.WCF.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Queries\DatabaseLog\" />
   </ItemGroup>
 
 </Project>

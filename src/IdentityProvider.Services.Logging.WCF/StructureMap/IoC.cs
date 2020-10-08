@@ -34,7 +34,7 @@ namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
                 // Email Service                 
                 c.For<IEmailService>().Use<TextLoggingEmailService>();
 
-                c.For<ILogSinkerService>().Use<DatabaseLoggingProvider>();
+                c.For<ILogSinkerService>().Use<DatabaseSink>();
 
                 c.For<IUnitOfWorkAsync>().Use<UnitOfWork>();
 

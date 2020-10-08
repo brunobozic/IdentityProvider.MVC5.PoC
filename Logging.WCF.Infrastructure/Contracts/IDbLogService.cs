@@ -12,6 +12,6 @@ namespace Logging.WCF.Infrastructure.Contracts
         /// </summary>
         /// <param name="loggingEventDto"></param>
         /// <returns></returns>
-        Task<int?> LogAsync(LoggingEventDto loggingEventDto);
+        Task<int?> SinkToLogAsync(LoggingEventDto loggingEventDto);
     }
 }

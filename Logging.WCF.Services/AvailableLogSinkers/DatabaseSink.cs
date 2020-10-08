@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 namespace Logging.WCF.Services
 {
     /// <inheritdoc />
-    public class DatabaseLoggingProvider : ILogSinkerService
+    public class DatabaseSink : ILogSinkerService
     {
-        public DatabaseLoggingProvider(IEntityBaseRepositoryAsync<DatabaseLog> dbLogRepository)
+        public DatabaseSink(IEntityBaseRepositoryAsync<DatabaseLog> dbLogRepository)
         {
             _databaseLogRepository = dbLogRepository;
         }
 
         public void Dispose()
         {
-            Disposed = true;
+               Disposed = true;
         }
 
         /// <inheritdoc />
@@ -28,7 +28,7 @@ namespace Logging.WCF.Services
         /// </summary>
         /// <param name="loggingEventDto"></param>
         /// <returns></returns>
-        public async Task<int?> LogAsync(LoggingEventDto loggingEventDto)
+        public async Task<int?> SinkToLogAsync(LoggingEventDto loggingEventDto)
         {
             int? retVal = -1;
 
@@ -85,7 +85,7 @@ namespace Logging.WCF.Services
         /// </summary>
         /// <param name="loggingEventDto"></param>
         /// <returns></returns>
-        public async Task<int?> LogAsync(LoggingEventDto loggingEventDto)
+        public async Task<int?> SinkToLogAsync(LoggingEventDto loggingEventDto)
         {
             int? retVal = -1;
 

@@ -1,5 +1,6 @@
 ﻿using Logging.WCF.Models;
 using System.ServiceModel;
+using System.Threading.Tasks;
 
 namespace Logging.WCF.Infrastructure.Contracts
 {
@@ -7,6 +8,7 @@ namespace Logging.WCF.Infrastructure.Contracts
     public interface ILogWcf
     {
         [OperationContract]
-        void LogToWcf(LogToWCFServiceRequest request);
+        Task LogToWcfAsync(LogToWCFServiceRequest request);
+        void Dispose();
     }
 }
