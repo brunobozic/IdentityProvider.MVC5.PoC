@@ -14,6 +14,8 @@ namespace IdentityProvider.Services.AuditTrailService
             , string searchValueUserName
             , string searchValueOldValue
             , string searchValueNewValue
+            , List<string> searchByTableNames
+            , List<string> searchByActionNames
             , int take
             , int skip
             , string sortBy

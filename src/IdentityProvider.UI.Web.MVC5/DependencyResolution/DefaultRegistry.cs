@@ -19,8 +19,6 @@ using IdentityProvider.Services.OperationsService;
 using IdentityProvider.Services.ResourceService;
 using IdentityProvider.Services.RowLeveLSecurityUserGrantService;
 using Logging.WCF.Infrastructure.Contracts;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security.DataProtection;
 using StructureMap.Pipeline;
 
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
@@ -35,6 +33,9 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
     using Logging.WCF.Services;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.DataProtection;
     using Module.Repository.EF;
     using Module.Repository.EF.Repositories;
     using Module.Repository.EF.UnitOfWorkInterfaces;
@@ -71,7 +72,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             //    .Ctor<string>()
             //    .Is("SimpleMembership"));
 
-            For<Microsoft.Owin.Security.IAuthenticationManager>().Use(() => HttpContext.Current.GetOwinContext().Authentication);
+            For<IAuthenticationManager>().Use(() => System.Web.HttpContext.Current.GetOwinContext().Authentication);
 
             For<IUserStore<ApplicationUser>>()
                 .Use<UserStore<ApplicationUser>>()

@@ -138,6 +138,7 @@
     {
         try
         {
+
             var loggingFactory = (ISerilogLoggingFactory) DependencyResolver.Current.GetService(typeof(ISerilogLoggingFactory));
             var logger = loggingFactory.GetLogger(SerilogLogTypesEnum.ErrorRollingLog);
             logger?.Information("Kontroler: [ " + Model?.ControllerName + " ], akcija: [ " + Model?.ActionName + " ], err: [ " + Model?.Exception.Message + " ]");

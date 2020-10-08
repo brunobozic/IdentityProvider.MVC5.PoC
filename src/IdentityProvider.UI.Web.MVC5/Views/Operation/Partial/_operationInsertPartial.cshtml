@@ -22,7 +22,7 @@
                             <div class="form-line">
                                 <input type="text" class="form-control" id="Name" name="Name">
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                <label class="form-label">Enter the name of your item ...</label>
+                                <label class="form-label"> Item name </label>
                             </div>
                         </div>
 
@@ -30,7 +30,7 @@
                             <div class="form-line">
                                 <input type="text" class="form-control" id="Description" name="Description">
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                                <label class="form-label">Enter the description of your item ...</label>
+                                <label class="form-label"> Item description </label>
                             </div>
                         </div>
 
@@ -46,11 +46,11 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-3 p-t-5" id="hiddenSegmentDependantOnCheckbox">
+                            <div class="col-xs-5 p-t-5" id="hiddenSegmentDependantOnCheckbox">
                                 <div class="form-group">
                                     <label for="makeActive">Active until: </label>
                                     <div class="form-line" id="sandbox-container">
-                                        <input type="text" class="form-control" placeholder="Enter the date ..." id="ActiveUntil" name="ActiveUntil">
+                                        <input type="text" class="form-control" placeholder=" Date " id="ActiveUntil" name="ActiveUntil">
                                     </div>
                                 </div>
                             </div>

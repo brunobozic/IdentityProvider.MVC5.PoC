@@ -5,9 +5,10 @@ namespace IdentityProvider.Models.Datatables
 {
     public class DataTableAjaxPostModel
     {
-        public bool alsoinactive;
-        public bool alsodeleted;
-
+        public string alsoinactive { get; set; }
+        public string alsodeleted { get; set; }
+        public List<string> tables { get; set; }
+        public List<string> actions { get; set; }
         // properties are not capital due to json mapping
         public int userid { get; set; }
         public int draw { get; set; }

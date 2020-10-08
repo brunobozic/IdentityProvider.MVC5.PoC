@@ -34,7 +34,7 @@
     "modernizr": "v2010.07.06dev",
     "sweetalert2": "v7.29.1",
     "datatables.net-plugins": "1.10.19",
-    "select2": "4.0.6-rc.1",
+    "select2": "4.0.13",
     "mocha": "v5.2.0",
     "jquery-ui": "1.12.1",
     "iCheck": "1.0.2",

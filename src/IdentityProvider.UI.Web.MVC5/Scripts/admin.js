@@ -289,6 +289,11 @@ $.AdminBSB.input = {
 
         //On label click
         $parentSelector.on('click', '.form-float .form-line .form-label', function () {
+            console.log("On label click");
+            $(this).parent().find('input').focus();
+        });
+        $('.form-label').on('click', function () {
+            console.log("On label click");
             $(this).parent().find('input').focus();
         });
 
@@ -300,6 +305,40 @@ $.AdminBSB.input = {
         });
     }
 }
+//$.AdminBSB.input = {
+//    activateGrid: function () {
+//        $parentSelector = $('.item-content');
+
+//        //On focus event
+//        $parentSelector.find('.form-control').focus(function () {
+//            $(this).closest('.form-line').addClass('focused');
+//        });
+
+//        //On focusout event
+//        $parentSelector.find('.form-control').focusout(function () {
+//            var $this = $(this);
+//            if ($this.parents('.form-group').hasClass('form-float')) {
+//                if ($this.val() == '') { $this.parents('.form-line').removeClass('focused'); }
+//            }
+//            else {
+//                $this.parents('.form-line').removeClass('focused');
+//            }
+//        });
+
+//        //On label click
+//        $('.form-label').on('click', function () {
+//            console.log("On label click");
+//            $(this).parent().find('input').focus();
+//        });
+
+//        //Not blank form
+//        $parentSelector.find('.form-control').each(function () {
+//            if ($(this).val() !== '') {
+//                $(this).parents('.form-line').addClass('focused');
+//            }
+//        });
+//    }
+//}
 //==========================================================================================================================
 
 /* Form - Select - Function ================================================================================================

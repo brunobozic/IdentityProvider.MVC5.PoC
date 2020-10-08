@@ -32,7 +32,7 @@
                             <div class="form-line">
                                 @Html.EditorFor(item => item.Operation.Name, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Operation.Name, "", new { @class = "text-danger" })
-                                <label class="form-label">Enter the operation name</label>
+                                <label class="form-label"> Operation name </label>
                             </div>
                         </div>
 
@@ -40,7 +40,7 @@
                             <div class="form-line">
                                 @Html.EditorFor(item => item.Operation.Description, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Operation.Description, "", new { @class = "text-danger" })
-                                <label class="form-label">Enter the operation description</label>
+                                <label class="form-label"> Operation description </label>
                             </div>
                         </div>
 
@@ -72,9 +72,9 @@
 
                         <div class="form-group">
 
-                            <div class="col-sm-3 p-t-5" id="">
+                            <div class="col-sm-5 p-t-5" id="">
                                 <div class="form-group">
-                                    <label for="Operation_ActiveFrom">Activated at: </label>
+                                    <label for="Operation_ActiveFrom"> Activated at: </label>
                                     <div class="form-line" id="sandbox-container">
                                         @Html.EditorFor(item => item.Operation.ActiveFrom, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                                         @*<input type="text" class="form-control" id="Operation_ActiveFrom" name="Operation.ActiveFrom">*@
@@ -82,9 +82,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-3 p-t-5" id="">
+                            <div class="col-sm-5 p-t-5" id="">
                                 <div class="form-group">
-                                    <label for="Operation_ActiveTo">Active until: </label>
+                                    <label for="Operation_ActiveTo"> Active until: </label>
                                     <div class="form-line" id="sandbox-container">
                                         @Html.EditorFor(item => item.Operation.ActiveTo, new { htmlAttributes = new { @class = "form-control" } })
                                         @*<input type="text" class="form-control" id="Operation_ActiveTo" name="Operation.ActiveTo">*@

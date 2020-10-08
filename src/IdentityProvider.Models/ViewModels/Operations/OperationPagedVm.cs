@@ -22,8 +22,8 @@ namespace IdentityProvider.Models.ViewModels.Operations
         public IPagedList<OperationVm> Operations { get; set; }
         public string HeaderBigText { get; set; }
         public string HeaderSmallText { get; set; }
-        public bool ShowInactive { get; set; }
-        public bool ShowDeleted { get; set; }
+        public bool ShowInactive { get; set; } = true;
+        public bool ShowDeleted { get; set; } = false;
         public string CurrentFilter { get; set; }
         public string CurrentSortOrder { get; set; }
 

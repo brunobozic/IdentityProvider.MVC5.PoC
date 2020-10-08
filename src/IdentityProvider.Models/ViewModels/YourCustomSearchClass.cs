@@ -13,5 +13,7 @@ namespace IdentityProvider.Models
         public string Action { get; set; }
         public long? TableId { get; set; }
         public string UserName { get; set; }
+        public string Tables { get; set; }
+        public string Actions { get; set; }
     }
 }

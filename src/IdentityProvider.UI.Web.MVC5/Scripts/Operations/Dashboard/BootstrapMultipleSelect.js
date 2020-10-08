@@ -2,10 +2,31 @@
 
 $(document).ready(function () {
     $('#OperationsDashboard_AuditTrailDatatable_TableName_MS').select2({
+        ajax: {
+            url: '/AuditTrail/GetTableNameMultiselectDropdown',
+            data: function (params) {
+                return {
+                    q: params.term // search term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            minimumInputLength: 3,
+            width: '100%', // need to override the changed default
+        },
         width: '100%', // need to override the changed default
         placeholder: 'Select a table name',
         dropdownAutoWidth: true,
+        allowClear: true
         // dropdownParent: $('.multiselect-parent')
+    });
+
+    $('#OperationsDashboard_AuditTrailDatatable_Actions_MS').on('select2:opening select2:closing', function (event) {
+        var $searchfield = $(this).parent().find('.select2-search__field');
+        $searchfield.prop('disabled', true);
     });
 
     $('#OperationsDashboard_AuditTrailDatatable_Actions_MS').select2({

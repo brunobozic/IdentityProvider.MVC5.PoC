@@ -49,10 +49,28 @@ namespace IdentityProvider.Services.OperationsService
                 predicate = predicate.And(s => s.ModifiedDate <= to && s.ModifiedDate >= from);
             }
 
-            if (alsoInActive) { } else { predicate = predicate.And(s => s.Active == true); }
+            if (alsoInActive && alsoDeleted)
+            {
+                // show all
+            };
 
-            if (alsoDeleted) { } else { predicate = predicate.And(s => s.IsDeleted == false); }
+            if (!alsoInActive && !alsoDeleted)
+            {
+                // show only non deleted and inactive ones
+                predicate = predicate.And(s => s.IsDeleted == false); predicate = predicate.And(s => s.Active == false);
+            };
 
+            if (alsoInActive && !alsoDeleted)
+            {
+                // show active but deleted ones
+                predicate = predicate.And(s => s.IsDeleted == false);
+            };
+
+            if (!alsoInActive && alsoDeleted)
+            {
+                // show deleted but active ones
+                predicate = predicate.And(s => s.IsDeleted == true); predicate = predicate.And(s => s.Active == false);
+            };
 
             return predicate;
         }
@@ -145,7 +163,7 @@ namespace IdentityProvider.Services.OperationsService
                 .Queryable()
                 .Count();
 
-            _loggingService.LogInfo(this, "Test", null, true);
+            // _loggingService.LogInfo(this, "Test", null, true);
 
             return result;
         }
