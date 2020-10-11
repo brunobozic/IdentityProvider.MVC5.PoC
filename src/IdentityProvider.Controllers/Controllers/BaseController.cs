@@ -15,7 +15,6 @@ namespace IdentityProvider.Controllers.Controllers
         private readonly ICookieStorageService _cookieStorageService;
         protected IErrorLogService _errorLogService;
         private readonly IApplicationConfiguration _applicationConfiguration;
-        private ICookieStorageService cookieStorageService;
 
         [DefaultConstructor]
         public BaseController(

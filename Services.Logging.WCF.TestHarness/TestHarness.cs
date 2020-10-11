@@ -1,4 +1,4 @@
-﻿using log4net;
+﻿
 using Services.Logging.WCF.TestHarness.WcfLogServiceReference;
 using System;
 using System.Linq;
