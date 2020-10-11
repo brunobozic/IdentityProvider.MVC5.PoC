@@ -1,4 +1,5 @@
-﻿using Logging.WCF.Repository.EF.BusinessRules;
+﻿
+using Logging.WCF.Repository.EF.BusinessRules;
 using Logging.WCF.Repository.EF.DomainCoreInterfaces;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using TrackableEntities;
+using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
 namespace Logging.WCF.Repository.EF.DomainBaseAbstractions
 {

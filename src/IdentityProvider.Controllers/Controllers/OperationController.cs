@@ -8,7 +8,6 @@ using IdentityProvider.Models.ViewModels;
 using IdentityProvider.Models.ViewModels.Operations;
 using IdentityProvider.Models.ViewModels.Operations.Extensions;
 using IdentityProvider.Services.OperationsService;
-using Module.Repository.EF.UnitOfWorkInterfaces;
 using StructureMap;
 using System;
 using System.Collections.Generic;
@@ -19,6 +18,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TrackableEntities;
+using Module.Repository.EF;
+using Module.Repository.EF.UnitOfWorkInterfaces;
 
 namespace IdentityProvider.Controllers.Controllers
 {

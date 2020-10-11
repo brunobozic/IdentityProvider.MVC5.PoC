@@ -156,7 +156,7 @@
       <Name>IdentityProvider.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Module.Repository.EF\Module.Repository.EF.csproj">
-      <Project>{57C00358-6CBC-460C-A358-1C9D02637CE9}</Project>
+      <Project>{57c00358-6cbc-460c-a358-1c9d02637ce9}</Project>
       <Name>Module.Repository.EF</Name>
     </ProjectReference>
     <ProjectReference Include="..\Module.ServicePattern\Module.ServicePattern.csproj">
