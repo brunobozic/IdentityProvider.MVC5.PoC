@@ -1,4 +1,5 @@
 ﻿using log4net;
+using log4net.Core;
 using Services.Logging.WCF.TestHarness.WcfLogServiceReference;
 using System;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Services.Logging.WCF.TestHarness
         private void button1_Click(object sender, EventArgs e)
         {
             var c = new LogWcfClient();
-            var r = new LogToDatabaseRequest
+            var r = new LogToWCFServiceRequest
             {
                 LoggingEventDto = new LoggingEventDto()
             };
@@ -34,7 +35,7 @@ namespace Services.Logging.WCF.TestHarness
             try
             {
                 textBox1.Text += "Attempting to log" + Environment.NewLine;
-                c.AppendToLog(r);
+                c.LogToWcfAsync(r);
                 textBox1.Text += "Logging done" + Environment.NewLine;
             }
             catch (Exception ex)

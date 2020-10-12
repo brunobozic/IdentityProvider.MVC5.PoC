@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
+    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Logging.WCF.Infrastructure\Logging.WCF.Infrastructure.csproj" />
     <ProjectReference Include="..\Logging.WCF.Models\Logging.WCF.Models.csproj" />
     <ProjectReference Include="..\Logging.WCF.Repository.EF\Logging.WCF.Repository.EF.csproj" />

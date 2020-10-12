@@ -247,6 +247,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Log4NetSetup.cs" />
     <Compile Include="LogWCF.svc.cs">
       <DependentUpon>LogWCF.svc</DependentUpon>
     </Compile>

@@ -11,22 +11,22 @@
       <xsd:import schemaLocation="http://localhost:61234/LogWCF.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ILogWcf_AppendToLog_InputMessage">
-    <wsdl:part name="parameters" element="tns:AppendToLog" />
+  <wsdl:message name="ILogWcf_LogToWcf_InputMessage">
+    <wsdl:part name="parameters" element="tns:LogToWcf" />
   </wsdl:message>
-  <wsdl:message name="ILogWcf_AppendToLog_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AppendToLogResponse" />
+  <wsdl:message name="ILogWcf_LogToWcf_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogToWcfResponse" />
   </wsdl:message>
   <wsdl:portType name="ILogWcf">
-    <wsdl:operation name="AppendToLog">
-      <wsdl:input wsaw:Action="http://tempuri.org/ILogWcf/AppendToLog" message="tns:ILogWcf_AppendToLog_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ILogWcf/AppendToLogResponse" message="tns:ILogWcf_AppendToLog_OutputMessage" />
+    <wsdl:operation name="LogToWcf">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILogWcf/LogToWcf" message="tns:ILogWcf_LogToWcf_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILogWcf/LogToWcfResponse" message="tns:ILogWcf_LogToWcf_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ILogWcf" type="tns:ILogWcf">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="AppendToLog">
-      <soap:operation soapAction="http://tempuri.org/ILogWcf/AppendToLog" style="document" />
+    <wsdl:operation name="LogToWcf">
+      <soap:operation soapAction="http://tempuri.org/ILogWcf/LogToWcf" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -19,7 +19,7 @@ namespace Logging.WCF.Services
 
         public void Dispose()
         {
-               Disposed = true;
+            Disposed = true;
         }
 
         /// <inheritdoc />
@@ -45,9 +45,10 @@ namespace Logging.WCF.Services
                 myLog.ExceptionMessage +=
                     string.Format("		[ DB ] ====>		Db exception while saving exception: [ {0} ]   [ {1} ]",
                         dbException.Message, dbException.InnerException);
+                
                 // LogToWCF to file...
                 ILog logger = LogManager.GetLogger(this.GetType());
-                logger.Fatal(dbException);
+                logger.Fatal("", dbException);
             }
 
             return retVal;

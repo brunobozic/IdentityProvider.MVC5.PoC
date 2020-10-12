@@ -15,11 +15,13 @@ namespace HAC.Helpdesk.Services.Logging.WCF
         public LogWcfService(ILogSinkerService logSinker)
         {
             _logSinkerService = logSinker;
+            Log4NetSetup.Setup();
         }
 
         public LogWcfService()
         {
             _logSinkerService = Ioc.GetContainer().GetInstance<ILogSinkerService>();
+            Log4NetSetup.Setup();
         }
 
         public async Task LogToWcfAsync(LogToWCFServiceRequest request)
