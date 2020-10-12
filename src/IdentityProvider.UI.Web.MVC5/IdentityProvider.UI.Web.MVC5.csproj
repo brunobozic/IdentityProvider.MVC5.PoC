@@ -89,6 +89,46 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Content Include="Content\admin.js" />
+    <Content Include="Content\css\all-themes.css" />
+    <Content Include="Content\css\all-themes.min.css" />
+    <Content Include="Content\css\theme-amber.css" />
+    <Content Include="Content\css\theme-amber.min.css" />
+    <Content Include="Content\css\theme-black.css" />
+    <Content Include="Content\css\theme-black.min.css" />
+    <Content Include="Content\css\theme-blue-grey.css" />
+    <Content Include="Content\css\theme-blue-grey.min.css" />
+    <Content Include="Content\css\theme-blue.css" />
+    <Content Include="Content\css\theme-blue.min.css" />
+    <Content Include="Content\css\theme-brown.css" />
+    <Content Include="Content\css\theme-brown.min.css" />
+    <Content Include="Content\css\theme-cyan.css" />
+    <Content Include="Content\css\theme-cyan.min.css" />
+    <Content Include="Content\css\theme-deep-orange.css" />
+    <Content Include="Content\css\theme-deep-orange.min.css" />
+    <Content Include="Content\css\theme-deep-purple.css" />
+    <Content Include="Content\css\theme-deep-purple.min.css" />
+    <Content Include="Content\css\theme-green.css" />
+    <Content Include="Content\css\theme-green.min.css" />
+    <Content Include="Content\css\theme-grey.css" />
+    <Content Include="Content\css\theme-grey.min.css" />
+    <Content Include="Content\css\theme-indigo.css" />
+    <Content Include="Content\css\theme-indigo.min.css" />
+    <Content Include="Content\css\theme-light-blue.css" />
+    <Content Include="Content\css\theme-light-blue.min.css" />
+    <Content Include="Content\css\theme-lime.css" />
+    <Content Include="Content\css\theme-lime.min.css" />
+    <Content Include="Content\css\theme-orange.css" />
+    <Content Include="Content\css\theme-orange.min.css" />
+    <Content Include="Content\css\theme-pink.css" />
+    <Content Include="Content\css\theme-pink.min.css" />
+    <Content Include="Content\css\theme-purple.css" />
+    <Content Include="Content\css\theme-purple.min.css" />
+    <Content Include="Content\css\theme-red.css" />
+    <Content Include="Content\css\theme-red.min.css" />
+    <Content Include="Content\css\theme-teal.css" />
+    <Content Include="Content\css\theme-teal.min.css" />
+    <Content Include="Content\css\theme-yellow.css" />
+    <Content Include="Content\css\theme-yellow.min.css" />
     <Content Include="Content\css\themed-buttons-amber.css" />
     <Content Include="Content\css\themed-buttons-black.css" />
     <Content Include="Content\css\themed-buttons-blue.css" />
@@ -174,6 +214,8 @@
     <Content Include="Views\Shared\CardUIElementRightHandMenuPartials\_rightHandSideMenuPartial.cshtml" />
     <Content Include="Views\Shared\DashboardCommons\_dashboardCommonScripts_Stuff.cshtml" />
     <Content Include="Views\Shared\DashboardCommons\_headerRightSideActionDropdown.cshtml" />
+    <Content Include="Views\Operation\ChartPartial\_pieChartHeaderPartial.cshtml" />
+    <Content Include="Views\Operation\ChartPartial\_pieChartPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\popover-overrides.css" />

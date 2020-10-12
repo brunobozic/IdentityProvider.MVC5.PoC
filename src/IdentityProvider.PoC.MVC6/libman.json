@@ -9,6 +9,10 @@
     {
       "library": "mdbootstrap@4.19.1",
       "destination": "wwwroot/lib/mdbootstrap/"
+    },
+    {
+      "library": "bootstrap-material-design@4.0.2",
+      "destination": "wwwroot/lib/bootstrap-material-design/"
     }
   ]
 }

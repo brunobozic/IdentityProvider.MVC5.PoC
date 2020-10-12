@@ -18,14 +18,14 @@ $(document).ready(function () {
         dom: 'Brltip',
         colReorder: true,
         "columnDefs": [
-            { "width": "5%", "visible": true, "targets": [0] }, // Id
-            { "width": "5%", "searchable": true, "orderable": true, "targets": [1] }, // Name
-            { "width": "5%", "searchable": true, "orderable": true, "targets": [2] }, // Description
-            { "width": "5%", "searchable": false, "orderable": true, "targets": [3] }, // Active
-            { "width": "5%", "searchable": false, "orderable": true, "targets": [4] }, // Deleted
-            { "width": "5%", "searchable": false, "orderable": true, "targets": [5] }, // CreatedDate
-            { "width": "5%", "searchable": false, "orderable": true, "targets": [6] }, // ModifiedDate
-            { "width": "5%", "searchable": false, "orderable": false, "targets": [7] }, // Actions
+            { "width": "2%", "visible": false, "targets": [0] }, // Id
+            { "width": "2%", "searchable": true, "orderable": true, "targets": [1] }, // Name
+            { "width": "2%", "searchable": true, "orderable": true, "targets": [2] }, // Description
+            { "width": "2%", "searchable": false, "orderable": true, "targets": [3] }, // Active
+            { "width": "2%", "searchable": false, "orderable": true, "targets": [4] }, // Deleted
+            { "width": "5px", "searchable": false, "orderable": true, "targets": [5] }, // CreatedDate
+            { "width": "5px", "searchable": false, "orderable": true, "targets": [6] }, // ModifiedDate
+            { "width": "5px", "searchable": false, "orderable": false, "targets": [7] }, // Actions
             { "className": "text-center custom-middle-align", "targets": [] },
             { "className": "id-column", "targets": [0] }
         ],
@@ -56,7 +56,8 @@ $(document).ready(function () {
                 titleAttr: 'PDF'
             }
         ],
-        "autoWidth": true,
+        "autoWidth": false,
+        "bAutoWidth": false,
         "keys": true,
         "fixedHeader": true,
         "sortable": true,
@@ -92,34 +93,34 @@ $(document).ready(function () {
         },
         lengthMenu: [5, 10, 20, 50, 100, 200, 500],
         "columns": [
-            { "data": "Id", "name": "Id", "autoWidth": false },
-            { "data": "Name", "name": "Name", "autoWidth": true },
-            { "data": "Description", "name": "Description", "autoWidth": true },
+            { "data": "Id", "name": "Id", "autoWidth": false, "responsivePriority": 1000 },
+            { "data": "Name", "name": "Name", "autoWidth": false, "responsivePriority": 10 },
+            { "data": "Description", "name": "Description", "autoWidth": false, "responsivePriority": 100 },
             {
-                "data": "Active", "name": "Active", "autoWidth": true,
+                "data": "Active", "name": "Active", "autoWidth": false, "responsivePriority": 10,
                 "render": function (data, type, row) {
                     return (data === true) ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-remove" ></span>';
                 }
             },
             {
-                "data": "Deleted", "name": "Deleted", "autoWidth": true,
+                "data": "Deleted", "name": "Deleted", "autoWidth": false, "responsivePriority": 10,
                 "render": function (data, type, row) {
                     return (data === true) ? '<i class="material-icons" style="color:red" data-toggle="tooltip" data-placement="top" title="This item was deleted by user: [Guest] at [DateDeleted]">delete_forever </i>' : ' ';
                 }
             },
             {
-                "data": "CreatedDate", "name": "CreatedDate", "autoWidth": true, type: "datetime",
+                "data": "CreatedDate", "name": "CreatedDate", "autoWidth": false, "responsivePriority": 1900, type: "datetime",
                 render: function (data, type, row) {
                     return moment(data).format(dateFormat);
                 }
             },
             {
-                "data": "ModifiedDate", "name": "ModifiedDate", "autoWidth": true, type: "datetime",
+                "data": "ModifiedDate", "name": "ModifiedDate", "autoWidth": false, "responsivePriority": 10, type: "datetime",
                 render: function (data, type, row) {
                     return moment(data).format(dateFormat);
                 }
             },
-            { "data": "Actions", "name": "Actions", "autoWidth": true },
+            { "data": "Actions", "name": "Actions", "autoWidth": false, "responsivePriority": 2000 },
             //{
             //    data: null,
             //    className: "center",

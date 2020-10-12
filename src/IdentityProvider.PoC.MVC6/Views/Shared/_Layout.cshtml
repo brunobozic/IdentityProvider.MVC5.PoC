@@ -4,15 +4,50 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - IdentityProvider.PoC.MVC6</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
 
     @*<link href="~/lib/mdbootstrap/css/mdb.css" rel="stylesheet" />*@
-    <link href="~/lib/materialize/css/materialize.css" rel="stylesheet" />
+    <!-- Material Design for Bootstrap fonts and icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    @*<link href="~/lib/materialize/css/materialize.css" rel="stylesheet" />*@
+    <style>
+
+        input:focus,
+        select:focus,
+        textarea:focus,
+        button:focus {
+            border-top-style: hidden;
+            border-right-style: hidden;
+            border-left-style: hidden;
+            border-bottom-style: groove;
+            background-color: #eee;
+            border: 0px;
+            outline: none !important;
+            -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        .form-control {
+            border: 0px;
+            outline: none !important;
+            -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        *:focus {
+            border: 0px;
+            outline: none !important;
+            -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05) !important;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">IdentityProvider.PoC.MVC6</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -48,8 +83,20 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
-
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     @*<script src="~/lib/mdbootstrap/js/mdb.js"></script>*@
-    <script src="~/lib/materialize/js/materialize.js"></script>
+
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>$(document).ready(function () { $('body').bootstrapMaterialDesign(); });</script>
+
+    @*<script src="~/lib/materialize/js/materialize.js"></script>*@
+
+
+    @*<script src="~/js/admin.js"></script>
+        <script src="~/js/demo.js"></script>*@
 </body>
+
 </html>

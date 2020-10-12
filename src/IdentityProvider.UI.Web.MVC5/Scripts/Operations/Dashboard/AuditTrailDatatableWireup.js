@@ -19,13 +19,13 @@ $(document).ready(function () {
         dom: 'Brltip',
         colReorder: true,
         "columnDefs": [
-            { "width": "5%", "visible": false, "targets": [0] },                       // Id 
-            { "width": "5%", "searchable": true, "orderable": true, "targets": [1] },  // TableName  
-            { "width": "5%", "searchable": true, "orderable": true, "targets": [2] },  // Action
-            { "width": "5%", "searchable": false, "orderable": true, "targets": [3] }, // UpdatedAt
-            { "width": "5%", "searchable": true, "orderable": true, "targets": [4] },  // OldData
-            { "width": "5%", "searchable": true, "orderable": true, "targets": [5] },  // NewData  
-            { "width": "5%", "searchable": true, "orderable": true, "targets": [6] },  // UserName  
+            { "width": "2%", "visible": false, "targets": [0] },                       // Id 
+            { "width": "2%", "searchable": true, "orderable": true, "targets": [1] },  // TableName  
+            { "width": "2%", "searchable": true, "orderable": true, "targets": [2] },  // Action
+            { "width": "5px", "searchable": false, "orderable": true, "targets": [3] }, // UpdatedAt
+            { "width": "5px", "searchable": true, "orderable": true, "targets": [4] },  // OldData
+            { "width": "5px", "searchable": true, "orderable": true, "targets": [5] },  // NewData  
+            { "width": "5px", "searchable": true, "orderable": true, "targets": [6] },  // UserName  
             { "className": "text-center custom-middle-align", "targets": [] },
             { "className": "id-column", "targets": [0] }
         ],
@@ -57,6 +57,7 @@ $(document).ready(function () {
             }
         ],
         "autoWidth": false,
+        "bAutoWidth": false,
         "keys": true,
         "fixedHeader": true,
         "sortable": true,
@@ -104,25 +105,26 @@ $(document).ready(function () {
                 '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="/Content/img/ajaxloading.gif"></div>'
         },
         "columns": [
-            { "data": "Id", "name": "Id", "autoWidth": false },
-            { "data": "TableName", "name": "TableName", "autoWidth": false },
-            { "data": "Action", "name": "Action", "autoWidth": false },
+            { "data": "Id", "name": "Id", "autoWidth": false, "responsivePriority": 1000 },
+            { "data": "TableName", "name": "TableName", "autoWidth": false, "responsivePriority": 10 },
+            { "data": "Action", "name": "Action", "autoWidth": false, "responsivePriority": 10 },
             {
                 "data": "UpdatedAt",
                 "name": "UpdatedAt",
                 "autoWidth": false,
+                "responsivePriority": 10,
                 type: "datetime",
                 render: function (data, type, row) {
                     return moment(data).format(dateFormat);
                 }
             },
-            { "data": "OldData", "name": "OldData", "autoWidth": false },
-            { "data": "NewData", "name": "NewData", "autoWidth": false },
-            { "data": "UserName", "name": "UserName", "autoWidth": false }
+            { "data": "OldData", "name": "OldData", "autoWidth": false, "responsivePriority": 1900 },
+            { "data": "NewData", "name": "NewData", "autoWidth": false, "responsivePriority": 1800 },
+            { "data": "UserName", "name": "UserName", "autoWidth": false, "responsivePriority": 1000 }
         ],
         "drawCallback": function (settings) {
             myMuuriGrid.refreshItems().layout();
-     
+
             var existTheme = $('.right-sidebar .demo-choose-skin li.active').data('theme');
 
             var $paginatorn = $('#OperationsDashboard_AuditTrailDatatable_next');
