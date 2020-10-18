@@ -6,16 +6,1195 @@
     Layout = "~/Views/Shared/_LayOut.cshtml";
 }
 
-<section class="content">
-    <div class="row">
+<style>
+</style>
 
-        <div class="col-md-4">
+<body class="theme-red">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    VERTICAL LAYOUT
+                    <small>With floating label</small>
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <form>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="text" id="email_address" class="form-control">
+                            <label class="form-label">Email Address</label>
+                        </div>
+                    </div>
 
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="password" id="password" class="form-control">
+                            <label class="form-label">Password</label>
+                        </div>
+                    </div>
+
+                    <input type="checkbox" id="remember_me_2" class="filled-in">
+                    <label for="remember_me_2">Remember Me</label>
+                    <br>
+                    <button type="button" class="btn btn-primary m-t-15 waves-effect">LOGIN</button>
+                </form>
+            </div>
         </div>
-
     </div>
-</section>
 
-<script>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        CHECKBOX
+                        <small>Taken from <a href="http://materializecss.com/" target="_blank">materializecss.com</a></small>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <h2 class="card-inside-title">Basic Examples</h2>
+                    <div class="demo-checkbox">
+                        <input type="checkbox" id="basic_checkbox_1" checked="">
+                        <label for="basic_checkbox_1">Default</label>
+                        <input type="checkbox" id="basic_checkbox_2" class="filled-in" checked="">
+                        <label for="basic_checkbox_2">Filled In</label>
+                        <input type="checkbox" id="basic_checkbox_3" checked="" disabled="">
+                        <label for="basic_checkbox_3">Default - Disabled</label>
+                        <input type="checkbox" id="basic_checkbox_4" class="filled-in" checked="" disabled="">
+                        <label for="basic_checkbox_4">Filled In - Disabled</label>
+                    </div>
 
-</script>
+                    <h2 class="card-inside-title">With Material Design Colors</h2>
+                    <div class="demo-checkbox">
+                        <input type="checkbox" id="md_checkbox_1" class="chk-col-red" checked="">
+                        <label for="md_checkbox_1">RED</label>
+                        <input type="checkbox" id="md_checkbox_2" class="chk-col-pink" checked="">
+                        <label for="md_checkbox_2">PINK</label>
+                        <input type="checkbox" id="md_checkbox_3" class="chk-col-purple" checked="">
+                        <label for="md_checkbox_3">PURPLE</label>
+                        <input type="checkbox" id="md_checkbox_4" class="chk-col-deep-purple" checked="">
+                        <label for="md_checkbox_4">DEEP PURPLE</label>
+                        <input type="checkbox" id="md_checkbox_5" class="chk-col-indigo" checked="">
+                        <label for="md_checkbox_5">INDIGO</label>
+                        <input type="checkbox" id="md_checkbox_6" class="chk-col-blue" checked="">
+                        <label for="md_checkbox_6">BLUE</label>
+                        <input type="checkbox" id="md_checkbox_7" class="chk-col-light-blue" checked="">
+                        <label for="md_checkbox_7">LIGHT BLUE</label>
+                        <input type="checkbox" id="md_checkbox_8" class="chk-col-cyan" checked="">
+                        <label for="md_checkbox_8">CYAN</label>
+                        <input type="checkbox" id="md_checkbox_9" class="chk-col-teal" checked="">
+                        <label for="md_checkbox_9">TEAL</label>
+                        <input type="checkbox" id="md_checkbox_10" class="chk-col-green" checked="">
+                        <label for="md_checkbox_10">GREEN</label>
+                        <input type="checkbox" id="md_checkbox_11" class="chk-col-light-green" checked="">
+                        <label for="md_checkbox_11">LIGHT GREEN</label>
+                        <input type="checkbox" id="md_checkbox_12" class="chk-col-lime" checked="">
+                        <label for="md_checkbox_12">LIME</label>
+                        <input type="checkbox" id="md_checkbox_13" class="chk-col-yellow" checked="">
+                        <label for="md_checkbox_13">YELLOW</label>
+                        <input type="checkbox" id="md_checkbox_14" class="chk-col-amber" checked="">
+                        <label for="md_checkbox_14">AMBER</label>
+                        <input type="checkbox" id="md_checkbox_15" class="chk-col-orange" checked="">
+                        <label for="md_checkbox_15">ORANGE</label>
+                        <input type="checkbox" id="md_checkbox_16" class="chk-col-deep-orange" checked="">
+                        <label for="md_checkbox_16">DEEP ORANGE</label>
+                        <input type="checkbox" id="md_checkbox_17" class="chk-col-brown" checked="">
+                        <label for="md_checkbox_17">BROWN</label>
+                        <input type="checkbox" id="md_checkbox_18" class="chk-col-grey" checked="">
+                        <label for="md_checkbox_18">GREY</label>
+                        <input type="checkbox" id="md_checkbox_19" class="chk-col-blue-grey" checked="">
+                        <label for="md_checkbox_19">BLUE GREY</label>
+                        <input type="checkbox" id="md_checkbox_20" class="chk-col-black" checked="">
+                        <label for="md_checkbox_20">BLACK</label>
+                    </div>
+
+                    <h2 class="card-inside-title">With Material Design Colors - Filled In</h2>
+                    <div class="demo-checkbox">
+                        <input type="checkbox" id="md_checkbox_21" class="filled-in chk-col-red" checked="">
+                        <label for="md_checkbox_21">RED</label>
+                        <input type="checkbox" id="md_checkbox_22" class="filled-in chk-col-pink" checked="">
+                        <label for="md_checkbox_22">PINK</label>
+                        <input type="checkbox" id="md_checkbox_23" class="filled-in chk-col-purple" checked="">
+                        <label for="md_checkbox_23">PURPLE</label>
+                        <input type="checkbox" id="md_checkbox_24" class="filled-in chk-col-deep-purple" checked="">
+                        <label for="md_checkbox_24">DEEP PURPLE</label>
+                        <input type="checkbox" id="md_checkbox_25" class="filled-in chk-col-indigo" checked="">
+                        <label for="md_checkbox_25">INDIGO</label>
+                        <input type="checkbox" id="md_checkbox_26" class="filled-in chk-col-blue" checked="">
+                        <label for="md_checkbox_26">BLUE</label>
+                        <input type="checkbox" id="md_checkbox_27" class="filled-in chk-col-light-blue" checked="">
+                        <label for="md_checkbox_27">LIGHT BLUE</label>
+                        <input type="checkbox" id="md_checkbox_28" class="filled-in chk-col-cyan" checked="">
+                        <label for="md_checkbox_28">CYAN</label>
+                        <input type="checkbox" id="md_checkbox_29" class="filled-in chk-col-teal" checked="">
+                        <label for="md_checkbox_29">TEAL</label>
+                        <input type="checkbox" id="md_checkbox_30" class="filled-in chk-col-green" checked="">
+                        <label for="md_checkbox_30">GREEN</label>
+                        <input type="checkbox" id="md_checkbox_31" class="filled-in chk-col-light-green" checked="">
+                        <label for="md_checkbox_31">LIGHT GREEN</label>
+                        <input type="checkbox" id="md_checkbox_32" class="filled-in chk-col-lime" checked="">
+                        <label for="md_checkbox_32">LIME</label>
+                        <input type="checkbox" id="md_checkbox_33" class="filled-in chk-col-yellow" checked="">
+                        <label for="md_checkbox_33">YELLOW</label>
+                        <input type="checkbox" id="md_checkbox_34" class="filled-in chk-col-amber" checked="">
+                        <label for="md_checkbox_34">AMBER</label>
+                        <input type="checkbox" id="md_checkbox_35" class="filled-in chk-col-orange" checked="">
+                        <label for="md_checkbox_35">ORANGE</label>
+                        <input type="checkbox" id="md_checkbox_36" class="filled-in chk-col-deep-orange" checked="">
+                        <label for="md_checkbox_36">DEEP ORANGE</label>
+                        <input type="checkbox" id="md_checkbox_37" class="filled-in chk-col-brown" checked="">
+                        <label for="md_checkbox_37">BROWN</label>
+                        <input type="checkbox" id="md_checkbox_38" class="filled-in chk-col-grey" checked="">
+                        <label for="md_checkbox_38">GREY</label>
+                        <input type="checkbox" id="md_checkbox_39" class="filled-in chk-col-blue-grey" checked="">
+                        <label for="md_checkbox_39">BLUE GREY</label>
+                        <input type="checkbox" id="md_checkbox_40" class="filled-in chk-col-black" checked="">
+                        <label for="md_checkbox_40">BLACK</label>
+                    </div>
+
+                    <hr />
+                    <br />
+                    <hr />
+                    <br />
+                    <hr />
+                    <br />
+
+                    <div class="pretty p-icon p-smooth">
+                        <input type="checkbox" />
+                        <div class="state p-success">
+                            <i class="icon material-icons">done</i>
+                            <label>done</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-icon p-smooth">
+                        <input type="checkbox" />
+                        <div class="state p-danger-o">
+                            <i class="icon material-icons">clear</i>
+                            <label>clear</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-icon p-toggle p-plain">
+                        <input type="checkbox" />
+                        <div class="state p-off">
+                            <i class="icon material-icons">favorite_border</i>
+                            <label>favorite_border</label>
+                        </div>
+                        <div class="state p-on p-info-o">
+                            <i class="icon material-icons">favorite</i>
+                            <label>favorite</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-image p-plain">
+                        <input type="checkbox" />
+                        <div class="state">
+                            <img class="image" src="~/img/001.png">
+                            <label>Agree</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-image p-plain">
+                        <input type="checkbox" />
+                        <div class="state">
+                            <img class="image" src="~/img/002.png">
+                            <label>Subscribe</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-image p-plain">
+                        <input type="checkbox" />
+                        <div class="state">
+                            <img class="image" src="~/img/003.png">
+                            <label>Cancel</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-image p-plain">
+                        <input type="checkbox" />
+                        <div class="state">
+                            <img class="image" src="~/img/004.png">
+                            <label>Yes</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-icon p-round p-pulse">
+                        <input type="checkbox" />
+                        <div class="state p-success">
+                            <i class="icon mdi mdi-check"></i>
+                            <label>Allow</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-default p-thick p-pulse">
+                        <input type="checkbox" />
+                        <div class="state p-warning-o">
+                            <label>Occasionally</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-icon p-round p-tada">
+                        <input type="checkbox" />
+                        <div class="state p-primary-o">
+                            <i class="icon mdi mdi-heart"></i>
+                            <label>Good</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-icon p-curve p-tada p-plain">
+                        <input type="checkbox" />
+                        <div class="state">
+                            <i class="icon mdi mdi-weather-night"></i>
+                            <label>Night</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-icon p-fill p-tada">
+                        <input type="checkbox" />
+                        <div class="state p-danger">
+                            <i class="icon mdi mdi-skull"></i>
+                            <label>Sweetheart</label>
+                        </div>
+                    </div>
+
+                    <div class="pretty p-svg p-curve">
+                        <input type="checkbox" />
+                        <div class="state p-success">
+                            <!-- svg path -->
+                            <svg class="svg svg-icon" viewBox="0 0 20 20">
+                                <path d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z" style="stroke: white;fill:white;"></path>
+                            </svg>
+                            <label>Recurring</label>
+                        </div>
+                    </div>
+
+                    <!-- file source -->
+                    <div class="pretty p-svg p-plain">
+                        <input type="checkbox" />
+                        <div class="state">
+                            <img class="svg" src="~/img/task.svg">
+                            <label>Done</label>
+                        </div>
+                    </div>
+
+                    <!-- xlink -->
+                    <div class="pretty p-svg p-plain">
+                        <input type="checkbox" />
+                        <div class="state">
+                            <svg class="svg" viewBox="0 0 8 8" style="fill: #65bbd2;"><use xlink:href="sprite/open-iconic.svg#lock-locked"></use></svg>
+                            <label>Lock</label>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <br />
+                    <hr />
+                    <br />
+                    <hr />
+                    <br />
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        RADIO
+                        <small>Taken from <a href="http://materializecss.com/" target="_blank">materializecss.com</a></small>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <h2 class="card-inside-title">Basic Examples</h2>
+                    <div class="demo-radio-button">
+                        <input name="group1" type="radio" id="radio_1" checked="">
+                        <label for="radio_1">Radio - 1</label>
+                        <input name="group1" type="radio" id="radio_2">
+                        <label for="radio_2">Radio - 2</label>
+                        <input name="group1" type="radio" class="with-gap" id="radio_3">
+                        <label for="radio_3">Radio - With Gap</label>
+                        <input name="group1" type="radio" id="radio_4" class="with-gap">
+                        <label for="radio_4">Radio - With Gap</label>
+                        <input name="group2" type="radio" id="radio_5" checked="" disabled="">
+                        <label for="radio_5">Radio - Disabled</label>
+                        <input name="group3" type="radio" id="radio_6" class="with-gap" checked="" disabled="">
+                        <label for="radio_6">Radio - Disabled</label>
+                    </div>
+
+                    <h2 class="card-inside-title">
+                        With Material Design Colors
+                        <small>You can use material design colors which examples are <code>.radio-col-pink, .radio-col-cyan</code> class</small>
+                    </h2>
+                    <div class="demo-radio-button">
+                        <input name="group4" type="radio" id="radio_7" class="radio-col-red" checked="">
+                        <label for="radio_7">RED</label>
+                        <input name="group4" type="radio" id="radio_8" class="radio-col-pink">
+                        <label for="radio_8">PINK</label>
+                        <input name="group4" type="radio" id="radio_9" class="radio-col-purple">
+                        <label for="radio_9">PURPLE</label>
+                        <input name="group4" type="radio" id="radio_10" class="radio-col-deep-purple">
+                        <label for="radio_10">DEEP PURPLE</label>
+                        <input name="group4" type="radio" id="radio_11" class="radio-col-indigo">
+                        <label for="radio_11">INDIGO</label>
+                        <input name="group4" type="radio" id="radio_12" class="radio-col-blue">
+                        <label for="radio_12">BLUE</label>
+                        <input name="group4" type="radio" id="radio_13" class="radio-col-light-blue">
+                        <label for="radio_13">LIGHT BLUE</label>
+                        <input name="group4" type="radio" id="radio_14" class="radio-col-cyan">
+                        <label for="radio_14">CYAN</label>
+                        <input name="group4" type="radio" id="radio_15" class="radio-col-teal">
+                        <label for="radio_15">TEAL</label>
+                        <input name="group4" type="radio" id="radio_16" class="radio-col-green">
+                        <label for="radio_16">GREEN</label>
+                        <input name="group4" type="radio" id="radio_17" class="radio-col-light-green">
+                        <label for="radio_17">LIGHT GREEN</label>
+                        <input name="group4" type="radio" id="radio_18" class="radio-col-lime">
+                        <label for="radio_18">LIME</label>
+                        <input name="group4" type="radio" id="radio_19" class="radio-col-yellow">
+                        <label for="radio_19">YELLOW</label>
+                        <input name="group4" type="radio" id="radio_20" class="radio-col-amber">
+                        <label for="radio_20">AMBER</label>
+                        <input name="group4" type="radio" id="radio_21" class="radio-col-orange">
+                        <label for="radio_21">ORANGE</label>
+                        <input name="group4" type="radio" id="radio_22" class="radio-col-deep-orange">
+                        <label for="radio_22">DEEP ORANGE</label>
+                        <input name="group4" type="radio" id="radio_23" class="radio-col-brown">
+                        <label for="radio_23">BROWN</label>
+                        <input name="group4" type="radio" id="radio_24" class="radio-col-grey">
+                        <label for="radio_24">GREY</label>
+                        <input name="group4" type="radio" id="radio_25" class="radio-col-blue-grey">
+                        <label for="radio_25">BLUE GREY</label>
+                        <input name="group4" type="radio" id="radio_26" class="radio-col-black">
+                        <label for="radio_26">BLACK</label>
+                    </div>
+
+                    <h2 class="card-inside-title">
+                        With Material Design Colors - With Gap
+                        <small>Add to <code>.with-gap</code> class</small>
+                    </h2>
+                    <div class="demo-radio-button">
+                        <input name="group5" type="radio" id="radio_30" class="with-gap radio-col-red" checked="">
+                        <label for="radio_30">RED</label>
+                        <input name="group5" type="radio" id="radio_31" class="with-gap radio-col-pink">
+                        <label for="radio_31">PINK</label>
+                        <input name="group5" type="radio" id="radio_32" class="with-gap radio-col-purple">
+                        <label for="radio_32">PURPLE</label>
+                        <input name="group5" type="radio" id="radio_33" class="with-gap radio-col-deep-purple">
+                        <label for="radio_33">DEEP PURPLE</label>
+                        <input name="group5" type="radio" id="radio_34" class="with-gap radio-col-indigo">
+                        <label for="radio_34">INDIGO</label>
+                        <input name="group5" type="radio" id="radio_35" class="with-gap radio-col-blue">
+                        <label for="radio_35">BLUE</label>
+                        <input name="group5" type="radio" id="radio_36" class="with-gap radio-col-light-blue">
+                        <label for="radio_36">LIGHT BLUE</label>
+                        <input name="group5" type="radio" id="radio_37" class="with-gap radio-col-cyan">
+                        <label for="radio_37">CYAN</label>
+                        <input name="group5" type="radio" id="radio_38" class="with-gap radio-col-teal">
+                        <label for="radio_38">TEAL</label>
+                        <input name="group5" type="radio" id="radio_39" class="with-gap radio-col-green">
+                        <label for="radio_39">GREEN</label>
+                        <input name="group5" type="radio" id="radio_40" class="with-gap radio-col-light-green">
+                        <label for="radio_40">LIGHT GREEN</label>
+                        <input name="group5" type="radio" id="radio_41" class="with-gap radio-col-lime">
+                        <label for="radio_41">LIME</label>
+                        <input name="group5" type="radio" id="radio_42" class="with-gap radio-col-yellow">
+                        <label for="radio_42">YELLOW</label>
+                        <input name="group5" type="radio" id="radio_43" class="with-gap radio-col-amber">
+                        <label for="radio_43">AMBER</label>
+                        <input name="group5" type="radio" id="radio_44" class="with-gap radio-col-orange">
+                        <label for="radio_44">ORANGE</label>
+                        <input name="group5" type="radio" id="radio_45" class="with-gap radio-col-deep-orange">
+                        <label for="radio_45">DEEP ORANGE</label>
+                        <input name="group5" type="radio" id="radio_46" class="with-gap radio-col-brown">
+                        <label for="radio_46">BROWN</label>
+                        <input name="group5" type="radio" id="radio_47" class="with-gap radio-col-grey">
+                        <label for="radio_47">GREY</label>
+                        <input name="group5" type="radio" id="radio_48" class="with-gap radio-col-blue-grey">
+                        <label for="radio_48">BLUE GREY</label>
+                        <input name="group5" type="radio" id="radio_49" class="with-gap radio-col-black">
+                        <label for="radio_49">BLACK</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        ICON &amp; TEXT BUTTONS
+                        <small>Make icon &amp; text buttons</small>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div class="icon-and-text-button-demo">
+                        <button type="button" class="btn btn-primary waves-effect">
+                            <i class="material-icons">extension</i>
+                            <span>EXTENSION</span>
+                        </button>
+                        <button type="button" class="btn btn-success waves-effect">
+                            <i class="material-icons">home</i>
+                            <span>HOME</span>
+                        </button>
+                        <button type="button" class="btn btn-info waves-effect">
+                            <i class="material-icons">lock</i>
+                            <span>LOCK</span>
+                        </button>
+                        <button type="button" class="btn btn-warning waves-effect">
+                            <i class="material-icons">perm_scan_wifi</i>
+                            <span>SCAN WIFI</span>
+                        </button>
+                        <button type="button" class="btn btn-danger waves-effect">
+                            <i class="material-icons">flight_takeoff</i>
+                            <span>TAKE OFF</span>
+                        </button>
+                        <button type="button" class="btn bg-red waves-effect">
+                            <i class="material-icons">print</i>
+                            <span>PRINT...</span>
+                        </button>
+                        <button type="button" class="btn bg-pink waves-effect">
+                            <i class="material-icons">report_problem</i>
+                            <span>REPORT ISSUE</span>
+                        </button>
+                        <button type="button" class="btn bg-purple waves-effect">
+                            <i class="material-icons">search</i>
+                            <span>SEARCH</span>
+                        </button>
+                        <button type="button" class="btn bg-deep-purple waves-effect">
+                            <i class="material-icons">settings</i>
+                            <span>SETTINGS</span>
+                        </button>
+                        <button type="button" class="btn bg-indigo waves-effect">
+                            <i class="material-icons">trending_up</i>
+                            <span>TRENDING UP</span>
+                        </button>
+                        <button type="button" class="btn bg-blue waves-effect">
+                            <i class="material-icons">verified_user</i>
+                            <span>VERIFIED USER</span>
+                        </button>
+                        <button type="button" class="btn bg-light-blue waves-effect">
+                            <i class="material-icons">mic</i>
+                            <span>MIC</span>
+                        </button>
+                        <button type="button" class="btn bg-teal waves-effect">
+                            <i class="material-icons">forum</i>
+                            <span>FORUM</span>
+                        </button>
+                        <button type="button" class="btn bg-green waves-effect">
+                            <i class="material-icons">email</i>
+                            <span>EMAIL</span>
+                        </button>
+                        <button type="button" class="btn bg-light-green waves-effect">
+                            <i class="material-icons">chat</i>
+                            <span>CHAT</span>
+                        </button>
+                        <button type="button" class="btn bg-lime waves-effect">
+                            <i class="material-icons">vpn_key</i>
+                            <span>VPN KEY</span>
+                        </button>
+                        <button type="button" class="btn bg-amber waves-effect">
+                            <i class="material-icons">drafts</i>
+                            <span>DRAFTS</span>
+                        </button>
+                        <button type="button" class="btn bg-orange waves-effect">
+                            <i class="material-icons">save</i>
+                            <span>SAVE</span>
+                        </button>
+                        <button type="button" class="btn bg-deep-orange waves-effect">
+                            <i class="material-icons">weekend</i>
+                            <span>WEEKEND</span>
+                        </button>
+                        <button type="button" class="btn bg-brown waves-effect">
+                            <i class="material-icons">access_alarm</i>
+                            <span>ALARM</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        METARIAL DESIGN BUTTONS
+                        <small>Use any of the available button classes to quickly create a styled button</small>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div class="button-demo">
+                        <button type="button" class="btn bg-red waves-effect">RED</button>
+                        <button type="button" class="btn bg-pink waves-effect">PINK</button>
+                        <button type="button" class="btn bg-purple waves-effect">PURPLE</button>
+                        <button type="button" class="btn bg-deep-purple waves-effect">DEEP PURPLE</button>
+                        <button type="button" class="btn bg-indigo waves-effect">INDIGO</button>
+                        <button type="button" class="btn bg-blue waves-effect">BLUE</button>
+                        <button type="button" class="btn bg-light-blue waves-effect">LIGHT BLUE</button>
+                        <button type="button" class="btn bg-cyan waves-effect">CYAN</button>
+                        <button type="button" class="btn bg-teal waves-effect">TEAL</button>
+                        <button type="button" class="btn bg-green waves-effect">GREEN</button>
+                        <button type="button" class="btn bg-light-green waves-effect">LIGHT GREEN</button>
+                        <button type="button" class="btn bg-lime waves-effect">LIME</button>
+                        <button type="button" class="btn bg-yellow waves-effect">YELLOW</button>
+                        <button type="button" class="btn bg-amber waves-effect">AMBER</button>
+                        <button type="button" class="btn bg-orange waves-effect">ORANGE</button>
+                        <button type="button" class="btn bg-deep-orange waves-effect">DEEP ORANGE</button>
+                        <button type="button" class="btn bg-brown waves-effect">BROWN</button>
+                        <button type="button" class="btn bg-grey waves-effect">GREY</button>
+                        <button type="button" class="btn bg-blue-grey waves-effect">BLUE GREY</button>
+                        <button type="button" class="btn bg-black waves-effect waves-light">BLACK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>EXAMPLES</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                                <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div class="row clearfix js-sweetalert">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <p>A basic message</p>
+                            <button class="btn btn-primary waves-effect" data-type="basic">CLICK ME</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <p>A title with a text under</p>
+                            <button class="btn btn-primary waves-effect" data-type="with-title">CLICK ME</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <p>A success message!</p>
+                            <button class="btn btn-primary waves-effect" data-type="success">CLICK ME</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <p>A warning message, with a function attached to the <b>Confirm</b> button...</p>
+                            <button class="btn btn-primary waves-effect" data-type="confirm">CLICK ME</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <p>... and by passing a parameter, you can execute something else for <b>Cancel</b>.</p>
+                            <button class="btn btn-primary waves-effect" data-type="cancel">CLICK ME</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <p>A message with a custom icon</p>
+                            <button class="btn btn-primary waves-effect" data-type="with-custom-icon">CLICK ME</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <p>An HTML message</p>
+                            <button class="btn btn-primary waves-effect" data-type="html-message">CLICK ME</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <p>A message with auto close timer</p>
+                            <button class="btn btn-primary waves-effect" data-type="autoclose-timer">CLICK ME</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <p>A replacement for the <b>prompt</b> function</p>
+                            <button class="btn btn-primary waves-effect" data-type="prompt">CLICK ME</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <p>With a loader (for AJAX request for example)</p>
+                            <button class="btn btn-primary waves-effect" data-type="ajax-loader">CLICK ME</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    WITH MATERIAL DESIGN COLORS
+                    <small>You can use material design colors which examples are <code>.modal-col-pink</code> class</small>
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <div class="button-demo js-modal-buttons">
+                    <button type="button" data-color="red" class="btn bg-red waves-effect">RED</button>
+                    <button type="button" data-color="pink" class="btn bg-pink waves-effect">PINK</button>
+                    <button type="button" data-color="purple" class="btn bg-purple waves-effect">PURPLE</button>
+                    <button type="button" data-color="deep-purple" class="btn bg-deep-purple waves-effect">DEEP PURPLE</button>
+                    <button type="button" data-color="indigo" class="btn bg-indigo waves-effect">INDIGO</button>
+                    <button type="button" data-color="blue" class="btn bg-blue waves-effect">BLUE</button>
+                    <button type="button" data-color="light-blue" class="btn bg-light-blue waves-effect">LIGHT BLUE</button>
+                    <button type="button" data-color="cyan" class="btn bg-cyan waves-effect">CYAN</button>
+                    <button type="button" data-color="teal" class="btn bg-teal waves-effect">TEAL</button>
+                    <button type="button" data-color="green" class="btn bg-green waves-effect">GREEN</button>
+                    <button type="button" data-color="light-green" class="btn bg-light-green waves-effect">LIGHT GREEN</button>
+                    <button type="button" data-color="lime" class="btn bg-lime waves-effect">LIME</button>
+                    <button type="button" data-color="yellow" class="btn bg-yellow waves-effect">YELLOW</button>
+                    <button type="button" data-color="amber" class="btn bg-amber waves-effect">AMBER</button>
+                    <button type="button" data-color="orange" class="btn bg-orange waves-effect">ORANGE</button>
+                    <button type="button" data-color="deep-orange" class="btn bg-deep-orange waves-effect">DEEP ORANGE</button>
+                    <button type="button" data-color="brown" class="btn bg-brown waves-effect">BROWN</button>
+                    <button type="button" data-color="grey" class="btn bg-grey waves-effect">GREY</button>
+                    <button type="button" data-color="blue-grey" class="btn bg-blue-grey waves-effect">BLUE GREY</button>
+                    <button type="button" data-color="black" class="btn bg-black waves-effect waves-light">BLACK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    WITH MATERIAL DESIGN COLORS
+                    <small>You can use the material design colors which example class are <code>.bg-pink, .bg-green</code></small>
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <div class="row clearfix jsdemo-notification-button">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <button type="button" class="btn bg-red btn-block waves-effect" data-placement-from="bottom" data-placement-align="left" data-animate-enter="" data-animate-exit="" data-color-name="bg-red">
+                            RED
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <button type="button" class="btn bg-green btn-block waves-effect" data-placement-from="bottom" data-placement-align="center" data-animate-enter="" data-animate-exit="" data-color-name="bg-green">
+                            GREEN
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <button type="button" class="btn bg-orange btn-block waves-effect" data-placement-from="bottom" data-placement-align="right" data-animate-enter="" data-animate-exit="" data-color-name="bg-orange">
+                            ORANGE
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <button type="button" class="btn bg-blue btn-block waves-effect" data-placement-from="bottom" data-placement-align="left" data-animate-enter="" data-animate-exit="" data-color-name="bg-blue">
+                            BLUE
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <button type="button" class="btn bg-teal btn-block waves-effect" data-placement-from="bottom" data-placement-align="right" data-animate-enter="" data-animate-exit="" data-color-name="bg-teal">
+                            TEAL
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <button type="button" class="btn bg-cyan btn-block waves-effect" data-placement-from="bottom" data-placement-align="center" data-animate-enter="" data-animate-exit="" data-color-name="bg-cyan">
+                            CYAN
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <button type="button" class="btn bg-pink btn-block waves-effect" data-placement-from="bottom" data-placement-align="left" data-animate-enter="" data-animate-exit="" data-color-name="bg-pink">
+                            PINK
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <button type="button" class="btn bg-purple btn-block waves-effect" data-placement-from="bottom" data-placement-align="center" data-animate-enter="" data-animate-exit="" data-color-name="bg-purple">
+                            PURPLE
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <button type="button" class="btn bg-blue-grey btn-block waves-effect" data-placement-from="bottom" data-placement-align="right" data-animate-enter="" data-animate-exit="" data-color-name="bg-blue-grey">
+                            BLUE GREY
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <button type="button" class="btn bg-deep-orange btn-block waves-effect" data-placement-from="bottom" data-placement-align="left" data-animate-enter="" data-animate-exit="" data-color-name="bg-deep-orange">
+                            DEEP ORANGE
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <button type="button" class="btn bg-light-green btn-block waves-effect" data-placement-from="bottom" data-placement-align="center" data-animate-enter="" data-animate-exit="" data-color-name="bg-light-green">
+                            LIGHT GREEN
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <button type="button" class="btn bg-black btn-block waves-effect" data-placement-from="bottom" data-placement-align="right" data-animate-enter="" data-animate-exit="" data-color-name="bg-black">
+                            BLACK
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    TABS WITH ICON TITLE
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="">
+                        <a href="#home_with_icon_title" data-toggle="tab" aria-expanded="false">
+                            <i class="material-icons">home</i> HOME
+                        </a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="#profile_with_icon_title" data-toggle="tab" aria-expanded="false">
+                            <i class="material-icons">face</i> PROFILE
+                        </a>
+                    </li>
+                    <li role="presentation" class="active">
+                        <a href="#messages_with_icon_title" data-toggle="tab" aria-expanded="true">
+                            <i class="material-icons">email</i> MESSAGES
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#settings_with_icon_title" data-toggle="tab">
+                            <i class="material-icons">settings</i> SETTINGS
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade" id="home_with_icon_title">
+                        <b>Home Content</b>
+                        <p>
+                            Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                            Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                            pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                            sadipscing mel.
+                        </p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="profile_with_icon_title">
+                        <b>Profile Content</b>
+                        <p>
+                            Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                            Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                            pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                            sadipscing mel.
+                        </p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade active in" id="messages_with_icon_title">
+                        <b>Message Content</b>
+                        <p>
+                            Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                            Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                            pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                            sadipscing mel.
+                        </p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="settings_with_icon_title">
+                        <b>Settings Content</b>
+                        <p>
+                            Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                            Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                            pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                            sadipscing mel.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    FULL BODY COLORFUL PANEL ITEMS WITH ICON
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
+                        <div class="panel-group full-body" id="accordion_18" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-col-pink">
+                                <div class="panel-heading" role="tab" id="headingOne_18">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion_18" href="#collapseOne_18" aria-expanded="true" aria-controls="collapseOne_18">
+                                            <i class="material-icons">perm_contact_calendar</i> Collapsible Group
+                                            Item #1
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne_18" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne_18">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+                                        non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                                        single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+                                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                        Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
+                                        raw denim aesthetic synth nesciunt you probably haven't heard of them
+                                        accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-col-cyan">
+                                <div class="panel-heading" role="tab" id="headingTwo_18">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_18" href="#collapseTwo_18" aria-expanded="false" aria-controls="collapseTwo_18">
+                                            <i class="material-icons">cloud_download</i> Collapsible Group Item
+                                            #2
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo_18" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo_18">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+                                        non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                                        single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+                                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                        Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
+                                        raw denim aesthetic synth nesciunt you probably haven't heard of them
+                                        accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-col-teal">
+                                <div class="panel-heading" role="tab" id="headingThree_18">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_18" href="#collapseThree_18" aria-expanded="false" aria-controls="collapseThree_18">
+                                            <i class="material-icons">contact_phone</i> Collapsible Group Item
+                                            #3
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree_18" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree_18">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+                                        non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                                        single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+                                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                        Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
+                                        raw denim aesthetic synth nesciunt you probably haven't heard of them
+                                        accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-col-orange">
+                                <div class="panel-heading" role="tab" id="headingFour_18">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_18" href="#collapseFour_18" aria-expanded="false" aria-controls="collapseFour_18">
+                                            <i class="material-icons">folder_shared</i> Collapsible Group Item
+                                            #4
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseFour_18" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour_18">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+                                        non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+                                        single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+                                        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                        Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
+                                        raw denim aesthetic synth nesciunt you probably haven't heard of them
+                                        accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $('.js-sweetalert button').on('click', function () {
+                var type = $(this).data('type');
+                if (type === 'basic') {
+                    showBasicMessage();
+                }
+                else if (type === 'with-title') {
+                    showWithTitleMessage();
+                }
+                else if (type === 'success') {
+                    showSuccessMessage();
+                }
+                else if (type === 'confirm') {
+                    showConfirmMessage();
+                }
+                else if (type === 'cancel') {
+                    showCancelMessage();
+                }
+                else if (type === 'with-custom-icon') {
+                    showWithCustomIconMessage();
+                }
+                else if (type === 'html-message') {
+                    showHtmlMessage();
+                }
+                else if (type === 'autoclose-timer') {
+                    showAutoCloseTimerMessage();
+                }
+                else if (type === 'prompt') {
+                    showPromptMessage();
+                }
+                else if (type === 'ajax-loader') {
+                    showAjaxLoaderMessage();
+                }
+            });
+        });
+
+        //These codes takes from http://t4t5.github.io/sweetalert/
+        function showBasicMessage() {
+            swal("Here's a message!");
+        }
+
+        function showWithTitleMessage() {
+            swal("Here's a message!", "It's pretty, isn't it?");
+        }
+
+        function showSuccessMessage() {
+            swal("Good job!", "You clicked the button!", "success");
+        }
+
+        function showConfirmMessage() {
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }, function () {
+                swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            });
+        }
+
+        function showCancelMessage() {
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                } else {
+                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                }
+            });
+        }
+
+        function showWithCustomIconMessage() {
+            swal({
+                title: "Sweet!",
+                text: "Here's a custom image.",
+                imageUrl: "../../images/thumbs-up.png"
+            });
+        }
+
+        function showHtmlMessage() {
+            swal({
+                title: "HTML <small>Title</small>!",
+                text: "A custom <span style=\"color: #CC0000\">html<span> message.",
+                html: true
+            });
+        }
+
+        function showAutoCloseTimerMessage() {
+            swal({
+                title: "Auto close alert!",
+                text: "I will close in 2 seconds.",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+
+        function showPromptMessage() {
+            swal({
+                title: "An input!",
+                text: "Write something interesting:",
+                type: "input",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                animation: "slide-from-top",
+                inputPlaceholder: "Write something"
+            }, function (inputValue) {
+                if (inputValue === false) return false;
+                if (inputValue === "") {
+                    swal.showInputError("You need to write something!"); return false
+                }
+                swal("Nice!", "You wrote: " + inputValue, "success");
+            });
+        }
+
+        function showAjaxLoaderMessage() {
+            swal({
+                title: "Ajax request example",
+                text: "Submit to run ajax request",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true,
+            }, function () {
+                setTimeout(function () {
+                    swal("Ajax request finished!");
+                }, 2000);
+            });
+        }
+
+        $(document).ready(function () {
+            $("[type=checkbox]").on("click", function () {
+                if ($(this).attr("checked") == undefined) {
+                    $(this).attr("checked", "checked");
+                    $(this).parent().children().find('label').addClass('noBorderColor');
+                    $(this).parent().children().find('label').attr("title", "");
+                } else {
+                    $(this).attr("checked", false);
+                    $(this).parent().children().find('label').removeClass('noBorderColor');
+                    $(this).parent().children().find('label').attr("title", "");
+                }
+            });
+        });
+    </script>
+    <style>
+        .noBorderColor {
+            border-color:white
+               
+        }
+    </style>
+</body>

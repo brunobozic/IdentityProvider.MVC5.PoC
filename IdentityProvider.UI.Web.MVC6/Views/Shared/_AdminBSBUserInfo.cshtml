@@ -5,37 +5,38 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
-<li class="dropdown">
+<li class="nav-item active">
     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
         <img src="~/img/guest-image.jpg" alt="User" class="avatarCustomSmall" style="margin-bottom:15px" />
     </a>
 
-        <ul class="dropdown-menu" style="padding-top: 10px; width: 270px">
+    <ul class="dropdown-menu" style="padding-top: 10px; width: 295px">
 
-            <!-- User image -->
-            <li class="user-header">
-            </li>
+        <!-- User image -->
+        <li class="user-header">
+        </li>
 
-            <!-- Menu Body -->
-            <li class="user-body">
-                <div class="spinner-block">
-                    <div class="profile-circle">
-                        <img src="~/img/guest-image.jpg" class="avatar-profile" alt="User Image" />
-                        <p style="color: white; padding: 8px;">
-                            <b> You are not logged in.</b>
-                        </p>
-                        <div class="spinner spinner-1">
+        <!-- Menu Body -->
+        <li class="user-body">
+            <div class="spinner-block">
+                <div class="profile-circle">
+                    <img src="~/img/guest-image.jpg" class="avatar-profile" alt="User Image" />
+                    <p style="color: white; padding: 8px;">
+                        <b> You are not logged in.</b>
+                    </p>
+                    <div class="spinner spinner-1">
 
-                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Other items -->
-            
-            </li>
+            <!-- Other items -->
 
-            <!-- Menu Footer-->
-            <li class="user-footer box" style="padding: 5px">
+        </li>
+
+        <!-- Menu Footer-->
+        <li class="user-footer box" style="padding: 5px">
+            <div style="display:flex;flex-wrap: wrap;">
                 <div class="pull-left">
                     <a href="@Url.Action("Login", "Account")" class="btn btn-default bg-pink m-t-15 waves-effect">
                         <i class="material-icons">account_circle</i>
@@ -53,9 +54,10 @@
                         </span>
                     </a>
                 </div>
-            </li>
-        </ul>
-    
+            </div>
+        </li>
+    </ul>
+
 </li>
 
 <script>

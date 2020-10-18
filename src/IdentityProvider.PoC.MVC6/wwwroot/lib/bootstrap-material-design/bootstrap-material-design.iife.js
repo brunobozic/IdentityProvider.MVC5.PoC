@@ -1843,8 +1843,7 @@ var require$$0$17 = Object.freeze({
 	      fails = interopDefault(require$$1$1),
 	      spaces = interopDefault(require$$0$17),
 	      space = '[' + spaces + ']',
-	      non = '​
-',
+	      non = '​',
 	      ltrim = RegExp('^' + space + space + '*'),
 	      rtrim = RegExp(space + space + '*$');
 

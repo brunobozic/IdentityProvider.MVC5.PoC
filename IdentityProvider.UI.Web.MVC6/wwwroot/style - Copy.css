@@ -1,4 +1,4 @@
-﻿/* Navbar ====================================== */
+﻿
 @import url(materialize.css);
 
 /**
@@ -14,30 +14,43 @@ input[type="checkbox"] {
     -moz-appearance: none;
 }
 
-/**
+    /**
  * builds the checkbox and the radio button
  */
     input[type="radio"] + label:before,
     input[type="checkbox"] + label:before {
+        content: " ";
+        cursor: pointer;
+        font-weight: 900;
+        font-family: "Font Awesome 5 Free";
+        padding: 0.125em;
+        margin-right: 0.125em;
+        color: inherit;
+        border: 2px solid inherit;
+        background-color: inherit;
+    }
+
+    input[type="radio"] + label:after,
+    input[type="checkbox"] + label:after {
         content: "";
         cursor: pointer;
         font-weight: 900;
         font-family: "Font Awesome 5 Free";
-        padding: 0.3em;
-        margin-right: 0.3em;
-        color: transparent;
-        border: 1px solid #CCC;
-        background-color: #FFF;
+        padding: 0.125em;
+        margin-right: 0.125em;
+        color: inherit;
+        border: 0px solid inherit;
+        background-color: inherit;
     }
-/**
+    /**
  * handles checked
  */
     input[type="radio"]:checked + label:before,
     input[type="checkbox"]:checked + label:before {
-        color: white;
+        color: inherit;
     }
 
-/**
+    /**
  * handles focused
  */
     input[type="radio"]:focus + label:before,
@@ -57,24 +70,6 @@ input[type="checkbox"] {
         outline: 1px auto Highlight;
     }
 }
-
-/**
- * styles the checkbox
- */
-input[type="checkbox"] + label:before {
-    content: "\f00c";
-    color:inherit;
-}
-
-/**
- * styles the radio button
- */
-input[type="radio"] + label:before {
-    content: "\f111";
-    border-radius: 50%;
-    color: inherit;
-}
-
 
 /**
  * handles disabled
@@ -119,7 +114,7 @@ input[type="checkbox"]:disabled:checked + label:before {
 .pretty.p-bigger .svg,
 .pretty.p-bigger .img {
     font-size: 1.2em !important;
-    top: 0 !important; 
+    top: 0 !important;
 }
 
 .pretty .state label {
@@ -205,6 +200,9 @@ input[type="checkbox"]:disabled:checked + label:before {
     -ms-transform: scale(0.8);
     transform: scale(0.8);
 }
+
+
+
 
 
 
@@ -4673,7 +4671,6 @@ section.content {
         padding: 5px 20px !important;
     }
 
-/* Checkbox & Radio ============================ */
 /* Checkbox & Radio ============================ */
 [type="checkbox"] + label {
     padding-left: 26px;
@@ -11276,13 +11273,3 @@ html.ie11 .dropdown-menu ul.menu li a {
 html.ie11 .bs-searchbox .form-control {
     width: 90%;
 }
-
-
-
-
-
-
-
-
-
-

@@ -48,7 +48,7 @@
     </html>*@
 
 <!DOCTYPE html>
-<html>
+<html class="chrome">
 
 <head>
     <meta charset="UTF-8">
@@ -70,7 +70,10 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />
-    <link href="~/lib/materialize/css/materialize.css" rel="stylesheet" />
+
+    <link href="~/lib/mdi/font/css/materialdesignicons.css" rel="stylesheet" />
+ 
+
     <!-- Bootstrap Datepicker  -->
     <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
 
@@ -84,14 +87,14 @@
     <link href="~/lib/node-waves/dist/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
-    @*<script src="~/lib/animateCSS/jquery.animatecss.js"></script>*@
+    <script src="~/lib/animateCSS/jquery.animatecss.js"></script>
 
     <!-- font-awesome -->
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
 
     <!-- materialize -->
     <link href="~/lib/materialize/css/materialize.css" rel="stylesheet" />
-
+    <link href="~/style.css" rel="stylesheet" />
     <!-- daterangepicker -->
     <link href="~/lib/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
 
@@ -100,10 +103,10 @@
 
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    @*<link href="~/css/skins/_all-skins.css" rel="stylesheet" />*@
     <link href="~/css/all-themes.css" rel="stylesheet" />
-    <link href="~/style.css" rel="stylesheet" />
-    <link href="~/css/site.css" rel="stylesheet" />
-    <link href="~/css/skins/_all-skins.css" rel="stylesheet" />
+
+
 
     <!-- AdminBSB Themes. Recolor buttons (TODO) -->
     <link href="~/css/themed-buttons-amber.css" rel="stylesheet" />
@@ -128,11 +131,13 @@
     <link href="~/css/themed-buttons-yellow.css" rel="stylesheet" />
 
     <!-- Custom Css -->
-    <link href="~/css/site.css" rel="stylesheet" />
+    @*<link href="~/css/site.css" rel="stylesheet" />*@
+
     <link href="~/css/popover-overrides.css" rel="stylesheet" />
-    <link href="~/lib/pretty-checkbox/pretty-checkbox.css" rel="stylesheet" />
     <link href="~/css/PagedList.css" rel="stylesheet" />
     @*<link href="~/Content/MakeTableResponsive.css" rel="stylesheet" />*@
+    <link href="~/css/popover-overrides.css" rel="stylesheet" />
+    <link href="~/lib/pretty-checkbox/pretty-checkbox.css" rel="stylesheet" />
 
     <style>
 
@@ -274,6 +279,7 @@
         }
     </style>
 
+  
 
     <!------------------------------
     | Very important scripts here |
@@ -328,10 +334,11 @@
             <partial name="_AdminBSBRightSidebar" />
             <!-- #END# Right Sidebar -->
         </div>
+
     </section>
 
     <div class="clearfix">
-        <section class="content" style="margin-top:35px !important">
+        <section class="content" style="margin-top:55px !important">
 
             @*@Html.Partial("_AdminBSBMain")*@
 
@@ -369,7 +376,6 @@
     ----| Javascript here  |----
     --------------------------->
     @*@Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")*@
-
     <!-- Lodash -->
     <script src="~/lib/lodash.js/lodash.js"></script>
 
@@ -416,12 +422,12 @@
     <!-- DataTables -->
     <!-- ========== -->
 
-    <script src="~/lib/datatables/media/js/jquery.dataTables.js"></script>
+    @*<script src="~/lib/datatables/media/js/jquery.dataTables.js"></script>
     <link href="~/lib/datatables.net-buttons-bs4/buttons.bootstrap4.css" rel="stylesheet" />
     <link href="~/lib/datatables/media/css/jquery.dataTables.css" rel="stylesheet" />
     <script src="~/lib/datatables.net-colreorder-bs4/colReorder.bootstrap4.js"></script>
     <link href="~/lib/datatables.net-colreorder-bs4/colReorder.bootstrap4.css" rel="stylesheet" />
-    <script src="~/lib/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="~/lib/datatables-responsive/dataTables.responsive.js"></script>*@
 
     @*<script src="~/wwwroot/lib/datatables/media/js/dataTables.material.js"></script>*@
 
@@ -431,7 +437,7 @@
     @*<script src="~/wwwroot/lib/datatables-fixedheader/js/dataTables.fixedHeader.js"></script>*@
     @*<script src="~/wwwroot/lib/datatables-fixedheader/js/fixedHeader.bootstrap.js"></script>*@
 
-    <script src="~/wwwroot/lib/datatables-responsive/js/dataTables.responsive.js"></script>
+    @*<script src="~/wwwroot/lib/datatables-responsive/js/dataTables.responsive.js"></script>
     <script src="~/wwwroot/lib/datatables-responsive/js/responsive.dataTables.js"></script>
     <script src="~/wwwroot/lib/datatables-responsive/js/responsive.bootstrap.js"></script>
 
@@ -443,28 +449,27 @@
     <script src="~/wwwroot/lib/jpdfmake/build/vfs_fonts.js"></script>
 
     <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/colreorder/1.5.0/js/dataTables.colReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.5.0/js/dataTables.colReorder.min.js"></script>*@
 
     <!-- ========== -->
     <!-- ========== -->
     <!-- ========== -->
     <!-- Tooltip popovers Js -->
-    <script src="~/wwwroot/lib/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>
+    @*<script src="~/wwwroot/lib/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>*@
 
     <!-- moment -->
     <script src="~/lib/moment.js/moment-with-locales.js"></script>
 
     <!-- Custom Js -->
     <!-- Application specific stuff -->
-    <script src="~/Scripts/CommonCRUDScripts/commonCreate.js"></script>
+    @*<script src="~/Scripts/CommonCRUDScripts/commonCreate.js"></script>
     <script src="~/Scripts/CommonCRUDScripts/commonDelete.js"></script>
     <script src="~/Scripts/CommonCRUDScripts/commonDetails.js"></script>
-    <script src="~/Scripts/CommonCRUDScripts/commonEdit.js"></script>
+    <script src="~/Scripts/CommonCRUDScripts/commonEdit.js"></script>*@
 
     <script src="~/js/Select2/select2Wireup.js"></script>
-    <script src="~/js/Muuri/muuriWireup.js"></script>
+    @*<script src="~/js/Muuri/muuriWireup.js"></script>*@
     <script src="~/js/admin.js"></script>
-
     <script src="~/js/demo.js"></script>
     <!-- Boolean checkboxes jQuery override -->
     <script src="~/js/jQueryOverride-boolean-checkboxes.js"></script>

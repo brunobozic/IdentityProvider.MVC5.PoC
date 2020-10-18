@@ -13,130 +13,103 @@
     {
       "library": "materialize@1.0.0",
       "destination": "wwwroot/lib/materialize/"
+    },
+    {
+      "library": "bootstrap-datepicker@1.9.0",
+      "destination": "wwwroot/lib/bootstrap-datepicker/"
+    },
+    {
+      "library": "datatables.net@1.10.22",
+      "destination": "wwwroot/lib/datatables.net/"
+    },
+    {
+      "library": "datatables-responsive@2.2.6",
+      "destination": "wwwroot/lib/datatables-responsive/"
+    },
+    {
+      "library": "animateCSS@1.2.2",
+      "destination": "wwwroot/lib/animateCSS/"
+    },
+    {
+      "library": "font-awesome@5.15.1",
+      "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "library": "bootstrap-daterangepicker@3.0.5",
+      "destination": "wwwroot/lib/bootstrap-daterangepicker/"
+    },
+    {
+      "library": "select2@4.0.13",
+      "destination": "wwwroot/lib/select2/"
+    },
+    {
+      "library": "pretty-checkbox@3.0.3",
+      "destination": "wwwroot/lib/pretty-checkbox/"
+    },
+    {
+      "library": "sweetalert@2.1.2",
+      "destination": "wwwroot/lib/sweetalert/"
+    },
+    {
+      "library": "lodash.js@4.17.20",
+      "destination": "wwwroot/lib/lodash.js/"
+    },
+    {
+      "library": "jQuery-slimScroll@1.3.8",
+      "destination": "wwwroot/lib/jQuery-slimScroll/"
+    },
+    {
+      "library": "jquery-countto@1.2.0",
+      "destination": "wwwroot/lib/jquery-countto/"
+    },
+    {
+      "library": "jquery-sparklines@2.1.2",
+      "destination": "wwwroot/lib/jquery-sparklines/"
+    },
+    {
+      "library": "datatables.net-buttons-bs4@1.6.5",
+      "destination": "wwwroot/lib/datatables.net-buttons-bs4/"
+    },
+    {
+      "library": "jszip@3.5.0",
+      "destination": "wwwroot/lib/jszip/"
+    },
+    {
+      "library": "pdfmake@0.1.68",
+      "destination": "wwwroot/lib/pdfmake/"
+    },
+    {
+      "library": "datatables.net-colreorder-bs4@1.5.2",
+      "destination": "wwwroot/lib/datatables.net-colreorder-bs4/"
+    },
+    {
+      "library": "moment.js@2.29.1",
+      "destination": "wwwroot/lib/moment.js/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "tether@1.4.7",
+      "destination": "wwwroot/lib/tether/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "respond@0.9.0",
+      "destination": "wwwroot/lib/respond/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "datatables@1.10.18",
+      "destination": "wwwroot/lib/datatables/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "node-waves@0.7.6",
+      "destination": "wwwroot/lib/node-waves/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "@mdi/font@5.7.55",
+      "destination": "wwwroot/lib/@mdi/font/"
     }
-  ,
-{
-  "library": "bootstrap-datepicker@1.9.0",
-  "destination": "wwwroot/lib/bootstrap-datepicker/"
-}
-,
-{
-  "library": "datatables.net@1.10.22",
-  "destination": "wwwroot/lib/datatables.net/"
-}
-,
-{
-  "library": "datatables-responsive@2.2.6",
-  "destination": "wwwroot/lib/datatables-responsive/"
-}
-,
-{
-  "library": "datatables-responsive@2.2.6",
-  "destination": "wwwroot/lib/datatables-responsive/"
-}
-,
-{
-  "library": "datatables.net-colreorder-bs4@1.5.2",
-  "destination": "wwwroot/lib/datatables.net-colreorder-bs4/"
-}
-,
-{
-  "library": "animateCSS@1.2.2",
-  "destination": "wwwroot/lib/animateCSS/"
-}
-,
-{
-  "library": "font-awesome@5.15.1",
-  "destination": "wwwroot/lib/font-awesome/"
-}
-,
-{
-  "library": "bootstrap-daterangepicker@3.0.5",
-  "destination": "wwwroot/lib/bootstrap-daterangepicker/"
-}
-,
-{
-  "library": "select2@4.0.13",
-  "destination": "wwwroot/lib/select2/"
-}
-,
-{
-  "library": "pretty-checkbox@3.0.3",
-  "destination": "wwwroot/lib/pretty-checkbox/"
-}
-,
-{
-  "library": "sweetalert@2.1.2",
-  "destination": "wwwroot/lib/sweetalert/"
-}
-,
-{
-  "library": "lodash.js@4.17.20",
-  "destination": "wwwroot/lib/lodash.js/"
-}
-,
-{
-  "library": "jQuery-slimScroll@1.3.8",
-  "destination": "wwwroot/lib/jQuery-slimScroll/"
-}
-,
-{
-  "library": "jquery-countto@1.2.0",
-  "destination": "wwwroot/lib/jquery-countto/"
-}
-,
-{
-  "library": "jquery-sparklines@2.1.2",
-  "destination": "wwwroot/lib/jquery-sparklines/"
-}
-,
-{
-  "library": "datatables.net-buttons-bs4@1.6.5",
-  "destination": "wwwroot/lib/datatables.net-buttons-bs4/"
-}
-,
-{
-  "library": "jszip@3.5.0",
-  "destination": "wwwroot/lib/jszip/"
-}
-,
-{
-  "library": "pdfmake@0.1.68",
-  "destination": "wwwroot/lib/pdfmake/"
-}
-,
-{
-  "library": "datatables.net-colreorder-bs4@1.5.2",
-  "destination": "wwwroot/lib/datatables.net-colreorder-bs4/"
-}
-,
-{
-  "library": "moment.js@2.29.1",
-  "destination": "wwwroot/lib/moment.js/"
-}
-,
-{
-  "provider": "unpkg",
-  "library": "tether@1.4.7",
-  "destination": "wwwroot/lib/tether/"
-}
-,
-{
-  "provider": "unpkg",
-  "library": "respond@0.9.0",
-  "destination": "wwwroot/lib/respond/"
-}
-,
-{
-  "provider": "unpkg",
-  "library": "datatables@1.10.18",
-  "destination": "wwwroot/lib/datatables/"
-}
-,
-{
-  "provider": "unpkg",
-  "library": "node-waves@0.7.6",
-  "destination": "wwwroot/lib/node-waves/"
-}
-]
+  ]
 }
