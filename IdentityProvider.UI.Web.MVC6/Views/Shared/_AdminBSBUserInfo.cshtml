@@ -10,7 +10,7 @@
         <img src="~/img/guest-image.jpg" alt="User" class="avatarCustomSmall" style="margin-bottom:15px" />
     </a>
 
-    <ul class="dropdown-menu" style="padding-top: 10px; width: 295px">
+    <ul class="dropdown-menu" style="padding-top: 10px; width: 305px">
 
         <!-- User image -->
         <li class="user-header">
@@ -36,9 +36,10 @@
 
         <!-- Menu Footer-->
         <li class="user-footer box" style="padding: 5px">
-            <div style="display:flex;flex-wrap: wrap;">
+            <div style="flex-wrap: nowrap;">
+              
                 <div class="pull-left">
-                    <a href="@Url.Action("Login", "Account")" class="btn btn-default bg-pink m-t-15 waves-effect">
+                    <a href="@Url.Action("Login", "Account")" class="btn bg-pink m-t-15 waves-effect">
                         <i class="material-icons">account_circle</i>
                         <span>
                             <strong>Log In</strong>
@@ -47,7 +48,7 @@
                 </div>
 
                 <div class="pull-right">
-                    <a href="@Url.Action("Register", "Account")" class="btn btn-default bg-pink m-t-15 waves-effect">
+                    <a href="@Url.Action("Register", "Account")" class="btn bg-pink m-t-15 waves-effect">
                         <i class="material-icons">create</i>
                         <span>
                             <strong>Register</strong>

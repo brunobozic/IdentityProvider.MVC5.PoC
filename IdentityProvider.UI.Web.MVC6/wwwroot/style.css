@@ -25,7 +25,7 @@
 .pretty.p-bigger .svg,
 .pretty.p-bigger .img {
     font-size: 1.2em !important;
-    top: 0 !important; 
+    top: 0 !important;
 }
 
 .pretty .state label {
@@ -160,6 +160,13 @@ nav {
         background-color: transparent !important;
     }
 
+    nav i,
+    nav [class^="mdi-"], nav [class*="mdi-"],
+    nav i.material-icons {
+        display: inline-block !important;
+    }
+
+
 .btn, .btn-large, .btn-small,
 .btn-flat {
     border: none;
@@ -173,6 +180,59 @@ nav {
     -webkit-tap-highlight-color: transparent;
 }
 
+.modal {
+    max-height: inherit !important;
+    width: inherit !important;
+    margin: inherit !important;
+}
+
+    .modal .modal-content {
+        padding: 0px !important;
+    }
+
+.btn, .btn-large, .btn-small {
+    background-color: transparent !important;
+}
+
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col, .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm, .col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md, .col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg, .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl, .col-xl-auto {
+    position: relative;
+    width: 100%;
+    padding-right: 1px !important;
+    padding-left: 1px !important;
+}
+
+/* 2dp elevation modified*/
+.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .dropdown-content, .collapsible, .sidenav {
+    -webkit-box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.14), 0 0px 0px 0px rgba(0, 0, 0, 0.12), 0 0px 0px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.14), 0 0px 0px 0px rgba(0, 0, 0, 0.12), 0 0px 0px 0 rgba(0, 0, 0, 0.2);
+}
+
+/*.z-depth-1-half, .btn:hover, .btn-large:hover, .btn-small:hover, .btn-floating:hover {
+        -webkit-box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+    }*/
+
+@media (min-width: 576px) .modal-dialog {
+    /* max-width: 550px; */
+    margin: 4.1rem;
+}
+
+.alert {
+    position: relative;
+    padding: 1.75rem 2.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.alert-dismissible .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0rem 0rem;
+    color: inherit;
+}
+
 .pull-right {
     float: right;
 }
@@ -180,6 +240,44 @@ nav {
 .pull-left {
     float: left;
 }
+
+.btn-default {
+    color: #333 !important;
+}
+
+    .btn-default,
+    .btn-default:hover,
+    .btn-default:active,
+    .btn-default:focus {
+        background-color: whitesmoke !important;
+    }
+
+        .btn-default, .btn-default:hover, .btn-default:active, .btn-default:focus {
+            background-color: whitesmoke !important;
+        }
+
+.btn, .btn-large, .btn-small {
+    color: white;
+}
+
+.btn-circle i {
+    font-size: 18px;
+    position: relative;
+    left: -5px !important;
+    top: 2px !important;
+}
+
+.btn-circle-lg i {
+    font-size: 26px !important;
+    position: relative !important;
+    left: -4px !important;
+    top: 4px !important;
+}
+
+/*.btn, .btn-large, .btn-small,
+.btn-flat {
+    border-radius: 2px !important;
+}*/
 
 nav ul li {
     -webkit-transition: background-color .3s;
@@ -2490,7 +2588,7 @@ nav ul li {
 
 .bg-pink {
     background-color: #E91E63 !important;
-    color: #fff;
+    color: #fff !important;
 }
 
     .bg-pink .content .text,
@@ -3355,12 +3453,12 @@ section.content {
     border-radius: 50% !important;
 }
 
-    .btn-circle-lg i {
+/*.btn-circle-lg i {
         font-size: 26px !important;
         position: relative !important;
         left: 0px !important;
         top: 6px !important;
-    }
+    }*/
 
 .btn:not(.btn-link):not(.btn-circle) {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
@@ -6324,18 +6422,84 @@ section.content {
     }
 
 /* Panel ======================================= */
+.panel-body {
+    padding: 15px !important;
+}
+
+.panel-title > a,
+.panel-title > small,
+.panel-title > .small,
+.panel-title > small > a,
+.panel-title > .small > a {
+    color: white !important;
+}
+
+.panel-title {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    font-size: 16px !important;
+    color: inherit !important;
+}
+
+.panel-group .panel + .panel {
+    margin-top: 5px !important;
+}
+
 .panel-group .panel-col-red {
     border: 1px solid #F44336;
 }
 
-    .panel-group .panel-col-red .panel-title {
-        background-color: #F44336 !important;
-        color: #fff;
+.panel-group .panel-heading + .panel-collapse > .panel-body,
+.panel-group .panel-heading + .panel-collapse > .list-group {
+    border-top: 1px solid #ddd !important;
+}
+
+.btn, .btn-large, .btn-small,
+.btn-flat {
+    border: none;
+    /*border-radius: 2px;*/
+    display: inline-block;
+    /* height: 36px; */
+    line-height: 36px;
+    padding: 0 16px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+}
+
+    .btn:not(.btn-link):not(.btn-circle) span {
+        position: relative;
+        top: -4px;
+        margin-left: 5px;
     }
 
-    .panel-group .panel-col-red .panel-body {
-        border-top-color: transparent !important;
-    }
+/*.btn-default,
+.btn-default:hover,
+.btn-default:active,
+.btn-default:focus {
+    background-color: #26a69a !important;
+}*/
+
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.modal {
+    background-color: transparent !important;
+}
+
+
+
+.panel-group .panel-col-red .panel-title {
+    background-color: #F44336 !important;
+    color: #fff;
+}
+
+.panel-group .panel-col-red .panel-body {
+    border-top-color: transparent !important;
+}
 
 .panel-group .panel-col-pink {
     border: 1px solid #E91E63;
@@ -8592,90 +8756,6 @@ fieldset[disabled] .form-control {
             background-color: #009688;
         }
 
-/* Waves ======================================= */
-.waves-effect.waves-red .waves-ripple {
-    background: rgba(244, 67, 54, 0.5);
-}
-
-.waves-effect.waves-pink .waves-ripple {
-    background: rgba(233, 30, 99, 0.5);
-}
-
-.waves-effect.waves-purple .waves-ripple {
-    background: rgba(156, 39, 176, 0.5);
-}
-
-.waves-effect.waves-deep-purple .waves-ripple {
-    background: rgba(103, 58, 183, 0.5);
-}
-
-.waves-effect.waves-indigo .waves-ripple {
-    background: rgba(63, 81, 181, 0.5);
-}
-
-.waves-effect.waves-blue .waves-ripple {
-    background: rgba(33, 150, 243, 0.5);
-}
-
-.waves-effect.waves-light-blue .waves-ripple {
-    background: rgba(3, 169, 244, 0.5);
-}
-
-.waves-effect.waves-cyan .waves-ripple {
-    background: rgba(0, 188, 212, 0.5);
-}
-
-.waves-effect.waves-teal .waves-ripple {
-    background: rgba(0, 150, 136, 0.5);
-}
-
-.waves-effect.waves-green .waves-ripple {
-    background: rgba(76, 175, 80, 0.5);
-}
-
-.waves-effect.waves-light-green .waves-ripple {
-    background: rgba(139, 195, 74, 0.5);
-}
-
-.waves-effect.waves-lime .waves-ripple {
-    background: rgba(205, 220, 57, 0.5);
-}
-
-.waves-effect.waves-yellow .waves-ripple {
-    background: rgba(255, 232, 33, 0.5);
-}
-
-.waves-effect.waves-amber .waves-ripple {
-    background: rgba(255, 193, 7, 0.5);
-}
-
-.waves-effect.waves-orange .waves-ripple {
-    background: rgba(255, 152, 0, 0.5);
-}
-
-.waves-effect.waves-deep-orange .waves-ripple {
-    background: rgba(255, 87, 34, 0.5);
-}
-
-.waves-effect.waves-brown .waves-ripple {
-    background: rgba(121, 85, 72, 0.5);
-}
-
-.waves-effect.waves-grey .waves-ripple {
-    background: rgba(158, 158, 158, 0.5);
-}
-
-.waves-effect.waves-blue-grey .waves-ripple {
-    background: rgba(96, 125, 139, 0.5);
-}
-
-.waves-effect.waves-black .waves-ripple {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.waves-effect.waves-white .waves-ripple {
-    background: rgba(255, 255, 255, 0.5);
-}
 
 /* Page Loader ================================= */
 .page-loader-wrapper {

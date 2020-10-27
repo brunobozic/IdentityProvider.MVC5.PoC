@@ -1,5 +1,3 @@
-using System;
-
 namespace IdentityProvider.UI.Web.MVC6.Models
 {
     public class ErrorViewModel

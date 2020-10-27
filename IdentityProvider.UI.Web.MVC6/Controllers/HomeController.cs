@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using IdentityProvider.UI.Web.MVC6.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using IdentityProvider.UI.Web.MVC6.Models;
+using System.Diagnostics;
 
 namespace IdentityProvider.UI.Web.MVC6.Controllers
 {

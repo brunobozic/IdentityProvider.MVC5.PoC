@@ -103,9 +103,7 @@ $.AdminBSB.leftSideBar = {
             _this.checkStatusForResize(false);
         });
 
-        //Set Waves
-        //Waves.attach('.menu .list a', ['waves-block']);
-        //Waves.init();
+  
     },
     setMenuHeight: function (isFirstTime) {
         if (typeof $.fn.slimScroll != 'undefined') {
@@ -420,9 +418,7 @@ $.AdminBSB.dropdownMenu = {
             }
         });
 
-        //Set Waves
-        //Waves.attach('.dropdown-menu li a', ['waves-block']);
-        //Waves.init();
+  
     },
     dropdownEffect: function (target) {
         var effectIn = $.AdminBSB.options.dropdownMenu.effectIn, effectOut = $.AdminBSB.options.dropdownMenu.effectOut;
