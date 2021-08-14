@@ -6,6 +6,8 @@ using IdentityProvider.Infrastructure.DatabaseLog.Model;
 using IdentityProvider.Infrastructure.DatabaseLog.Model.ExtensionMethods;
 using IdentityProvider.Infrastructure.Logging.Log4Net;
 using IdentityProvider.Repository.EF.Factories;
+using IdentityProvider.Services.RowLeveLSecurityUserGrantService;
+using log4net.Core;
 using Module.Repository.EF;
 using Module.Repository.EF.RowLevelSecurity;
 using Module.Repository.EF.UnitOfWorkInterfaces;
@@ -18,7 +20,7 @@ namespace HAC.Helpdesk.Services.Logging.WCF
         private readonly IUnitOfWorkAsync _uow;
         private readonly ICachedUserAuthorizationGrantsProvider _cachedUserAuthorizationGrantsProvider;
 
-        public DbLogService(IUnitOfWorkAsync uow, ICachedUserAuthorizationGrantsProvider cachedUserAuthorizationGrantsProvider)
+        public DbLogService(IUnitOfWorkAsync uow, CachedUserAuthorizationGrantsProvider cachedUserAuthorizationGrantsProvider)
         {
             _uow = uow;
             _cachedUserAuthorizationGrantsProvider = cachedUserAuthorizationGrantsProvider;
@@ -42,7 +44,7 @@ namespace HAC.Helpdesk.Services.Logging.WCF
         /// </summary>
         /// <param name="loggingEventDto"></param>
         /// <returns></returns>
-        public int? LogToDatabase(LoggingEventDto loggingEventDto)
+        public int? LogToDatabase(LoggingEventData loggingEventDto)
         {
             int? retVal = -1;
 
@@ -82,6 +84,11 @@ namespace HAC.Helpdesk.Services.Logging.WCF
             }
 
             Disposed = true;
+        }
+
+        public int? LogToDatabase(LoggingEventDto loggingEventDto)
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -154,5 +161,7 @@ namespace HAC.Helpdesk.Services.Logging.WCF
                 Disposed = true;
             }
         }
+
+     
     }
 }
