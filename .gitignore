@@ -79,3 +79,4 @@ _[Ss]cripts
 *.ncrunchsolution
 *.dot[Cc]over
 /src/IdentityProvider.UI.Web.MVC5/admin-lte
+/IdentityProvider.UI.Web.MVC6/wwwroot/lib
