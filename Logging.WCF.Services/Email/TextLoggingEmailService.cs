@@ -1,8 +1,7 @@
-﻿
+﻿using System.Text;
 using Logging.WCF.Infrastructure;
-using System.Text;
 
-namespace Logging.WCF.Services
+namespace Logging.WCF.Services.Email
 {
     public class TextLoggingEmailService : IEmailService
     {

@@ -7,14 +7,14 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CommonServiceLocator" Version="2.0.5" />
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="LinqKit" Version="1.1.17" />
+    <PackageReference Include="CommonServiceLocator" Version="2.0.6" />
+    <PackageReference Include="LinqKit" Version="1.1.26" />
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.3" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="StructureMap" Version="4.7.1" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.114.4" />
     <PackageReference Include="System.Runtime" Version="4.3.1" />
     <PackageReference Include="TrackableEntities.EF.6" Version="2.5.7" />
   </ItemGroup>

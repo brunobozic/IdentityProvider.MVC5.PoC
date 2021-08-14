@@ -1,11 +1,11 @@
-﻿using Logging.WCF.Repository.EF.DomainCoreInterfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Logging.WCF.Infrastructure.DomainCoreInterfaces;
 using TrackableEntities;
 
-namespace Logging.WCF.Repository.EF.DomainBaseAbstractions
+namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
 {
     public class BaseEntity : IEntityBase, ISoftDeletable, IDeactivatableEntity, ICreationAuditedEntity,
         IModificationAuditedEntity, IDeletionAuditedEntity, ITrackable

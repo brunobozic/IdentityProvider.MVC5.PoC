@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logging.WCF.Repository.EF.DomainBaseAbstractions
+namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
 {
     public class SystemClock
     {

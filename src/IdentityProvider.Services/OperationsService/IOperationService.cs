@@ -2,6 +2,7 @@
 using IdentityProvider.Models.Domain.Account;
 using Module.ServicePattern;
 using System.Collections.Generic;
+using IdentityProvider.Models.ViewModels.Operations;
 
 namespace IdentityProvider.Services.OperationsService
 {

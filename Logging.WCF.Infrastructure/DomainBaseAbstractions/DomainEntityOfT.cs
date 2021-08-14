@@ -1,16 +1,15 @@
-﻿
-using Logging.WCF.Repository.EF.BusinessRules;
-using Logging.WCF.Repository.EF.DomainCoreInterfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using Logging.WCF.Infrastructure.BusinessRules;
+using Logging.WCF.Infrastructure.DomainCoreInterfaces;
 using TrackableEntities;
 using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
-namespace Logging.WCF.Repository.EF.DomainBaseAbstractions
+namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
 {
     public abstract class DomainEntity<TK> : IHandlesConcurrency, ISoftDeletable, IDeactivatableEntity,
         ICreationAuditedEntity, IModificationAuditedEntity, IDeletionAuditedEntity, ITrackable

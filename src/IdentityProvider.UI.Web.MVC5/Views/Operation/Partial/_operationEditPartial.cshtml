@@ -4,6 +4,26 @@
 
 <link href="~/bower_components/pretty-checkbox/dist/pretty-checkbox.css" rel="stylesheet" />
 
+<link href="~/Content/css/themed-buttons-amber.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-black.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-blue.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-brown.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-bue-grey.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-cyan.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-deep-orange.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-deep-purple.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-green.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-grey.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-indigo.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-light-blue.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-light-green.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-lime.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-orange.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-pink.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-purple.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-red.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-teal.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-yellow.css" rel="stylesheet" />
 <div class="container-fluid" style="width: 100% !important">
     <div class="row clearfix">
         <div class="card">
@@ -95,7 +115,7 @@
 
                         <div class="form-group col-xs-8 p-t-5">
                             <div class="row m-t-15 m-b--20">
-                                <button type="submit" name="btnSubmit" id="btnSubmit" class="btn bg-pink waves-effect editDialog" data-toggle="tooltip" data-placement="right" title="" data-original-title="Submit">
+                                <button type="submit" name="btnSubmit" id="btnSubmit" class="btn themed-buttons-pink bg-pink waves-effect editDialog" data-toggle="tooltip" data-placement="right" title="" data-original-title="Submit">
                                     <i class="material-icons">edit</i>
                                     <span>
                                         Submit
@@ -193,6 +213,18 @@
     </div>
 </div>
 <script>
+
+    var $buttons = $('button:not(.dt-button)');
+    var $select = $('select');
+    var existTheme = $('.right-sidebar .demo-choose-skin li.active').data('theme');
+    $buttons.removeClass('themed-buttons-' + 'pink');
+    $buttons.removeClass('bg-' + 'pink');
+    $buttons.removeClass('themed-buttons-' + 'red');
+    $buttons.removeClass('bg-' + 'red');
+    $buttons.removeClass('themed-buttons-' + existTheme);
+    $buttons.removeClass('bg-' + existTheme);
+    $buttons.addClass('themed-buttons-' + existTheme);
+    $buttons.addClass('bg-' + existTheme);
 
     $(function () {
         $("#xyz").on("change", function () {

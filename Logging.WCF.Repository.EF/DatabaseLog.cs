@@ -1,7 +1,7 @@
-﻿using Logging.WCF.Repository.EF.DomainBaseAbstractions;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Logging.WCF.Infrastructure.DomainBaseAbstractions;
 
 namespace Logging.WCF.Repository.EF
 {

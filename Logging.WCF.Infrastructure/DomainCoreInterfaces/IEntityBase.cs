@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Logging.WCF.Repository.EF.DomainCoreInterfaces
+﻿namespace Logging.WCF.Infrastructure.DomainCoreInterfaces
 {
     public interface IEntityBase
     {

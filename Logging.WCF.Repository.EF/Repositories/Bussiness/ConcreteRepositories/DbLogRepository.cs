@@ -1,7 +1,7 @@
 ﻿using Logging.WCF.Repository.EF.EFDataContext;
-using Logging.WCF.Repository.EF.Repositories.DomainCore.RepositoryBaseImpl;
-using Logging.WCF.Repository.EF.Repositories.DomainCore.RepositoryBaseImpl.RepositoryBaseInterfaces;
 using System;
+using Logging.WCF.Repository.EF.RepositoryBaseImpl;
+using Logging.WCF.Repository.EF.RepositoryBaseImpl.RepositoryBaseInterfaces;
 
 namespace Logging.WCF.Repository.EF.Repositories.Bussiness.ConcreteRepositories
 {

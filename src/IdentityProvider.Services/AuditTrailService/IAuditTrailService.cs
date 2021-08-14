@@ -2,6 +2,7 @@
 using IdentityProvider.Models;
 using Module.ServicePattern;
 using System.Collections.Generic;
+using IdentityProvider.Models.ViewModels;
 
 namespace IdentityProvider.Services.AuditTrailService
 {

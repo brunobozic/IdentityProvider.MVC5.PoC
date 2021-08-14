@@ -1,5 +1,6 @@
 ﻿using IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Batch;
 using IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Extensions;
+using Microsoft.Data.Sqlite;
 using Serilog.Core;
 using Serilog.Debugging;
 using Serilog.Events;
@@ -50,7 +51,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
 
         private static string CreateConnectionString(string dbPath)
         {
-            return new SQLiteConnectionStringBuilder { DataSource = dbPath }.ConnectionString;
+            return new SqliteConnectionStringBuilder { DataSource = dbPath }.ConnectionString;
         }
 
         private void InitializeDatabase()
@@ -147,7 +148,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
             }
         }
 
-        private void ApplyRetentionPolicy(SQLiteConnection sqlConnection)
+        private void ApplyRetentionPolicy(System.Data.SQLite.SQLiteConnection sqlConnection)
         {
             if (!_retentionPeriod.HasValue)
                 // there is no retention policy
@@ -171,7 +172,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
             _retentionWatch.Restart();
         }
 
-        private SQLiteCommand CreateSqlDeleteCommand(SQLiteConnection sqlConnection, DateTimeOffset epoch)
+        private SQLiteCommand CreateSqlDeleteCommand(System.Data.SQLite.SQLiteConnection sqlConnection, DateTimeOffset epoch)
         {
             var cmd = sqlConnection.CreateCommand();
             cmd.CommandText = $"DELETE FROM {_tableName} WHERE Timestamp < @epoch";

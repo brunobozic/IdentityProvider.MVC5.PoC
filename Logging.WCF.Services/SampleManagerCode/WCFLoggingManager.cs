@@ -1,13 +1,13 @@
-﻿using log4net;
+﻿using System;
+using System.Collections.Generic;
+using System.ServiceModel;
+using log4net;
 using log4net.Core;
 using Logging.WCF.Infrastructure.Contracts;
 using Logging.WCF.Models;
 using Logging.WCF.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.ServiceModel;
 
-namespace Logging.WCF.Services
+namespace Logging.WCF.Services.SampleManagerCode
 {
     /// <summary>
     /// This class is a wrapper to enable programmatic configuration and access to a remote WCF service.

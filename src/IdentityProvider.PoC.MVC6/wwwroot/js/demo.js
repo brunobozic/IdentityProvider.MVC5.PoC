@@ -104,7 +104,7 @@ function skinChange() {
     var $select2Selection = $('.select2-selection__choice');
 
     // TODO: need to reapply this on page redraw
-    $select2Selection.attr('style', 'background-color: blue !important');
+    $select2Selection.attr('style', 'background-color: ' + $this.data('theme') + ' !important');
 
 
     var $checkboxes = $(":checkbox");
@@ -226,8 +226,7 @@ function skinChanger() {
             var $select2Selection = $('.select2-selection__choice');
 
             // TODO: need to reapply this on page redraw
-            $select2Selection.attr('style', 'background-color: blue !important');
-
+            $select2Selection.attr('style', 'background-color: ' + $this.data('theme') + ' !important');
 
             var $checkboxes = $(":checkbox");
             $checkboxes.removeClass('chk-col-' + 'red');

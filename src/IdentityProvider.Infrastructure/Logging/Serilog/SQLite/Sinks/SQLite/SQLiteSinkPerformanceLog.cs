@@ -62,7 +62,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
             }
         }
 
-        private SQLiteConnection GetSqLiteConnection()
+        private System.Data.SQLite.SQLiteConnection GetSqLiteConnection()
         {
             var sqlConnection = new SQLiteConnection(_connString);
             sqlConnection.Open();

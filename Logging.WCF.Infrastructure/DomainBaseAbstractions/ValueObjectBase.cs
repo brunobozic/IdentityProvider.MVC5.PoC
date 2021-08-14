@@ -1,9 +1,9 @@
-﻿using Logging.WCF.Repository.EF.BusinessRules;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Logging.WCF.Infrastructure.BusinessRules;
 
-namespace Logging.WCF.Repository.EF.DomainBaseAbstractions
+namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
 {
     public abstract class ValueObjectBase
     {

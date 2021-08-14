@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace IdentityProvider.UI.Web.MVC5.App_Start
+namespace IdentityProvider.UI.Web.MVC5
 {
     public class RouteConfig
     {

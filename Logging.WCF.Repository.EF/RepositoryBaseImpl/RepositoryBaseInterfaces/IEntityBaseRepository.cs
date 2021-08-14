@@ -1,9 +1,9 @@
-﻿using Logging.WCF.Repository.EF.DomainCoreInterfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Logging.WCF.Infrastructure.DomainCoreInterfaces;
 
-namespace Logging.WCF.Repository.EF.Repositories.DomainCore.RepositoryBaseImpl.RepositoryBaseInterfaces
+namespace Logging.WCF.Repository.EF.RepositoryBaseImpl.RepositoryBaseInterfaces
 {
     public interface IEntityBaseRepository<T> where T : class, IEntityBase, new()
     {

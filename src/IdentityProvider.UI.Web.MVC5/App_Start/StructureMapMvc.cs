@@ -15,17 +15,17 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using IdentityProvider.UI.Web.MVC5.App_Start;
+using System.Web.Mvc;
+using IdentityProvider.UI.Web.MVC5;
 using IdentityProvider.UI.Web.MVC5.DependencyResolution;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-using System.Web.Mvc;
 using WebActivatorEx;
 using IContainer = StructureMap.IContainer;
 
 [assembly: System.Web.PreApplicationStartMethod(typeof(StructuremapMvc), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(StructuremapMvc), "End")]
 
-namespace IdentityProvider.UI.Web.MVC5.App_Start
+namespace IdentityProvider.UI.Web.MVC5
 {
     public static class StructuremapMvc
     {

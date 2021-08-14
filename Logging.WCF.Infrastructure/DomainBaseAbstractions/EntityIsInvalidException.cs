@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Logging.WCF.Repository.EF.DomainBaseAbstractions
+namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
 {
     [Serializable]
     internal class EntityIsInvalidException : Exception

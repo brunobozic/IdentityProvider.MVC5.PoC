@@ -1,9 +1,9 @@
-﻿using log4net.Appender;
+﻿using System;
+using log4net.Appender;
 using log4net.Core;
 using Logging.WCF.Models.Log4Net;
-using System;
 
-namespace Logging.WCF.Services
+namespace Logging.WCF.Services.NullImplementation
 {
     public class NoLogService : ILog4NetLoggingService
     {

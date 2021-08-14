@@ -4,8 +4,6 @@ using IdentityProvider.Infrastructure.ConfigurationProvider;
 using Logging.WCF.Infrastructure;
 using Logging.WCF.Infrastructure.Contracts;
 using Logging.WCF.Repository.EF.EFDataContext;
-using Logging.WCF.Repository.EF.Repositories.DomainCore.RepositoryBaseImpl;
-using Logging.WCF.Repository.EF.Repositories.DomainCore.RepositoryBaseImpl.RepositoryBaseInterfaces;
 using Logging.WCF.Services;
 using Microsoft.EntityFrameworkCore;
 using Module.Repository.EF;
@@ -15,6 +13,11 @@ using StructureMap;
 using StructureMap.Pipeline;
 using System;
 using System.Linq;
+using Logging.WCF.Repository.EF.RepositoryBaseImpl;
+using Logging.WCF.Repository.EF.RepositoryBaseImpl.RepositoryBaseInterfaces;
+using Logging.WCF.Services.AvailableLogSinkers;
+using Logging.WCF.Services.Email;
+using Logging.WCF.Services.SampleManagerCode;
 
 namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
 {

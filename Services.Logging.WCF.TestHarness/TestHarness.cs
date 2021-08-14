@@ -1,7 +1,6 @@
 
 using Services.Logging.WCF.TestHarness.WcfLogServiceReference;
 using System;
-using System.Linq;
 using System.Windows.Forms;
 using log4net;
 using log4net.Core;

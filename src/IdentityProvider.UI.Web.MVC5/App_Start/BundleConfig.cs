@@ -1,8 +1,7 @@
-﻿
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 using WebHelpers.Mvc5;
 
-namespace IdentityProvider.UI.Web.MVC5.App_Start
+namespace IdentityProvider.UI.Web.MVC5
 {
     public class BundleConfig
     {

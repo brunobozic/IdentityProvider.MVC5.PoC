@@ -1,11 +1,11 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using System;
+using System.Web.Mvc;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Logging.Serilog.PerformanceLogger;
 using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog;
 using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;
-using System;
-using System.Web.Mvc;
 
-namespace IdentityProvider.UI.Web.MVC5.App_Start
+namespace IdentityProvider.UI.Web.MVC5
 {
     public class FilterConfig
     {

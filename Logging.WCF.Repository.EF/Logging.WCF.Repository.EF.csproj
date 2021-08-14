@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="LinqKit" Version="1.1.17" />
-    <PackageReference Include="log4net" Version="2.0.11" />
+    <PackageReference Include="LinqKit" Version="1.1.26" />
+    <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8">
@@ -26,7 +26,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="StructureMap" Version="4.7.1" />
-    <PackageReference Include="TrackableEntities.Common" Version="2.5.7" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.114.4" />
   </ItemGroup>
 
   <ItemGroup>

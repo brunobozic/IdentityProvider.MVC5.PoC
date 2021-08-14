@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
-namespace Logging.WCF.Repository.EF.BusinessRules
+namespace Logging.WCF.Infrastructure.BusinessRules
 {
     public class ModelValidationException : Exception
     {

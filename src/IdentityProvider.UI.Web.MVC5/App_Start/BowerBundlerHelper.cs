@@ -12,17 +12,15 @@
 
 #endregion
 
-using B4BCore;
-using PagedList.Mvc;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Security.Cryptography;
 using System.Web.Hosting;
 using System.Web.Mvc;
+using B4BCore;
 
-
-namespace IdentityProvider.UI.Web.MVC5.App_Start
+namespace IdentityProvider.UI.Web.MVC5
 {
     /// <summary>
     ///     This class contains extention methods to provide a the inclusings of CSS and JavaScript files in your views

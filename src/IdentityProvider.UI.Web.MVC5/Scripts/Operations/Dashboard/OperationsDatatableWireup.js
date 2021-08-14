@@ -302,7 +302,8 @@ $(document).ready(function () {
     // Delete a record
     $('#OperationsDashboard_OperationsDatatable').on('click', 'a.OperationsDashboard_OperationsDatatable_remove', function (e) {
         e.preventDefault();
-        var id = $(this).closest('tr').children('td:first').text();
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id');
         var options = { /*'backdrop': 'static',*/ keyboard: true, focus: true };
 
         console.log("id: " + id + "  , deleteUrl: " + deleteUrl);

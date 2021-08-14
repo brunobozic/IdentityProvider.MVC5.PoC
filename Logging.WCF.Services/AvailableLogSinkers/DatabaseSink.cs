@@ -1,13 +1,13 @@
-﻿using log4net;
+﻿using System;
+using System.Threading.Tasks;
+using log4net;
 using Logging.WCF.Infrastructure.Contracts;
 using Logging.WCF.Models.DTOs;
 using Logging.WCF.Repository.EF;
 using Logging.WCF.Repository.EF.ExtensionMethods;
-using Logging.WCF.Repository.EF.Repositories.DomainCore.RepositoryBaseImpl.RepositoryBaseInterfaces;
-using System;
-using System.Threading.Tasks;
+using Logging.WCF.Repository.EF.RepositoryBaseImpl.RepositoryBaseInterfaces;
 
-namespace Logging.WCF.Services
+namespace Logging.WCF.Services.AvailableLogSinkers
 {
     /// <inheritdoc />
     public class DatabaseSink : ILogSinkerService

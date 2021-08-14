@@ -1,5 +1,3 @@
-using IdentityProvider.UI.Web.MVC5.App_Start;
-
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 {
     using StructureMap.Web.Pipeline;

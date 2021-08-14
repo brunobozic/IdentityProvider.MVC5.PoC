@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IdentityProvider.Models
+namespace IdentityProvider.Models.ViewModels.Operations
 {
     public class OperationsDatatableSearchClass
     {

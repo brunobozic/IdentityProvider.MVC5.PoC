@@ -1,14 +1,14 @@
-﻿using Logging.WCF.Repository.EF.DomainCoreInterfaces;
-using Logging.WCF.Repository.EF.EFDataContext;
-using Logging.WCF.Repository.EF.Repositories.DomainCore.RepositoryBaseImpl.RepositoryBaseInterfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Logging.WCF.Infrastructure.DomainCoreInterfaces;
+using Logging.WCF.Repository.EF.EFDataContext;
+using Logging.WCF.Repository.EF.RepositoryBaseImpl.RepositoryBaseInterfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Logging.WCF.Repository.EF.Repositories.DomainCore.RepositoryBaseImpl
+namespace Logging.WCF.Repository.EF.RepositoryBaseImpl
 {
     public class EntityBaseRepository<T> : IEntityBaseRepository<T>
         where T : class, IEntityBase, new()

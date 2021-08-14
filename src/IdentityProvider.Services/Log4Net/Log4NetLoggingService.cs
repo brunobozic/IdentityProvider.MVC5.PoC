@@ -9,6 +9,7 @@ using Logging.WCF.Models.Log4Net;
 using Logging.WCF.Services;
 using System;
 using System.IO;
+using Logging.WCF.Services.SampleManagerCode;
 
 namespace IdentityProvider.Services.Log4Net
 {

@@ -19,6 +19,7 @@ using IdentityProvider.Services.OperationsService;
 using IdentityProvider.Services.ResourceService;
 using IdentityProvider.Services.RowLeveLSecurityUserGrantService;
 using Logging.WCF.Infrastructure.Contracts;
+using Logging.WCF.Services.SampleManagerCode;
 using StructureMap.Pipeline;
 
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution

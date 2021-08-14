@@ -1,4 +1,4 @@
-﻿namespace Logging.WCF.Repository.EF.BusinessRules
+﻿namespace Logging.WCF.Infrastructure.BusinessRules
 {
     public class BusinessRule
     {

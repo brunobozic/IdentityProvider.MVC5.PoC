@@ -11,7 +11,6 @@ using IdentityProvider.Infrastructure.Logging.Serilog;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Infrastructure.URLConfigHelpers;
 using IdentityProvider.Models.ViewModels.Error;
-using IdentityProvider.UI.Web.MVC5.App_Start;
 using IdentityProvider.UI.Web.MVC5.DependencyResolution;
 using System;
 using System.Web;

@@ -1,7 +1,5 @@
 ﻿using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Services;
-using Microsoft.AspNet.Authentication.Cookies;
-using Microsoft.AspNet.DataProtection;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
