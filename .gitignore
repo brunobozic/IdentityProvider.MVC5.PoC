@@ -253,3 +253,7 @@ _Pvt_Extensions
 # JetBrains Rider
 .idea/
 *.sln.iml
+/IdentityProvider.UI.Web.MVC6/wwwroot/lib/@mdi/font
+/IdentityProvider.UI.Web.MVC6/wwwroot/lib/mdi/font
+/IdentityProvider.UI.Web.MVC6/wwwroot/lib/bootstrap-notify
+/IdentityProvider.UI.Web.MVC6/wwwroot/lib/animate.css
