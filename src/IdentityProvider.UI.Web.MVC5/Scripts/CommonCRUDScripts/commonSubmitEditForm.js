@@ -10,7 +10,8 @@
 
         var dataToPost = $(this).serialize({ checkboxesAsBools: true });
 
-        alert(dataToPost);
+        // alert(dataToPost);
+
         $.ajax({
             type: $this.attr('method'),
             url: $this.attr('action'),

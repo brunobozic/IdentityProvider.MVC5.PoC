@@ -9,7 +9,7 @@
 
     $(function () {
         $("#defineActiveUntil").on("change", function () {
-            $this = $(this);
+            var $this = $(this);
 
             if ($('#defineActiveUntil').is(":checked ")) {
                 $("#hiddenSegmentDependantOnCheckbox").show();

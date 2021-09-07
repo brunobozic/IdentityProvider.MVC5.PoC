@@ -341,7 +341,7 @@ $(document).ready(function () {
                         'Your item has been deleted.',
                         'success'
                     ).then(function () {
-                        location.reload();
+                        $('#OperationsDashboard_OperationsDatatable').DataTable().ajax.reload();
                     });;
 
                 }
@@ -352,7 +352,7 @@ $(document).ready(function () {
                         'Your item has not been deleted.',
                         'error'
                     ).then(function () {
-                        location.reload();
+                        $('#OperationsDashboard_OperationsDatatable').DataTable().ajax.reload();
                     });;
                 }
 
