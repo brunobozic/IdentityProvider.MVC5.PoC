@@ -1,7 +1,7 @@
-﻿using LinqKit;
-using Module.Repository.EF.Repositories;
-using System;
+﻿using System;
 using System.Linq.Expressions;
+using LinqKit;
+using Module.Repository.EF.Repositories;
 
 namespace Module.Repository.EF
 {

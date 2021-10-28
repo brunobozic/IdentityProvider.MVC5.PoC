@@ -1,13 +1,13 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using System;
+using System.Data;
+using System.Security.Cryptography.X509Certificates;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource;
 using IdentityProvider.Infrastructure.Certificates.FromStore;
 using IdentityProvider.Infrastructure.ConfigurationProvider;
 using IdentityProvider.Infrastructure.Email;
 using IdentityProvider.Infrastructure.Enums;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
-using System;
-using System.Data;
-using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityProvider.Infrastructure.Certificates.Manager
 {
@@ -103,8 +103,7 @@ namespace IdentityProvider.Infrastructure.Certificates.Manager
             "Recieved validation certificate thumbrint from provider: [ {0} ]";
 
         private const string FoundMatchingApplicationCertificateMessage =
-                "Found a matching valid application certificate by thumbprint: [ {0} ] from store: [ {1} ], with subject: [ {2} ] and expiration at [ {3} ]"
-            ;
+            "Found a matching valid application certificate by thumbprint: [ {0} ] from store: [ {1} ], with subject: [ {2} ] and expiration at [ {3} ]";
 
         private const string FoundMatchingValidationCertificateMessage =
             "Found a matching valid validation certificate by thumbprint: [ {0} ] from store: [ {1} ]";
@@ -116,8 +115,7 @@ namespace IdentityProvider.Infrastructure.Certificates.Manager
             "The validation certificate will expire on: [ {0} ]";
 
         private const string ProblemFetchingTestEnvironmentMarkFromConfig =
-                "Could not read the configuration property that lets us know we are on test environment, using false if debug build, and using true if release build."
-            ;
+            "Could not read the configuration property that lets us know we are on test environment, using false if debug build, and using true if release build.";
 
         #endregion Localization messages
     }

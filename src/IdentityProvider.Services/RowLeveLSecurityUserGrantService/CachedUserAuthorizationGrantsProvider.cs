@@ -17,6 +17,10 @@ namespace IdentityProvider.Services.RowLeveLSecurityUserGrantService
             _userGrantService = userGrantService;
         }
 
+
+        public int[] OrganizationalUnits { get; set; }
+        public int[] ExplicitlyAssignedToProjects { get; set; }
+
         public void FetchUsersGrantsByUser(string userId)
         {
             var response = _userGrantService.OrgUnitGrantedPriviligesByUser(userId);
@@ -26,10 +30,5 @@ namespace IdentityProvider.Services.RowLeveLSecurityUserGrantService
         {
             var response = _userGrantService.OrgUnitGrantedPriviligesByEmployee(employeeId);
         }
-
-
-
-        public int[] OrganizationalUnits { get; set; }
-        public int[] ExplicitlyAssignedToProjects { get; set; }
     }
 }

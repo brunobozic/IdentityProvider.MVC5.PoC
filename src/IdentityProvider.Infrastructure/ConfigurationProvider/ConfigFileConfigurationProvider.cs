@@ -16,8 +16,8 @@ namespace IdentityProvider.Infrastructure.ConfigurationProvider
             try
             {
                 if (typeof(Enum).IsAssignableFrom(typeof(T)))
-                    return (T)Enum.Parse(typeof(T), value);
-                return (T)Convert.ChangeType(value, typeof(T));
+                    return (T) Enum.Parse(typeof(T), value);
+                return (T) Convert.ChangeType(value, typeof(T));
             }
             catch (Exception ex)
             {
@@ -33,8 +33,8 @@ namespace IdentityProvider.Infrastructure.ConfigurationProvider
             try
             {
                 if (typeof(Enum).IsAssignableFrom(typeof(T)))
-                    return (T)Enum.Parse(typeof(T), value);
-                return (T)Convert.ChangeType(value, typeof(T));
+                    return (T) Enum.Parse(typeof(T), value);
+                return (T) Convert.ChangeType(value, typeof(T));
             }
             catch (Exception)
             {
@@ -61,8 +61,8 @@ namespace IdentityProvider.Infrastructure.ConfigurationProvider
             try
             {
                 if (typeof(Enum).IsAssignableFrom(typeof(T)))
-                    return (T)Enum.Parse(typeof(T), value);
-                return (T)Convert.ChangeType(value, typeof(T));
+                    return (T) Enum.Parse(typeof(T), value);
+                return (T) Convert.ChangeType(value, typeof(T));
             }
             catch (Exception ex)
             {
@@ -79,8 +79,8 @@ namespace IdentityProvider.Infrastructure.ConfigurationProvider
             try
             {
                 if (typeof(Enum).IsAssignableFrom(typeof(T)))
-                    return (T)Enum.Parse(typeof(T), value);
-                return (T)Convert.ChangeType(value, typeof(T));
+                    return (T) Enum.Parse(typeof(T), value);
+                return (T) Convert.ChangeType(value, typeof(T));
             }
             catch (Exception)
             {

@@ -10,9 +10,9 @@ using Logging.WCF.Models.DTOs;
 namespace Logging.WCF.Services.SampleManagerCode
 {
     /// <summary>
-    /// This class is a wrapper to enable programmatic configuration and access to a remote WCF service.
-    /// As such it does not belong in the callee service layer but in the caller service/business layer.
-    /// It is given here as an example of proper use.
+    ///     This class is a wrapper to enable programmatic configuration and access to a remote WCF service.
+    ///     As such it does not belong in the callee service layer but in the caller service/business layer.
+    ///     It is given here as an example of proper use.
     /// </summary>
     public class WCFLoggingManager : IWcfLoggingManager
     {
@@ -21,34 +21,6 @@ namespace Logging.WCF.Services.SampleManagerCode
         public WCFLoggingManager(string url)
         {
             CreateChannelToWcfService(url);
-        }
-
-        private static void CreateChannelToWcfService(string url)
-        {
-            try
-            {
-                // address for service
-                var address = new EndpointAddress(new Uri(url));
-
-                // binding for service
-                var binding = new BasicHttpBinding
-                {
-                    CloseTimeout = new TimeSpan(0, 0, 0, 30),
-                    OpenTimeout = new TimeSpan(0, 0, 0, 30),
-                    ReceiveTimeout = new TimeSpan(0, 0, 5, 0),
-                    SendTimeout = new TimeSpan(0, 0, 5, 0),
-                    TransferMode = TransferMode.Buffered
-                };
-
-                // get channel to wcf service from channelFactory class
-                _wcfLogService = ChannelFactory<ILogWcf>.CreateChannel(binding, address);
-            }
-            catch (Exception exc)
-            {
-                // todo:
-                ILog logger = LogManager.GetLogger(string.Empty);
-                logger.Fatal(exc);
-            }
         }
 
 
@@ -89,7 +61,7 @@ namespace Logging.WCF.Services.SampleManagerCode
             catch (Exception exc)
             {
                 //  "{"There was no endpoint listening at http://localhost:63247/LogWCF.svc that could accept the message. This is often caused by an incorrect address or SOAP action. See InnerException, if present, for more details."}"
-                ILog logger = LogManager.GetLogger(string.Empty);
+                var logger = LogManager.GetLogger(string.Empty);
                 logger.Fatal(exc);
             }
         }
@@ -99,6 +71,34 @@ namespace Logging.WCF.Services.SampleManagerCode
             get => throw new NotImplementedException();
             set => throw new NotImplementedException();
         }
+
+        private static void CreateChannelToWcfService(string url)
+        {
+            try
+            {
+                // address for service
+                var address = new EndpointAddress(new Uri(url));
+
+                // binding for service
+                var binding = new BasicHttpBinding
+                {
+                    CloseTimeout = new TimeSpan(0, 0, 0, 30),
+                    OpenTimeout = new TimeSpan(0, 0, 0, 30),
+                    ReceiveTimeout = new TimeSpan(0, 0, 5, 0),
+                    SendTimeout = new TimeSpan(0, 0, 5, 0),
+                    TransferMode = TransferMode.Buffered
+                };
+
+                // get channel to wcf service from channelFactory class
+                _wcfLogService = ChannelFactory<ILogWcf>.CreateChannel(binding, address);
+            }
+            catch (Exception exc)
+            {
+                // todo:
+                var logger = LogManager.GetLogger(string.Empty);
+                logger.Fatal(exc);
+            }
+        }
     }
 
     public class FakeWcfAppenderService : IWcfLoggingManager
@@ -107,15 +107,10 @@ namespace Logging.WCF.Services.SampleManagerCode
 
         public FakeWcfAppenderService(string url)
         {
-
             if (string.IsNullOrEmpty(url))
                 throw new ArgumentException("WCFLoggingManager URL");
 
             CreateChannelToWcfService(url);
-        }
-
-        private static void CreateChannelToWcfService(string url)
-        {
         }
 
 
@@ -159,11 +154,15 @@ namespace Logging.WCF.Services.SampleManagerCode
             catch (Exception exc)
             {
                 // todo:
-                ILog logger = LogManager.GetLogger(string.Empty);
+                var logger = LogManager.GetLogger(string.Empty);
                 logger.Fatal(exc);
             }
         }
 
         public List<LogToWCFServiceRequest> FakeList { get; set; }
+
+        private static void CreateChannelToWcfService(string url)
+        {
+        }
     }
 }

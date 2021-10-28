@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Module.Repository.EF.Core3.Contracts;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Module.Repository.EF.Core3.Contracts;
 using TrackableEntities.Common.Core;
 using TrackableEntities.EF.Core;
 
@@ -42,15 +42,23 @@ namespace Module.Repository.EF.Core3.Implementations
         }
 
         public virtual void ApplyChanges(params TEntity[] entities)
-            => Context.ApplyChanges(entities);
+        {
+            Context.ApplyChanges(entities);
+        }
 
         public virtual void AcceptChanges(params TEntity[] entities)
-            => Context.AcceptChanges(entities);
+        {
+            Context.AcceptChanges(entities);
+        }
 
         public virtual void DetachEntities(params TEntity[] entities)
-            => Context.DetachEntities(entities);
+        {
+            Context.DetachEntities(entities);
+        }
 
         public virtual async Task LoadRelatedEntities(params TEntity[] entities)
-            => await Context.LoadRelatedEntitiesAsync(entities);
+        {
+            await Context.LoadRelatedEntitiesAsync(entities);
+        }
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-namespace Module.Repository.EF
+﻿namespace Module.Repository.EF
 {
     public abstract class QueryObjectEf<TEntity>
     {

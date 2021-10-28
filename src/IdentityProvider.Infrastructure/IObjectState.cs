@@ -4,8 +4,7 @@ namespace IdentityProvider.Infrastructure
 {
     public interface IObjectState
     {
-        [NotMapped]
-        ObjectState ObjectState { get; set; }
+        [NotMapped] ObjectState ObjectState { get; set; }
     }
 
     public enum ObjectState

@@ -1,11 +1,11 @@
-﻿using IdentityProvider.Infrastructure.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Linq;
+using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
@@ -20,6 +20,25 @@ namespace IdentityProvider.Models.Domain.Account
             SecurityWeight = 0; // Guest
         }
 
+        [Required]
+        [DisplayName("Name")]
+        [MaxLength(50, ErrorMessage = "The name of the organizational unit must be between 2 and 50 characters")]
+        [MinLength(2)]
+        public string Name { get; set; }
+
+
+        [DisplayName("Description")]
+        [MaxLength(260,
+            ErrorMessage = "The description of the organizational unit must be between 2 and 260 characters")]
+        [MinLength(2)]
+        public string Description { get; set; }
+
+        [Required] [Range(0, 50)] public int SecurityWeight { get; set; }
+
+        public ICollection<EmployeeBelongsToOrgUnitLink> Employees { get; set; }
+        public ICollection<OrgUnitContainsRoleGroupLink> RoleGroups { get; set; }
+        public ICollection<OrgUnitContainsRoleGroupLink> OrganisationalUnits { get; set; }
+
         #region IValidatable Entity contract implementation
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -28,34 +47,6 @@ namespace IdentityProvider.Models.Domain.Account
         }
 
         #endregion IValidatable Entity contract implementation
-
-        #region IsActive
-
-        public bool Active { get; set; }
-        [DisplayName("Record is active from (date)")]
-        public DateTime? ActiveFrom { get; set; }
-        [DisplayName("Record is active to (date)")]
-        public DateTime? ActiveTo { get; set; }
-
-        #endregion IsActive
-
-        [Required]
-        [DisplayName("Name")]
-        [MaxLength(50, ErrorMessage = "The name of the organizational unit must be between 2 and 50 characters"), MinLength(2)]
-        public string Name { get; set; }
-
-
-        [DisplayName("Description")]
-        [MaxLength(260, ErrorMessage = "The description of the organizational unit must be between 2 and 260 characters"), MinLength(2)]
-        public string Description { get; set; }
-
-        [Required]
-        [Range(0, 50)]
-        public int SecurityWeight { get; set; }
-
-        public ICollection<EmployeeBelongsToOrgUnitLink> Employees { get; set; }
-        public ICollection<OrgUnitContainsRoleGroupLink> RoleGroups { get; set; }
-        public ICollection<OrgUnitContainsRoleGroupLink> OrganisationalUnits { get; set; }
 
         public List<EmployeeBelongsToOrgUnitLink> FetchAssociatedEmployees()
         {
@@ -94,5 +85,17 @@ namespace IdentityProvider.Models.Domain.Account
 
             return roleGroups;
         }
+
+        #region IsActive
+
+        public bool Active { get; set; }
+
+        [DisplayName("Record is active from (date)")]
+        public DateTime? ActiveFrom { get; set; }
+
+        [DisplayName("Record is active to (date)")]
+        public DateTime? ActiveTo { get; set; }
+
+        #endregion IsActive
     }
 }

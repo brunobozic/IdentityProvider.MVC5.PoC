@@ -1,10 +1,10 @@
-﻿using IdentityProvider.Infrastructure.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Linq;
+using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
@@ -13,27 +13,20 @@ namespace IdentityProvider.Models.Domain.Account
     {
         public RoleGroup()
         {
-
             OrganisationalUnits = new HashSet<OrgUnitContainsRoleGroupLink>();
             Active = true;
             ActiveFrom = DateTime.UtcNow;
         }
 
         [Required]
-        [MaxLength(260, ErrorMessage = "The description of the role group unit must be between 5 and 260 characters"), MinLength(5)]
+        [MaxLength(260, ErrorMessage = "The description of the role group unit must be between 5 and 260 characters")]
+        [MinLength(5)]
         public string Name { get; set; }
 
 
-        [MaxLength(260, ErrorMessage = "The description of the role group must be between 5 and 260 characters"), MinLength(5)]
+        [MaxLength(260, ErrorMessage = "The description of the role group must be between 5 and 260 characters")]
+        [MinLength(5)]
         public string Description { get; set; }
-
-        #region IsActive
-
-        public bool Active { get; set; }
-        public DateTime? ActiveFrom { get; set; }
-        public DateTime? ActiveTo { get; set; }
-
-        #endregion IsActive
 
         public virtual ICollection<RoleGroupContainsRoleLink> Roles { get; set; }
         public virtual ICollection<OrgUnitContainsRoleGroupLink> OrganisationalUnits { get; set; }
@@ -53,7 +46,8 @@ namespace IdentityProvider.Models.Domain.Account
 
             try
             {
-                organisationalUnits = OrganisationalUnits.Where(i => i.Active && !i.IsDeleted && i.RoleGroupId.Equals(Id)).ToList();
+                organisationalUnits = OrganisationalUnits
+                    .Where(i => i.Active && !i.IsDeleted && i.RoleGroupId.Equals(Id)).ToList();
             }
             catch (Exception e)
             {
@@ -84,5 +78,13 @@ namespace IdentityProvider.Models.Domain.Account
 
             return roles;
         }
+
+        #region IsActive
+
+        public bool Active { get; set; }
+        public DateTime? ActiveFrom { get; set; }
+        public DateTime? ActiveTo { get; set; }
+
+        #endregion IsActive
     }
 }

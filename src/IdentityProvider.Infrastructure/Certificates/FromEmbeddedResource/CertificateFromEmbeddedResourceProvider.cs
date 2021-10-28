@@ -1,10 +1,10 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using System;
+using System.Data;
+using System.Security.Cryptography.X509Certificates;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Certificates.ExpiryValidation;
 using IdentityProvider.Infrastructure.Enums;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
-using System;
-using System.Data;
-using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource
 {
@@ -51,7 +51,7 @@ namespace IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource
                 var testApplicationCertificate = new X509Certificate2(string.Empty, testPwd);
 
                 LogExtraInformation(
-string.Empty,
+                    string.Empty,
                     testApplicationCertificate,
                     testPwd,
                     CertificateTypeEnum.TestApplication
@@ -64,7 +64,7 @@ string.Empty,
                 var demoApplicationCertificate = new X509Certificate2(string.Empty, demoPwd);
 
                 LogExtraInformation(
-string.Empty,
+                    string.Empty,
                     demoApplicationCertificate,
                     demoPwd,
                     CertificateTypeEnum.DemoApplication
@@ -119,7 +119,7 @@ string.Empty,
 
         #region Public methods
 
-        #endregion Public methods    
+        #endregion Public methods
 
         #region Private methods
 

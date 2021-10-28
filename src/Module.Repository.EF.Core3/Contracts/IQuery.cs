@@ -20,13 +20,20 @@ namespace Module.Repository.EF.Core3.Contracts
         IQuery<TEntity> ThenByDescending(Expression<Func<TEntity, object>> thenByDescending);
         Task<int> CountAsync(CancellationToken cancellationToken = default);
         Task<TEntity> FirstOrDefaultAsync(CancellationToken cancellationToken = default);
-        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
+
+        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default);
+
         Task<TEntity> SingleOrDefaultAsync(CancellationToken cancellationToken = default);
-        Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
-        Task<IEnumerable<TEntity>> SelectSqlAsync(string sql, object[] parameters, CancellationToken cancellationToken = default);
+
+        Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate,
+            CancellationToken cancellationToken = default);
+
+        Task<IEnumerable<TEntity>> SelectSqlAsync(string sql, object[] parameters,
+            CancellationToken cancellationToken = default);
+
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
         Task<bool> AnyAsync(CancellationToken cancellationToken = default);
         Task<bool> AllAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
-
     }
 }

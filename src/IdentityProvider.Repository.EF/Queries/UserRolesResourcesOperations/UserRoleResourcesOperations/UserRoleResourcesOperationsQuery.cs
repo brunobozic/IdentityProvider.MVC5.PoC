@@ -1,22 +1,23 @@
-﻿using IdentityProvider.Repository.EF.EFDataContext;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using IdentityProvider.Repository.EF.EFDataContext;
 
 namespace IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.UserRoleResourcesOperations
 {
     public class UserRoleResourcesOperationsQuery
     {
         private readonly AppDbContext _context;
+
+        public UserRoleResourcesOperationsQuery(AppDbContext context)
+        {
+            _context = context;
+        }
+
         public bool OnlyActiveRoles { get; set; }
         public bool OnlyActiveOperations { get; set; }
         public bool OnlyActiveResources { get; set; }
         public string RoleNameLike { get; set; }
         public string OperationNameLike { get; set; }
         public string ResourceNameLike { get; set; }
-
-        public UserRoleResourcesOperationsQuery(AppDbContext context)
-        {
-            _context = context;
-        }
 
         public IEnumerable<UserRoleResourcesOperationsDto> Execute()
         {

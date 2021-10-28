@@ -7,8 +7,8 @@ namespace Logging.WCF.Repository.EF.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "DbLog",
+                "Name",
+                "DbLog",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
@@ -17,9 +17,9 @@ namespace Logging.WCF.Repository.EF.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "DbLog",
-                type: "nvarchar(max)",
+                "Name",
+                "DbLog",
+                "nvarchar(max)",
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);

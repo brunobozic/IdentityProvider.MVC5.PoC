@@ -1,5 +1,3 @@
-using System;
-
 namespace IdentityProvider.PoC.MVC6.Models
 {
     public class ErrorViewModel

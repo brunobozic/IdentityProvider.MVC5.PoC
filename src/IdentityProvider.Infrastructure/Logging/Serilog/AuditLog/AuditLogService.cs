@@ -1,8 +1,8 @@
-﻿using IdentityProvider.Infrastructure.ApplicationContext;
+﻿using System;
+using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.ConfigurationProvider;
 using IdentityProvider.Infrastructure.Enums;
 using Serilog;
-using System;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.AuditLog
 {

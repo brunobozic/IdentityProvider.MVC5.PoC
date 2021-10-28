@@ -1,24 +1,23 @@
-﻿namespace IdentityProvider.Repository.EF.Migrations
+﻿using System.Data.Entity.Migrations;
+
+namespace IdentityProvider.Repository.EF.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class changes_to_audit : DbMigration
     {
         public override void Up()
         {
             DropTable("Log.DatabaseLog");
         }
-        
+
         public override void Down()
         {
             CreateTable(
-                "Log.DatabaseLog",
-                c => new
+                    "Log.DatabaseLog",
+                    c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(false, true),
                         Operation = c.String(),
-                        UserId = c.Int(nullable: false),
+                        UserId = c.Int(false),
                         UserName = c.String(),
                         Message = c.String(),
                         TrackingNo = c.String(),
@@ -49,18 +48,17 @@
                         AssemblyQualifiedName = c.String(),
                         Namespace = c.String(),
                         LogSource = c.String(),
-                        TimeStamp = c.DateTime(nullable: false),
+                        TimeStamp = c.DateTime(false),
                         ModifiedById = c.String(),
-                        ModifiedDate = c.DateTime(nullable: false),
+                        ModifiedDate = c.DateTime(false),
                         DeletedById = c.String(),
                         DeletedDate = c.DateTime(),
                         CreatedById = c.String(),
-                        CreatedDate = c.DateTime(nullable: false),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        IsDeleted = c.Boolean(nullable: false),
+                        CreatedDate = c.DateTime(false),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false)
                     })
                 .PrimaryKey(t => t.Id);
-            
         }
     }
 }

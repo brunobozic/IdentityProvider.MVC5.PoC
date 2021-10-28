@@ -1,18 +1,17 @@
-﻿using log4net.Appender;
+﻿using System;
+using log4net.Appender;
 using log4net.Core;
-using System;
 
 namespace Logging.WCF.Models.Log4Net
 {
     public interface ILog4NetLoggingService : IDisposable
     {
+        MemoryAppender Appender { get; set; }
+        LoggingEvent LogEvent { get; set; }
         void LogError(object logSource, string message, Exception exception = null, bool viaWcf = false);
         void LogFatal(object logSource, string message, Exception exception = null, bool viaWcf = false);
         void LogInfo(object logSource, string message, Exception exception = null, bool viaWcf = false);
         void LogWarning(object logSource, string message, Exception exception = null, bool viaWcf = false);
-
-        MemoryAppender Appender { get; set; }
-        LoggingEvent LogEvent { get; set; }
 
         //void LogDbTrace(string database, string procedureOrTypeOfExecuted, TimeSpan stopwatchElapsed,
         //    string commandText,

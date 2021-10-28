@@ -1,6 +1,6 @@
+using System.Data.Entity.Migrations;
 using IdentityProvider.Services.DbSeed;
 using Module.Repository.EF;
-using System.Data.Entity.Migrations;
 
 namespace IdentityProvider.Services
 {
@@ -18,18 +18,7 @@ namespace IdentityProvider.Services
 
         protected override void Seed(DataContext context)
         {
-
-
-            try
-            {
-                _seeder.Seed();
-            }
-            catch (System.Exception)
-            {
-
-                throw;
-            }
-
+            _seeder.Seed();
         }
     }
 }

@@ -1,16 +1,16 @@
-﻿using IdentityProvider.Infrastructure;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
-using IdentityProvider.Infrastructure.Cookies;
-using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
-using IdentityProvider.Models;
-using IdentityProvider.Models.Datatables;
-using IdentityProvider.Services.AuditTrailService;
-using Module.Repository.EF.UnitOfWorkInterfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using IdentityProvider.Infrastructure;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
+using IdentityProvider.Infrastructure.Cookies;
+using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
+using IdentityProvider.Models.Datatables;
 using IdentityProvider.Models.ViewModels;
+using IdentityProvider.Services.AuditTrailService;
+using Module.Repository.EF.UnitOfWorkInterfaces;
+using StructureMap;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -19,7 +19,7 @@ namespace IdentityProvider.Controllers.Controllers
         private readonly IAuditTrailService _auditTrailService;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
 
-        [StructureMap.DefaultConstructor] // Set Default Constructor for StructureMap
+        [DefaultConstructor] // Set Default Constructor for StructureMap
         public AuditTrailController(
             IAuditTrailService auditTrailService
             , ICookieStorageService cookieStorageService
@@ -60,7 +60,7 @@ namespace IdentityProvider.Controllers.Controllers
             return Json(new
             {
                 // this is what datatables expect to recieve
-                draw = model.draw,
+                model.draw,
                 recordsTotal = totalResultsCount,
                 recordsFiltered = filteredResultsCount,
                 data = result
@@ -120,38 +120,35 @@ namespace IdentityProvider.Controllers.Controllers
 
 
             if (result == null)
-            {
                 // empty collection...
                 return new List<YourCustomSearchClass>();
-            }
 
             return result;
         }
 
         private MultiSelectList GetMultiSelectListDropDownForTableName(List<int> selectedValues)
         {
-
             List<SelectListItem> items;
 
             if (selectedValues != null)
-            {
-                items = _auditTrailService.Queryable().OrderBy(a => a.TableName).AsNoTracking().Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.TableName,
-                    Selected = selectedValues.Contains(c.Id),
-                    Disabled = selectedValues.Contains(c.Id) // this will make the dropdown checkboxes disabled for all those items that already exist in the db, to prevent deletion
-                }).ToList();
-            }
+                items = _auditTrailService.Queryable().OrderBy(a => a.TableName).AsNoTracking().Select(c =>
+                    new SelectListItem
+                    {
+                        Value = c.Id.ToString(),
+                        Text = c.TableName,
+                        Selected = selectedValues.Contains(c.Id),
+                        Disabled = selectedValues
+                            .Contains(c
+                                .Id) // this will make the dropdown checkboxes disabled for all those items that already exist in the db, to prevent deletion
+                    }).ToList();
             else
-            {
-                items = _auditTrailService.Queryable().OrderBy(a => a.TableName).AsNoTracking().Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.TableName,
-                    Selected = false
-                }).ToList();
-            }
+                items = _auditTrailService.Queryable().OrderBy(a => a.TableName).AsNoTracking().Select(c =>
+                    new SelectListItem
+                    {
+                        Value = c.Id.ToString(),
+                        Text = c.TableName,
+                        Selected = false
+                    }).ToList();
 
             var msl = new MultiSelectList(items, "Value", "Text", selectedValues, selectedValues);
 
@@ -166,12 +163,10 @@ namespace IdentityProvider.Controllers.Controllers
             var distinctTableNames = _auditTrailService
                 .Queryable()
                 .GroupBy(par => par.TableName, (key, g) => g.OrderBy(e => e.TableName)
-                .FirstOrDefault())
+                    .FirstOrDefault())
                 .ToList();
 
             if (search != null)
-            {
-
                 items = distinctTableNames
                     .Where(x => x.TableName.Contains(search))
                     .Select(c => new Select2Model
@@ -181,10 +176,8 @@ namespace IdentityProvider.Controllers.Controllers
                         selected = false,
                         id = c.Id
                     })
-                  .ToList();
-            }
+                    .ToList();
             else
-            {
                 items = distinctTableNames
                     .Select(c => new Select2Model
                     {
@@ -193,11 +186,9 @@ namespace IdentityProvider.Controllers.Controllers
                         selected = false,
                         id = c.Id
                     }).ToList();
-            }
             var modifiedData = items.Select(x => new
             {
-                id = x.text,
-                text = x.text
+                id = x.text, x.text
             });
             return Json(modifiedData, JsonRequestBehavior.AllowGet);
         }

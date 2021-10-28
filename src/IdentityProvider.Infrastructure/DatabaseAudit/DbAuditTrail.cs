@@ -1,7 +1,7 @@
-﻿using IdentityProvider.Infrastructure.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using IdentityProvider.Infrastructure.Domain;
 using TrackableEntities;
 
 namespace IdentityProvider.Infrastructure.DatabaseAudit
@@ -9,11 +9,6 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
     [Table("DbAuditTrail", Schema = "Audit")]
     public class DbAuditTrail : ITrackable, ISoftDeletable
     {
-        public DbAuditTrail()
-        {
-
-        }
-
         public string TableName { get; set; }
         public int UserId { get; set; }
         public string UserName { get; set; }
@@ -23,8 +18,8 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
         public DateTime UpdatedAt { get; set; }
         public string Actions { get; set; }
         public int Id { get; set; }
+        public bool IsDeleted { get; set; }
         public TrackingState TrackingState { get; set; }
         public ICollection<string> ModifiedProperties { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

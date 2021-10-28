@@ -1,7 +1,8 @@
 ﻿.themed-buttons-pink {
-    background-color: pink !important;
+    background-color: #E91E63 !important;
     color: #fff;
 }
+
 body {
     background-color: lightgray !important;
     background-image: url('../iwa-sport-bg-image-light-medium.jpg');

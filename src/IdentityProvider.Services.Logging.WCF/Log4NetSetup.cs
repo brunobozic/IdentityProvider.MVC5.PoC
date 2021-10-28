@@ -1,9 +1,9 @@
-﻿using log4net;
+﻿using System.Reflection;
+using log4net;
 using log4net.Appender;
 using log4net.Core;
 using log4net.Layout;
 using log4net.Repository.Hierarchy;
-using System.Reflection;
 
 namespace HAC.Helpdesk.Services.Logging.WCF
 {
@@ -11,15 +11,15 @@ namespace HAC.Helpdesk.Services.Logging.WCF
     {
         public static void Setup()
         {
-            Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
+            var hierarchy = (Hierarchy) LogManager.GetRepository();
 
-            PatternLayout patternLayout = new PatternLayout
+            var patternLayout = new PatternLayout
             {
                 ConversionPattern = "%date [%thread] %-5level %logger - %message%newline"
             };
             patternLayout.ActivateOptions();
 
-            RollingFileAppender roller = new RollingFileAppender
+            var roller = new RollingFileAppender
             {
                 AppendToFile = false
             };
@@ -33,7 +33,7 @@ namespace HAC.Helpdesk.Services.Logging.WCF
             roller.ActivateOptions();
             hierarchy.Root.AddAppender(roller);
 
-            MemoryAppender memory = new MemoryAppender();
+            var memory = new MemoryAppender();
             memory.ActivateOptions();
             hierarchy.Root.AddAppender(memory);
 

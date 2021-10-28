@@ -1,17 +1,16 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using System;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.Logging.Serilog;
 using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Model;
 using Serilog;
-using System;
 
 namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider
 {
     public class PerformanceLogProvider : IPerformanceLogProvider
     {
         private const string Pattern =
-                "{CurrentEnvironment}{ApplicationId}{InstanceId}{Action}{Url}{Status}{StatusCode}{Browser}{Request}{Response}{Miliseconds}{CorrelationId}{Exception}"
-            ;
+            "{CurrentEnvironment}{ApplicationId}{InstanceId}{Action}{Url}{Status}{StatusCode}{Browser}{Request}{Response}{Miliseconds}{CorrelationId}{Exception}";
 
         private readonly IApplicationConfiguration _applicationConfiguration;
         private readonly ILogger _loggingService;

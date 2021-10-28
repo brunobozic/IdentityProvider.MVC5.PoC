@@ -1,5 +1,5 @@
-﻿using Module.Repository.EF.Repositories;
-using System.Data;
+﻿using System.Data;
+using Module.Repository.EF.Repositories;
 using TrackableEntities;
 
 namespace Module.Repository.EF.UnitOfWorkInterfaces

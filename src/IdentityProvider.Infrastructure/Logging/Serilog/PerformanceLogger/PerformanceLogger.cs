@@ -1,6 +1,6 @@
-﻿using IdentityProvider.Infrastructure.ConfigurationProvider;
+﻿using System;
+using IdentityProvider.Infrastructure.ConfigurationProvider;
 using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;
-using System;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.PerformanceLogger
 {

@@ -1,16 +1,26 @@
+using System;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+using AutoMapper;
 using IdentityProvider.Infrastructure;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
+using IdentityProvider.Infrastructure.Caching;
 using IdentityProvider.Infrastructure.Certificates.ExpiryValidation;
 using IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource;
+using IdentityProvider.Infrastructure.Certificates.FromStore;
 using IdentityProvider.Infrastructure.Certificates.Manager;
 using IdentityProvider.Infrastructure.ConfigurationProvider;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.DatabaseAudit;
+using IdentityProvider.Infrastructure.Email;
 using IdentityProvider.Infrastructure.GlobalAsaxHelpers;
 using IdentityProvider.Infrastructure.Logging.Serilog;
 using IdentityProvider.Infrastructure.Logging.Serilog.AuditLog;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
+using IdentityProvider.Repository.EF.EFDataContext;
 using IdentityProvider.Services;
 using IdentityProvider.Services.ApplicationRoleService;
 using IdentityProvider.Services.AuditTrailService;
@@ -18,42 +28,33 @@ using IdentityProvider.Services.Log4Net;
 using IdentityProvider.Services.OperationsService;
 using IdentityProvider.Services.ResourceService;
 using IdentityProvider.Services.RowLeveLSecurityUserGrantService;
+using IdentityProvider.Services.UserProfileService;
 using Logging.WCF.Infrastructure.Contracts;
+using Logging.WCF.Models.Log4Net;
 using Logging.WCF.Services.SampleManagerCode;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataProtection;
+using Module.Repository.EF;
+using Module.Repository.EF.Repositories;
+using Module.Repository.EF.UnitOfWorkInterfaces;
+using StructureMap;
+using StructureMap.Graph;
 using StructureMap.Pipeline;
+using IAddLoggingContextProvider = IdentityProvider.Infrastructure.ApplicationContext.IAddLoggingContextProvider;
+using IApplicationConfiguration = IdentityProvider.Infrastructure.ApplicationConfiguration.IApplicationConfiguration;
+using IConfigurationProvider = IdentityProvider.Infrastructure.ConfigurationProvider.IConfigurationProvider;
+
 
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 {
-    using AutoMapper;
-    using IdentityProvider.Infrastructure.Caching;
-    using IdentityProvider.Infrastructure.Certificates.FromStore;
-    using IdentityProvider.Infrastructure.Email;
-    using IdentityProvider.Repository.EF.EFDataContext;
-    using IdentityProvider.Services.UserProfileService;
-    using Logging.WCF.Models.Log4Net;
-    using Logging.WCF.Services;
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using Microsoft.AspNet.Identity.Owin;
-    using Microsoft.Owin.Security;
-    using Microsoft.Owin.Security.DataProtection;
-    using Module.Repository.EF;
-    using Module.Repository.EF.Repositories;
-    using Module.Repository.EF.UnitOfWorkInterfaces;
-    using StructureMap;
-    using System;
-    using System.Data.Entity;
-    using System.Linq;
-    using System.Web;
-    using ApplicationConfiguration = Infrastructure.ApplicationConfiguration.ApplicationConfiguration;
-    using IAddLoggingContextProvider = Infrastructure.ApplicationContext.IAddLoggingContextProvider;
-    using TextLoggingEmailService = Infrastructure.Email.TextLoggingEmailService;
-
     public class DefaultRegistry : Registry
     {
         #region Constructors and Destructors
 
-        private readonly DpapiDataProtectionProvider _provider = new DpapiDataProtectionProvider("IdentityProvider");
+        private readonly DpapiDataProtectionProvider _provider = new("IdentityProvider");
 
         public DefaultRegistry()
         {
@@ -73,14 +74,15 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             //    .Ctor<string>()
             //    .Is("SimpleMembership"));
 
-            For<IAuthenticationManager>().Use(() => System.Web.HttpContext.Current.GetOwinContext().Authentication);
+            For<IAuthenticationManager>().Use(() => HttpContext.Current.GetOwinContext().Authentication);
 
             For<IUserStore<ApplicationUser>>()
                 .Use<UserStore<ApplicationUser>>()
                 .Ctor<DbContext>()
-                .Is<AppDbContext>((SmartInstance<AppDbContext, DbContext> cfg) => cfg.SelectConstructor(() => new Repository.EF.EFDataContext.AppDbContext("connectionStringName"))
-                .Ctor<string>()
-                .Is("SimpleMembership"));
+                //.Is(cfg => cfg.SelectConstructor(() => new AppDbContext("connectionStringName"))
+                //    .Ctor<string>()
+                //    .Is("SimpleMembership"))
+                ;
 
             ForConcreteType<UserManager<IdentityUser>>()
                 .Configure
@@ -97,22 +99,24 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
                     AllowOnlyAlphanumericUserNames = false,
                     RequireUniqueEmail = true
                 })
-                .SetProperty(userManager => userManager.UserTokenProvider = new DataProtectorTokenProvider<IdentityUser, string>(_provider.Create("ASP.NET Identity")))
+                .SetProperty(userManager => userManager.UserTokenProvider =
+                    new DataProtectorTokenProvider<IdentityUser, string>(_provider.Create("ASP.NET Identity")))
                 .SetProperty(userManager => userManager.UserLockoutEnabledByDefault = true)
                 .SetProperty(userManager => userManager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5))
                 .SetProperty(userManager => userManager.MaxFailedAccessAttemptsBeforeLockout = 5)
-                .SetProperty(userManager => userManager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<IdentityUser>
-                {
-                    MessageFormat = "Your security code is {0}"
-                }))
-                .SetProperty(userManager => userManager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<IdentityUser>
-                {
-                    Subject = "Security Code",
-                    BodyFormat = "Your security code is {0}"
-                }))
+                .SetProperty(userManager => userManager.RegisterTwoFactorProvider("Phone Code",
+                    new PhoneNumberTokenProvider<IdentityUser>
+                    {
+                        MessageFormat = "Your security code is {0}"
+                    }))
+                .SetProperty(userManager => userManager.RegisterTwoFactorProvider("Email Code",
+                    new EmailTokenProvider<IdentityUser>
+                    {
+                        Subject = "Security Code",
+                        BodyFormat = "Your security code is {0}"
+                    }))
                 .SetProperty(userManager => userManager.EmailService = new EmailService())
                 //.SetProperty(userManager => userManager.SmsService = new SmsService())
-
                 ;
 
             //ForConcreteType<DataContextAsync>()
@@ -122,26 +126,35 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             //    .Is("SimpleMembership");
 
             For<IMemoryCacheProvider>().Use<MemoryCacheProvider>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<Infrastructure.ConfigurationProvider.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IConfigurationProvider>().Use<ConfigFileConfigurationProvider>()
+                .LifecycleIs<UniquePerRequestLifecycle>();
             For<ISerilogLoggingFactory>().Use<LoggingFactory>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<ICertificateFromStoreProvider>().Use<CertificateFromStoreProvider>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<ICertificateFromStoreProvider>().Use<CertificateFromStoreProvider>()
+                .LifecycleIs<UniquePerRequestLifecycle>();
             For<IAuditLogService>().Use<SerilogAuditLogProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IErrorLogService>().Use<SerilogErrorLogProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             For<ICertificateManager>().Use<CertificateManager>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<ICertificateFromEmbededResourceProvider>().Use<CertificateFromEmbeddedResourceProvider>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<ICertificateExpirationValidator>().Use<CertificateExpirationValidator>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<ICachedUserAuthorizationGrantsProvider>().Use<CachedUserAuthorizationGrantsProvider>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<ICertificateFromEmbededResourceProvider>().Use<CertificateFromEmbeddedResourceProvider>()
+                .LifecycleIs<UniquePerRequestLifecycle>();
+            For<ICertificateExpirationValidator>().Use<CertificateExpirationValidator>()
+                .LifecycleIs<UniquePerRequestLifecycle>();
+            For<ICachedUserAuthorizationGrantsProvider>().Use<CachedUserAuthorizationGrantsProvider>()
+                .LifecycleIs<UniquePerRequestLifecycle>();
             // ================================================================================
             For<IApplicationRoleService>().Use<ApplicationRoleService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IOperationService>().Use<OperationsService>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<IApplicationResourceService>().Use<ApplicationResourceService>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IApplicationResourceService>().Use<ApplicationResourceService>()
+                .LifecycleIs<UniquePerRequestLifecycle>();
             For<IAuditTrailService>().Use<AuditTrailService>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<IRepositoryAsync<DbAuditTrail>>().Use<Repository<DbAuditTrail>>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IRepositoryAsync<DbAuditTrail>>().Use<Repository<DbAuditTrail>>()
+                .LifecycleIs<UniquePerRequestLifecycle>();
             // For(typeof(IService<>)).Use(typeof(Service<>));
-            For<ICachedUserAuthorizationGrantsProvider>().Use<CachedUserAuthorizationGrantsProvider>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<ICachedUserAuthorizationGrantsProvider>().Use<CachedUserAuthorizationGrantsProvider>()
+                .LifecycleIs<UniquePerRequestLifecycle>();
             // ================================================================================
             For<IAuditTrailService>().Use<AuditTrailService>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<IRepositoryAsync<DbAuditTrail>>().Use<Repository<DbAuditTrail>>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IRepositoryAsync<DbAuditTrail>>().Use<Repository<DbAuditTrail>>()
+                .LifecycleIs<UniquePerRequestLifecycle>();
 
             //For<IApplicationConfiguration>()
             //    .Use<ApplicationConfiguration>()
@@ -159,27 +172,30 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             For<DbContext>().Use(i => new AppDbContext("SimpleMembership")).LifecycleIs<UniquePerRequestLifecycle>();
 
             For(typeof(IRoleStore<ApplicationRole, string>)).Use(typeof(RoleStore<ApplicationRole>))
-            .Ctor<DbContext>()
-            .Is<AppDbContext>((SmartInstance<AppDbContext, DbContext> cfg) => cfg.SelectConstructor(() => new Repository.EF.EFDataContext.AppDbContext("connectionStringName"))
-            .Ctor<string>()
-            .Is("SimpleMembership"));
+                .Ctor<DbContext>()
+//.Is(cfg => cfg.SelectConstructor(() => new AppDbContext("connectionStringName"))
+//    .Ctor<string>()
+//    .Is("SimpleMembership"))                    
+;
 
             For<IUnitOfWorkAsync>().Use<UnitOfWork>().LifecycleIs<UniquePerRequestLifecycle>();
             For(typeof(IRepositoryAsync<>)).Use(typeof(Repository<>));
             For<ICookieStorageService>().Use<CookieStorageService>().LifecycleIs<UniquePerRequestLifecycle>();
 
             For<IEmailService>().Use<TextLoggingEmailService>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<IdentityProvider.Infrastructure.ConfigurationProvider.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IConfigurationProvider>().Use<ConfigFileConfigurationProvider>()
+                .LifecycleIs<UniquePerRequestLifecycle>();
             For<IWcfLoggingManager>().Use<WCFLoggingManager>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IIdentityMessageService>().Use<GmailEmailService>().LifecycleIs<UniquePerRequestLifecycle>();
 
             For<ILog4NetLoggingService>().Use<Log4NetLoggingService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IContextProvider>().Use<HttpContextProvider>().LifecycleIs<UniquePerRequestLifecycle>();
-            For<Infrastructure.ApplicationConfiguration.IApplicationConfiguration>().Use<ApplicationConfiguration>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IApplicationConfiguration>().Use<ApplicationConfiguration>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IGlobalAsaxHelpers>().Use<GlobalAsaxHelpers>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IAddLoggingContextProvider>().Use<LoggingContextProvider>().LifecycleIs<UniquePerRequestLifecycle>();
 
-            For<IUserProfileAdministrationService>().Use<UserProfileAdministrationService>().LifecycleIs<UniquePerRequestLifecycle>();
+            For<IUserProfileAdministrationService>().Use<UserProfileAdministrationService>()
+                .LifecycleIs<UniquePerRequestLifecycle>();
 
             // Identity 2.0 Facade
             For<IWebSecurity>().Use<WebSecurity>().LifecycleIs<UniquePerRequestLifecycle>();
@@ -192,10 +208,7 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             // For each Profile, include that profile in the MapperConfiguration
             var config = new MapperConfiguration(cfg =>
             {
-                foreach (var profile in profiles)
-                {
-                    cfg.AddProfile(profile);
-                }
+                foreach (var profile in profiles) cfg.AddProfile(profile);
             });
 
             // Create a mapper that will be used by the DI container

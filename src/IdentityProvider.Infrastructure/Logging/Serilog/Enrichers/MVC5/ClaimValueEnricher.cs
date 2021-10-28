@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Serilog.Core;
-using Serilog.Events;
 using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
+using Serilog.Core;
+using Serilog.Events;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.Enrichers.MVC5
 {
@@ -76,7 +76,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.Enrichers.MVC5
             if (user == null)
                 return;
 
-            var claims = ((ClaimsIdentity)user.Identity).Claims;
+            var claims = ((ClaimsIdentity) user.Identity).Claims;
 
             var value = claims?.FirstOrDefault(c => c.Type == _claimProperty)?.Value;
             if (string.IsNullOrWhiteSpace(value))

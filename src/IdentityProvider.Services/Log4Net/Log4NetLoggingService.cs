@@ -1,4 +1,6 @@
-﻿using log4net;
+﻿using System;
+using System.IO;
+using log4net;
 using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
@@ -6,28 +8,27 @@ using log4net.Layout;
 using log4net.Repository.Hierarchy;
 using Logging.WCF.Infrastructure.Contracts;
 using Logging.WCF.Models.Log4Net;
-using Logging.WCF.Services;
-using System;
-using System.IO;
 using Logging.WCF.Services.SampleManagerCode;
+using IAddLoggingContextProvider = IdentityProvider.Infrastructure.ApplicationContext.IAddLoggingContextProvider;
+using IApplicationConfiguration = IdentityProvider.Infrastructure.ApplicationConfiguration.IApplicationConfiguration;
 
 namespace IdentityProvider.Services.Log4Net
 {
     public class Log4NetLoggingService : ILog4NetLoggingService
     {
-        private readonly Infrastructure.ApplicationConfiguration.IApplicationConfiguration _configurationRepository;
-        private readonly Infrastructure.ApplicationContext.IAddLoggingContextProvider _contextService;
+        private readonly IApplicationConfiguration _configurationRepository;
+        private readonly IAddLoggingContextProvider _contextService;
         private readonly string _dontLogAnythingViaWcf;
         private readonly bool _isMock;
         private readonly string _log4NetConfigFileName;
         private readonly string _logEverythingToFile;
         private readonly string _logEverythingViaWcf;
         private ILog _logManager;
-        private IWcfLoggingManager _wcfLoggingManager;
+        private readonly IWcfLoggingManager _wcfLoggingManager;
 
         public Log4NetLoggingService(
-            Infrastructure.ApplicationConfiguration.IApplicationConfiguration configurationRepository
-            , Infrastructure.ApplicationContext.IAddLoggingContextProvider contextService
+            IApplicationConfiguration configurationRepository
+            , IAddLoggingContextProvider contextService
             , bool isMock = false
         )
         {
@@ -86,6 +87,35 @@ namespace IdentityProvider.Services.Log4Net
             SetupLogger();
         }
 
+        public void Dispose()
+        {
+            // TODO:
+        }
+
+        public void LogError(object logSource, string message, Exception exception = null, bool viaWcf = false)
+        {
+            LogMessageWithProperties(logSource, message, Level.Error, exception, viaWcf);
+        }
+
+        public void LogFatal(object logSource, string message, Exception exception = null, bool viaWcf = false)
+        {
+            LogMessageWithProperties(logSource, message, Level.Fatal, exception, viaWcf);
+        }
+
+        public void LogInfo(object logSource, string message, Exception exception = null, bool viaWcf = false)
+        {
+            LogMessageWithProperties(logSource, message, Level.Info, exception, viaWcf);
+        }
+
+        public void LogWarning(object logSource, string message, Exception exception = null, bool viaWcf = false)
+        {
+            LogMessageWithProperties(logSource, message, Level.Warn, exception, viaWcf);
+        }
+
+        public MemoryAppender Appender { get; set; }
+
+        public LoggingEvent LogEvent { get; set; }
+
         private void AddProperties(
             object logSource
             , Exception exception
@@ -118,22 +148,27 @@ namespace IdentityProvider.Services.Log4Net
                             exc);
                     }
 
-                loggingEvent.Properties["ExceptionType"] = exception == null ? string.Empty : exception.GetType().ToString();
+                loggingEvent.Properties["ExceptionType"] =
+                    exception == null ? string.Empty : exception.GetType().ToString();
                 loggingEvent.Properties["ExceptionMessage"] = exception == null ? string.Empty : exception.Message;
-                loggingEvent.Properties["ExceptionStackTrace"] = exception == null ? string.Empty : exception.StackTrace;
+                loggingEvent.Properties["ExceptionStackTrace"] =
+                    exception == null ? string.Empty : exception.StackTrace;
 
                 if (exception?.InnerException != null)
                 {
                     loggingEvent.Properties["InnerException.Message"] = exception.InnerException.Message;
                     loggingEvent.Properties["InnerException.Source"] = exception.InnerException.Source ?? string.Empty;
-                    loggingEvent.Properties["InnerException.StackTrace"] = exception.InnerException.StackTrace ?? string.Empty;
+                    loggingEvent.Properties["InnerException.StackTrace"] =
+                        exception.InnerException.StackTrace ?? string.Empty;
                     loggingEvent.Properties["InnerException.TargetSite"] = exception.InnerException.TargetSite ==
                                                                            null
-                        ? string.Empty : exception.InnerException.TargetSite.ToString();
+                        ? string.Empty
+                        : exception.InnerException.TargetSite.ToString();
                 }
 
                 loggingEvent.Properties["AssemblyQualifiedName"] = exception == null
-                    ? string.Empty : exception.GetType().AssemblyQualifiedName;
+                    ? string.Empty
+                    : exception.GetType().AssemblyQualifiedName;
                 loggingEvent.Properties["Namespace"] = exception == null ? string.Empty : exception.GetType().Namespace;
 
                 if (logSource != null)
@@ -173,7 +208,7 @@ namespace IdentityProvider.Services.Log4Net
                 };
 
                 Appender.ActivateOptions();
-                var root = ((Hierarchy)LogManager.GetRepository()).Root;
+                var root = ((Hierarchy) LogManager.GetRepository()).Root;
                 root.RemoveAllAppenders();
                 root.AddAppender(Appender);
                 root.Repository.Configured = true;
@@ -229,9 +264,7 @@ namespace IdentityProvider.Services.Log4Net
                 // We also log to database via WCF if we have override property "_logEverythingViaWcf" set to true (in application config)
                 // We also have one additional override property "_dontLogAnythingViaWcf", if this is set to true (in application config) we dont log anything to database (via WCF)
                 if (logViaWcf || Convert.ToBoolean(_logEverythingViaWcf) && !Convert.ToBoolean(_dontLogAnythingViaWcf))
-                {
                     _wcfLoggingManager.LogToWCF(LogEvent);
-                }
             }
             catch (AggregateException ae)
             {
@@ -267,35 +300,6 @@ namespace IdentityProvider.Services.Log4Net
             XmlConfigurator
                 .ConfigureAndWatch(log4NetSettingsFileInfo);
         }
-
-        public void Dispose()
-        {
-            // TODO:
-        }
-
-        public void LogError(object logSource, string message, Exception exception = null, bool viaWcf = false)
-        {
-            LogMessageWithProperties(logSource, message, Level.Error, exception, viaWcf);
-        }
-
-        public void LogFatal(object logSource, string message, Exception exception = null, bool viaWcf = false)
-        {
-            LogMessageWithProperties(logSource, message, Level.Fatal, exception, viaWcf);
-        }
-
-        public void LogInfo(object logSource, string message, Exception exception = null, bool viaWcf = false)
-        {
-            LogMessageWithProperties(logSource, message, Level.Info, exception, viaWcf);
-        }
-
-        public void LogWarning(object logSource, string message, Exception exception = null, bool viaWcf = false)
-        {
-            LogMessageWithProperties(logSource, message, Level.Warn, exception, viaWcf);
-        }
-
-        public MemoryAppender Appender { get; set; }
-
-        public LoggingEvent LogEvent { get; set; }
 
         //#region Database errors and trace data (logging)
 

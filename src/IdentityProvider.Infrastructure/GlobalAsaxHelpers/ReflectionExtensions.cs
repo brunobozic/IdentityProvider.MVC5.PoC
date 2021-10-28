@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace IdentityProvider.Infrastructure.GlobalAsaxHelpers
 {
@@ -8,12 +7,12 @@ namespace IdentityProvider.Infrastructure.GlobalAsaxHelpers
     {
         public static T GetPropertyValue<T>(object o, string propertyName)
         {
-            return (T)o.GetType().GetProperty(propertyName)?.GetValue(o, null);
+            return (T) o.GetType().GetProperty(propertyName)?.GetValue(o, null);
         }
 
         public static TOut GetPropertyValueStatic<TIn, TOut>(string propertyName)
         {
-            return (TOut)(typeof(TIn).GetProperty(propertyName)?.GetValue(null));
+            return (TOut) typeof(TIn).GetProperty(propertyName)?.GetValue(null);
         }
 
         public static object GetPropertyValue(object o, string propertyName)
@@ -23,21 +22,21 @@ namespace IdentityProvider.Infrastructure.GlobalAsaxHelpers
 
         public static void SetPropertyValueWithTypeChange<T>(object o, string propertyName, T propertyValue)
         {
-            PropertyInfo propertyInfo = o.GetType().GetProperty(propertyName);
+            var propertyInfo = o.GetType().GetProperty(propertyName);
             propertyInfo.SetValue(o, Convert.ChangeType(propertyValue, propertyInfo.PropertyType), null);
         }
 
         public static void SetPropertyValue(object o, string propertyName, object propertyValue)
         {
-            PropertyInfo propertyInfo = o.GetType().GetProperty(propertyName);
+            var propertyInfo = o.GetType().GetProperty(propertyName);
             propertyInfo.SetValue(o, propertyValue);
         }
 
-        public static Object ConvertValue(Type originalType, object value)
+        public static object ConvertValue(Type originalType, object value)
         {
             var underlyingType = Nullable.GetUnderlyingType(originalType);
 
-            object instance = Convert.ChangeType(value, underlyingType ?? originalType);
+            var instance = Convert.ChangeType(value, underlyingType ?? originalType);
 
             return instance;
         }
@@ -62,7 +61,7 @@ namespace IdentityProvider.Infrastructure.GlobalAsaxHelpers
         //    return !string.IsNullOrWhiteSpace(propertyValueString) ? propertyValueString : "-";
         //}
 
-        public static Func<TMnModel, Guid?> CreateSelectExpression<TMnModel>(String fieldName)
+        public static Func<TMnModel, Guid?> CreateSelectExpression<TMnModel>(string fieldName)
         {
             var parameterExp = Expression.Parameter(typeof(TMnModel), "x");
             var cast = Expression.Convert(parameterExp, typeof(TMnModel));
@@ -78,8 +77,8 @@ namespace IdentityProvider.Infrastructure.GlobalAsaxHelpers
             var underlyingType = Nullable.GetUnderlyingType(t);
 
             return underlyingType != null
-                ? ((obj == null) ? default(T) : (T)Convert.ChangeType(obj, underlyingType))
-                : (T)Convert.ChangeType(obj, t);
+                ? obj == null ? default : (T) Convert.ChangeType(obj, underlyingType)
+                : (T) Convert.ChangeType(obj, t);
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using IdentityProvider.Models.Domain.Account;
-using System;
+﻿using System;
+using IdentityProvider.Models.Domain.Account;
 
 namespace IdentityProvider.Models.ViewModels.Resources.Extensions
 {
@@ -9,7 +9,6 @@ namespace IdentityProvider.Models.ViewModels.Resources.Extensions
         {
             var vm = new ResourceDto
             {
-
                 Deleted = resource?.IsDeleted ?? false,
                 Active = resource?.Active ?? false,
                 CreatedBy = resource?.CreatedById ?? string.Empty,
@@ -24,7 +23,6 @@ namespace IdentityProvider.Models.ViewModels.Resources.Extensions
                 UserMayViewCreatedProp = true,
                 UserMayViewDeletedProp = true,
                 UserMayViewLastModifieddProp = true
-
             };
 
             return vm;

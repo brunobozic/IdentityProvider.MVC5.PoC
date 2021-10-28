@@ -1,19 +1,17 @@
-﻿
+﻿using System.Data.Entity.ModelConfiguration;
 using IdentityProvider.Models.Domain.Account;
-using System.Data.Entity.ModelConfiguration;
 
 namespace IdentityProvider.Repository.EF.Mapping
 {
-
     public class ApplicationUserConfiguration : EntityTypeConfiguration<ApplicationUser>
     {
         public ApplicationUserConfiguration()
         {
             HasOptional(e => e.UserProfile)
-            .WithRequired(a => a.User);
+                .WithRequired(a => a.User);
 
             HasOptional(e => e.Employee)
-            .WithRequired(a => a.ApplicationUser);
+                .WithRequired(a => a.ApplicationUser);
             //.Map(configuration => configuration.MapKey("Employee_Id"));
         }
     }

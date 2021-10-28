@@ -1,9 +1,9 @@
-﻿using IdentityProvider.Infrastructure.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
@@ -34,8 +34,10 @@ namespace IdentityProvider.Models.Domain.Account
         #region IsActive
 
         public bool Active { get; set; }
+
         [DisplayName("Record is active from (date)")]
         public DateTime? ActiveFrom { get; set; }
+
         [DisplayName("Record is active to (date)")]
         public DateTime? ActiveTo { get; set; }
 

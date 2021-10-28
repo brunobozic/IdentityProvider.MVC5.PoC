@@ -1,5 +1,5 @@
-﻿using Logging.WCF.Models.DTOs;
-using System;
+﻿using System;
+using Logging.WCF.Models.DTOs;
 
 namespace Logging.WCF.Repository.EF.ExtensionMethods
 {
@@ -47,6 +47,7 @@ namespace Logging.WCF.Repository.EF.ExtensionMethods
                 #endregion
 
                 #region Map Properties
+
                 if (loggingEventDto.Properties != null)
                 {
                     if (loggingEventDto.Properties["RefererUrl"] != null)

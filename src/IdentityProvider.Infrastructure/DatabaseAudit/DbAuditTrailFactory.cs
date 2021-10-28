@@ -32,37 +32,35 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
             switch (entry.State)
             {
                 case EntityState.Added:
-                    {
-                        var newValues = new StringBuilder();
-                        SetAddedProperties(entry, newValues);
-                        audit.NewData = newValues.ToString();
-                        audit.Actions = AuditActions.Insert.ToString();
-                        break;
-                    }
+                {
+                    var newValues = new StringBuilder();
+                    SetAddedProperties(entry, newValues);
+                    audit.NewData = newValues.ToString();
+                    audit.Actions = AuditActions.Insert.ToString();
+                    break;
+                }
                 case EntityState.Deleted:
-                    {
-                        var oldValues = new StringBuilder();
-                        SetDeletedProperties(entry, oldValues);
-                        audit.OldData = oldValues.ToString();
-                        audit.Actions = AuditActions.Delete.ToString();
-                        break;
-                    }
+                {
+                    var oldValues = new StringBuilder();
+                    SetDeletedProperties(entry, oldValues);
+                    audit.OldData = oldValues.ToString();
+                    audit.Actions = AuditActions.Delete.ToString();
+                    break;
+                }
                 case EntityState.Modified:
-                    {
-                        var oldValues = new StringBuilder();
-                        var newValues = new StringBuilder();
-                        SetModifiedProperties(entry, oldValues, newValues);
-                        audit.OldData = oldValues.ToString();
-                        audit.NewData = newValues.ToString();
-                        audit.Actions = AuditActions.Update.ToString();
-                        break;
-                    }
+                {
+                    var oldValues = new StringBuilder();
+                    var newValues = new StringBuilder();
+                    SetModifiedProperties(entry, oldValues, newValues);
+                    audit.OldData = oldValues.ToString();
+                    audit.NewData = newValues.ToString();
+                    audit.Actions = AuditActions.Update.ToString();
+                    break;
+                }
 
                 case EntityState.Detached:
                     break;
                 case EntityState.Unchanged:
-                    break;
-                default:
                     break;
             }
 
@@ -77,6 +75,7 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
                 if (newVal != null)
                     newData.AppendFormat("{0}={1} || ", propertyName, newVal);
             }
+
             if (newData.Length > 0)
                 newData = newData.Remove(newData.Length - 3, 3);
         }
@@ -90,6 +89,7 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
                 if (oldVal != null)
                     oldData.AppendFormat("{0}={1} || ", propertyName, oldVal);
             }
+
             if (oldData.Length > 0)
                 oldData = oldData.Remove(oldData.Length - 3, 3);
         }
@@ -107,6 +107,7 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
                     oldData.AppendFormat("{0}={1} || ", propertyName, oldVal);
                 }
             }
+
             if (oldData.Length > 0)
                 oldData = oldData.Remove(oldData.Length - 3, 3);
             if (newData.Length > 0)
@@ -116,7 +117,7 @@ namespace IdentityProvider.Infrastructure.DatabaseAudit
         public long? GetKeyValue(DbEntityEntry entry)
         {
             var objectStateEntry =
-                ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.GetObjectStateEntry(entry.Entity);
+                ((IObjectContextAdapter) _context).ObjectContext.ObjectStateManager.GetObjectStateEntry(entry.Entity);
             long id = 0;
             if (objectStateEntry.EntityKey.EntityKeyValues != null)
                 id = Convert.ToInt64(objectStateEntry.EntityKey.EntityKeyValues[0].Value);

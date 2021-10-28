@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Serilog.Debugging;
-using Serilog.Events;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Serilog.Debugging;
+using Serilog.Events;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Batch
 {
@@ -115,7 +115,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Batch
             if (!_logEventBatch.Any())
                 return;
 
-            var logEventBatchSize = _logEventBatch.Count >= _batchSize ? (int)_batchSize : _logEventBatch.Count;
+            var logEventBatchSize = _logEventBatch.Count >= _batchSize ? (int) _batchSize : _logEventBatch.Count;
             var logEventList = new List<LogEvent>();
 
             for (var i = 0; i < logEventBatchSize; i++)
@@ -179,7 +179,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Batch
                 while (_batchEventsCollection.TryTake(out var eventBatch))
                     WriteLogEvent(eventBatch);
 
-                Task.WaitAll(new[] { _eventPumpTask, _batchTask, _timerTask }, TimeSpan.FromSeconds(30));
+                Task.WaitAll(new[] {_eventPumpTask, _batchTask, _timerTask}, TimeSpan.FromSeconds(30));
             }
             catch (Exception ex)
             {

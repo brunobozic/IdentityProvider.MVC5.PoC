@@ -1,10 +1,12 @@
-﻿using IdentityProvider.Models.Domain.Account;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using IdentityProvider.Models.Domain.Account;
 
 namespace IdentityProvider.Repository.EF.Mapping
 {
-    public class ResourcePermissionGroupResourcePermissionConfiguration : EntityTypeConfiguration<PermissionGroupOwnsPermissionLink>
+    public class
+        ResourcePermissionGroupResourcePermissionConfiguration : EntityTypeConfiguration<
+            PermissionGroupOwnsPermissionLink>
     {
         public ResourcePermissionGroupResourcePermissionConfiguration()
         {

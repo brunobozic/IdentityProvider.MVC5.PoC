@@ -1,33 +1,31 @@
-﻿using IdentityProvider.Infrastructure;
-using StructureMap;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Security.Claims;
+using IdentityProvider.Infrastructure;
+using StructureMap;
 
 namespace Module.Repository.EF.RowLevelSecurity
 {
-
     public class RowAuthPoliciesContainer : IRowAuthPoliciesContainer
     {
+        private readonly Dictionary<Type, object> _policies = new Dictionary<Type, object>();
         private readonly ICachedUserAuthorizationGrantsProvider _userAuthorizationGrantsProvider;
 
         public RowAuthPoliciesContainer(ICachedUserAuthorizationGrantsProvider userAuthorizationGrantsProvider)
         {
             _userAuthorizationGrantsProvider = userAuthorizationGrantsProvider;
-            _userAuthorizationGrantsProvider.OrganizationalUnits = new[] { 1, 2, 3, 4, 5, 6, 7 };
-            _userAuthorizationGrantsProvider.ExplicitlyAssignedToProjects = new[] { 1, 2, 3, 4, 5, 6, 7 };
+            _userAuthorizationGrantsProvider.OrganizationalUnits = new[] {1, 2, 3, 4, 5, 6, 7};
+            _userAuthorizationGrantsProvider.ExplicitlyAssignedToProjects = new[] {1, 2, 3, 4, 5, 6, 7};
         }
 
         [DefaultConstructor]
         public RowAuthPoliciesContainer()
         {
-
         }
 
-        readonly Dictionary<Type, object> _policies = new Dictionary<Type, object>();
-
-        public RowAuthPolicy<TEntity, TProperty> Register<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> selector)
+        public RowAuthPolicy<TEntity, TProperty> Register<TEntity, TProperty>(
+            Expression<Func<TEntity, TProperty>> selector)
         {
             var policy = new RowAuthPolicy<TEntity, TProperty>(selector, this);
             _policies.Add(policy.EntityType, policy);
@@ -36,7 +34,7 @@ namespace Module.Repository.EF.RowLevelSecurity
 
         public IRowAuthPolicy<TEntity> GetPolicy<TEntity>()
         {
-            return (IRowAuthPolicy<TEntity>)_policies[typeof(TEntity)];
+            return (IRowAuthPolicy<TEntity>) _policies[typeof(TEntity)];
         }
 
         public bool HasPolicy<TEntity>()
@@ -59,7 +57,6 @@ namespace Module.Repository.EF.RowLevelSecurity
 
         private static int OrganizationalUnitSecurityWeight()
         {
-
             return 0;
         }
 
@@ -72,16 +69,16 @@ namespace Module.Repository.EF.RowLevelSecurity
         private static int CurrentUserAreaId()
         {
             const string areaKeyClaim = "area_key";
-            Claim areaClaim = ClaimsPrincipal.Current.FindFirst(areaKeyClaim);
-            int areaId = ClaimsValuesCache.GetArea(areaClaim.Value);
+            var areaClaim = ClaimsPrincipal.Current.FindFirst(areaKeyClaim);
+            var areaId = ClaimsValuesCache.GetArea(areaClaim.Value);
             return areaId;
         }
 
         private static string CurrentUserCountryCode()
         {
             const string countryKeyClaim = "country_key";
-            Claim countryClaim = ClaimsPrincipal.Current.FindFirst(countryKeyClaim);
-            string countryCode = ClaimsValuesCache.GetCountryCode(countryClaim.Value);
+            var countryClaim = ClaimsPrincipal.Current.FindFirst(countryKeyClaim);
+            var countryCode = ClaimsValuesCache.GetCountryCode(countryClaim.Value);
             return countryCode;
         }
 

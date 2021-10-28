@@ -1,7 +1,7 @@
-﻿using Serilog.Core;
-using Serilog.Events;
-using System;
+﻿using System;
 using System.Web;
+using Serilog.Core;
+using Serilog.Events;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.Enrichers.MVC5
 {
@@ -22,7 +22,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.Enrichers.MVC5
         ///     Initializes a new instance of the <see cref="UserNameEnricher" /> class.
         /// </summary>
         public UserNameEnricher()
-            : this("(anonymous)", null)
+            : this("(anonymous)")
         {
         }
 

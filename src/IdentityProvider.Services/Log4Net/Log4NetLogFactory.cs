@@ -1,12 +1,11 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Web;
+using System.Web.Mvc;
+using AutoMapper;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.SessionStorageFactories;
 using Logging.WCF.Models.Log4Net;
-using System;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace IdentityProvider.Services.Log4Net
 {

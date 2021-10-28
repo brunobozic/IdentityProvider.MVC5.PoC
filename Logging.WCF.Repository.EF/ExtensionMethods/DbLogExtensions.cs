@@ -1,7 +1,6 @@
-﻿
-using Logging.WCF.Repository.EF.Repositories.Bussiness.ConcreteRepositories.ConcreteRepositoryInterfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Logging.WCF.Repository.EF.Repositories.Bussiness.ConcreteRepositories.ConcreteRepositoryInterfaces;
 
 namespace Logging.WCF.Repository.EF.ExtensionMethods
 {

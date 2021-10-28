@@ -1,7 +1,7 @@
-﻿using StructureMap;
-using System;
+﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+using StructureMap;
 
 namespace IdentityProvider.Controllers
 {
@@ -19,11 +19,13 @@ namespace IdentityProvider.Controllers
                         if (requestContext.HttpContext.Items.Contains(StructuremapNestedContainerKey))
                         {
                             var myContainer =
-                                (IContainer)requestContext.HttpContext.Items[StructuremapNestedContainerKey];
+                                (IContainer) requestContext.HttpContext.Items[StructuremapNestedContainerKey];
                             return myContainer.GetInstance(controllerType) as IController;
                         }
+
                     return DependencyResolver.Current.GetService(controllerType) as IController;
                 }
+
                 return null;
             }
             catch (Exception ex)

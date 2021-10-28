@@ -1,23 +1,24 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
+using AutoMapper;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ConfigurationProvider;
 using Logging.WCF.Infrastructure;
 using Logging.WCF.Infrastructure.Contracts;
 using Logging.WCF.Repository.EF.EFDataContext;
-using Logging.WCF.Services;
+using Logging.WCF.Repository.EF.RepositoryBaseImpl;
+using Logging.WCF.Repository.EF.RepositoryBaseImpl.RepositoryBaseInterfaces;
+using Logging.WCF.Services.AvailableLogSinkers;
+using Logging.WCF.Services.Email;
+using Logging.WCF.Services.SampleManagerCode;
 using Microsoft.EntityFrameworkCore;
 using Module.Repository.EF;
 using Module.Repository.EF.RowLevelSecurity;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using StructureMap;
 using StructureMap.Pipeline;
-using System;
-using System.Linq;
-using Logging.WCF.Repository.EF.RepositoryBaseImpl;
-using Logging.WCF.Repository.EF.RepositoryBaseImpl.RepositoryBaseInterfaces;
-using Logging.WCF.Services.AvailableLogSinkers;
-using Logging.WCF.Services.Email;
-using Logging.WCF.Services.SampleManagerCode;
+using IApplicationConfiguration = IdentityProvider.Infrastructure.ApplicationConfiguration.IApplicationConfiguration;
+using IConfigurationProvider = IdentityProvider.Infrastructure.ConfigurationProvider.IConfigurationProvider;
 
 namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
 {
@@ -27,12 +28,9 @@ namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
         {
             return new Container(c =>
             {
-                c.Scan(scan =>
-                {
-                    scan.WithDefaultConventions();
-                });
+                c.Scan(scan => { scan.WithDefaultConventions(); });
 
-                c.For<IdentityProvider.Infrastructure.ApplicationConfiguration.IApplicationConfiguration>().Use<ApplicationConfiguration>();
+                c.For<IApplicationConfiguration>().Use<ApplicationConfiguration>();
 
                 // Email Service                 
                 c.For<IEmailService>().Use<TextLoggingEmailService>();
@@ -42,14 +40,14 @@ namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
                 c.For<IUnitOfWorkAsync>().Use<UnitOfWork>();
 
                 c.For<IWcfLoggingManager>().Use<WCFLoggingManager>();
-                c.For<IdentityProvider.Infrastructure.ConfigurationProvider.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>();
+                c.For<IConfigurationProvider>().Use<ConfigFileConfigurationProvider>();
                 c.For<ILogWcf>().Use<LogWcfService>();
 
                 // c.For<DbContext>().Use(i => new MyAppDbContext()).LifecycleIs<UniquePerRequestLifecycle>();
 
                 c.For<IRowAuthPoliciesContainer>().Use<RowAuthPoliciesContainer>();
 
-                c.For<IdentityProvider.Infrastructure.ConfigurationProvider.IConfigurationProvider>().Use<ConfigFileConfigurationProvider>();
+                c.For<IConfigurationProvider>().Use<ConfigFileConfigurationProvider>();
 
                 c.For(typeof(IEntityBaseRepositoryAsync<>)).Use(typeof(EntityBaseRepositoryAsync<>));
                 c.For(typeof(IEntityBaseRepository<>)).Use(typeof(EntityBaseRepository<>));
@@ -57,21 +55,22 @@ namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
                 // c.For(typeof(MyAppDbContext)).Use(typeof(MyAppDbContext));
 
                 // c.For<DbContext>().Use(i => new MyAppDbContext("SimpleMembership")).LifecycleIs<UniquePerRequestLifecycle>();
-                c.For<DbContext>().Use(i => new MyAppDbContext(new DbContextOptions<MyAppDbContext>(), "Data Source=DESKTOP-OPEURE7\\SQLEXPRESS2; Integrated Security=True; MultipleActiveResultSets=True; Database=DatabaseLogger;")).LifecycleIs<UniquePerRequestLifecycle>();
-                c.For<MyAppDbContext>().Use(i => new MyAppDbContext(new DbContextOptions<MyAppDbContext>(), "Data Source=DESKTOP-OPEURE7\\SQLEXPRESS2; Integrated Security=True; MultipleActiveResultSets=True; Database=DatabaseLogger;")).LifecycleIs<UniquePerRequestLifecycle>();
+                c.For<DbContext>().Use(i => new MyAppDbContext(new DbContextOptions<MyAppDbContext>(),
+                        "Data Source=DESKTOP-OPEURE7\\SQLEXPRESS2; Integrated Security=True; MultipleActiveResultSets=True; Database=DatabaseLogger;"))
+                    .LifecycleIs<UniquePerRequestLifecycle>();
+                c.For<MyAppDbContext>().Use(i => new MyAppDbContext(new DbContextOptions<MyAppDbContext>(),
+                        "Data Source=DESKTOP-OPEURE7\\SQLEXPRESS2; Integrated Security=True; MultipleActiveResultSets=True; Database=DatabaseLogger;"))
+                    .LifecycleIs<UniquePerRequestLifecycle>();
 
                 // Get all Profiles
                 var profiles = from t in typeof(Ioc).Assembly.GetTypes()
-                               where typeof(Profile).IsAssignableFrom(t)
-                               select (Profile)Activator.CreateInstance(t);
+                    where typeof(Profile).IsAssignableFrom(t)
+                    select (Profile) Activator.CreateInstance(t);
 
                 // For each Profile, include that profile in the MapperConfiguration
                 var config = new MapperConfiguration(cfg =>
                 {
-                    foreach (var profile in profiles)
-                    {
-                        cfg.AddProfile(profile);
-                    }
+                    foreach (var profile in profiles) cfg.AddProfile(profile);
                 });
 
                 // Create a mapper that will be used by the DI container

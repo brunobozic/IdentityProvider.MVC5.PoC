@@ -1,8 +1,8 @@
+using System.Web;
+using StructureMap.Web.Pipeline;
+
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 {
-    using StructureMap.Web.Pipeline;
-    using System.Web;
-
     public class StructureMapScopeModule : IHttpModule
     {
         #region Public Methods and Operators

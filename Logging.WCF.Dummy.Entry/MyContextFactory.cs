@@ -1,10 +1,10 @@
-﻿using Logging.WCF.Repository.EF.EFDataContext;
+﻿using System;
+using System.IO;
+using Logging.WCF.Repository.EF.EFDataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using System;
-using System.IO;
 
 namespace Logging.WCF.Dummy.Entry
 {

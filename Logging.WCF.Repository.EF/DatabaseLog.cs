@@ -5,7 +5,6 @@ using Logging.WCF.Infrastructure.DomainBaseAbstractions;
 
 namespace Logging.WCF.Repository.EF
 {
-
     public class DatabaseLog : BaseEntity
     {
         [Key]

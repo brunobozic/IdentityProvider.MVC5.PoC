@@ -29,6 +29,7 @@ namespace IdentityProvider.Repository.EF.Factories
                 contactManagerContext = new AppDbContext("SimpleMembership");
                 dataContextStorageContainer.Store(contactManagerContext);
             }
+
             return contactManagerContext;
         }
     }

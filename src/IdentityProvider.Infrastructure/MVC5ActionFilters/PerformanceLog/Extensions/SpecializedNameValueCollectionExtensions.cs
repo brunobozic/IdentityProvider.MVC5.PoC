@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Extensions
 {

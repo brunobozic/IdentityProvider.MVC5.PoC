@@ -1,5 +1,5 @@
-﻿using IdentityProvider.Models.Domain.Account;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using IdentityProvider.Models.Domain.Account;
 
 namespace IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.RoleOperationResource
 {

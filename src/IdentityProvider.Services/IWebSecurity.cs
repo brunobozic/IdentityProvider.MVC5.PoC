@@ -1,8 +1,8 @@
-﻿using IdentityProvider.Models.Domain.Account;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using IdentityProvider.Models.Domain.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace IdentityProvider.Services
 {

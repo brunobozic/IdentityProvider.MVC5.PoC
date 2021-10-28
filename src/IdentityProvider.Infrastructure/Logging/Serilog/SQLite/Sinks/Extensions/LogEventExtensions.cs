@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using Serilog.Events;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using Newtonsoft.Json;
+using Serilog.Events;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Extensions
 {

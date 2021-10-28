@@ -1,15 +1,15 @@
-﻿using IdentityProvider.Infrastructure.Domain;
-using LinqKit;
-using Module.Repository.EF.Repositories;
-using Module.Repository.EF.RowLevelSecurity;
-using Module.Repository.EF.UnitOfWorkInterfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using IdentityProvider.Infrastructure.Domain;
+using LinqKit;
+using Module.Repository.EF.Repositories;
+using Module.Repository.EF.RowLevelSecurity;
+using Module.Repository.EF.UnitOfWorkInterfaces;
 using TrackableEntities;
 using TrackableEntities.EF6;
 
@@ -18,12 +18,12 @@ namespace Module.Repository.EF
     /// <inheritdoc />
     public class Repository<TEntity> : IRepositoryAsync<TEntity> where TEntity : class, ITrackable, ISoftDeletable
     {
+        private readonly IRowAuthPoliciesContainer _container;
+        protected readonly IQueryable<TEntity> _innerSet;
+        private readonly Expression<Func<TEntity, bool>> authFilter;
         protected readonly DbContext Context;
         protected readonly DbSet<TEntity> Set;
-        protected readonly IQueryable<TEntity> _innerSet;
         protected readonly IUnitOfWorkAsync UnitOfWork;
-        private readonly IRowAuthPoliciesContainer _container;
-        private readonly Expression<Func<TEntity, bool>> authFilter;
 
         public Repository(
             DbContext context
@@ -38,20 +38,6 @@ namespace Module.Repository.EF
             _innerSet = context.Set<TEntity>();
             authFilter = BuildWhereExpression<TEntity>();
             _innerSet = _innerSet.Where(authFilter);
-        }
-
-        private Expression<Func<T, bool>> BuildWhereExpression<T>()
-        {
-            if (_container.HasPolicy<T>())
-            {
-                var policy = _container.GetPolicy<T>();
-                return policy.BuildAuthFilterExpression();
-            }
-            else
-            {
-                Expression<Func<T, bool>> trueExpression = entity => true;
-                return trueExpression;
-            }
         }
 
         public virtual TEntity Find(params object[] keyValues)
@@ -94,10 +80,7 @@ namespace Module.Repository.EF
 
         public virtual void InsertRange(IEnumerable<TEntity> entities, bool traverseGraph = true)
         {
-            foreach (var entity in entities)
-            {
-                Insert(entity, traverseGraph);
-            }
+            foreach (var entity in entities) Insert(entity, traverseGraph);
         }
 
         [Obsolete(
@@ -180,6 +163,7 @@ namespace Module.Repository.EF
             if (await DeleteAsync(CancellationToken.None, keyValues)) return true;
             return false;
         }
+
         public virtual async Task<bool> DeleteAsyncSoftDeleted(bool softDeleted = true, params object[] keyValues)
         {
             //int kv = ( int ) keyValues[ 0 ];
@@ -192,6 +176,7 @@ namespace Module.Repository.EF
             //Context.ApplyChanges(entity);
             return true;
         }
+
         public virtual async Task<bool> DeleteAsync(CancellationToken cancellationToken, params object[] keyValues)
         {
             var entity = await FindAsync(cancellationToken, keyValues);
@@ -221,6 +206,18 @@ namespace Module.Repository.EF
         public virtual void InsertOrUpdateGraph(TEntity entity)
         {
             ApplyChanges(entity);
+        }
+
+        private Expression<Func<T, bool>> BuildWhereExpression<T>()
+        {
+            if (_container.HasPolicy<T>())
+            {
+                var policy = _container.GetPolicy<T>();
+                return policy.BuildAuthFilterExpression();
+            }
+
+            Expression<Func<T, bool>> trueExpression = entity => true;
+            return trueExpression;
         }
 
         internal IQueryable<TEntity> Select(

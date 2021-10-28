@@ -6,10 +6,8 @@ namespace Module.Repository.EF
 {
     public abstract class Entity : ITrackable
     {
-        [NotMapped]
-        public TrackingState TrackingState { get; set; }
+        [NotMapped] public TrackingState TrackingState { get; set; }
 
-        [NotMapped]
-        public ICollection<string> ModifiedProperties { get; set; }
+        [NotMapped] public ICollection<string> ModifiedProperties { get; set; }
     }
 }

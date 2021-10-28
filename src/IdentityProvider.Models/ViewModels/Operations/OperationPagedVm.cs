@@ -1,18 +1,18 @@
-﻿using PagedList;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using PagedList;
 
 namespace IdentityProvider.Models.ViewModels.Operations
 {
     public class OperationPagedVm
     {
-        [Display(Name = "Find by")]
-        public string SearchStringOperationsMainGrid { get; set; }
-        [Display(Name = "Sort order")]
-        public string SortOrder { get; set; }
-        [Display(Name = "Select page size")]
-        public int PageSize { get; set; }
+        [Display(Name = "Find by")] public string SearchStringOperationsMainGrid { get; set; }
+
+        [Display(Name = "Sort order")] public string SortOrder { get; set; }
+
+        [Display(Name = "Select page size")] public int PageSize { get; set; }
+
         public int PageCount { get; set; }
         public int PageNumber { get; set; }
         public int? NumberOfDeletedItems { get; set; }

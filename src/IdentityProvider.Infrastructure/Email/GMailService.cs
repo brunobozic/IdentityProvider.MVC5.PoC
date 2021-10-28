@@ -1,22 +1,21 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace IdentityProvider.Infrastructure.Email
 {
     public class GmailEmailService : IIdentityMessageService
     {
-        private readonly SmtpConfiguration _config;
-
         private const string GmailUserNameKey = "GmailUserName";
         private const string GmailPasswordKey = "GmailPassword";
         private const string GmailHostKey = "GmailHost";
         private const string GmailPortKey = "GmailPort";
         private const string GmailSslKey = "GmailSsl";
         private const string GmailSslPortKey = "GmailSslPort";
+        private readonly SmtpConfiguration _config;
 
         public GmailEmailService()
         {
@@ -25,9 +24,9 @@ namespace IdentityProvider.Infrastructure.Email
             var gmailUserName = ConfigurationManager.AppSettings[GmailUserNameKey];
             var gmailPassword = ConfigurationManager.AppSettings[GmailPasswordKey];
             var gmailHost = ConfigurationManager.AppSettings[GmailHostKey];
-            var gmailPort = Int32.Parse(ConfigurationManager.AppSettings[GmailPortKey]);
-            var gmailSsl = Boolean.Parse(ConfigurationManager.AppSettings[GmailSslKey]);
-            var gmailSslPort = Int32.Parse(ConfigurationManager.AppSettings[GmailSslPortKey]);
+            var gmailPort = int.Parse(ConfigurationManager.AppSettings[GmailPortKey]);
+            var gmailSsl = bool.Parse(ConfigurationManager.AppSettings[GmailSslKey]);
+            var gmailSslPort = int.Parse(ConfigurationManager.AppSettings[GmailSslPortKey]);
 
             _config.Username = gmailUserName;
             _config.Password = gmailPassword;
@@ -35,6 +34,25 @@ namespace IdentityProvider.Infrastructure.Email
             _config.Port = gmailPort;
             _config.Ssl = gmailSsl;
             _config.SslPort = gmailSslPort;
+        }
+
+        public Task SendAsync(IdentityMessage message)
+        {
+            if (string.IsNullOrEmpty(message.Destination)) throw new ArgumentNullException(nameof(message.Destination));
+            if (string.IsNullOrEmpty(message.Subject)) throw new ArgumentNullException(nameof(message.Subject));
+            if (string.IsNullOrEmpty(message.Body)) throw new ArgumentNullException(nameof(message.Body));
+
+            var myMessage = new EmailMessage
+            {
+                Body = message.Body,
+                Subject = message.Subject,
+                ToEmail = message.Destination,
+                From = "md.authentication@gmail.com"
+            };
+
+            SendEmailMessage(myMessage);
+
+            return Task.FromResult(0);
         }
 
         private bool SendEmailMessage(EmailMessage message)
@@ -48,7 +66,7 @@ namespace IdentityProvider.Infrastructure.Email
                     // Credentials
                     var credentials = new NetworkCredential(_config.Username, _config.Password);
                     // Mail message
-                    var smtpMessage = new MailMessage()
+                    var smtpMessage = new MailMessage
                     {
                         Subject = message.Subject,
                         Body = message.Body,
@@ -69,7 +87,6 @@ namespace IdentityProvider.Infrastructure.Email
                     };
 
                     smtp.Send(smtpMessage);
-
                 }
                 //else
                 //{
@@ -103,9 +120,9 @@ namespace IdentityProvider.Infrastructure.Email
             return success;
         }
 
-        public void SendMail(string @from, string to, string subject, string body)
+        public void SendMail(string from, string to, string subject, string body)
         {
-            if (string.IsNullOrEmpty(@from)) throw new ArgumentNullException(nameof(@from));
+            if (string.IsNullOrEmpty(from)) throw new ArgumentNullException(nameof(from));
             if (string.IsNullOrEmpty(to)) throw new ArgumentNullException(nameof(to));
             if (string.IsNullOrEmpty(subject)) throw new ArgumentNullException(nameof(subject));
             if (string.IsNullOrEmpty(body)) throw new ArgumentNullException(nameof(body));
@@ -119,27 +136,6 @@ namespace IdentityProvider.Infrastructure.Email
             };
 
             SendEmailMessage(message);
-        }
-
-        public Task SendAsync(IdentityMessage message)
-        {
-
-            if (string.IsNullOrEmpty(message.Destination)) throw new ArgumentNullException(nameof(message.Destination));
-            if (string.IsNullOrEmpty(message.Subject)) throw new ArgumentNullException(nameof(message.Subject));
-            if (string.IsNullOrEmpty(message.Body)) throw new ArgumentNullException(nameof(message.Body));
-
-            var myMessage = new EmailMessage
-            {
-                Body = message.Body,
-                Subject = message.Subject,
-                ToEmail = message.Destination,
-                From = "md.authentication@gmail.com"
-            };
-
-            SendEmailMessage(myMessage);
-
-            return Task.FromResult(0);
-
         }
     }
 

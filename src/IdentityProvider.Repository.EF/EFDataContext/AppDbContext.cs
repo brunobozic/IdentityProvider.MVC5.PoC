@@ -1,10 +1,4 @@
-﻿using IdentityProvider.Infrastructure;
-using IdentityProvider.Infrastructure.DatabaseAudit;
-using IdentityProvider.Infrastructure.Domain;
-using IdentityProvider.Models.Domain.Account;
-using Microsoft.AspNet.Identity.EntityFramework;
-using StructureMap;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
@@ -18,8 +12,13 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using IdentityProvider.Infrastructure;
+using IdentityProvider.Infrastructure.DatabaseAudit;
+using IdentityProvider.Infrastructure.Domain;
+using IdentityProvider.Models.Domain.Account;
+using Microsoft.AspNet.Identity.EntityFramework;
+using StructureMap;
 using ModelValidationException = IdentityProvider.Infrastructure.ModelValidationException;
-using Database = System.Data.Entity.Database;
 
 namespace IdentityProvider.Repository.EF.EFDataContext
 {
@@ -62,7 +61,18 @@ namespace IdentityProvider.Repository.EF.EFDataContext
         // public DbSet<ResourcesHaveOperations> ResourcesHaveOperations { get; set; }
         public DbSet<DbAuditTrail> DbAuditTrail { get; set; }
         public Guid InstanceId { get; set; }
-        public System.Data.Entity.Database Database { get; set; }
+        public Database Database { get; set; }
+
+        //private class DbInitializer<T> : DropCreateDatabaseAlways<DataContextAsync>
+        //{
+        //    protected override void Seed(DataContextAsync context)
+        //    {
+        //        base.Seed(context);
+        //    }
+        //}
+        public void Dispose()
+        {
+        }
 
         /// <inheritdoc />
         /// <summary>
@@ -116,7 +126,6 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                     var audit = _auditFactory.GetAudit(deletableEntity);
                     _auditList.Add(audit);
                     _list.Add(deletableEntity);
-
                 }
 
 
@@ -128,9 +137,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                     if (activeItem.Entity.Active)
                     {
                         if (activeItem.Entity.ActiveFrom == null || activeItem.Entity.ActiveFrom == DateTime.MinValue)
-                        {
                             activeItem.Entity.ActiveFrom = DateTime.Now;
-                        }
                         if (activeItem.Entity.ActiveTo == null || activeItem.Entity.ActiveFrom == DateTime.MinValue)
                         {
                             // do not set in advance !!
@@ -153,8 +160,8 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                     var entityList =
                         ChangeTracker.Entries<IAuditTrail>()
                             .Where(p => p.State == EntityState.Added
-                            || p.State == EntityState.Deleted
-                            || p.State == EntityState.Modified);
+                                        || p.State == EntityState.Deleted
+                                        || p.State == EntityState.Modified);
 
                     foreach (var entity in entityList)
                     {
@@ -162,7 +169,6 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                         _auditList.Add(audit);
                         _list.Add(entity);
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -202,10 +208,6 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                                 //    auditableEntity.Property(p => p.CreatedById).IsModified)
                                 //    throw new DbEntityValidationException(
                                 //        $"Attempt to change created audit trails on a modified {auditableEntity.Entity.GetType().FullName}");
-                            }
-                            else
-                            {
-                                // ???
                             }
 
                             break;
@@ -256,19 +258,19 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                 var allErrors = new List<ValidationResult>();
 
                 foreach (var error in errors)
-                    foreach (var validationError in error.ValidationErrors)
-                    {
-                        result.AppendFormat(
-                            "\r\n  Entity of type {0} has validation error \"{1}\" for property {2}.\r\n",
-                            error.Entry.Entity.GetType(), validationError.ErrorMessage, validationError.PropertyName);
-                        var domainEntity = error.Entry.Entity as DomainEntity<int>;
-                        if (domainEntity != null)
-                            result.Append(domainEntity.IsTransient()
-                                ? "  This entity was added in this session.\r\n"
-                                : $"  The Id of the entity is {domainEntity.Id}.\r\n");
-                        allErrors.Add(new ValidationResult(validationError.ErrorMessage,
-                            new[] { validationError.PropertyName }));
-                    }
+                foreach (var validationError in error.ValidationErrors)
+                {
+                    result.AppendFormat(
+                        "\r\n  Entity of type {0} has validation error \"{1}\" for property {2}.\r\n",
+                        error.Entry.Entity.GetType(), validationError.ErrorMessage, validationError.PropertyName);
+                    var domainEntity = error.Entry.Entity as DomainEntity<int>;
+                    if (domainEntity != null)
+                        result.Append(domainEntity.IsTransient()
+                            ? "  This entity was added in this session.\r\n"
+                            : $"  The Id of the entity is {domainEntity.Id}.\r\n");
+                    allErrors.Add(new ValidationResult(validationError.ErrorMessage,
+                        new[] {validationError.PropertyName}));
+                }
 
                 throw new ModelValidationException(result.ToString(), entityException, allErrors);
             }
@@ -334,7 +336,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public System.Data.Entity.Database GetDatabase()
+        public Database GetDatabase()
         {
             return Database;
         }
@@ -450,7 +452,6 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                     var audit = _auditFactory.GetAudit(deletableEntity);
                     _auditList.Add(audit);
                     _list.Add(deletableEntity);
-
                 }
 
                 // Deal with the "made active" / "made inactive" / "will expire at datetime" entities here...
@@ -461,9 +462,7 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                     if (activeItem.Entity.Active)
                     {
                         if (activeItem.Entity.ActiveFrom == null || activeItem.Entity.ActiveFrom == DateTime.MinValue)
-                        {
                             activeItem.Entity.ActiveFrom = DateTime.Now;
-                        }
                         if (activeItem.Entity.ActiveTo == null || activeItem.Entity.ActiveFrom == DateTime.MinValue)
                         {
                             // do not set in advance !!
@@ -486,8 +485,8 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                     var entityList =
                         ChangeTracker.Entries<IAuditTrail>()
                             .Where(p => p.State == EntityState.Added
-                            || p.State == EntityState.Deleted
-                            || p.State == EntityState.Modified);
+                                        || p.State == EntityState.Deleted
+                                        || p.State == EntityState.Modified);
 
                     foreach (var entity in entityList)
                     {
@@ -495,7 +494,6 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                         _auditList.Add(audit);
                         _list.Add(entity);
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -535,10 +533,6 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                                 //    auditableEntity.Property(p => p.CreatedById).IsModified)
                                 //    throw new DbEntityValidationException(
                                 //        $"Attempt to change created audit trails on a modified {auditableEntity.Entity.GetType().FullName}");
-                            }
-                            else
-                            {
-                                // ???
                             }
 
                             break;
@@ -589,23 +583,24 @@ namespace IdentityProvider.Repository.EF.EFDataContext
                 var allErrors = new List<ValidationResult>();
 
                 foreach (var error in errors)
-                    foreach (var validationError in error.ValidationErrors)
-                    {
-                        result.AppendFormat(
-                            "\r\n  Entity of type {0} has validation error \"{1}\" for property {2}.\r\n",
-                            error.Entry.Entity.GetType(), validationError.ErrorMessage, validationError.PropertyName);
-                        var domainEntity = error.Entry.Entity as DomainEntity<int>;
-                        if (domainEntity != null)
-                            result.Append(domainEntity.IsTransient()
-                                ? "  This entity was added in this session.\r\n"
-                                : $"  The Id of the entity is {domainEntity.Id}.\r\n");
-                        allErrors.Add(new ValidationResult(validationError.ErrorMessage,
-                            new[] { validationError.PropertyName }));
-                    }
+                foreach (var validationError in error.ValidationErrors)
+                {
+                    result.AppendFormat(
+                        "\r\n  Entity of type {0} has validation error \"{1}\" for property {2}.\r\n",
+                        error.Entry.Entity.GetType(), validationError.ErrorMessage, validationError.PropertyName);
+                    var domainEntity = error.Entry.Entity as DomainEntity<int>;
+                    if (domainEntity != null)
+                        result.Append(domainEntity.IsTransient()
+                            ? "  This entity was added in this session.\r\n"
+                            : $"  The Id of the entity is {domainEntity.Id}.\r\n");
+                    allErrors.Add(new ValidationResult(validationError.ErrorMessage,
+                        new[] {validationError.PropertyName}));
+                }
 
                 throw new ModelValidationException(result.ToString(), entityException, allErrors);
             }
-            catch (DbUpdateConcurrencyException ex) // This will fire only for entities that have the [RowVersion] property implemented...
+            catch (DbUpdateConcurrencyException ex
+            ) // This will fire only for entities that have the [RowVersion] property implemented...
             {
                 var entry = ex.Entries.Single();
                 var clientValues = entry.Entity;
@@ -699,18 +694,6 @@ namespace IdentityProvider.Repository.EF.EFDataContext
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
             base.OnModelCreating(modelBuilder);
-        }
-
-        //private class DbInitializer<T> : DropCreateDatabaseAlways<DataContextAsync>
-        //{
-        //    protected override void Seed(DataContextAsync context)
-        //    {
-        //        base.Seed(context);
-        //    }
-        //}
-        public void Dispose()
-        {
-
         }
     }
 }

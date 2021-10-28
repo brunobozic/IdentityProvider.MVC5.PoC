@@ -1,10 +1,11 @@
-﻿using IdentityProvider.Models.Domain.Account;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.EFDataContext;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using StructureMap;
 using TrackableEntities;
 
 namespace IdentityProvider.Services.DbSeed
@@ -13,7 +14,7 @@ namespace IdentityProvider.Services.DbSeed
     {
         private readonly AppDbContext _context;
 
-        [StructureMap.DefaultConstructor] // Set Default Constructor for StructureMap
+        [DefaultConstructor] // Set Default Constructor for StructureMap
         public DoSeed(AppDbContext context)
         {
             _context = context;
@@ -21,7 +22,6 @@ namespace IdentityProvider.Services.DbSeed
 
         public bool Seed()
         {
-
             #region Operations
 
             // Adding a list of basic (commonly used) Operations to the Db
@@ -170,7 +170,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.ApplicationResource.Add(r);
-
             }
 
             if (!_context.ApplicationResource.Any(u => u.Name == "UserProfileImage"))
@@ -186,7 +185,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.ApplicationResource.Add(r);
-
             }
 
             if (!_context.ApplicationResource.Any(u => u.Name == "OperationController"))
@@ -202,7 +200,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.ApplicationResource.Add(r);
-
             }
 
             if (!_context.ApplicationResource.Any(u => u.Name == "RoleGroupController"))
@@ -218,7 +215,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.ApplicationResource.Add(r);
-
             }
 
             if (!_context.ApplicationResource.Any(u => u.Name == "PermissionGroupController"))
@@ -234,7 +230,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.ApplicationResource.Add(r);
-
             }
 
             if (!_context.ApplicationResource.Any(u => u.Name == "PermissionController"))
@@ -250,7 +245,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.ApplicationResource.Add(r);
-
             }
 
             if (!_context.ApplicationResource.Any(u => u.Name == "ResourceController"))
@@ -266,7 +260,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.ApplicationResource.Add(r);
-
             }
 
             if (!_context.ApplicationResource.Any(u => u.Name == "OrganizationalUnitController"))
@@ -282,7 +275,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.ApplicationResource.Add(r);
-
             }
 
             if (!_context.ApplicationResource.Any(u => u.Name == "EmployeeController"))
@@ -298,7 +290,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.ApplicationResource.Add(r);
-
             }
 
             if (!_context.ApplicationResource.Any(u => u.Name == "LockedUserAccount"))
@@ -314,7 +305,6 @@ namespace IdentityProvider.Services.DbSeed
                 };
 
                 _context.ApplicationResource.Add(r);
-
             }
 
             _context.SaveChanges();
@@ -1012,8 +1002,8 @@ namespace IdentityProvider.Services.DbSeed
 
                 _context.Permission.Add(rp144);
             }
-            _context.SaveChanges();
 
+            _context.SaveChanges();
 
             #endregion Resource Permissions
 
@@ -1036,7 +1026,7 @@ namespace IdentityProvider.Services.DbSeed
                 Active = true,
                 ActiveFrom = DateTime.Now,
                 ActiveTo = DateTime.Now.AddMonths(6),
-                TrackingState = TrackingState.Added,
+                TrackingState = TrackingState.Added
             };
 
             //var rpgrpLink11 = new PermissionGroupOwnsPermissionLink
@@ -1105,7 +1095,7 @@ namespace IdentityProvider.Services.DbSeed
                 Active = true,
                 ActiveFrom = DateTime.Now,
                 ActiveTo = DateTime.Now.AddMonths(6),
-                TrackingState = TrackingState.Added,
+                TrackingState = TrackingState.Added
             };
 
             var rpgrpLink21 = new PermissionGroupOwnsPermissionLink
@@ -1296,7 +1286,7 @@ namespace IdentityProvider.Services.DbSeed
             var orgUnitRoleLink1 = new OrgUnitContainsRoleLink
             {
                 OrganizationalUnit = org1,
-                Role = (ApplicationRole)role1
+                Role = (ApplicationRole) role1
             };
 
             var org2 = _context.OrganisationalUnit.First(u => u.Name == "Developers");
@@ -1305,7 +1295,7 @@ namespace IdentityProvider.Services.DbSeed
             var orgUnitRoleLink2 = new OrgUnitContainsRoleLink
             {
                 OrganizationalUnit = org2,
-                Role = (ApplicationRole)role2
+                Role = (ApplicationRole) role2
             };
 
             var org3 = _context.OrganisationalUnit.First(u => u.Name == "Developers");
@@ -1314,7 +1304,7 @@ namespace IdentityProvider.Services.DbSeed
             var orgUnitRoleLink3 = new OrgUnitContainsRoleLink
             {
                 OrganizationalUnit = org3,
-                Role = (ApplicationRole)role3
+                Role = (ApplicationRole) role3
             };
 
             _context.OrgUnitRoleLink.Add(orgUnitRoleLink1);
@@ -1331,7 +1321,7 @@ namespace IdentityProvider.Services.DbSeed
             var orgUnitRoleLink11 = new OrgUnitContainsRoleLink
             {
                 OrganizationalUnit = org11,
-                Role = (ApplicationRole)role11
+                Role = (ApplicationRole) role11
             };
 
             var org21 = _context.OrganisationalUnit.First(u => u.Name == "DirectorsOffice");
@@ -1340,7 +1330,7 @@ namespace IdentityProvider.Services.DbSeed
             var orgUnitRoleLink21 = new OrgUnitContainsRoleLink
             {
                 OrganizationalUnit = org21,
-                Role = (ApplicationRole)role21
+                Role = (ApplicationRole) role21
             };
 
             var org31 = _context.OrganisationalUnit.First(u => u.Name == "DirectorsOffice");
@@ -1349,7 +1339,7 @@ namespace IdentityProvider.Services.DbSeed
             var orgUnitRoleLink31 = new OrgUnitContainsRoleLink
             {
                 OrganizationalUnit = org31,
-                Role = (ApplicationRole)role31
+                Role = (ApplicationRole) role31
             };
 
             _context.OrgUnitRoleLink.Add(orgUnitRoleLink11);
@@ -1366,7 +1356,7 @@ namespace IdentityProvider.Services.DbSeed
             var orgUnitRoleLink12 = new OrgUnitContainsRoleLink
             {
                 OrganizationalUnit = org12,
-                Role = (ApplicationRole)role12
+                Role = (ApplicationRole) role12
             };
 
             var org22 = _context.OrganisationalUnit.First(u => u.Name == "PointOfSales");
@@ -1375,7 +1365,7 @@ namespace IdentityProvider.Services.DbSeed
             var orgUnitRoleLink22 = new OrgUnitContainsRoleLink
             {
                 OrganizationalUnit = org22,
-                Role = (ApplicationRole)role22
+                Role = (ApplicationRole) role22
             };
 
             var org32 = _context.OrganisationalUnit.First(u => u.Name == "PointOfSales");
@@ -1384,7 +1374,7 @@ namespace IdentityProvider.Services.DbSeed
             var orgUnitRoleLink32 = new OrgUnitContainsRoleLink
             {
                 OrganizationalUnit = org32,
-                Role = (ApplicationRole)role32
+                Role = (ApplicationRole) role32
             };
 
             _context.OrgUnitRoleLink.Add(orgUnitRoleLink12);
@@ -1506,7 +1496,8 @@ namespace IdentityProvider.Services.DbSeed
 
             _context.SaveChanges();
 
-            var user2 = _context.Users.SingleOrDefault(u => u.FirstName == "Application" && u.LastName == "Standard User");
+            var user2 = _context.Users.SingleOrDefault(u =>
+                u.FirstName == "Application" && u.LastName == "Standard User");
 
             if (!_context.Employee.Any(u => u.Name == "Application" && u.Surname == "Standard User"))
             {
@@ -1526,7 +1517,8 @@ namespace IdentityProvider.Services.DbSeed
 
             _context.SaveChanges();
 
-            var user3 = _context.Users.SingleOrDefault(u => u.FirstName == "Application" && u.LastName == "Administrator");
+            var user3 = _context.Users.SingleOrDefault(u =>
+                u.FirstName == "Application" && u.LastName == "Administrator");
 
             if (!_context.Employee.Any(u => u.Name == "Application" && u.Surname == "Administrator"))
             {
@@ -1572,8 +1564,10 @@ namespace IdentityProvider.Services.DbSeed
             var myOrgUnit2 = _context.OrganisationalUnit.SingleOrDefault(u => u.Name == "PointOfSales");
 
             var employee1 = _context.Employee.SingleOrDefault(u => u.Name == "Bruno" && u.Surname == "Božić");
-            var employee2 = _context.Employee.SingleOrDefault(u => u.Name == "Application" && u.Surname == "Administrator");
-            var employee3 = _context.Employee.SingleOrDefault(u => u.Name == "Application" && u.Surname == "Standard User");
+            var employee2 =
+                _context.Employee.SingleOrDefault(u => u.Name == "Application" && u.Surname == "Administrator");
+            var employee3 =
+                _context.Employee.SingleOrDefault(u => u.Name == "Application" && u.Surname == "Standard User");
 
             var empOrgUnit1 = new EmployeeBelongsToOrgUnitLink
             {
@@ -1647,12 +1641,18 @@ namespace IdentityProvider.Services.DbSeed
 
             _context.SaveChanges();
 
-            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit1); _context.SaveChanges();
-            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit2); _context.SaveChanges();
-            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit3); _context.SaveChanges();
-            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit11); _context.SaveChanges();
-            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit22); _context.SaveChanges();
-            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit33); _context.SaveChanges();
+            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit1);
+            _context.SaveChanges();
+            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit2);
+            _context.SaveChanges();
+            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit3);
+            _context.SaveChanges();
+            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit11);
+            _context.SaveChanges();
+            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit22);
+            _context.SaveChanges();
+            _context.EmployeesBelongToOgranizationalUnits.Add(empOrgUnit33);
+            _context.SaveChanges();
 
             _context.SaveChanges();
 

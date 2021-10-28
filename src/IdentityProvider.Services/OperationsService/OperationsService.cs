@@ -1,79 +1,29 @@
-﻿
-using IdentityProvider.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using IdentityProvider.Models.Domain.Account;
+using IdentityProvider.Models.ViewModels.Operations;
 using LinqKit;
 using Logging.WCF.Models.Log4Net;
 using Module.Repository.EF.Repositories;
 using Module.ServicePattern;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using IdentityProvider.Models.ViewModels.Operations;
-
+using StructureMap;
 
 namespace IdentityProvider.Services.OperationsService
 {
     public class OperationsService : Service<Operation>, IOperationService
     {
         private readonly ILog4NetLoggingService _loggingService;
-        [StructureMap.DefaultConstructor] // Set Default Constructor for StructureMap
+
+        [DefaultConstructor] // Set Default Constructor for StructureMap
         public OperationsService(
             IRepositoryAsync<Operation> repository
             , ILog4NetLoggingService loggingService
-            )
+        )
             : base(repository)
         {
             _loggingService = loggingService;
-        }
-
-        private Expression<Func<Operation, bool>> BuildDynamicWhereClause(
-            string searchValue
-            , DateTime? from
-            , DateTime? to
-            , bool alsoInActive
-            , bool alsoDeleted
-            )
-        {
-            // simple method to dynamically plugin a where clause
-            var predicate = PredicateBuilder.New<Operation>(true); // true -where(true) return all
-
-            if (string.IsNullOrWhiteSpace(searchValue) == false)
-            {
-                var searchTerms = searchValue.Split(' ').ToList().ConvertAll(x => x.ToLower());
-                predicate = predicate.Or(s => searchTerms.Any(srch => s.Description.ToLower().Contains(srch)));
-                predicate = predicate.Or(s => searchTerms.Any(srch => s.Name.ToLower().Contains(srch)));
-            }
-
-            if (from.HasValue && to.HasValue)
-            {
-                predicate = predicate.And(s => s.ModifiedDate <= to && s.ModifiedDate >= from);
-            }
-
-            if (alsoInActive && alsoDeleted)
-            {
-                // show all
-            };
-
-            if (!alsoInActive && !alsoDeleted)
-            {
-                // show only non deleted and inactive ones
-                predicate = predicate.And(s => s.IsDeleted == false); predicate = predicate.And(s => s.Active == false);
-            };
-
-            if (alsoInActive && !alsoDeleted)
-            {
-                // show active but deleted ones
-                predicate = predicate.And(s => s.IsDeleted == false);
-            };
-
-            if (!alsoInActive && alsoDeleted)
-            {
-                // show deleted but active ones
-                predicate = predicate.And(s => s.IsDeleted == true); predicate = predicate.And(s => s.Active == false);
-            };
-
-            return predicate;
         }
 
         public IList<OperationsDatatableSearchClass> GetDataFromDbase(
@@ -89,7 +39,7 @@ namespace IdentityProvider.Services.OperationsService
             , bool also_deleted
             , out int filteredResultsCount
             , out int totalResultsCount
-            )
+        )
         {
             var whereClause = BuildDynamicWhereClause(searchBy, from, to, also_active, also_deleted);
 
@@ -101,18 +51,18 @@ namespace IdentityProvider.Services.OperationsService
             }
 
             var query = Queryable()
-                        .Where(whereClause)
-                        .Select(m => new OperationsDatatableSearchClass
-                        {
-                            Id = m.Id,
-                            Name = m.Name,
-                            Description = m.Description,
-                            Active = m.Active,
-                            Deleted = m.IsDeleted,
-                            CreatedDate = m.CreatedDate,
-                            ModifiedDate = m.ModifiedDate,
-                            Actions = string.Empty
-                        });
+                .Where(whereClause)
+                .Select(m => new OperationsDatatableSearchClass
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    Description = m.Description,
+                    Active = m.Active,
+                    Deleted = m.IsDeleted,
+                    CreatedDate = m.CreatedDate,
+                    ModifiedDate = m.ModifiedDate,
+                    Actions = string.Empty
+                });
 
             switch (sortBy)
             {
@@ -167,6 +117,60 @@ namespace IdentityProvider.Services.OperationsService
             // _loggingService.LogInfo(this, "Test", null, true);
 
             return result;
+        }
+
+        private Expression<Func<Operation, bool>> BuildDynamicWhereClause(
+            string searchValue
+            , DateTime? from
+            , DateTime? to
+            , bool alsoInActive
+            , bool alsoDeleted
+        )
+        {
+            // simple method to dynamically plugin a where clause
+            var predicate = PredicateBuilder.New<Operation>(true); // true -where(true) return all
+
+            if (string.IsNullOrWhiteSpace(searchValue) == false)
+            {
+                var searchTerms = searchValue.Split(' ').ToList().ConvertAll(x => x.ToLower());
+                predicate = predicate.Or(s => searchTerms.Any(srch => s.Description.ToLower().Contains(srch)));
+                predicate = predicate.Or(s => searchTerms.Any(srch => s.Name.ToLower().Contains(srch)));
+            }
+
+            if (from.HasValue && to.HasValue)
+                predicate = predicate.And(s => s.ModifiedDate <= to && s.ModifiedDate >= @from);
+
+            if (alsoInActive && alsoDeleted)
+            {
+                // show all
+            }
+
+            ;
+
+            if (!alsoInActive && !alsoDeleted)
+            {
+                // show only non deleted and inactive ones
+                predicate = predicate.And(s => s.IsDeleted == false);
+                predicate = predicate.And(s => s.Active == false);
+            }
+
+            ;
+
+            if (alsoInActive && !alsoDeleted)
+                // show active but deleted ones
+                predicate = predicate.And(s => s.IsDeleted == false);
+            ;
+
+            if (!alsoInActive && alsoDeleted)
+            {
+                // show deleted but active ones
+                predicate = predicate.And(s => s.IsDeleted);
+                predicate = predicate.And(s => s.Active == false);
+            }
+
+            ;
+
+            return predicate;
         }
     }
 }

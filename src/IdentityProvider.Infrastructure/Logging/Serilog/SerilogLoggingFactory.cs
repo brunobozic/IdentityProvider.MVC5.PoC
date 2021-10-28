@@ -1,10 +1,8 @@
-﻿using IdentityProvider.Infrastructure.Caching;
+﻿using System;
+using IdentityProvider.Infrastructure.Caching;
 using IdentityProvider.Infrastructure.ConfigurationProvider;
 using IdentityProvider.Infrastructure.Logging.Serilog.AuditLog;
 using Serilog;
-using System;
-
-
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog
 {
@@ -141,6 +139,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog
                             _memoryCacheProvider.Save(_internalSerilogLogger, "ErrorLogInFile");
                         else return _memoryCacheProvider.Get<ILogger>("ErrorLogInFile");
                     }
+
                     break;
             }
 

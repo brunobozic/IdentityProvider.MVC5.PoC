@@ -1,4 +1,10 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using AutoMapper;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.EFDataContext;
 using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.RoleOperationResource;
@@ -9,12 +15,6 @@ using Module.Repository.EF.Repositories;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using Module.ServicePattern;
 using StructureMap;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 using TrackableEntities;
 
 namespace IdentityProvider.Services.ApplicationRoleService
@@ -23,12 +23,12 @@ namespace IdentityProvider.Services.ApplicationRoleService
     {
         private readonly ILog4NetLoggingService _loggingService;
         private readonly IMapper _mapper;
+        private readonly ApplicationRoleManager _roleManager;
         private readonly ApplicationSignInManager _signInManager;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
         private readonly ApplicationUserManager _userManager;
-        private readonly ApplicationRoleManager _roleManager;
 
-        [DefaultConstructor]  // This is the attribute you need to add on the constructor
+        [DefaultConstructor] // This is the attribute you need to add on the constructor
         public ApplicationRoleService(
             IUnitOfWorkAsync unitOfWorkAsync
             , ILog4NetLoggingService loggingService
@@ -47,7 +47,8 @@ namespace IdentityProvider.Services.ApplicationRoleService
             _roleManager = roleManager;
         }
 
-        public Task<IdentityResult> AddRoleAsync(string roleName, string optionalDescription, bool startAsNonActive = false)
+        public Task<IdentityResult> AddRoleAsync(string roleName, string optionalDescription,
+            bool startAsNonActive = false)
         {
             return _roleManager.CreateAsync(new ApplicationRole(roleName)
             {
@@ -57,6 +58,22 @@ namespace IdentityProvider.Services.ApplicationRoleService
                 ActiveFrom = DateTime.Now,
                 TrackingState = TrackingState.Added
             });
+        }
+
+        public IEnumerable<RoleOperationResourceDto> FetchUserRoleReasourseAndOperationsGraph()
+        {
+            var context = (AppDbContext) DependencyResolver.Current.GetService(typeof(AppDbContext));
+            var q = new RoleOperationResourceQuery(context);
+
+            return q.Execute();
+        }
+
+        public IEnumerable<UserRoleResourcesOperationsDto> FetchReasourseAndOperationsGraph()
+        {
+            var context = (AppDbContext) DependencyResolver.Current.GetService(typeof(AppDbContext));
+            var q = new UserRoleResourcesOperationsQuery(context);
+
+            return q.Execute();
         }
 
         public bool Exists(string roleName)
@@ -71,7 +88,7 @@ namespace IdentityProvider.Services.ApplicationRoleService
         }
 
         /// <summary>
-        /// Get all active application roles.
+        ///     Get all active application roles.
         /// </summary>
         /// <returns></returns>
         public async Task<List<ApplicationRole>> GetList()
@@ -80,28 +97,12 @@ namespace IdentityProvider.Services.ApplicationRoleService
         }
 
         /// <summary>
-        /// Get all deactivated application roles.
+        ///     Get all deactivated application roles.
         /// </summary>
         /// <returns></returns>
         public async Task<List<ApplicationRole>> GetListOfDeactivated()
         {
             return await Queryable().Where(i => i.Active == false).ToListAsync();
-        }
-
-        public IEnumerable<RoleOperationResourceDto> FetchUserRoleReasourseAndOperationsGraph()
-        {
-            var context = (AppDbContext)DependencyResolver.Current.GetService(typeof(AppDbContext));
-            var q = new RoleOperationResourceQuery(context);
-
-            return q.Execute();
-        }
-
-        public IEnumerable<UserRoleResourcesOperationsDto> FetchReasourseAndOperationsGraph()
-        {
-            var context = (AppDbContext)DependencyResolver.Current.GetService(typeof(AppDbContext));
-            var q = new UserRoleResourcesOperationsQuery(context);
-
-            return q.Execute();
         }
     }
 }

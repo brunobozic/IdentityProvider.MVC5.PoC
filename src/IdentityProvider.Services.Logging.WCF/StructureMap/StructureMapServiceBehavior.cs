@@ -14,13 +14,9 @@ namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
             {
                 var cd = cdb as ChannelDispatcher;
                 if (cd != null)
-                {
                     foreach (var ed in cd.Endpoints)
-                    {
                         ed.DispatchRuntime.InstanceProvider =
                             new StructureMapInstanceProvider(serviceDescription.ServiceType);
-                    }
-                }
             }
         }
 

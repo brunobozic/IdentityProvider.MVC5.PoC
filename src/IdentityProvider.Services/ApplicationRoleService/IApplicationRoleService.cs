@@ -1,8 +1,8 @@
-﻿using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.RoleOperationResource;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.RoleOperationResource;
 using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.UserRoleResourcesOperations;
 using Microsoft.AspNet.Identity;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace IdentityProvider.Services.ApplicationRoleService
 {

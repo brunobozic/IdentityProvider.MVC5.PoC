@@ -17,6 +17,9 @@ namespace Logging.WCF.Services.AvailableLogSinkers
             _databaseLogRepository = dbLogRepository;
         }
 
+        public bool Disposed { get; set; }
+        public IEntityBaseRepositoryAsync<DatabaseLog> _databaseLogRepository { get; }
+
         public void Dispose()
         {
             Disposed = true;
@@ -45,17 +48,14 @@ namespace Logging.WCF.Services.AvailableLogSinkers
                 myLog.ExceptionMessage +=
                     string.Format("		[ DB ] ====>		Db exception while saving exception: [ {0} ]   [ {1} ]",
                         dbException.Message, dbException.InnerException);
-                
+
                 // LogToWCF to file...
-                ILog logger = LogManager.GetLogger(this.GetType());
+                var logger = LogManager.GetLogger(GetType());
                 logger.Fatal("", dbException);
             }
 
             return retVal;
         }
-
-        public bool Disposed { get; set; }
-        public IEntityBaseRepositoryAsync<DatabaseLog> _databaseLogRepository { get; }
     }
 
     public class FakeDbLogService : ILogSinkerService
@@ -64,7 +64,6 @@ namespace Logging.WCF.Services.AvailableLogSinkers
 
         public FakeDbLogService()
         {
-
         }
 
         public FakeDbLogService(IEntityBaseRepositoryAsync<DatabaseLog> dbLogRepository)
@@ -72,12 +71,11 @@ namespace Logging.WCF.Services.AvailableLogSinkers
             _databaseLogRepository = dbLogRepository;
         }
 
+        public bool Disposed { get; set; }
+
         public void Dispose()
         {
-            if (!Disposed)
-            {
-                Disposed = true;
-            }
+            if (!Disposed) Disposed = true;
         }
 
         /// <inheritdoc />
@@ -101,17 +99,15 @@ namespace Logging.WCF.Services.AvailableLogSinkers
             catch (Exception dbException)
             {
                 myLog.ExceptionMessage +=
-                   string.Format("		[ DB ] ====>		Db exception while saving exception: [ {0} ]   [ {1} ]",
-                       dbException.Message, dbException.InnerException);
+                    string.Format("		[ DB ] ====>		Db exception while saving exception: [ {0} ]   [ {1} ]",
+                        dbException.Message, dbException.InnerException);
 
                 // LogToWCF to file... is not relevant to this test
-                ILog logger = LogManager.GetLogger(this.GetType());
+                var logger = LogManager.GetLogger(GetType());
                 logger.Fatal(dbException);
             }
 
             return retVal;
         }
-
-        public bool Disposed { get; set; }
     }
 }

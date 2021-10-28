@@ -1,12 +1,12 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
-using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Extensions;
-using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Model;
-using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
+using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Extensions;
+using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Model;
+using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;
 
 namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog
 {
@@ -82,11 +82,11 @@ namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog
 
         private static string GetCorrelationId()
         {
-            var returnValue = (string)HttpContext.Current.Items[CorrelationIdItemName];
+            var returnValue = (string) HttpContext.Current.Items[CorrelationIdItemName];
             if (string.IsNullOrEmpty(returnValue))
             {
                 HttpContext.Current.Items[CorrelationIdItemName] = Guid.NewGuid().ToString();
-                returnValue = (string)HttpContext.Current.Items[CorrelationIdItemName];
+                returnValue = (string) HttpContext.Current.Items[CorrelationIdItemName];
             }
 
             return returnValue;

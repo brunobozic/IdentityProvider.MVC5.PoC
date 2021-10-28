@@ -1,15 +1,4 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
-using IdentityProvider.Infrastructure.Cookies;
-using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
-using IdentityProvider.Models;
-using IdentityProvider.Models.Datatables;
-using IdentityProvider.Models.Domain.Account;
-using IdentityProvider.Models.ViewModels;
-using IdentityProvider.Models.ViewModels.Operations;
-using IdentityProvider.Models.ViewModels.Operations.Extensions;
-using IdentityProvider.Services.OperationsService;
-using StructureMap;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
@@ -17,9 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using TrackableEntities;
-using Module.Repository.EF;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
+using IdentityProvider.Infrastructure.Cookies;
+using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
+using IdentityProvider.Models.Datatables;
+using IdentityProvider.Models.Domain.Account;
+using IdentityProvider.Models.ViewModels;
+using IdentityProvider.Models.ViewModels.Operations;
+using IdentityProvider.Models.ViewModels.Operations.Extensions;
+using IdentityProvider.Services.OperationsService;
 using Module.Repository.EF.UnitOfWorkInterfaces;
+using StructureMap;
+using TrackableEntities;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -48,13 +46,11 @@ namespace IdentityProvider.Controllers.Controllers
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult OperationsGetAllPaged(
-     )
+        )
         {
-
             var returnValue = new OperationPagedVm
             {
                 HeaderRightSideActionDropdownList = new List<HeaderRightSideActionDropdown>()
-
             };
 
             returnValue.HeaderRightSideActionDropdownList.Add(new HeaderRightSideActionDropdown
@@ -83,13 +79,19 @@ namespace IdentityProvider.Controllers.Controllers
                 Deleted = s.Deleted,
                 CreatedDate = s.CreatedDate,
                 ModifiedDate = s.ModifiedDate,
-                Actions = s.Deleted == false ? string.Format("<a href=\"\" class=\"OperationsDashboard_OperationsDatatable_edit text-center\" data-id=\"{0}\" custom-middle-align\">Edit</a> / <a href=\"\" class=\"OperationsDashboard_OperationsDatatable_remove\" data-id=\"{0}\">Delete</a>", s.Id) : string.Format("<a href=\"\" class=\"OperationsDashboard_OperationsDatatable_edit text-center\" data-id=\"{0}\" custom-middle-align\">Edit</a>", s.Id)
+                Actions = s.Deleted == false
+                    ? string.Format(
+                        "<a href=\"\" class=\"OperationsDashboard_OperationsDatatable_edit text-center\" data-id=\"{0}\" custom-middle-align\">Edit</a> / <a href=\"\" class=\"OperationsDashboard_OperationsDatatable_remove\" data-id=\"{0}\">Delete</a>",
+                        s.Id)
+                    : string.Format(
+                        "<a href=\"\" class=\"OperationsDashboard_OperationsDatatable_edit text-center\" data-id=\"{0}\" custom-middle-align\">Edit</a>",
+                        s.Id)
             }));
 
             return Json(new
             {
                 // this is what datatables expect to recieve
-                draw = model.draw,
+                model.draw,
                 recordsTotal = totalResultsCount,
                 recordsFiltered = filteredResultsCount,
                 data = result
@@ -100,7 +102,7 @@ namespace IdentityProvider.Controllers.Controllers
             DataTableAjaxPostModel model
             , out int filteredResultsCount
             , out int totalResultsCount
-            )
+        )
         {
             var searchBy = model.search?.value ?? model.search_extra;
             var take = model.length;
@@ -110,9 +112,12 @@ namespace IdentityProvider.Controllers.Controllers
             var to = model.to;
             var alsoinactive = true;
             var alsodeleted = false;
-            if (model.alsoinactive == "true") { alsoinactive = true; } else { alsoinactive = false; }
-            if (model.alsodeleted == "true") { alsodeleted = true; }
-            
+            if (model.alsoinactive == "true")
+                alsoinactive = true;
+            else
+                alsoinactive = false;
+            if (model.alsodeleted == "true") alsodeleted = true;
+
             var sortBy = string.Empty;
             var sortDir = true;
 
@@ -146,10 +151,8 @@ namespace IdentityProvider.Controllers.Controllers
             );
 
             if (result == null)
-            {
                 // empty collection...
                 return new List<OperationsDatatableSearchClass>();
-            }
 
             return result;
         }
@@ -169,16 +172,18 @@ namespace IdentityProvider.Controllers.Controllers
 
             try
             {
-                var queryResult = await _unitOfWorkAsync.RepositoryAsync<Operation>().Queryable().AsNoTracking().Select(i =>
-                    new OperationCountsDto
-                    {
-                        Name = i.Name,
-                        Active = i.Active,
-                        Deleted = i.IsDeleted
-                    }).ToListAsync();
+                var queryResult = await _unitOfWorkAsync.RepositoryAsync<Operation>().Queryable().AsNoTracking().Select(
+                    i =>
+                        new OperationCountsDto
+                        {
+                            Name = i.Name,
+                            Active = i.Active,
+                            Deleted = i.IsDeleted
+                        }).ToListAsync();
 
                 retVal.ActiveItemCount = queryResult.Count(op => op.Active && !op.Deleted);
-                retVal.DeletedItemCount = queryResult.Count(op => op.Deleted); // might conflict with row based access security
+                retVal.DeletedItemCount =
+                    queryResult.Count(op => op.Deleted); // might conflict with row based access security
                 retVal.InactiveItemCount = queryResult.Count(op => !op.Active);
             }
             catch (Exception e)
@@ -204,7 +209,7 @@ namespace IdentityProvider.Controllers.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public async Task<JsonResult> Insert(OperationToInsertVm operationToInsert)
         {
-            var retVal = new OperationInsertedVm { Success = false };
+            var retVal = new OperationInsertedVm {Success = false};
 
             if (!ModelState.IsValid)
             {
@@ -214,7 +219,8 @@ namespace IdentityProvider.Controllers.Controllers
                 }
 
                 retVal.Message = "Model state invalid";
-                retVal.FormErrors = ModelState.Select(kvp => new { key = kvp.Key, errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+                retVal.FormErrors = ModelState.Select(kvp => new
+                    {key = kvp.Key, errors = kvp.Value.Errors.Select(e => e.ErrorMessage)});
             }
 
             var op = new Operation
@@ -234,10 +240,7 @@ namespace IdentityProvider.Controllers.Controllers
 
                 var sb = new StringBuilder();
 
-                foreach (var validation in validationResults)
-                {
-                    sb.Append(validation.ErrorMessage);
-                }
+                foreach (var validation in validationResults) sb.Append(validation.ErrorMessage);
 
                 ModelState.AddModelError("Name", sb.ToString());
                 retVal.ValidationIssues = sb.ToString();
@@ -270,12 +273,9 @@ namespace IdentityProvider.Controllers.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public async Task<JsonResult> Delete(string itemToDelete)
         {
-            var retVal = new OperationDeletedVm { WasDeleted = false };
+            var retVal = new OperationDeletedVm {WasDeleted = false};
 
-            if (string.IsNullOrEmpty(itemToDelete))
-            {
-                throw new ArgumentNullException(nameof(itemToDelete));
-            }
+            if (string.IsNullOrEmpty(itemToDelete)) throw new ArgumentNullException(nameof(itemToDelete));
 
             try
             {
@@ -326,13 +326,14 @@ namespace IdentityProvider.Controllers.Controllers
             }
 
             return PartialView("Partial/_operationEditPartial", retVal);
-
         }
 
         // POST: /Operation/Edit/5
         [AcceptVerbs(HttpVerbs.Post)]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id, Name, Description, Active, ActiveFrom, ActiveTo, RowVersion")] Operation operation)
+        public async Task<ActionResult> Edit(
+            [Bind(Include = "Id, Name, Description, Active, ActiveFrom, ActiveTo, RowVersion")]
+            Operation operation)
         {
             // https://stackoverflow.com/questions/39533599/mvc-5-with-bootstrap-modal-from-partial-view-validation-not-working
             // https://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
@@ -352,9 +353,8 @@ namespace IdentityProvider.Controllers.Controllers
                     var existingEntity = await repo.FindAsync(operation.Id);
 
                     if (existingEntity == null)
-                    {
-                        ModelState.AddModelError(string.Empty, @"Unable to update entity. The entity was deleted by another user.");
-                    }
+                        ModelState.AddModelError(string.Empty,
+                            @"Unable to update entity. The entity was deleted by another user.");
 
                     existingEntity.Name = operation.Name;
                     existingEntity.Description = operation.Description;
@@ -363,10 +363,8 @@ namespace IdentityProvider.Controllers.Controllers
                     {
                         // the item has been deactivated...
                         if (existingEntity.Active && !operation.Active)
-                        {
                             // set the date of deactivation to current date, dont touch the created date
                             existingEntity.ActiveTo = DateTime.Now;
-                        }
 
                         // the item has been reactivated...
                         if (!existingEntity.Active && operation.Active)
@@ -394,10 +392,7 @@ namespace IdentityProvider.Controllers.Controllers
 
                     var result = await _unitOfWorkAsync.SaveChangesAsync();
 
-                    if (result > 0)
-                    {
-                        retVal.Success = true;
-                    }
+                    if (result > 0) retVal.Success = true;
                 }
                 catch (Exception e)
                 {
@@ -406,10 +401,15 @@ namespace IdentityProvider.Controllers.Controllers
                     retVal.Message = e.Message;
 
                     // if we stumbled upon an optimistic concurrency error, emit proper error to the user, and have the view reloaded with the new values taken from the database
-                    if (e.Message.Contains("The record you attempted to edit was modified by another user after you got the original value. The edit operation was canceled and the current values in the database have been displayed."))
-                    {
-                        return Json(new { Success = false, OptimisticConcurrencyError = true, OptimisticConcurrencyErrorMsg = "The record you attempted to edit was modified by another user after you got the original value. The edit operation was canceled and the current values in the database have been displayed." });
-                    }
+                    if (e.Message.Contains(
+                        "The record you attempted to edit was modified by another user after you got the original value. The edit operation was canceled and the current values in the database have been displayed.")
+                    )
+                        return Json(new
+                        {
+                            Success = false, OptimisticConcurrencyError = true,
+                            OptimisticConcurrencyErrorMsg =
+                                "The record you attempted to edit was modified by another user after you got the original value. The edit operation was canceled and the current values in the database have been displayed."
+                        });
                 }
             }
             else
@@ -423,15 +423,13 @@ namespace IdentityProvider.Controllers.Controllers
                     select new
                     {
                         key = x.First().ToString().ToUpper() + string.Join(string.Empty, x.Skip(1)),
-                        errors = ModelState[x].Errors.
-                            Select(y => y.ErrorMessage).
-                            ToArray()
+                        errors = ModelState[x].Errors.Select(y => y.ErrorMessage).ToArray()
                     };
 
-                return Json(new { Success = false, FormErrors = errorModel });
+                return Json(new {Success = false, FormErrors = errorModel});
             }
 
-            return Json(new { Success = true });
+            return Json(new {Success = true});
         }
 
         // POST: /Operation/Detail/5
@@ -457,10 +455,7 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 retVal.Success = true;
 
-                if (Request.IsAjaxRequest())
-                {
-                    retVal.Operation = result.ConvertToViewModel();
-                }
+                if (Request.IsAjaxRequest()) retVal.Operation = result.ConvertToViewModel();
             }
             else
             {
@@ -471,4 +466,3 @@ namespace IdentityProvider.Controllers.Controllers
         }
     }
 }
-

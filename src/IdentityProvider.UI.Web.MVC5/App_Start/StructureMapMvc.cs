@@ -20,7 +20,6 @@ using IdentityProvider.UI.Web.MVC5;
 using IdentityProvider.UI.Web.MVC5.DependencyResolution;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using WebActivatorEx;
-using IContainer = StructureMap.IContainer;
 
 [assembly: System.Web.PreApplicationStartMethod(typeof(StructuremapMvc), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(StructuremapMvc), "End")]
@@ -44,7 +43,7 @@ namespace IdentityProvider.UI.Web.MVC5
 
         public static void Start()
         {
-            IContainer container = IoC.Initialize();
+            var container = IoC.Initialize();
             StructureMapDependencyScope = new StructureMapDependencyScope(container);
             DependencyResolver.SetResolver(StructureMapDependencyScope);
             DynamicModuleUtility.RegisterModule(typeof(StructureMapScopeModule));

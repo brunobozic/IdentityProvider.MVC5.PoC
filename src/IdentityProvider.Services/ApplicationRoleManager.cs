@@ -14,6 +14,5 @@ namespace IdentityProvider.Services
         {
             _context = context;
         }
-
     }
 }

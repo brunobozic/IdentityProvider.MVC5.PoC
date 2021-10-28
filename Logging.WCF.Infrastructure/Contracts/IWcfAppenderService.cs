@@ -1,7 +1,7 @@
-﻿using log4net.Core;
-using Logging.WCF.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using log4net.Core;
+using Logging.WCF.Models;
 
 namespace Logging.WCF.Infrastructure.Contracts
 {

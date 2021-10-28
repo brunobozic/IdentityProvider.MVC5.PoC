@@ -2,28 +2,28 @@
 
 @*@Html.Partial("../Shared/CommonInsertItemPartials/_styleSectionPartial")*@
 
-<link href="~/bower_components/pretty-checkbox/dist/pretty-checkbox.css" rel="stylesheet" />
+<link href="~/bower_components/pretty-checkbox/dist/pretty-checkbox.css" rel="stylesheet"/>
 
-<link href="~/Content/css/themed-buttons-amber.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-black.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-blue.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-brown.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-bue-grey.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-cyan.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-deep-orange.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-deep-purple.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-green.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-grey.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-indigo.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-light-blue.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-light-green.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-lime.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-orange.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-pink.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-purple.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-red.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-teal.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-yellow.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-amber.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-black.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-blue.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-brown.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-bue-grey.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-cyan.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-deep-orange.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-deep-purple.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-green.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-grey.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-indigo.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-light-blue.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-light-green.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-lime.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-orange.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-pink.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-purple.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-red.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-teal.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-yellow.css" rel="stylesheet"/>
 <div class="container-fluid" style="width: 100% !important">
     <div class="row clearfix">
         <div class="card">
@@ -39,7 +39,7 @@
 
             <div class="body container-fluid" style="width: 100% !important">
                 <div class="body">
-                    @using (Html.BeginForm("Edit", "Operation", FormMethod.Post, new { id = "frmEditItem", name = "frmEditItem" }))
+                    @using (Html.BeginForm("Edit", "Operation", FormMethod.Post, new {id = "frmEditItem", name = "frmEditItem"}))
                     {
                         @Html.AntiForgeryToken()
 
@@ -50,22 +50,22 @@
 
                         <div class="form-group form-float" style="margin-bottom: 24px">
                             <div class="form-line">
-                                @Html.EditorFor(item => item.Operation.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Operation.Name, "", new { @class = "text-danger" })
+                                @Html.EditorFor(item => item.Operation.Name, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.Operation.Name, "", new {@class = "text-danger"})
                                 <label class="form-label"> Operation name </label>
                             </div>
                         </div>
 
                         <div class="form-group form-float" style="margin-bottom: 24px">
                             <div class="form-line">
-                                @Html.EditorFor(item => item.Operation.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Operation.Description, "", new { @class = "text-danger" })
+                                @Html.EditorFor(item => item.Operation.Description, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.Operation.Description, "", new {@class = "text-danger"})
                                 <label class="form-label"> Operation description </label>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <input type="hidden" name="Active" value="false" />
+                            <input type="hidden" name="Active" value="false"/>
 
                             @if (Model.Operation.Active)
                             {
@@ -88,7 +88,7 @@
                                     </div>
                             </div>*@
 
-                        @Html.ValidationMessageFor(model => model.Operation.Active, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.Operation.Active, "", new {@class = "text-danger"})
 
                         <div class="form-group">
 
@@ -96,7 +96,7 @@
                                 <div class="form-group">
                                     <label for="Operation_ActiveFrom"> Activated at: </label>
                                     <div class="form-line" id="sandbox-container">
-                                        @Html.EditorFor(item => item.Operation.ActiveFrom, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                        @Html.EditorFor(item => item.Operation.ActiveFrom, new {htmlAttributes = new {@class = "form-control", disabled = "disabled"}})
                                         @*<input type="text" class="form-control" id="Operation_ActiveFrom" name="Operation.ActiveFrom">*@
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                                 <div class="form-group">
                                     <label for="Operation_ActiveTo"> Active until: </label>
                                     <div class="form-line" id="sandbox-container">
-                                        @Html.EditorFor(item => item.Operation.ActiveTo, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(item => item.Operation.ActiveTo, new {htmlAttributes = new {@class = "form-control"}})
                                         @*<input type="text" class="form-control" id="Operation_ActiveTo" name="Operation.ActiveTo">*@
                                     </div>
                                 </div>
@@ -199,8 +199,6 @@
 
                                 }
                             </div>*@
-
-
                     }
 
                     <div id="loading">
@@ -226,23 +224,23 @@
     $buttons.addClass('themed-buttons-' + existTheme);
     $buttons.addClass('bg-' + existTheme);
 
-    $(function () {
-        $("#xyz").on("change", function () {
-            $this = $(this);
+    //$(function () {
+    //    $("#xyz").on("change", function () {
+    //        $this = $(this);
 
-            if ($('#defineActiveUntil').is(":checked ")) {
-                $("#hiddenSegmentDependantOnCheckbox").show();
-            } else {
-                $("#hiddenSegmentDependantOnCheckbox").hide();
-            }
-        });
-    });
+    //        if ($('#defineActiveUntil').is(":checked ")) {
+    //            $("#hiddenSegmentDependentOnCheckbox").show();
+    //        } else {
+    //            $("#hiddenSegmentDependentOnCheckbox").hide();
+    //        }
+    //    });
+    //});
 
-    $(function () {
+    $(function() {
 
         $('#Operation_Active').val(this.checked);
 
-        $('#Operation_Active').change(function () {
+        $('#Operation_Active').change(function() {
             if (this.checked) {
                 $(this).prop("checked", true);
             }
@@ -251,15 +249,15 @@
         });
     });
 
-    $(function () {
+    $(function() {
         $("#loading").hide();
 
-        $('#btnSubmit').click(function () {
+        $('#btnSubmit').click(function() {
             $('#frmEditItem').submit();
         });
     });
 
-    $(function () {
+    $(function() {
         try {
             $.AdminBSB.dropdownMenu.activate();
             $.AdminBSB.input.activate();
@@ -279,4 +277,3 @@
 
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionPartial")
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")
-

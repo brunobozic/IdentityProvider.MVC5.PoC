@@ -1,11 +1,11 @@
-﻿using IdentityProvider.Infrastructure.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Linq;
+using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
@@ -13,6 +13,19 @@ namespace IdentityProvider.Models.Domain.Account
     [Table("Employee", Schema = "Organization")]
     public class Employee : DomainEntity<int>, IActive
     {
+        public Employee()
+        {
+            Active = true;
+            ActiveFrom = DateTime.UtcNow;
+            OrganizationalUnits = new HashSet<EmployeeBelongsToOrgUnitLink>();
+        }
+
+
+        public ICollection<EmployeeBelongsToOrgUnitLink> OrganizationalUnits { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
+
         #region IValidatable Entity contract implementation
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -22,36 +35,14 @@ namespace IdentityProvider.Models.Domain.Account
 
         #endregion IValidatable Entity contract implementation
 
-        #region IsActive
-
-        public bool Active { get; set; }
-        [DisplayName("Record is active from (date)")]
-        public DateTime? ActiveFrom { get; set; }
-        [DisplayName("Record is active to (date)")]
-        public DateTime? ActiveTo { get; set; }
-
-        #endregion IsActive
-
-
-        public ICollection<EmployeeBelongsToOrgUnitLink> OrganizationalUnits { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-
-        public Employee()
-        {
-            Active = true;
-            ActiveFrom = DateTime.UtcNow;
-            OrganizationalUnits = new HashSet<EmployeeBelongsToOrgUnitLink>();
-        }
-
         public List<EmployeeBelongsToOrgUnitLink> FetchAssociatedOrganisationalUnits()
         {
             List<EmployeeBelongsToOrgUnitLink> organisationalUnits;
 
             try
             {
-                organisationalUnits = OrganizationalUnits.Where(i => i.Active && !i.IsDeleted && i.EmployeeId.Equals(Id)).ToList();
+                organisationalUnits = OrganizationalUnits
+                    .Where(i => i.Active && !i.IsDeleted && i.EmployeeId.Equals(Id)).ToList();
             }
             catch (Exception e)
             {
@@ -63,5 +54,17 @@ namespace IdentityProvider.Models.Domain.Account
 
             return organisationalUnits;
         }
+
+        #region IsActive
+
+        public bool Active { get; set; }
+
+        [DisplayName("Record is active from (date)")]
+        public DateTime? ActiveFrom { get; set; }
+
+        [DisplayName("Record is active to (date)")]
+        public DateTime? ActiveTo { get; set; }
+
+        #endregion IsActive
     }
 }

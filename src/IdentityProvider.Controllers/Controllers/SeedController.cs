@@ -1,17 +1,16 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using System.Web.Mvc;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Services.DbSeed;
 using StructureMap;
-using System;
-using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
     public class SeedController : BaseController
     {
-        private readonly IDoSeed _doSeed;
         private readonly ICookieStorageService _cookieStorageService;
+        private readonly IDoSeed _doSeed;
 
         [DefaultConstructor]
         public SeedController(
@@ -20,12 +19,12 @@ namespace IdentityProvider.Controllers.Controllers
             , IErrorLogService errorLogService
             , ICookieStorageService cookieStorageService1
             , IApplicationConfiguration applicationConfiguration
-            )
+        )
             : base(
-                  cookieStorageService
-                  , errorLogService
-                  , applicationConfiguration
-                  )
+                cookieStorageService
+                , errorLogService
+                , applicationConfiguration
+            )
         {
             _doSeed = doSeed;
             _cookieStorageService = cookieStorageService1;
@@ -34,17 +33,9 @@ namespace IdentityProvider.Controllers.Controllers
 
         public ActionResult Index()
         {
-            bool seedOk = false;
+            var seedOk = false;
 
-            try
-            {
-                seedOk = _doSeed.Seed();
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            seedOk = _doSeed.Seed();
 
 
             return View();

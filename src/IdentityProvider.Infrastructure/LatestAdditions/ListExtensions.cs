@@ -13,12 +13,9 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
 
         public static List<T> Swap<T>(this List<T> list, int firstIndex, int secondIndex)
         {
-            if (firstIndex == secondIndex || firstIndex < 0 || secondIndex < 0)
-            {
-                return list;
-            }
+            if (firstIndex == secondIndex || firstIndex < 0 || secondIndex < 0) return list;
 
-            T temp = list[firstIndex];
+            var temp = list[firstIndex];
             list[firstIndex] = list[secondIndex];
             list[secondIndex] = temp;
 
@@ -34,7 +31,7 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
             if (items == null) throw new ArgumentNullException("items");
             if (predicate == null) throw new ArgumentNullException("predicate");
 
-            int retVal = 0;
+            var retVal = 0;
 
             foreach (var item in items)
             {
@@ -45,10 +42,14 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
 
             return -1;
         }
+
         ///<summary>Finds the index of the first occurence of an item in an enumerable.</summary>
         ///<param name="items">The enumerable to search.</param>
         ///<param name="item">The item to find.</param>
         ///<returns>The index of the first matching item, or -1 if the item was not found.</returns>
-        public static int IndexOf<T>(this IEnumerable<T> items, T item) { return items.FindIndex(i => EqualityComparer<T>.Default.Equals(item, i)); }
+        public static int IndexOf<T>(this IEnumerable<T> items, T item)
+        {
+            return items.FindIndex(i => EqualityComparer<T>.Default.Equals(item, i));
+        }
     }
 }

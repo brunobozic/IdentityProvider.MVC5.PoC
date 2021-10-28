@@ -1,9 +1,8 @@
-
-using Services.Logging.WCF.TestHarness.WcfLogServiceReference;
 using System;
 using System.Windows.Forms;
 using log4net;
 using log4net.Core;
+using Services.Logging.WCF.TestHarness.WcfLogServiceReference;
 
 namespace Services.Logging.WCF.TestHarness
 {
@@ -41,15 +40,13 @@ namespace Services.Logging.WCF.TestHarness
             catch (Exception ex)
             {
                 textBox1.Text += "Error: " + ex.Message + Environment.NewLine;
-                ILog logger = LogManager.GetLogger(string.Empty);
+                var logger = LogManager.GetLogger(string.Empty);
                 logger.Fatal(ex);
             }
-
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

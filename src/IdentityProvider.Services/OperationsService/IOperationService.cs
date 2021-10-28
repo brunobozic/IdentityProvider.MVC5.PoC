@@ -1,8 +1,8 @@
-﻿using IdentityProvider.Models;
-using IdentityProvider.Models.Domain.Account;
-using Module.ServicePattern;
+﻿using System;
 using System.Collections.Generic;
+using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Models.ViewModels.Operations;
+using Module.ServicePattern;
 
 namespace IdentityProvider.Services.OperationsService
 {
@@ -15,8 +15,8 @@ namespace IdentityProvider.Services.OperationsService
             , int skip
             , string sortBy
             , bool sortDir
-            , System.DateTime? from
-            , System.DateTime? to
+            , DateTime? from
+            , DateTime? to
             , bool also_active
             , bool also_deleted
             , out int filteredResultsCount

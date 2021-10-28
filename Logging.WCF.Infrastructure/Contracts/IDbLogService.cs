@@ -1,7 +1,6 @@
-﻿
-using Logging.WCF.Models.DTOs;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Logging.WCF.Models.DTOs;
 
 namespace Logging.WCF.Infrastructure.Contracts
 {

@@ -1,8 +1,7 @@
-﻿using IdentityProvider.Infrastructure.DatabaseAudit;
-using IdentityProvider.Models;
-using Module.ServicePattern;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using IdentityProvider.Infrastructure.DatabaseAudit;
 using IdentityProvider.Models.ViewModels;
+using Module.ServicePattern;
 
 namespace IdentityProvider.Services.AuditTrailService
 {

@@ -1,10 +1,10 @@
-﻿using IdentityProvider.Infrastructure.Domain;
-using Module.Repository.EF.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using IdentityProvider.Infrastructure.Domain;
+using Module.Repository.EF.Repositories;
 using TrackableEntities;
 
 namespace Module.Repository.EF

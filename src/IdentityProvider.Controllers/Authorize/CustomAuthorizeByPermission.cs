@@ -1,27 +1,27 @@
-﻿using IdentityProvider.Models.Domain.Account;
-using System;
+﻿using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using IdentityProvider.Models.Domain.Account;
 
 namespace IdentityProvider.Controllers.Authorize
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class CustomAuthorizeByPermission : AuthorizeAttribute
     {
+        private Permission _permission;
+
         public CustomAuthorizeByPermission(Permission permission)
         {
             _permission = permission;
         }
 
-        private Permission _permission;
-
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             // Get the current claims principal
-            var prinicpal = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var prinicpal = (ClaimsPrincipal) Thread.CurrentPrincipal;
             // Make sure they are authenticated
             if (!prinicpal.Identity.IsAuthenticated)
                 return false;

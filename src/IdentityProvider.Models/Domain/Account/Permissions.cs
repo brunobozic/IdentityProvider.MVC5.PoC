@@ -1,14 +1,14 @@
-﻿using IdentityProvider.Infrastructure.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using IdentityProvider.Infrastructure.Domain;
 
 namespace IdentityProvider.Models.Domain.Account
 {
     /// <summary>
-    /// This is a **link** table between the "ApplicationResource" table and the "Operation" table
+    ///     This is a **link** table between the "ApplicationResource" table and the "Operation" table
     /// </summary>
     [Table("Permissions", Schema = "Resource")]
     public class Permission : DomainEntity<int>, IActive
@@ -21,22 +21,14 @@ namespace IdentityProvider.Models.Domain.Account
 
         [Required]
         [DisplayName("Name")]
-        [MaxLength(50, ErrorMessage = "The name of the Operation must be between 2 and 50 characters"), MinLength(2)]
+        [MaxLength(50, ErrorMessage = "The name of the Operation must be between 2 and 50 characters")]
+        [MinLength(2)]
         public string Name { get; set; }
+
         [DisplayName("Description")]
-        [MaxLength(260, ErrorMessage = "The description of the Operation must be between 2 and 260 characters"), MinLength(2)]
+        [MaxLength(260, ErrorMessage = "The description of the Operation must be between 2 and 260 characters")]
+        [MinLength(2)]
         public string Description { get; set; }
-
-        #region IsActive
-
-        [DisplayName("Record is active")]
-        public bool Active { get; set; }
-        [DisplayName("Record is active from (date)")]
-        public DateTime? ActiveFrom { get; set; }
-        [DisplayName("Record is active to (date)")]
-        public DateTime? ActiveTo { get; set; }
-
-        #endregion IsActive
 
         public virtual ApplicationResource ApplicationResource { get; set; }
         public virtual Operation Operation { get; set; }
@@ -52,5 +44,17 @@ namespace IdentityProvider.Models.Domain.Account
         }
 
         #endregion IValidatable Entity contract implementation
+
+        #region IsActive
+
+        [DisplayName("Record is active")] public bool Active { get; set; }
+
+        [DisplayName("Record is active from (date)")]
+        public DateTime? ActiveFrom { get; set; }
+
+        [DisplayName("Record is active to (date)")]
+        public DateTime? ActiveTo { get; set; }
+
+        #endregion IsActive
     }
 }

@@ -4,19 +4,14 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
 {
     public static class StringHelper
     {
-        public static int CalcLevenshteinDistance(this String s, string t)
+        public static int CalcLevenshteinDistance(this string s, string t)
         {
-            if (s == null)
-            {
-                s = string.Empty;
-            }
+            if (s == null) s = string.Empty;
 
-            if (t == null)
-            {
-                t = string.Empty;
-            }
+            if (t == null) t = string.Empty;
 
-            var strip = new Func<string, string>(x => x.ToLower().Replace(" ", string.Empty).Replace("-", string.Empty));
+            var strip = new Func<string, string>(x =>
+                x.ToLower().Replace(" ", string.Empty).Replace("-", string.Empty));
 
             s = strip(s);
             t = strip(t);
@@ -27,41 +22,35 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
             var d = new int[n + 1, m + 1];
 
             // Step 1
-            if (n == 0)
-            {
-                return m;
-            }
+            if (n == 0) return m;
 
-            if (m == 0)
-            {
-                return n;
-            }
+            if (m == 0) return n;
 
             // Step 2
             for (var i = 0; i <= n; d[i, 0] = i++)
-            { }
+            {
+            }
 
             for (var j = 0; j <= m; d[0, j] = j++)
-            { }
+            {
+            }
 
             // Step 3
             for (var i = 1; i <= n; i++)
-            {
                 //Step 4
-                for (var j = 1; j <= m; j++)
-                {
-                    // Step 5
-                    var cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
+            for (var j = 1; j <= m; j++)
+            {
+                // Step 5
+                var cost = t[j - 1] == s[i - 1] ? 0 : 1;
 
-                    // Step 6
-                    d[i, j] = Math.Min(
-                        Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
-                        d[i - 1, j - 1] + cost);
-                }
+                // Step 6
+                d[i, j] = Math.Min(
+                    Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
+                    d[i - 1, j - 1] + cost);
             }
+
             // Step 7
             return d[n, m];
-
         }
     }
 }

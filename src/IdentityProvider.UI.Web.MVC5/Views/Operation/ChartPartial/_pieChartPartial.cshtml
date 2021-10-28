@@ -1,5 +1,4 @@
-﻿
-<!doctype html>
+﻿<!doctype html>
 <html>
 
 <head>
@@ -7,188 +6,164 @@
 
     <style>
 
-        canvas {
-            -moz-user-select: none;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            padding: 0;
-            margin: auto;
-            display: block;
-            width: 800px;
-            height: 600px;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-
-        .centerMe {
-            padding: 0;
-            margin: auto;
-            display: block;
-            width: 90%;
-            height: 90%;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
+    
+        
     </style>
 </head>
 
 <body>
-    <div class="centerMe">
-        <div class="" style="width: 95%; height: 95%;">
-            <div id="canvas-holder" style="width: 95%; height: 95%">
-                <canvas id="chart-area"></canvas>
-            </div>
-        </div>
-        <div class="centerMe" style="bottom:-180%">
-            <button id="randomizeData">Randomize Data</button>
-            <button id="addDataset">Add Dataset</button>
-            <button id="removeDataset">Remove Dataset</button>
-            <button id="addData">Add Data</button>
-            <button id="removeData">Remove Data</button>
+<div class="centerMe">
+    <div class="" style="height: 95%; width: 95%;">
+        <div id="canvas-holder" style="height: 95%; width: 95%;">
+            <canvas id="chart-area"></canvas>
         </div>
     </div>
+</div>
+<div style="margin-top: 370px">
+    <div class="form-group form-float">
+        <button class="btn bg-pink waves-effect btn-xs" id="randomizeData" style="">Randomize Data</button>
+        <button class="btn bg-pink waves-effect btn-xs" id="addDataset" style="">Add Dataset</button>
+        <button class="btn bg-pink waves-effect btn-xs" id="removeDataset" style="">Remove Dataset</button>
+        <button class="btn bg-pink waves-effect btn-xs" id="addData" style="">Add Data</button>
+        <button class="btn bg-pink waves-effect btn-xs" id="removeData" style="">Remove Data</button>
 
-    <script>
+    </div>
+</div>
+<script>
 
-        window.chartColors = {
-            red: 'rgb(255, 99, 132)',
-            orange: 'rgb(255, 159, 64)',
-            yellow: 'rgb(255, 205, 86)',
-            green: 'rgb(75, 192, 192)',
-            blue: 'rgb(54, 162, 235)',
-            purple: 'rgb(153, 102, 255)',
-            grey: 'rgb(231,233,237)'
-        };
+    window.chartColors = {
+        red: 'rgb(255, 99, 132)',
+        orange: 'rgb(255, 159, 64)',
+        yellow: 'rgb(255, 205, 86)',
+        green: 'rgb(75, 192, 192)',
+        blue: 'rgb(54, 162, 235)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(231,233,237)'
+    };
 
-        var randomScalingFactor = function () {
-            return Math.round(Math.random() * 100);
-        };
+    var randomScalingFactor = function() {
+        return Math.round(Math.random() * 100);
+    };
 
-        var config = {
-            type: 'doughnut',
-            data: {
-                datasets: [
-                    {
-                        data: [
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                        ],
-                        backgroundColor: [
-                            window.chartColors.red,
-                            window.chartColors.orange,
-                            window.chartColors.yellow,
-                            window.chartColors.green,
-                            window.chartColors.blue,
-                        ],
-                        label: 'Dataset 1'
-                    }
-                ],
-                labels: [
-                    'Red',
-                    'Orange',
-                    'Yellow',
-                    'Green',
-                    'Blue'
-                ]
+    var config = {
+        type: 'doughnut',
+        data: {
+            datasets: [
+                {
+                    data: [
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                    ],
+                    backgroundColor: [
+                        window.chartColors.red,
+                        window.chartColors.orange,
+                        window.chartColors.yellow,
+                        window.chartColors.green,
+                        window.chartColors.blue,
+                    ],
+                    label: 'Dataset 1'
+                }
+            ],
+            labels: [
+                'Red',
+                'Orange',
+                'Yellow',
+                'Green',
+                'Blue'
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                position: 'top',
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart.js Doughnut Chart'
-                },
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
-                }
+            title: {
+                display: true,
+                text: 'Chart.js Doughnut Chart'
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
             }
-        };
+        }
+    };
 
-        window.onload = function () {
-            var ctx = document.getElementById('chart-area').getContext('2d');
-            window.myDoughnut = new Chart(ctx, config);
-        };
+    window.onload = function() {
+        var ctx = document.getElementById('chart-area').getContext('2d');
+        window.myDoughnut = new Chart(ctx, config);
+    };
 
-        document.getElementById('randomizeData').addEventListener('click',
-            function () {
-                config.data.datasets.forEach(function (dataset) {
-                    dataset.data = dataset.data.map(function () {
-                        return randomScalingFactor();
-                    });
+    document.getElementById('randomizeData').addEventListener('click',
+        function() {
+            config.data.datasets.forEach(function(dataset) {
+                dataset.data = dataset.data.map(function() {
+                    return randomScalingFactor();
+                });
+            });
+
+            window.myDoughnut.update();
+        });
+
+    var colorNames = Object.keys(window.chartColors);
+    document.getElementById('addDataset').addEventListener('click',
+        function() {
+            var newDataset = {
+                backgroundColor: [],
+                data: [],
+                label: 'New dataset ' + config.data.datasets.length,
+            };
+
+            for (var index = 0; index < config.data.labels.length; ++index) {
+                newDataset.data.push(randomScalingFactor());
+
+                var colorName = colorNames[index % colorNames.length];
+                var newColor = window.chartColors[colorName];
+                newDataset.backgroundColor.push(newColor);
+            }
+
+            config.data.datasets.push(newDataset);
+            window.myDoughnut.update();
+        });
+
+    document.getElementById('addData').addEventListener('click',
+        function() {
+            if (config.data.datasets.length > 0) {
+                config.data.labels.push('data #' + config.data.labels.length);
+
+                var colorName = colorNames[config.data.datasets[0].data.length % colorNames.length];
+                var newColor = window.chartColors[colorName];
+
+                config.data.datasets.forEach(function(dataset) {
+                    dataset.data.push(randomScalingFactor());
+                    dataset.backgroundColor.push(newColor);
                 });
 
                 window.myDoughnut.update();
+            }
+        });
+
+    document.getElementById('removeDataset').addEventListener('click',
+        function() {
+            config.data.datasets.splice(0, 1);
+            window.myDoughnut.update();
+        });
+
+    document.getElementById('removeData').addEventListener('click',
+        function() {
+            config.data.labels.splice(-1, 1); // remove the label first
+
+            config.data.datasets.forEach(function(dataset) {
+                dataset.data.pop();
+                dataset.backgroundColor.pop();
             });
 
-        var colorNames = Object.keys(window.chartColors);
-        document.getElementById('addDataset').addEventListener('click',
-            function () {
-                var newDataset = {
-                    backgroundColor: [],
-                    data: [],
-                    label: 'New dataset ' + config.data.datasets.length,
-                };
-
-                for (var index = 0; index < config.data.labels.length; ++index) {
-                    newDataset.data.push(randomScalingFactor());
-
-                    var colorName = colorNames[index % colorNames.length];
-                    var newColor = window.chartColors[colorName];
-                    newDataset.backgroundColor.push(newColor);
-                }
-
-                config.data.datasets.push(newDataset);
-                window.myDoughnut.update();
-            });
-
-        document.getElementById('addData').addEventListener('click',
-            function () {
-                if (config.data.datasets.length > 0) {
-                    config.data.labels.push('data #' + config.data.labels.length);
-
-                    var colorName = colorNames[config.data.datasets[0].data.length % colorNames.length];
-                    var newColor = window.chartColors[colorName];
-
-                    config.data.datasets.forEach(function (dataset) {
-                        dataset.data.push(randomScalingFactor());
-                        dataset.backgroundColor.push(newColor);
-                    });
-
-                    window.myDoughnut.update();
-                }
-            });
-
-        document.getElementById('removeDataset').addEventListener('click',
-            function () {
-                config.data.datasets.splice(0, 1);
-                window.myDoughnut.update();
-            });
-
-        document.getElementById('removeData').addEventListener('click',
-            function () {
-                config.data.labels.splice(-1, 1); // remove the label first
-
-                config.data.datasets.forEach(function (dataset) {
-                    dataset.data.pop();
-                    dataset.backgroundColor.pop();
-                });
-
-                window.myDoughnut.update();
-            });
-    </script>
+            window.myDoughnut.update();
+        });
+</script>
 </body>
 
 </html>

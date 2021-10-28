@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Serilog.Core;
-using Serilog.Events;
 using System;
 using System.Web;
+using Serilog.Core;
+using Serilog.Events;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.Enrichers.MVC5
 {
@@ -43,8 +43,8 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.Enrichers.MVC5
             if (HttpContext.Current == null)
                 return;
 
-            var serviceProvider = (IServiceProvider)HttpContext.Current;
-            var workerRequest = (HttpWorkerRequest)serviceProvider.GetService(typeof(HttpWorkerRequest));
+            var serviceProvider = (IServiceProvider) HttpContext.Current;
+            var workerRequest = (HttpWorkerRequest) serviceProvider.GetService(typeof(HttpWorkerRequest));
             var requestId = workerRequest.RequestTraceIdentifier;
 
             var requestIdProperty = new LogEventProperty(HttpRequestTraceIdPropertyName, new ScalarValue(requestId));

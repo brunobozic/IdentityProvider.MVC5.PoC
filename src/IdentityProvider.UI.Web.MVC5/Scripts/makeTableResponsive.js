@@ -1,16 +1,18 @@
 ﻿function tableMobilizer(tableNodes) {
-    $.each(tableNodes, function (index, rawTableNode) {
-        var tableNode = $(rawTableNode),
-            tableRowValues = tableNode.find("tbody>tr").map(rowValues),
-            newTables = createTables(tableNode.find("th"), tableRowValues),
-            mobileTablesContainer = createMobileTablesContainer();
+    $.each(tableNodes,
+        function(index, rawTableNode) {
+            var tableNode = $(rawTableNode),
+                tableRowValues = tableNode.find("tbody>tr").map(rowValues),
+                newTables = createTables(tableNode.find("th"), tableRowValues),
+                mobileTablesContainer = createMobileTablesContainer();
 
-        $.each(newTables, function (index, table) {
-            mobileTablesContainer.append(table);
+            $.each(newTables,
+                function(index, table) {
+                    mobileTablesContainer.append(table);
+                });
+
+            tableNode.addClass("hidden-small-down").after(mobileTablesContainer);
         });
-
-        tableNode.addClass("hidden-small-down").after(mobileTablesContainer);
-    });
 
     function getCellValue(row) {
         return row.map(getNodeInnerHtml);
@@ -31,21 +33,22 @@
     }
 
     function createTables(tableHeadings, tableRowValues) {
-        return tableRowValues.map(function (i, values) {
+        return tableRowValues.map(function(i, values) {
             // the "mobile" table needs to have table-layout style of "auto" applied, it wont work its set to "fixed"!
             var table = $(document.createElement("table")).addClass("mobile-table").addClass("my-auto-layout-table"),
                 rows = buildMobileTableRows(tableHeadings, values);
 
-            $.each(rows, function (i, row) {
-                table.append(row);
-            });
+            $.each(rows,
+                function(i, row) {
+                    table.append(row);
+                });
 
             return table;
         });
     }
 
     function buildMobileTableRows(tableHeadings, values) {
-        return values.map(function (i, value) {
+        return values.map(function(i, value) {
             var key = getCellValue(tableHeadings)[i],
                 keyDiv = $(document.createElement("td")).html(key).addClass("mobile-table-key"),
                 valueDiv = $(document.createElement("td")).html(value).addClass("mobile-table-value");
@@ -59,4 +62,4 @@
     }
 }
 
-$(function () { tableMobilizer($("table")); });
+$(function() { tableMobilizer($("table")); });

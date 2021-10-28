@@ -1,13 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Logging.WCF.Repository.EF
 {
     public static class ModelBuilderExtensions
     {
-
         //public static void SetUpSoftDeletableColumnDefaultValue(this ModelBuilder modelBuilder)
         //{
         //    var entityTypes = modelBuilder.Model.GetEntityTypes().Select(p => p.ClrType)
@@ -25,6 +24,7 @@ namespace Logging.WCF.Repository.EF
             foreach (var fk in cascadeFKs)
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
         }
+
         public static void LoadAllEntityConfigurations(this ModelBuilder builder)
         {
             var dalAssembly = Assembly.GetAssembly(typeof(ModelBuilderExtensions));
@@ -35,7 +35,7 @@ namespace Logging.WCF.Repository.EF
 
             foreach (var configurationInstance in configurations.Select(configuration =>
                 Activator.CreateInstance(configuration)))
-                builder.ApplyConfiguration((dynamic)configurationInstance);
+                builder.ApplyConfiguration((dynamic) configurationInstance);
         }
     }
 }

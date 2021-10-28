@@ -25,10 +25,10 @@ namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
         public static bool operator ==(BasicDomainEntity<TK> entity1,
             BasicDomainEntity<TK> entity2)
         {
-            if ((object)entity1 == null && (object)entity2 == null)
+            if ((object) entity1 == null && (object) entity2 == null)
                 return true;
 
-            if ((object)entity1 == null || (object)entity2 == null)
+            if ((object) entity1 == null || (object) entity2 == null)
                 return false;
 
             if (entity1.Id.ToString() == entity2.Id.ToString())
@@ -105,6 +105,5 @@ namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
         }
 
         #endregion Business rules
-
     }
 }

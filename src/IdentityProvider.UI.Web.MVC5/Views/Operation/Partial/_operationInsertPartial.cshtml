@@ -3,26 +3,26 @@
 @*@Html.Partial("../Shared/CommonInsertItemPartials/_styleSectionPartial")*@
 
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionPartial")
-<link href="~/Content/css/themed-buttons-amber.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-black.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-blue.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-brown.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-bue-grey.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-cyan.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-deep-orange.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-deep-purple.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-green.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-grey.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-indigo.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-light-blue.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-light-green.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-lime.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-orange.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-pink.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-purple.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-red.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-teal.css" rel="stylesheet" />
-<link href="~/Content/css/themed-buttons-yellow.css" rel="stylesheet" />
+<link href="~/Content/css/themed-buttons-amber.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-black.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-blue.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-brown.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-bue-grey.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-cyan.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-deep-orange.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-deep-purple.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-green.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-grey.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-indigo.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-light-blue.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-light-green.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-lime.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-orange.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-pink.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-purple.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-red.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-teal.css" rel="stylesheet"/>
+<link href="~/Content/css/themed-buttons-yellow.css" rel="stylesheet"/>
 <div class="container-fluid">
     <div class="row clearfix">
         <div class="card">
@@ -36,19 +36,21 @@
             </div>
             <div class="body container-fluid" style="width: 100% !important">
                 <div class="body">
-                    @using (Html.BeginForm("Insert", "Operation", FormMethod.Post, new { id = "frmNewItem", name = "frmNewItem" }))
-                    {<div class="form-group form-float" style="margin-bottom: 24px">
-                            <div class="form-line">
-                                <input type="text" class="form-control" id="Name" name="Name">
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                <label class="form-label"> Item name </label>
-                            </div>
+                    @using (Html.BeginForm("Insert", "Operation", FormMethod.Post, new {id = "frmNewItem", name = "frmNewItem"}))
+                    {
+                        
+                    <div class="form-group form-float" style="margin-bottom: 24px">
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="Name" name="Name">
+                            @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+                            <label class="form-label"> Item name </label>
                         </div>
+                    </div>
 
                         <div class="form-group form-float" style="margin-bottom: 24px">
                             <div class="form-line">
                                 <input type="text" class="form-control" id="Description" name="Description">
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
                                 <label class="form-label"> Item description </label>
                             </div>
                         </div>
@@ -65,7 +67,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-5 p-t-5" id="hiddenSegmentDependantOnCheckbox">
+                            <div class="col-xs-5 p-t-5" id="hiddenSegmentDependentOnCheckbox">
                                 <div class="form-group">
                                     <label for="makeActive">Active until: </label>
                                     <div class="form-line" id="sandbox-container">
@@ -74,7 +76,7 @@
                                 </div>
                             </div>
 
-                            @Html.ValidationMessageFor(model => model.MakeActive, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.MakeActive, "", new {@class = "text-danger"})
                         </div>
 
                         <div class="form-group col-xs-8 p-t-5">
@@ -114,12 +116,12 @@
     $buttons.addClass('themed-buttons-' + existTheme);
     $buttons.addClass('bg-' + existTheme);
 
-    $('#btnSubmit').click(function () {
+    $('#btnSubmit').click(function() {
         $('#frmEditItem').submit();
     });
 
 
-    $(function () {
+    $(function() {
         try {
             $.AdminBSB.dropdownMenu.activate();
             $.AdminBSB.input.activate();
@@ -134,5 +136,3 @@
 </script>
 
 @Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")
-
-

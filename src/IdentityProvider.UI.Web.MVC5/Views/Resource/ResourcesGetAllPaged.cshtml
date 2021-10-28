@@ -1,6 +1,6 @@
-﻿@model IdentityProvider.Models.ViewModels.Resources.ResourcePagedVm
-
-@using IdentityProvider.UI.Web.MVC5.Extensions
+﻿@using IdentityProvider.UI.Web.MVC5.Extensions
+@using PagedList.Mvc
+@model IdentityProvider.Models.ViewModels.Resources.ResourcePagedVm
 
 @{
     ViewBag.Title = "title";
@@ -16,106 +16,85 @@
 
 <style>
 
-    .cool-text {
-        font-family: "Montserrat", sans-serif;
-    }
+    .cool-text { font-family: "Montserrat", sans-serif; }
 
     .my-auto-layout-table {
-        table-layout: auto !important;
         border-collapse: collapse !important;
+        table-layout: auto !important;
         width: 100% !important;
     }
 
     .my-fixed-layout-table {
-        table-layout: fixed !important;
         border-collapse: collapse !important;
+        table-layout: fixed !important;
         width: 100% !important;
     }
 
-    table .absorbing-column {
-        width: 100% !important;
-    }
+    table .absorbing-column { width: 100% !important; }
 
     /*table td {
         white-space: nowrap;
         word-wrap: break-word;
     }*/
 
-    .createNewDialog {
-    }
+    .createNewDialog { }
 
     /*table td:last-child {
         width: 9% !important;
     }*/
 
-    .grid {
-        position: relative;
-    }
+    .grid { position: relative; }
 
     .item {
-        position: absolute;
-        width: 250px;
         height: 110px;
         line-height: 25px;
         margin: 10px;
+        position: absolute;
+        width: 250px;
         z-index: 1;
     }
 
     .item-full-width {
-        position: absolute;
-        width: 98%;
         line-height: 25px;
         margin: 10px;
+        position: absolute;
+        width: 98%;
         z-index: 1;
     }
 
-    .item.muuri-item-hidden {
-        z-index: 0;
-    }
+    .item.muuri-item-hidden { z-index: 0; }
 
-    .item.muuri-item-releasing {
-        z-index: 2;
-    }
+    .item.muuri-item-releasing { z-index: 2; }
 
-    .item.muuri-item-dragging {
-        z-index: 3;
-    }
+    .item.muuri-item-dragging { z-index: 3; }
 
     .item-content {
+        cursor: pointer;
+        height: 99%;
         position: relative;
         width: 99%;
-        height: 99%;
-        cursor: pointer;
     }
 
     .handleForDragandDrop {
-        position: relative;
-        cursor: pointer;
         background: #ffffff; /* Old browsers */
         background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
-        background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
-        background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+        background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        cursor: pointer;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0); /* IE6-9 */
+        position: relative;
     }
 
-    .item.muuri-item-dragging .item-content {
-        background: blue;
-    }
+    .item.muuri-item-dragging .item-content { background: blue; }
 
-    .item.muuri-item-releasing .item-content {
-        background: blueViolet;
-    }
+    .item.muuri-item-releasing .item-content { background: blueViolet; }
 
-    .item-full-width.muuri-item-dragging .item-content {
-        background: blue;
-    }
+    .item-full-width.muuri-item-dragging .item-content { background: blue; }
 
-    .item-full-width.muuri-item-releasing .item-content {
-        background: blueViolet;
-    }
+    .item-full-width.muuri-item-releasing .item-content { background: blueViolet; }
 </style>
 
-<script src="~/Scripts/CommonCRUDScripts/commonCreate.js"></script>
+<script src="~/Scripts/Resources/Dashboard/ResourcesCreate.js"></script>
 <script src="~/Scripts/CommonCRUDScripts/commonDelete.js"></script>
 <script src="~/Scripts/CommonCRUDScripts/commonDetails.js"></script>
 <script src="~/Scripts/CommonCRUDScripts/commonEdit.js"></script>
@@ -131,13 +110,13 @@
     var deleteUrl = "/Resource/Delete/";
 
     // Fetch number of active/deleted/inactivated resources from backend to be used in widgets
-    $(document).ready(function () {
+    $(document).ready(function() {
         $.ajax({
             type: "GET",
             url: "/Resource/FetchInfoOnResources",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function (response) {
+            success: function(response) {
                 $("#activeResWidget").attr('data-to', response.ActiveItemCount);
                 $("#activeResWidget").text(response.ActiveItemCount);
                 $("#deletedResWidget").attr('data-to', response.DeletedItemCount);
@@ -145,17 +124,17 @@
                 $("#inactiveResWidget").attr('data-to', response.InactiveItemCount);
                 $("#inactiveResWidget").text(response.InactiveItemCount);
             },
-            failure: function (response) {
+            failure: function(response) {
                 alert(response);
             },
-            error: function (response) {
+            error: function(response) {
                 alert(response);
             }
         });
     });
 
-    $(document).ready(function () {
-        $(".deleteDialog").click(function (event) {
+    $(document).ready(function() {
+        $(".deleteDialog").click(function(event) {
             event.preventDefault();
             var color = $(this).data('color');
             var $buttonClicked = $(this);
@@ -167,7 +146,7 @@
 
     // Item details modal, close modal button
     $('closebtn').on('click',
-        function () {
+        function() {
             $('#mdModal').modal('hide');
         });
 
@@ -175,217 +154,232 @@
 
 <div class="container-fluid">
 
-    <div class="block-header">
-        <h2>DASHBOARD</h2>
+<div class="block-header">
+    <h2>DASHBOARD</h2>
+</div>
+
+@Html.Partial("Partial/_resourcesHeaderPartial", Model)
+
+<div class="row">
+<div class="grid">
+<div class="item">
+    <div class="item-content">
+        <div class="info-box bg-green hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">playlist_add_check</i>
+            </div>
+            <div class="content">
+                <div class="text">ACTIVE</div>
+                <div class="number count-to" id="activeResWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
+            </div>
+        </div>
     </div>
+</div>
 
-    @Html.Partial("Partial/_resourcesHeaderPartial" , Model)
+<div class="item">
+    <div class="item-content">
+        <div class="info-box bg-yellow hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">playlist_add_check</i>
+            </div>
+            <div class="content">
+                <div class="text">DELETED</div>
+                <div class="number count-to" id="deletedResWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <div class="row">
-        <div class="grid">
-            <div class="item">
-                <div class="item-content">
-                    <div class="info-box bg-green hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">playlist_add_check</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">ACTIVE</div>
-                            <div class="number count-to" id="activeResWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
-                        </div>
+<div class="item">
+    <div class="item-content">
+        <div class="info-box bg-blue hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">playlist_add_check</i>
+            </div>
+            <div class="content">
+                <div class="text">INACTIVE</div>
+                <div class="number count-to" id="inactiveResWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="item-full-width">
+    <div class="card">
+
+        @Html.Partial("../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial", Model)
+
+        <div class="header">
+            <ul class="header-dropdown m-r--5" style="top: 10px !important">
+                <li class="dropdown">
+
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+
+                    <ul class="dropdown-menu pull-right">
+                        <li>
+                            <a href="javascript:void(0);" class=" waves-effect waves-block">Save current layout</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class=" waves-effect waves-block">Restore default layout</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class=" waves-effect waves-block">Refresh</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="body container-fluid">
+            @using (Html.BeginForm("ResourcesGetAllPaged", "Resource", FormMethod.Get, new {id = "searchAndPageSizeForm"}))
+            {
+                <div class="col-xs-10">
+                    <div class="form-line" style="margin-left: 5px">
+                        @Html.TextBox("SearchStringOperationsMainGrid", ViewBag.CurrentFilter as string, new {placeholder = "Search", value = ViewBag.CurrentFilter, data_toggle = "tooltip", data_placement = "top", title = "", data_original_title = "Enter search criteria"})
+                        @Html.ValidationMessage("Search")
+                        <button class="btn bg-purple waves-effect btn-xs" id="submitSearch" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search">
+                            <i class="material-icons">search</i>
+                        </button>
                     </div>
                 </div>
-            </div>
 
-            <div class="item">
-                <div class="item-content">
-                    <div class="info-box bg-yellow hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">playlist_add_check</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">DELETED</div>
-                            <div class="number count-to" id="deletedResWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="item-content">
-                    <div class="info-box bg-blue hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">playlist_add_check</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">INACTIVE</div>
-                            <div class="number count-to" id="inactiveResWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">8</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item-full-width">
-                <div class="card">
-
-                    @Html.Partial("../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial" , Model)
-
-                    <div class="header">
-                        <ul class="header-dropdown m-r--5" style="top:10px !important">
-                            <li class="dropdown">
-
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-                                    <i class="material-icons">more_vert</i>
-                                </a>
-
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Save current layout</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Restore default layout</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Refresh</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="body container-fluid">
-                        @using (Html.BeginForm("ResourcesGetAllPaged" , "Resource" , FormMethod.Get , new { id = "searchAndPageSizeForm" }))
-                        {
-                            <div class="col-xs-10">
-                                <div class="form-line" style="margin-left: 5px">
-                                    @Html.TextBox("SearchStringOperationsMainGrid" , ViewBag.CurrentFilter as string , new { @placeholder = "Search" , @value = ViewBag.CurrentFilter , @data_toggle = "tooltip" , @data_placement = "top" , @title = "" , @data_original_title = "Enter search criteria" })
-                                    @Html.ValidationMessage("Search")
-                                    <button class="btn bg-purple waves-effect btn-xs" id="submitSearch" style="margin: 1px; margin-bottom: 4px" type="submit" name="submitSearch" data-toggle="tooltip" data-placement="right" title="" data-original-title="Begin search"><i class="material-icons">search</i></button>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-2">
-                                @*<input name="showinactive" id="showinactive" class="filled-in chk-col-pink" type="checkbox">
+                <div class="col-xs-2">
+                    @*<input name="showinactive" id="showinactive" class="filled-in chk-col-pink" type="checkbox">
                                     <label for="showinactive">Only active</label>*@
 
-                                <div class="form-line" style="float: right; margin-right: 8px">
-                                    @Html.DropDownListFor(m => m.PageSize , Model.PageSizeList , new { id = "PageSizeList" , @class = "js-select2-enabled" , @style = "padding: 5px; width: 55px" })
-                                </div>
-
-                            </div>
-
-                            <div class="body" style="width: 100% !important">
-
-                                <div class="col-xs-2 form-line" style="padding-left: 0 !important">
-                                    <button type="submit" class="btn bg-purple waves-effect btn-xs createNewDialog" data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Create a new operation">
-                                        <i class="material-icons">create</i> <span>
-                                            Create
-                                        </span>
-                                    </button>
-                                </div>
-
-                                <table class="table table-striped table-light table-condensed my-fixed-layout-table" Id="operationsGrid">
-                                    <thead>
-                                        <tr>
-                                            <th style="">
-                                                <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by name">
-                                                    @Html.ActionLink("Name" , "ResourcesGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.NameSortParam))
-                                                    @Html.SortIdentifier(currentSort , "Name")
-                                                </span>
-                                            </th>
-                                            <th style="">
-                                                <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by description">
-                                                    @Html.ActionLink("Description" , "ResourcesGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DescriptionSortParam))
-                                                    @Html.SortIdentifier(currentSort , "Description")
-                                                </span>
-                                            </th>
-                                            <th style="width: 50px">
-                                                <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by active status">
-                                                    @Html.ActionLink("Active" , "ResourcesGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.ActiveSortParam))
-                                                    @Html.SortIdentifier(currentSort , "Active")
-                                                </span>
-                                            </th>
-                                            <th style="width: 148px">
-                                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by created date">
-                                                    @Html.ActionLink("Created_Date" , "ResourcesGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DateCreatedSortParam))
-                                                    @Html.SortIdentifier(currentSort , "Created_Date")
-                                                </span>
-                                            </th>
-                                            <th style="width: 148px">
-                                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by modified date">
-                                                    @Html.ActionLink("Modified_Date" , "ResourcesGetAllPaged" , Request.QueryString.ToRouteValueDictionary("sortOrder" , ( string ) ViewBag.DateModifiedSortParam))
-                                                    @Html.SortIdentifier(currentSort , "Modified_Date")
-                                                </span>
-                                            </th>
-                                            <th style="width: 190px">
-                                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions available on selected item">
-                                                    <span>
-                                                        Actions
-                                                    </span>
-                                                    <i class="material-icons" style="font-size: 1em; color: purple" , title="Actions">build</i>
-                                                </span>
-                                            </th>
-                                            @*<th class="filler" style="width: 10%; text-align: center; border: none; border-color: white; border-width: 0px">
-                                                </th>*@
-                                        </tr>
-                                    </thead>
-                                    @Html.Partial("Partial/_resourcesPartial" , Model)
-                                </table>
-                            </div>
-                        }
+                    <div class="form-line" style="float: right; margin-right: 8px">
+                        @Html.DropDownListFor(m => m.PageSize, Model.PageSizeList, new {id = "PageSizeList", @class = "js-select2-enabled", style = "padding: 5px; width: 55px"})
                     </div>
-                    <div class="footer">
-                        @if (Model.Resources.PageCount > 1)
-                        {
-                            <div class="pager">
-                                @*@Html.PagedListPager(Model.Resources, page => Url.Action("ResourcesGetAllPaged", new
-                                {
-                                    page,
-                                    sortOrder = Model.SortOrder,
-                                    currentFilter = Model.SearchString,
-                                    pageNumber = page,
-                                    pageSize = Model.PageSize
-                                }))
-                                Page @(Model.Resources.PageCount < Model.Resources.PageNumber ? 0 : Model.Resources.PageNumber) of @Model.Resources.PageCount*@
-                            </div>
-                        }
-                        else
-                        {
-                            <div>
-                                <hr />
-                            </div>
-                        }
-                    </div>
+
                 </div>
-            </div>
 
-            <!-- Audit trail card -->
-            <div class="item-full-width">
-                <div class="card">
+                <div class="body" style="width: 100% !important">
 
-                    @Html.Partial("../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial" , Model)
-
-                    <div class="header">
-                        <ul class="header-dropdown m-r--5" style="top:10px !important">
-                            <li class="dropdown">
-
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-                                    <i class="material-icons">more_vert</i>
-                                </a>
-
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Save current layout</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Restore default layout</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Refresh</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                    <div class="col-xs-2 form-line" style="padding-left: 0 !important">
+                        <button type="submit" class="btn bg-purple waves-effect btn-xs createNewDialog" data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Create a new operation">
+                            <i class="material-icons">create</i>
+                            <span>
+                                Create
+                            </span>
+                        </button>
                     </div>
 
-                    <div class="header cool-text">
-                        <em style="font-size: 1.7em">
-                            Audit trail
-                        </em>
-                        <em style="font-size: 0.9em">
-                            <small>View the audit trail</small>
-                        </em>
-                    </div>
+                    <table class="table table-striped table-light table-condensed my-fixed-layout-table" Id="operationsGrid">
+                        <thead>
+                        <tr>
+                            <th style="">
+                                <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by name">
+                                    @Html.ActionLink("Name", "ResourcesGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string) ViewBag.NameSortParam))
+                                    @Html.SortIdentifier(currentSort, "Name")
+                                </span>
+                            </th>
+                            <th style="">
+                                <span data-toggle="tooltip" data-placement="auto top" title="" data-original-title="Sort by description">
+                                    @Html.ActionLink("Description", "ResourcesGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string) ViewBag.DescriptionSortParam))
+                                    @Html.SortIdentifier(currentSort, "Description")
+                                </span>
+                            </th>
+                            <th style="width: 50px">
+                                <span style="text-align: left;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by active status">
+                                    @Html.ActionLink("Active", "ResourcesGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string) ViewBag.ActiveSortParam))
+                                    @Html.SortIdentifier(currentSort, "Active")
+                                </span>
+                            </th>
+                            <th style="width: 148px">
+                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by created date">
+                                    @Html.ActionLink("Created_Date", "ResourcesGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string) ViewBag.DateCreatedSortParam))
+                                    @Html.SortIdentifier(currentSort, "Created_Date")
+                                </span>
+                            </th>
+                            <th style="width: 148px">
+                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sort by modified date">
+                                    @Html.ActionLink("Modified_Date", "ResourcesGetAllPaged", Request.QueryString.ToRouteValueDictionary("sortOrder", (string) ViewBag.DateModifiedSortParam))
+                                    @Html.SortIdentifier(currentSort, "Modified_Date")
+                                </span>
+                            </th>
+                            <th style="width: 190px">
+                                <span style="text-align: left" data-toggle="tooltip" data-placement="top" title="" data-original-title="Actions available on selected item">
+                                    <span>
+                                        Actions
+                                    </span>
+                                    <i class="material-icons" style="color: purple; font-size: 1em;" , title="Actions">build</i>
+                                </span>
+                            </th>
+                            @*<th class="filler" style="width: 10%; text-align: center; border: none; border-color: white; border-width: 0px">
+                                                </th>*@
+                        </tr>
+                        </thead>
+                        @Html.Partial("Partial/_resourcesPartial", Model)
+                    </table>
+                </div>
+            }
+        </div>
+        <div class="footer">
+            @if (Model.Resources.PageCount > 1)
+            {
+                <div class="pager">
+                    @Html.PagedListPager(Model.Resources, page => Url.Action("ResourcesGetAllPaged", new
+                    {
+                        page,
+                        sortOrder = Model.SortOrder,
+                        currentFilter = Model.SearchString,
+                        pageNumber = page,
+                        pageSize = Model.PageSize
+                    }))
+                    Page @(Model.Resources.PageCount < Model.Resources.PageNumber ? 0 : Model.Resources.PageNumber) of @Model.Resources.PageCount
+                </div>
+            }
+            else
+            {
+                <div>
+                    <hr/>
+                </div>
+            }
+        </div>
+    </div>
+</div>
 
-                    @*<div class="body container-fluid">
+<!-- Audit trail card -->
+<div class="item-full-width">
+    <div class="card">
+
+        @Html.Partial("../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial", Model)
+
+        <div class="header">
+            <ul class="header-dropdown m-r--5" style="top: 10px !important">
+                <li class="dropdown">
+
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+
+                    <ul class="dropdown-menu pull-right">
+                        <li>
+                            <a href="javascript:void(0);" class=" waves-effect waves-block">Save current layout</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class=" waves-effect waves-block">Restore default layout</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class=" waves-effect waves-block">Refresh</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="header cool-text">
+            <em style="font-size: 1.7em">
+                Audit trail
+            </em>
+            <em style="font-size: 0.9em">
+                <small>View the audit trail</small>
+            </em>
+        </div>
+
+        @*<div class="body container-fluid">
                             @using (Html.BeginForm("OperationsAuditTrail" , "Operation" , FormMethod.Get , new { id = "searchAndPageSizeForm" }))
                             {
                                 <div class="col-xs-10">
@@ -470,12 +464,12 @@
                                 <div><hr /></div>
                             }
                         </div>*@
-                </div>
-            </div>
-        </div>
-        <!-- #END# Audit trail card -->
-
     </div>
+</div>
+</div>
+<!-- #END# Audit trail card -->
+
+</div>
 </div>
 
 <div class="modal fade in" id="mdModal" tabindex="-1" role="dialog" style="display: none;">

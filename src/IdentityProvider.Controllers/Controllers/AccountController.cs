@@ -1,4 +1,9 @@
-﻿using IdentityProvider.Controllers.Helpers;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using IdentityProvider.Controllers.Helpers;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
@@ -9,11 +14,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using StructureMap;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -25,6 +25,7 @@ namespace IdentityProvider.Controllers.Controllers
         private readonly IWebSecurity _webSecurity;
         private IAuthenticationManager _authenticationManager;
         private ApplicationSignInManager _signInManager;
+
         [DefaultConstructor]
         public AccountController(
             IWebSecurity webSecurity
@@ -34,7 +35,7 @@ namespace IdentityProvider.Controllers.Controllers
             , IAuthenticationManager authenticationManager
             , IErrorLogService errorLogService
             , IApplicationConfiguration applicationConfiguration
-            )
+        )
             : base(
                 cookieStorageService
                 , errorLogService
@@ -42,10 +43,12 @@ namespace IdentityProvider.Controllers.Controllers
             )
         {
             _webSecurity = webSecurity ?? throw new ArgumentNullException(nameof(webSecurity));
-            _cookieStorageService = cookieStorageService ?? throw new ArgumentNullException(nameof(cookieStorageService));
+            _cookieStorageService =
+                cookieStorageService ?? throw new ArgumentNullException(nameof(cookieStorageService));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
-            _authenticationManager = authenticationManager ?? throw new ArgumentNullException(nameof(authenticationManager));
+            _authenticationManager =
+                authenticationManager ?? throw new ArgumentNullException(nameof(authenticationManager));
         }
 
         //
@@ -57,6 +60,7 @@ namespace IdentityProvider.Controllers.Controllers
 
             return View();
         }
+
         //
         // POST: /Account/Login
         [HttpPost]
@@ -78,13 +82,14 @@ namespace IdentityProvider.Controllers.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
+                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, model.RememberMe});
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return View(model);
             }
         }
+
         //
         // POST: /Account/Login
         [HttpPost]
@@ -106,7 +111,7 @@ namespace IdentityProvider.Controllers.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
+                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, model.RememberMe});
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -123,7 +128,7 @@ namespace IdentityProvider.Controllers.Controllers
             if (!await _webSecurity.HasBeenVerifiedAsync())
                 return View("Error");
 
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return View(new VerifyCodeViewModel {Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe});
         }
 
         //
@@ -155,62 +160,6 @@ namespace IdentityProvider.Controllers.Controllers
                     return View(model);
             }
         }
-
-        #region Register a new account
-
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser
-                {
-                    UserName = model.DesiredUserName,
-                    Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-
-                };
-
-                var result = await _webSecurity.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    // await _webSecurity.SignInAsync(user , false , false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user.Id);
-
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code },
-                        Request.Url.Scheme);
-
-                    await _userManager.SendEmailAsync(user.Id, "Confirm your account (md.proof of concept application)",
-                        "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
-                }
-
-                AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-        #endregion Register a new account
 
 
         //
@@ -252,7 +201,7 @@ namespace IdentityProvider.Controllers.Controllers
                 // Send an email with this link
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user.Id);
 
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code },
+                var callbackUrl = Url.Action("ResetPassword", "Account", new {userId = user.Id, code},
                     Request.Url.Scheme);
 
                 await _userManager.SendEmailAsync(user.Id, "Reset Password",
@@ -323,7 +272,7 @@ namespace IdentityProvider.Controllers.Controllers
         {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider,
-                Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+                Url.Action("ExternalLoginCallback", "Account", new {ReturnUrl = returnUrl}));
         }
 
         //
@@ -338,7 +287,7 @@ namespace IdentityProvider.Controllers.Controllers
 
             var userFactors = await _webSecurity.GetValidTwoFactorProvidersAsync(userId)
                 ;
-            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose })
+            var factorOptions = userFactors.Select(purpose => new SelectListItem {Text = purpose, Value = purpose})
                 .ToList();
 
             return View(new SendCodeViewModel
@@ -364,7 +313,7 @@ namespace IdentityProvider.Controllers.Controllers
                 return View("Error");
 
             return RedirectToAction("VerifyCode",
-                new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
+                new {Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe});
         }
 
         //
@@ -387,14 +336,14 @@ namespace IdentityProvider.Controllers.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = false});
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     return View("ExternalLoginConfirmation",
-                        new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                        new ExternalLoginConfirmationViewModel {Email = loginInfo.Email});
             }
         }
 
@@ -417,7 +366,7 @@ namespace IdentityProvider.Controllers.Controllers
                 if (info == null)
                     return View("ExternalLoginFailure");
 
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
 
                 var result = await _webSecurity.CreateAsync(user);
 
@@ -467,6 +416,61 @@ namespace IdentityProvider.Controllers.Controllers
 
             base.Dispose(disposing);
         }
+
+        #region Register a new account
+
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = model.DesiredUserName,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
+                };
+
+                var result = await _webSecurity.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    // await _webSecurity.SignInAsync(user , false , false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new {userId = user.Id, code},
+                        Request.Url.Scheme);
+
+                    await _userManager.SendEmailAsync(user.Id, "Confirm your account (md.proof of concept application)",
+                        "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        #endregion Register a new account
 
         #region Helpers
 

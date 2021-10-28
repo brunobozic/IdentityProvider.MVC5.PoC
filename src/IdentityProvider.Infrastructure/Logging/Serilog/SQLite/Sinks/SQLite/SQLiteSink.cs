@@ -1,15 +1,15 @@
-﻿using IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Batch;
-using IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Extensions;
-using Microsoft.Data.Sqlite;
-using Serilog.Core;
-using Serilog.Debugging;
-using Serilog.Events;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.Linq;
+using IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Batch;
+using IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.Extensions;
+using Microsoft.Data.Sqlite;
+using Serilog.Core;
+using Serilog.Debugging;
+using Serilog.Events;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
 {
@@ -35,7 +35,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
 
             if (retentionPeriod.HasValue)
                 // impose a min retention period of 1 minute
-                _retentionPeriod = new[] { retentionPeriod.Value, TimeSpan.FromMinutes(1) }.Max();
+                _retentionPeriod = new[] {retentionPeriod.Value, TimeSpan.FromMinutes(1)}.Max();
 
             InitializeDatabase();
         }
@@ -51,7 +51,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
 
         private static string CreateConnectionString(string dbPath)
         {
-            return new SqliteConnectionStringBuilder { DataSource = dbPath }.ConnectionString;
+            return new SqliteConnectionStringBuilder {DataSource = dbPath}.ConnectionString;
         }
 
         private void InitializeDatabase()
@@ -136,6 +136,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
                                 sqlCommand.ExecuteNonQuery();
                             }
                         }
+
                         tr.Commit();
                     }
 
@@ -148,7 +149,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
             }
         }
 
-        private void ApplyRetentionPolicy(System.Data.SQLite.SQLiteConnection sqlConnection)
+        private void ApplyRetentionPolicy(SQLiteConnection sqlConnection)
         {
             if (!_retentionPeriod.HasValue)
                 // there is no retention policy
@@ -172,7 +173,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.SQLite.Sinks.SQLite
             _retentionWatch.Restart();
         }
 
-        private SQLiteCommand CreateSqlDeleteCommand(System.Data.SQLite.SQLiteConnection sqlConnection, DateTimeOffset epoch)
+        private SQLiteCommand CreateSqlDeleteCommand(SQLiteConnection sqlConnection, DateTimeOffset epoch)
         {
             var cmd = sqlConnection.CreateCommand();
             cmd.CommandText = $"DELETE FROM {_tableName} WHERE Timestamp < @epoch";

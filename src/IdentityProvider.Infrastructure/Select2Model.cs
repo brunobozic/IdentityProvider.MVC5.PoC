@@ -1,5 +1,4 @@
-﻿
-namespace IdentityProvider.Infrastructure
+﻿namespace IdentityProvider.Infrastructure
 {
     public class Select2Model
     {

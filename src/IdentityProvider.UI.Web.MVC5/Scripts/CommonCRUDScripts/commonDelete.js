@@ -2,8 +2,8 @@
 function itemDelete(id) {
     swal.setDefaults({
         buttonsStyling: false,
-        confirmButtonClass: 'btn btn-success w-25 mr-05',
-        cancelButtonClass: 'btn btn-secondary w-25 ml-05'
+        confirmButtonClass: "btn btn-success w-25 mr-05",
+        cancelButtonClass: "btn btn-secondary w-25 ml-05"
     });
     swal({
         title: "Are you sure?",
@@ -26,33 +26,35 @@ function itemDelete(id) {
                 success: successFunc,
                 error: errorFunc
             });
+
             function successFunc(data, status) {
 
                 swal(
-                    'Deleted!',
-                    'Your item has been deleted.',
-                    'success'
-                ).then(function () {
+                    "Deleted!",
+                    "Your item has been deleted.",
+                    "success"
+                ).then(function() {
                     location.reload();
                 });;
 
             }
+
             function errorFunc() {
 
                 swal(
-                    'Nothing changed!',
-                    'Your item has not been deleted.',
-                    'error'
-                ).then(function () {
+                    "Nothing changed!",
+                    "Your item has not been deleted.",
+                    "error"
+                ).then(function() {
                     location.reload();
                 });;
             }
 
         } else {
             swal(
-                'Nothing changed!',
-                'Your item has not been deleted.',
-                'error'
+                "Nothing changed!",
+                "Your item has not been deleted.",
+                "error"
             );
         }
     });

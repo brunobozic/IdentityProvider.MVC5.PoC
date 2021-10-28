@@ -1,4 +1,10 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Security.Authentication;
+using System.Threading.Tasks;
+using AutoMapper;
 using IdentityProvider.Infrastructure;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
@@ -10,12 +16,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Module.Repository.EF;
 using Module.Repository.EF.RowLevelSecurity;
 using Module.Repository.EF.UnitOfWorkInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Security.Authentication;
-using System.Threading.Tasks;
 using TrackableEntities;
 
 namespace IdentityProvider.Services
@@ -24,11 +24,22 @@ namespace IdentityProvider.Services
     {
         private readonly ICachedUserAuthorizationGrantsProvider _cachedUserAuthorizationGrantsProvider;
         private readonly IApplicationConfiguration _configurationRepository;
-        private ILog4NetLoggingService _loggingService;
         private readonly IMapper _mapper;
         private readonly ApplicationSignInManager _signInManager;
         private readonly IUnitOfWorkAsync _unitOfWorkAsync;
+        private readonly ILog4NetLoggingService _loggingService;
         private ApplicationUserManager _userManager;
+
+        public List<ApplicationUser> UsersActiveGetAll()
+        {
+            return
+                _unitOfWorkAsync.Repository<ApplicationUser>()
+                    .Queryable()
+                    .Where(u => u.Active)
+                    .OrderBy(u => u.LastName)
+                    .ThenBy(u => u.FirstName)
+                    .ToList();
+        }
 
         private ApplicationUser GetUser(string userName)
         {
@@ -75,17 +86,6 @@ namespace IdentityProvider.Services
             return id?.Trim();
         }
 
-        public List<ApplicationUser> UsersActiveGetAll()
-        {
-            return
-                _unitOfWorkAsync.Repository<ApplicationUser>()
-                    .Queryable()
-                    .Where(u => u.Active)
-                    .OrderBy(u => u.LastName)
-                    .ThenBy(u => u.FirstName)
-                    .ToList();
-        }
-
         //public IAuthenticationManager AuthenticationManager => HttpContext.Current.GetOwinContext().Authentication;
 
         //public bool IsAuthenticated => Thread.CurrentPrincipal.Identity.IsAuthenticated;
@@ -97,6 +97,7 @@ namespace IdentityProvider.Services
         //public IIdentityMessageService SmsService => _userManager.SmsService;
 
         //public UserManager<ApplicationUser> ThisUserManager => _userManager;
+
         #region Ctor
 
         public WebSecurity(
@@ -135,8 +136,8 @@ namespace IdentityProvider.Services
                 dbContextAsync.GetDatabase().Initialize(true);
 
 
-
-                _unitOfWorkAsync = new UnitOfWork(dbContextAsync, new RowAuthPoliciesContainer(_cachedUserAuthorizationGrantsProvider));
+                _unitOfWorkAsync = new UnitOfWork(dbContextAsync,
+                    new RowAuthPoliciesContainer(_cachedUserAuthorizationGrantsProvider));
                 // UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_dbContextAsync as DbContext));
             }
             catch (Exception ex)
@@ -176,8 +177,6 @@ namespace IdentityProvider.Services
         }
 
         #endregion Dispose
-
-
 
 
         #region Identity 2.0
@@ -874,7 +873,5 @@ namespace IdentityProvider.Services
 
         //    return foundUser?.UserUid;
         //}
-
-
     }
 }

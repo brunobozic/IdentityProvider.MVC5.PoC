@@ -1,8 +1,8 @@
-﻿using IdentityProvider.Infrastructure.Extensions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using IdentityProvider.Infrastructure.Extensions;
 
 namespace IdentityProvider.Infrastructure.Files
 {
@@ -44,7 +44,7 @@ namespace IdentityProvider.Infrastructure.Files
 
         public static byte[] GetFileData(this Stream fs)
         {
-            using (var ms = new MemoryStream((int)fs.Length))
+            using (var ms = new MemoryStream((int) fs.Length))
             {
                 fs.CopyTo(ms);
                 return ms.GetBuffer();

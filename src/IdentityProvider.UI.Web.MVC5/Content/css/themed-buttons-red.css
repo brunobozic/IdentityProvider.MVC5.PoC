@@ -4,11 +4,10 @@
 }
 
 body {
-    background-color: lightgray !important;
-    background: url('../iwa-sport-bg-image-light-medium.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+    -webkit-background-size: cover;
+    background: url('../iwa-sport-bg-image-light-medium.jpg') no-repeat center center fixed;
+    background-color: lightgray !important;
     background-size: cover;
-}    
-
+}

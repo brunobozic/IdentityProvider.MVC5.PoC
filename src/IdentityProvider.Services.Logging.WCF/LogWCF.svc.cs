@@ -1,9 +1,9 @@
-﻿using HAC.Helpdesk.Services.Logging.WCF.StructureMap;
-using Logging.WCF.Infrastructure.Contracts;
-using Logging.WCF.Models;
-using System;
+﻿using System;
 using System.ServiceModel;
 using System.Threading.Tasks;
+using HAC.Helpdesk.Services.Logging.WCF.StructureMap;
+using Logging.WCF.Infrastructure.Contracts;
+using Logging.WCF.Models;
 
 namespace HAC.Helpdesk.Services.Logging.WCF
 {
@@ -26,13 +26,12 @@ namespace HAC.Helpdesk.Services.Logging.WCF
 
         public async Task LogToWcfAsync(LogToWCFServiceRequest request)
         {
-           await _logSinkerService.SinkToLogAsync(request.LoggingEventDto);
+            await _logSinkerService.SinkToLogAsync(request.LoggingEventDto);
         }
 
         public void Dispose()
         {
             if (_logSinkerService != null)
-            {
                 // only works if transient
                 try
                 {
@@ -42,12 +41,6 @@ namespace HAC.Helpdesk.Services.Logging.WCF
                 {
                     // not interested
                 }
-                finally 
-                {
-                    //
-                }
-                
-            }
         }
     }
 }

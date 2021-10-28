@@ -1,265 +1,265 @@
-﻿namespace IdentityProvider.Repository.EF.Migrations
-{
-    using System.Data.Entity.Migrations;
+﻿using System.Data.Entity.Migrations;
 
+namespace IdentityProvider.Repository.EF.Migrations
+{
     public partial class Initial : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "Application.Resources",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    Name = c.String(nullable: false, maxLength: 50),
-                    Description = c.String(maxLength: 260),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    MakeActive = c.Boolean(nullable: false),
-                    ActiveUntil = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                })
+                    "Application.Resources",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        Name = c.String(false, 50),
+                        Description = c.String(maxLength: 260),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        MakeActive = c.Boolean(false),
+                        ActiveUntil = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false)
+                    })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "IX_ApplicationResourceName");
 
             CreateTable(
-                "Resource.Permissions",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    Name = c.String(nullable: false, maxLength: 50),
-                    Description = c.String(maxLength: 260),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ApplicationResourceId = c.Int(nullable: false),
-                    OperationId = c.Int(nullable: false),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                })
+                    "Resource.Permissions",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        Name = c.String(false, 50),
+                        Description = c.String(maxLength: 260),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ApplicationResourceId = c.Int(false),
+                        OperationId = c.Int(false),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false)
+                    })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("Application.Resources", t => t.ApplicationResourceId, cascadeDelete: true)
-                .ForeignKey("Resource.Operations", t => t.OperationId, cascadeDelete: true)
+                .ForeignKey("Application.Resources", t => t.ApplicationResourceId, true)
+                .ForeignKey("Resource.Operations", t => t.OperationId, true)
                 .Index(t => t.Name, unique: true, name: "IX_ResourcePermissionName")
                 .Index(t => t.ApplicationResourceId)
                 .Index(t => t.OperationId);
 
             CreateTable(
-                "Resource.Operations",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    Name = c.String(nullable: false, maxLength: 50),
-                    Description = c.String(maxLength: 260),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                })
+                    "Resource.Operations",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        Name = c.String(false, 50),
+                        Description = c.String(maxLength: 260),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false)
+                    })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "IX_OperationName");
 
             CreateTable(
-                "Log.DatabaseLog",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    Operation = c.String(),
-                    UserId = c.Int(nullable: false),
-                    UserName = c.String(),
-                    Message = c.String(),
-                    TrackingNo = c.String(),
-                    ErrorLevel = c.String(),
-                    InputParams = c.String(),
-                    OutputParams = c.String(),
-                    FileName = c.String(),
-                    MethodName = c.String(),
-                    LineNo = c.String(),
-                    ColumnNo = c.String(),
-                    AbsoluteUrl = c.String(),
-                    ADUser = c.String(),
-                    ClientBrowser = c.String(),
-                    RemoteHost = c.String(),
-                    Path = c.String(),
-                    Query = c.String(),
-                    Referrer = c.String(),
-                    RequestId = c.String(),
-                    SessionId = c.String(),
-                    Method = c.String(),
-                    ExceptionType = c.String(),
-                    ExceptionMessage = c.String(),
-                    ExceptionStackTrace = c.String(),
-                    InnerExceptionMessage = c.String(),
-                    InnerExceptionSource = c.String(),
-                    InnerExceptionStackTrace = c.String(),
-                    InnerExceptionTargetSite = c.String(),
-                    AssemblyQualifiedName = c.String(),
-                    Namespace = c.String(),
-                    LogSource = c.String(),
-                    TimeStamp = c.DateTime(nullable: false),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(nullable: false),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(nullable: false),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                })
+                    "Log.DatabaseLog",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        Operation = c.String(),
+                        UserId = c.Int(false),
+                        UserName = c.String(),
+                        Message = c.String(),
+                        TrackingNo = c.String(),
+                        ErrorLevel = c.String(),
+                        InputParams = c.String(),
+                        OutputParams = c.String(),
+                        FileName = c.String(),
+                        MethodName = c.String(),
+                        LineNo = c.String(),
+                        ColumnNo = c.String(),
+                        AbsoluteUrl = c.String(),
+                        ADUser = c.String(),
+                        ClientBrowser = c.String(),
+                        RemoteHost = c.String(),
+                        Path = c.String(),
+                        Query = c.String(),
+                        Referrer = c.String(),
+                        RequestId = c.String(),
+                        SessionId = c.String(),
+                        Method = c.String(),
+                        ExceptionType = c.String(),
+                        ExceptionMessage = c.String(),
+                        ExceptionStackTrace = c.String(),
+                        InnerExceptionMessage = c.String(),
+                        InnerExceptionSource = c.String(),
+                        InnerExceptionStackTrace = c.String(),
+                        InnerExceptionTargetSite = c.String(),
+                        AssemblyQualifiedName = c.String(),
+                        Namespace = c.String(),
+                        LogSource = c.String(),
+                        TimeStamp = c.DateTime(false),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(false),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(false),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false)
+                    })
                 .PrimaryKey(t => t.Id);
 
             CreateTable(
-                "Audit.DbAuditTrail",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    TableName = c.String(),
-                    UserId = c.Int(),
-                    UserName = c.String(),
-                    OldData = c.String(),
-                    NewData = c.String(),
-                    TableIdValue = c.Long(),
-                    UpdatedAt = c.DateTime(),
-                    Actions = c.String(),
-                    TrackingState = c.Int(nullable: false),
-                    IsDeleted = c.Boolean(nullable: false),
-                })
+                    "Audit.DbAuditTrail",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        TableName = c.String(),
+                        UserId = c.Int(),
+                        UserName = c.String(),
+                        OldData = c.String(),
+                        NewData = c.String(),
+                        TableIdValue = c.Long(),
+                        UpdatedAt = c.DateTime(),
+                        Actions = c.String(),
+                        TrackingState = c.Int(false),
+                        IsDeleted = c.Boolean(false)
+                    })
                 .PrimaryKey(t => t.Id);
 
             CreateTable(
-                "Organization.Employee",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    Name = c.String(),
-                    Surname = c.String(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                    ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
-                })
+                    "Organization.Employee",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        Name = c.String(),
+                        Surname = c.String(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false),
+                        ApplicationUser_Id = c.String(false, 128)
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
                 .Index(t => t.ApplicationUser_Id);
 
             CreateTable(
-                "dbo.AspNetUsers",
-                c => new
-                {
-                    Id = c.String(nullable: false, maxLength: 128),
-                    IsConfirmed = c.Boolean(nullable: false),
-                    ConfirmationToken = c.String(),
-                    LastName = c.String(),
-                    FirstName = c.String(),
-                    UserImage = c.Binary(),
-                    MobilePhone = c.String(),
-                    HomePhone = c.String(),
-                    LastLoginDate = c.DateTime(),
-                    TwoFactorSecret = c.String(),
-                    UserUid = c.Guid(nullable: false),
-                    PasswordResetToken = c.String(),
-                    IsDeleted = c.Boolean(nullable: false),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    TrackingState = c.Int(nullable: false),
-                    Email = c.String(maxLength: 256),
-                    EmailConfirmed = c.Boolean(nullable: false),
-                    PasswordHash = c.String(),
-                    SecurityStamp = c.String(),
-                    PhoneNumber = c.String(),
-                    PhoneNumberConfirmed = c.Boolean(nullable: false),
-                    TwoFactorEnabled = c.Boolean(nullable: false),
-                    LockoutEndDateUtc = c.DateTime(),
-                    LockoutEnabled = c.Boolean(nullable: false),
-                    AccessFailedCount = c.Int(nullable: false),
-                    UserName = c.String(nullable: false, maxLength: 256),
-                })
+                    "dbo.AspNetUsers",
+                    c => new
+                    {
+                        Id = c.String(false, 128),
+                        IsConfirmed = c.Boolean(false),
+                        ConfirmationToken = c.String(),
+                        LastName = c.String(),
+                        FirstName = c.String(),
+                        UserImage = c.Binary(),
+                        MobilePhone = c.String(),
+                        HomePhone = c.String(),
+                        LastLoginDate = c.DateTime(),
+                        TwoFactorSecret = c.String(),
+                        UserUid = c.Guid(false),
+                        PasswordResetToken = c.String(),
+                        IsDeleted = c.Boolean(false),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        TrackingState = c.Int(false),
+                        Email = c.String(maxLength: 256),
+                        EmailConfirmed = c.Boolean(false),
+                        PasswordHash = c.String(),
+                        SecurityStamp = c.String(),
+                        PhoneNumber = c.String(),
+                        PhoneNumberConfirmed = c.Boolean(false),
+                        TwoFactorEnabled = c.Boolean(false),
+                        LockoutEndDateUtc = c.DateTime(),
+                        LockoutEnabled = c.Boolean(false),
+                        AccessFailedCount = c.Int(false),
+                        UserName = c.String(false, 256)
+                    })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
 
             CreateTable(
-                "dbo.AspNetUserClaims",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    UserId = c.String(nullable: false, maxLength: 128),
-                    ClaimType = c.String(),
-                    ClaimValue = c.String(),
-                })
+                    "dbo.AspNetUserClaims",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        UserId = c.String(false, 128),
+                        ClaimType = c.String(),
+                        ClaimValue = c.String()
+                    })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, true)
                 .Index(t => t.UserId);
 
             CreateTable(
-                "dbo.AspNetUserLogins",
-                c => new
-                {
-                    LoginProvider = c.String(nullable: false, maxLength: 128),
-                    ProviderKey = c.String(nullable: false, maxLength: 128),
-                    UserId = c.String(nullable: false, maxLength: 128),
-                })
-                .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                    "dbo.AspNetUserLogins",
+                    c => new
+                    {
+                        LoginProvider = c.String(false, 128),
+                        ProviderKey = c.String(false, 128),
+                        UserId = c.String(false, 128)
+                    })
+                .PrimaryKey(t => new {t.LoginProvider, t.ProviderKey, t.UserId})
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, true)
                 .Index(t => t.UserId);
 
             CreateTable(
-                "dbo.AspNetRoles",
-                c => new
-                {
-                    Id = c.String(nullable: false, maxLength: 128),
-                    Name = c.String(nullable: false, maxLength: 256),
-                    Description = c.String(maxLength: 260),
-                    TrackingState = c.Int(),
-                    Active = c.Boolean(),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    IsDeleted = c.Boolean(),
-                    RowVersion = c.Binary(),
-                    Discriminator = c.String(nullable: false, maxLength: 128),
-                    UserProfile_Id = c.String(maxLength: 128),
-                })
+                    "dbo.AspNetRoles",
+                    c => new
+                    {
+                        Id = c.String(false, 128),
+                        Name = c.String(false, 256),
+                        Description = c.String(maxLength: 260),
+                        TrackingState = c.Int(),
+                        Active = c.Boolean(),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        IsDeleted = c.Boolean(),
+                        RowVersion = c.Binary(),
+                        Discriminator = c.String(false, 128),
+                        UserProfile_Id = c.String(maxLength: 128)
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserProfile_Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex")
@@ -267,272 +267,273 @@
                 .Index(t => t.UserProfile_Id);
 
             CreateTable(
-                "Organization.RoleGroupContainsRoleLink",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    ApplicationRoleId = c.String(maxLength: 128),
-                    RoleGroupId = c.Int(nullable: false),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                })
+                    "Organization.RoleGroupContainsRoleLink",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        ApplicationRoleId = c.String(maxLength: 128),
+                        RoleGroupId = c.Int(false),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false)
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetRoles", t => t.ApplicationRoleId)
-                .ForeignKey("Organization.RoleGroup", t => t.RoleGroupId, cascadeDelete: true)
+                .ForeignKey("Organization.RoleGroup", t => t.RoleGroupId, true)
                 .Index(t => t.ApplicationRoleId)
                 .Index(t => t.RoleGroupId);
 
             CreateTable(
-                "Organization.RoleGroup",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    Name = c.String(nullable: false, maxLength: 260),
-                    Description = c.String(maxLength: 260),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                })
+                    "Organization.RoleGroup",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        Name = c.String(false, 260),
+                        Description = c.String(maxLength: 260),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false)
+                    })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "IX_RoleGroupName");
 
             CreateTable(
-                "Organization.OrgUnitContainsRoleGroupLink",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    OrganizationalUnitId = c.Int(nullable: false),
-                    RoleGroupId = c.Int(nullable: false),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                    OrganizationalUnit_Id = c.Int(),
-                    OrganizationalUnit_Id1 = c.Int(),
-                })
+                    "Organization.OrgUnitContainsRoleGroupLink",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        OrganizationalUnitId = c.Int(false),
+                        RoleGroupId = c.Int(false),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false),
+                        OrganizationalUnit_Id = c.Int(),
+                        OrganizationalUnit_Id1 = c.Int()
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("Organization.Unit", t => t.OrganizationalUnit_Id)
                 .ForeignKey("Organization.Unit", t => t.OrganizationalUnit_Id1)
-                .ForeignKey("Organization.Unit", t => t.OrganizationalUnitId, cascadeDelete: true)
-                .ForeignKey("Organization.RoleGroup", t => t.RoleGroupId, cascadeDelete: true)
+                .ForeignKey("Organization.Unit", t => t.OrganizationalUnitId, true)
+                .ForeignKey("Organization.RoleGroup", t => t.RoleGroupId, true)
                 .Index(t => t.OrganizationalUnitId)
                 .Index(t => t.RoleGroupId)
                 .Index(t => t.OrganizationalUnit_Id)
                 .Index(t => t.OrganizationalUnit_Id1);
 
             CreateTable(
-                "Organization.Unit",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    Name = c.String(nullable: false, maxLength: 50),
-                    Description = c.String(maxLength: 260),
-                    SecurityWeight = c.Int(nullable: false),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                })
+                    "Organization.Unit",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        Name = c.String(false, 50),
+                        Description = c.String(maxLength: 260),
+                        SecurityWeight = c.Int(false),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false)
+                    })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "IX_OrganisationalUnitName");
 
             CreateTable(
-                "Organization.EmployeeBelongsToOrgUnitLink",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    OrganizationalUnitId = c.Int(nullable: false),
-                    EmployeeId = c.Int(nullable: false),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                })
+                    "Organization.EmployeeBelongsToOrgUnitLink",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        OrganizationalUnitId = c.Int(false),
+                        EmployeeId = c.Int(false),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false)
+                    })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("Organization.Employee", t => t.EmployeeId, cascadeDelete: true)
-                .ForeignKey("Organization.Unit", t => t.OrganizationalUnitId, cascadeDelete: true)
+                .ForeignKey("Organization.Employee", t => t.EmployeeId, true)
+                .ForeignKey("Organization.Unit", t => t.OrganizationalUnitId, true)
                 .Index(t => t.OrganizationalUnitId)
                 .Index(t => t.EmployeeId);
 
             CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                {
-                    UserId = c.String(nullable: false, maxLength: 128),
-                    RoleId = c.String(nullable: false, maxLength: 128),
-                })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                    "dbo.AspNetUserRoles",
+                    c => new
+                    {
+                        UserId = c.String(false, 128),
+                        RoleId = c.String(false, 128)
+                    })
+                .PrimaryKey(t => new {t.UserId, t.RoleId})
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
 
             CreateTable(
-                "Account.UserProfile",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    ProfilePicture = c.Binary(),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                    User_Id = c.String(nullable: false, maxLength: 128),
-                })
+                    "Account.UserProfile",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        ProfilePicture = c.Binary(),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false),
+                        User_Id = c.String(false, 128)
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
                 .Index(t => t.User_Id);
 
             CreateTable(
-                "Organization.OrgUnitContainsRoleLink",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    OrganizationalUnitId = c.Int(nullable: false),
-                    RoleId = c.String(maxLength: 128),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                })
+                    "Organization.OrgUnitContainsRoleLink",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        OrganizationalUnitId = c.Int(false),
+                        RoleId = c.String(maxLength: 128),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false)
+                    })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("Organization.Unit", t => t.OrganizationalUnitId, cascadeDelete: true)
+                .ForeignKey("Organization.Unit", t => t.OrganizationalUnitId, true)
                 .ForeignKey("dbo.AspNetRoles", t => t.RoleId)
                 .Index(t => t.OrganizationalUnitId)
                 .Index(t => t.RoleId);
 
             CreateTable(
-                "Application.PermissionGroupOwnsPermissionLink",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    ResourcePermissionId = c.Int(nullable: false),
-                    PermissionGroupId = c.Int(nullable: false),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                    Permission_Id = c.Int(),
-                })
+                    "Application.PermissionGroupOwnsPermissionLink",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        ResourcePermissionId = c.Int(false),
+                        PermissionGroupId = c.Int(false),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false),
+                        Permission_Id = c.Int()
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("Resource.Permissions", t => t.Permission_Id)
-                .ForeignKey("Application.PermissionGroup", t => t.PermissionGroupId, cascadeDelete: true)
+                .ForeignKey("Application.PermissionGroup", t => t.PermissionGroupId, true)
                 .Index(t => t.PermissionGroupId)
                 .Index(t => t.Permission_Id);
 
             CreateTable(
-                "Application.PermissionGroup",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    Name = c.String(nullable: false, maxLength: 260),
-                    Description = c.String(maxLength: 260),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                })
+                    "Application.PermissionGroup",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        Name = c.String(false, 260),
+                        Description = c.String(maxLength: 260),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false)
+                    })
                 .PrimaryKey(t => t.Id);
 
             CreateTable(
-                "Organization.RoleContainsPermissionGroupLink",
-                c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    ApplicationRoleId = c.String(maxLength: 128),
-                    PermissionGroupId = c.Int(nullable: false),
-                    Active = c.Boolean(nullable: false),
-                    ActiveFrom = c.DateTime(),
-                    ActiveTo = c.DateTime(),
-                    ModifiedById = c.String(),
-                    ModifiedDate = c.DateTime(),
-                    DeletedById = c.String(),
-                    DeletedDate = c.DateTime(),
-                    CreatedById = c.String(),
-                    CreatedDate = c.DateTime(),
-                    RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                    IsDeleted = c.Boolean(nullable: false),
-                })
+                    "Organization.RoleContainsPermissionGroupLink",
+                    c => new
+                    {
+                        Id = c.Int(false, true),
+                        ApplicationRoleId = c.String(maxLength: 128),
+                        PermissionGroupId = c.Int(false),
+                        Active = c.Boolean(false),
+                        ActiveFrom = c.DateTime(),
+                        ActiveTo = c.DateTime(),
+                        ModifiedById = c.String(),
+                        ModifiedDate = c.DateTime(),
+                        DeletedById = c.String(),
+                        DeletedDate = c.DateTime(),
+                        CreatedById = c.String(),
+                        CreatedDate = c.DateTime(),
+                        RowVersion = c.Binary(false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        IsDeleted = c.Boolean(false)
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetRoles", t => t.ApplicationRoleId)
-                .ForeignKey("Application.PermissionGroup", t => t.PermissionGroupId, cascadeDelete: true)
+                .ForeignKey("Application.PermissionGroup", t => t.PermissionGroupId, true)
                 .Index(t => t.ApplicationRoleId)
                 .Index(t => t.PermissionGroupId);
-
         }
 
         public override void Down()
         {
-            DropForeignKey("Organization.RoleContainsPermissionGroupLink", "PermissionGroupId", "Application.PermissionGroup");
+            DropForeignKey("Organization.RoleContainsPermissionGroupLink", "PermissionGroupId",
+                "Application.PermissionGroup");
             DropForeignKey("Organization.RoleContainsPermissionGroupLink", "ApplicationRoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("Application.PermissionGroupOwnsPermissionLink", "PermissionGroupId", "Application.PermissionGroup");
+            DropForeignKey("Application.PermissionGroupOwnsPermissionLink", "PermissionGroupId",
+                "Application.PermissionGroup");
             DropForeignKey("Application.PermissionGroupOwnsPermissionLink", "Permission_Id", "Resource.Permissions");
             DropForeignKey("Organization.OrgUnitContainsRoleLink", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("Organization.OrgUnitContainsRoleLink", "OrganizationalUnitId", "Organization.Unit");
@@ -552,35 +553,35 @@
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("Resource.Permissions", "OperationId", "Resource.Operations");
             DropForeignKey("Resource.Permissions", "ApplicationResourceId", "Application.Resources");
-            DropIndex("Organization.RoleContainsPermissionGroupLink", new[] { "PermissionGroupId" });
-            DropIndex("Organization.RoleContainsPermissionGroupLink", new[] { "ApplicationRoleId" });
-            DropIndex("Application.PermissionGroupOwnsPermissionLink", new[] { "Permission_Id" });
-            DropIndex("Application.PermissionGroupOwnsPermissionLink", new[] { "PermissionGroupId" });
-            DropIndex("Organization.OrgUnitContainsRoleLink", new[] { "RoleId" });
-            DropIndex("Organization.OrgUnitContainsRoleLink", new[] { "OrganizationalUnitId" });
-            DropIndex("Account.UserProfile", new[] { "User_Id" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("Organization.EmployeeBelongsToOrgUnitLink", new[] { "EmployeeId" });
-            DropIndex("Organization.EmployeeBelongsToOrgUnitLink", new[] { "OrganizationalUnitId" });
+            DropIndex("Organization.RoleContainsPermissionGroupLink", new[] {"PermissionGroupId"});
+            DropIndex("Organization.RoleContainsPermissionGroupLink", new[] {"ApplicationRoleId"});
+            DropIndex("Application.PermissionGroupOwnsPermissionLink", new[] {"Permission_Id"});
+            DropIndex("Application.PermissionGroupOwnsPermissionLink", new[] {"PermissionGroupId"});
+            DropIndex("Organization.OrgUnitContainsRoleLink", new[] {"RoleId"});
+            DropIndex("Organization.OrgUnitContainsRoleLink", new[] {"OrganizationalUnitId"});
+            DropIndex("Account.UserProfile", new[] {"User_Id"});
+            DropIndex("dbo.AspNetUserRoles", new[] {"RoleId"});
+            DropIndex("dbo.AspNetUserRoles", new[] {"UserId"});
+            DropIndex("Organization.EmployeeBelongsToOrgUnitLink", new[] {"EmployeeId"});
+            DropIndex("Organization.EmployeeBelongsToOrgUnitLink", new[] {"OrganizationalUnitId"});
             DropIndex("Organization.Unit", "IX_OrganisationalUnitName");
-            DropIndex("Organization.OrgUnitContainsRoleGroupLink", new[] { "OrganizationalUnit_Id1" });
-            DropIndex("Organization.OrgUnitContainsRoleGroupLink", new[] { "OrganizationalUnit_Id" });
-            DropIndex("Organization.OrgUnitContainsRoleGroupLink", new[] { "RoleGroupId" });
-            DropIndex("Organization.OrgUnitContainsRoleGroupLink", new[] { "OrganizationalUnitId" });
+            DropIndex("Organization.OrgUnitContainsRoleGroupLink", new[] {"OrganizationalUnit_Id1"});
+            DropIndex("Organization.OrgUnitContainsRoleGroupLink", new[] {"OrganizationalUnit_Id"});
+            DropIndex("Organization.OrgUnitContainsRoleGroupLink", new[] {"RoleGroupId"});
+            DropIndex("Organization.OrgUnitContainsRoleGroupLink", new[] {"OrganizationalUnitId"});
             DropIndex("Organization.RoleGroup", "IX_RoleGroupName");
-            DropIndex("Organization.RoleGroupContainsRoleLink", new[] { "RoleGroupId" });
-            DropIndex("Organization.RoleGroupContainsRoleLink", new[] { "ApplicationRoleId" });
-            DropIndex("dbo.AspNetRoles", new[] { "UserProfile_Id" });
+            DropIndex("Organization.RoleGroupContainsRoleLink", new[] {"RoleGroupId"});
+            DropIndex("Organization.RoleGroupContainsRoleLink", new[] {"ApplicationRoleId"});
+            DropIndex("dbo.AspNetRoles", new[] {"UserProfile_Id"});
             DropIndex("dbo.AspNetRoles", "IX_ApplicationRoleName");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserLogins", new[] {"UserId"});
+            DropIndex("dbo.AspNetUserClaims", new[] {"UserId"});
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("Organization.Employee", new[] { "ApplicationUser_Id" });
+            DropIndex("Organization.Employee", new[] {"ApplicationUser_Id"});
             DropIndex("Resource.Operations", "IX_OperationName");
-            DropIndex("Resource.Permissions", new[] { "OperationId" });
-            DropIndex("Resource.Permissions", new[] { "ApplicationResourceId" });
+            DropIndex("Resource.Permissions", new[] {"OperationId"});
+            DropIndex("Resource.Permissions", new[] {"ApplicationResourceId"});
             DropIndex("Resource.Permissions", "IX_ResourcePermissionName");
             DropIndex("Application.Resources", "IX_ApplicationResourceName");
             DropTable("Organization.RoleContainsPermissionGroupLink");

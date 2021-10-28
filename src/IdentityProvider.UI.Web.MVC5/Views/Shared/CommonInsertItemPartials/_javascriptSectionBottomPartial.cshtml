@@ -5,22 +5,23 @@
 <script type="text/javascript">
 
     // needed on several partials...
-    $("#hiddenSegmentDependantOnCheckbox").hide();
+    $("#hiddenSegmentDependentOnCheckbox").hide();
 
-    $(function () {
-        $("#defineActiveUntil").on("change", function () {
-            var $this = $(this);
+    $(function() {
+        $("#defineActiveUntil").on("change",
+            function() {
+                var $this = $(this);
 
-            if ($('#defineActiveUntil').is(":checked ")) {
-                $("#hiddenSegmentDependantOnCheckbox").show();
-            } else {
-                $("#hiddenSegmentDependantOnCheckbox").hide();
-            }
-        });
+                if ($('#defineActiveUntil').is(":checked ")) {
+                    $("#hiddenSegmentDependentOnCheckbox").show();
+                } else {
+                    $("#hiddenSegmentDependentOnCheckbox").hide();
+                }
+            });
     });
 
     // attaching datepicker
-    $(function () {
+    $(function() {
         $('#sandbox-container input').datepicker({
             format: "dd.mm.yyyy",
             maxViewMode: 2,
@@ -32,53 +33,54 @@
     });
 
     // js for adding a new item to the grid
-    $(function () {
+    $(function() {
         $("#loading").hide();
-        $('#btnSubmit').click(function () {
+        $('#btnSubmit').click(function() {
             $('#frmNewItem').submit();
         });
 
-        $("#frmNewItem").on("submit", function (event) {
-            var $this = $(this);
+        $("#frmNewItem").on("submit",
+            function(event) {
+                var $this = $(this);
 
-            event.preventDefault();
-            $('#mdModal').find('.modal-body').html("");
-            $("#loading").show();
-            $('#btnSubmit').attr('disabled', 'disabled');
+                event.preventDefault();
+                $('#mdModal').find('.modal-body').html("");
+                $("#loading").show();
+                $('#btnSubmit').attr('disabled', 'disabled');
 
-            var dataToPost = $(this).serialize({ checkboxesAsBools: true });
+                var dataToPost = $(this).serialize({ checkboxesAsBools: true });
 
-            $.ajax({
-                type: $this.attr('method'),
-                url: $this.attr('action'),
-                data: dataToPost,
-                success: function (response) {
+                $.ajax({
+                    type: $this.attr('method'),
+                    url: $this.attr('action'),
+                    data: dataToPost,
+                    success: function(response) {
 
-                    $('#mdModal').modal('toggle');
-                    swal(
-                        'Created!!',
-                        'Your item has been created.',
-                        'success'
-                    ).then(function () {
-                        location.reload();
-                    });
+                        $('#mdModal').modal('toggle');
+                        swal(
+                            'Created!!',
+                            'Your item has been created.',
+                            'success'
+                        ).then(function() {
+                            location.reload();
+                        });
 
-                    return false;
-                },
-                error: function (response) {
-                    swal(
-                        'Error!',
-                        'Your item has not been created. ' + response.ValidationIssues,
-                        'error'
-                    ).then(function () {
-                        location.reload();
-                    });;
-                },
-                complete: function () {
-                    $("#loading").hide();
-                    $('#btnSubmit').removeAttr('disabled');
-                }
+                        return false;
+                    },
+                    error: function(response) {
+                        swal(
+                            'Error!',
+                            'Your item has not been created. ' + response.ValidationIssues,
+                            'error'
+                        ).then(function() {
+                            location.reload();
+                        });;
+                    },
+                    complete: function() {
+                        $("#loading").hide();
+                        $('#btnSubmit').removeAttr('disabled');
+                    }
+                });
             });
-        });
     });
 </script>

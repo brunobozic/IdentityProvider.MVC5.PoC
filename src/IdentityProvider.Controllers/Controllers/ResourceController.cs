@@ -1,4 +1,12 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
@@ -8,14 +16,6 @@ using IdentityProvider.Services.ResourceService;
 using Module.Repository.EF.UnitOfWorkInterfaces;
 using PagedList;
 using StructureMap;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -31,12 +31,12 @@ namespace IdentityProvider.Controllers.Controllers
             , IUnitOfWorkAsync unitOfWorkAsync
             , IApplicationResourceService resourceService
             , IApplicationConfiguration applicationConfiguration
-            )
+        )
             : base(
-                  cookieStorageService
-                  , errorLogService
-                  , applicationConfiguration
-                  )
+                cookieStorageService
+                , errorLogService
+                , applicationConfiguration
+            )
         {
             _unitOfWorkAsync = unitOfWorkAsync;
             _resourceService = resourceService;
@@ -64,13 +64,9 @@ namespace IdentityProvider.Controllers.Controllers
             ViewBag.DateModifiedSortParam = sortOrder == "Date_Modified" ? "Date_Modified_Desc" : "Date_Modified";
 
             if (searchString != null)
-            {
                 pageNumber = 1;
-            }
             else
-            {
                 searchString = currentFilter;
-            }
 
             ViewBag.CurrentFilter = searchString;
             ViewBag.CurrentSort = sortOrder;
@@ -78,21 +74,19 @@ namespace IdentityProvider.Controllers.Controllers
             // TODO: if user can see Inactive items and perhaps reactivate?
             // TODO: if user has rights to view deleted items and undelete them?
             var query = _resourceService.Queryable().Where(o => o.Active && !o.IsDeleted).Select(i =>
-                 new ResourceDto
-                 {
-                     Active = i.Active,
-                     Name = i.Name,
-                     Description = i.Description,
-                     Deleted = i.IsDeleted,
-                     DateCreated = i.CreatedDate,
-                     DateModified = i.ModifiedDate,
-                     Id = i.Id
-                 });
+                new ResourceDto
+                {
+                    Active = i.Active,
+                    Name = i.Name,
+                    Description = i.Description,
+                    Deleted = i.IsDeleted,
+                    DateCreated = i.CreatedDate,
+                    DateModified = i.ModifiedDate,
+                    Id = i.Id
+                });
 
             if (!string.IsNullOrEmpty(searchString))
-            {
                 query = query.Where(s => s.Name.Contains(searchString) || s.Description.Contains(searchString));
-            }
 
             switch (sortOrder)
             {
@@ -137,9 +131,10 @@ namespace IdentityProvider.Controllers.Controllers
                     break;
             }
 
-            var pageNo = (pageNumber ?? 1);
+            var pageNo = pageNumber ?? 1;
 
-            var selListItem = CreateListOfDefaultForPaginator(out var selListItem2, out var selListItem3, out var selListItem4);
+            var selListItem =
+                CreateListOfDefaultForPaginator(out var selListItem2, out var selListItem3, out var selListItem4);
 
             // Create a list of select list items - this will be returned as your select list
             var newList =
@@ -219,16 +214,18 @@ namespace IdentityProvider.Controllers.Controllers
 
             try
             {
-                var queryResult = await _unitOfWorkAsync.RepositoryAsync<ApplicationResource>().Queryable().AsNoTracking().Select(i =>
-                    new ResourceCountsDto
-                    {
-                        Name = i.Name,
-                        Active = i.Active,
-                        Deleted = i.IsDeleted
-                    }).ToListAsync();
+                var queryResult = await _unitOfWorkAsync.RepositoryAsync<ApplicationResource>().Queryable()
+                    .AsNoTracking().Select(i =>
+                        new ResourceCountsDto
+                        {
+                            Name = i.Name,
+                            Active = i.Active,
+                            Deleted = i.IsDeleted
+                        }).ToListAsync();
 
                 retVal.ActiveItemCount = queryResult.Count(op => op.Active && !op.Deleted);
-                retVal.DeletedItemCount = queryResult.Count(op => op.Deleted); // might conflict with row based access security
+                retVal.DeletedItemCount =
+                    queryResult.Count(op => op.Deleted); // might conflict with row based access security
                 retVal.InactiveItemCount = queryResult.Count(op => !op.Active);
             }
             catch (Exception e)
@@ -253,15 +250,13 @@ namespace IdentityProvider.Controllers.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public async Task<ActionResult> Insert(ApplicationResource resourceToInsert)
         {
-            var retVal = new ResourceInsertedVm { Success = false };
+            var retVal = new ResourceInsertedVm {Success = false};
 
             if (ModelState.IsValid)
-            {
                 if (ModelState.Values.Any(i => i.Errors.Count > 0))
                 {
                     var problems = ModelState.Values.Where(i => i.Errors.Count > 0).ToList();
                 }
-            }
 
             var res = new ApplicationResource
             {
@@ -280,10 +275,7 @@ namespace IdentityProvider.Controllers.Controllers
 
                 var sb = new StringBuilder();
 
-                foreach (var validation in validationResults)
-                {
-                    sb.Append(validation.ErrorMessage);
-                }
+                foreach (var validation in validationResults) sb.Append(validation.ErrorMessage);
 
                 ModelState.AddModelError("Name", sb.ToString());
                 retVal.ValidationIssues = sb.ToString();
@@ -316,12 +308,9 @@ namespace IdentityProvider.Controllers.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public async Task<ActionResult> Delete(string itemToDelete)
         {
-            var retVal = new ResourceDeletedVm { WasDeleted = false };
+            var retVal = new ResourceDeletedVm {WasDeleted = false};
 
-            if (string.IsNullOrEmpty(itemToDelete))
-            {
-                throw new ArgumentNullException(nameof(itemToDelete));
-            }
+            if (string.IsNullOrEmpty(itemToDelete)) throw new ArgumentNullException(nameof(itemToDelete));
 
             try
             {
@@ -378,7 +367,8 @@ namespace IdentityProvider.Controllers.Controllers
         // POST: /Resource/Edit/5
         [AcceptVerbs(HttpVerbs.Post)]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id, Name, Description, Active, ActiveFrom, ActiveTo")] ApplicationResource resource)
+        public async Task<ActionResult> Edit([Bind(Include = "Id, Name, Description, Active, ActiveFrom, ActiveTo")]
+            ApplicationResource resource)
         {
             // https://stackoverflow.com/questions/39533599/mvc-5-with-bootstrap-modal-from-partial-view-validation-not-working
             // https://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
@@ -400,14 +390,10 @@ namespace IdentityProvider.Controllers.Controllers
 
                     var result = await _unitOfWorkAsync.SaveChangesAsync();
 
-                    if (result > 0)
-                    {
-                        retVal.Success = true;
-                    }
+                    if (result > 0) retVal.Success = true;
                 }
                 catch (Exception e)
                 {
-
                     Console.WriteLine(e);
                     Debug.WriteLine(e);
                     retVal.Message = e.Message;
@@ -415,7 +401,8 @@ namespace IdentityProvider.Controllers.Controllers
             }
             else
             {
-                retVal.FormErrors = ModelState.Select(kvp => new { key = kvp.Key, errors = kvp.Value.Errors.Select(e => e.ErrorMessage) });
+                retVal.FormErrors = ModelState.Select(kvp => new
+                    {key = kvp.Key, errors = kvp.Value.Errors.Select(e => e.ErrorMessage)});
                 retVal.Message = "Model state invalid";
             }
 
@@ -443,10 +430,7 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 retVal.Success = true;
 
-                if (Request.IsAjaxRequest())
-                {
-                    retVal.Resource = result.ConvertToViewModel();
-                }
+                if (Request.IsAjaxRequest()) retVal.Resource = result.ConvertToViewModel();
             }
             else
             {

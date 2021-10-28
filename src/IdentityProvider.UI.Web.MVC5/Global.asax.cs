@@ -1,4 +1,9 @@
-﻿using IdentityProvider.Controllers;
+﻿using System;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Optimization;
+using System.Web.Routing;
+using IdentityProvider.Controllers;
 using IdentityProvider.Controllers.Controllers;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
@@ -12,11 +17,6 @@ using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Infrastructure.URLConfigHelpers;
 using IdentityProvider.Models.ViewModels.Error;
 using IdentityProvider.UI.Web.MVC5.DependencyResolution;
-using System;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
 
 namespace IdentityProvider.UI.Web.MVC5
 {
@@ -58,24 +58,24 @@ namespace IdentityProvider.UI.Web.MVC5
         private void BootstrapGlobalAsax()
         {
             _configurationRepository =
-                (IConfigurationProvider)DependencyResolver.Current.GetService(typeof(IConfigurationProvider));
-            _cookieProvider = (ICookieProvider)DependencyResolver.Current.GetService(typeof(ICookieProvider));
+                (IConfigurationProvider) DependencyResolver.Current.GetService(typeof(IConfigurationProvider));
+            _cookieProvider = (ICookieProvider) DependencyResolver.Current.GetService(typeof(ICookieProvider));
 
-            _helper = (IGlobalAsaxHelpers)DependencyResolver.Current.GetService(typeof(IGlobalAsaxHelpers));
+            _helper = (IGlobalAsaxHelpers) DependencyResolver.Current.GetService(typeof(IGlobalAsaxHelpers));
 
             if (_configurationRepository == null) throw new ArgumentNullException(nameof(IConfigurationProvider));
             if (_cookieProvider == null) throw new ArgumentNullException(nameof(ICookieProvider));
             if (_helper == null) throw new ArgumentNullException(nameof(IGlobalAsaxHelpers));
 
             _applicationConfiguration =
-                (IApplicationConfiguration)DependencyResolver.Current.GetService(typeof(IApplicationConfiguration));
+                (IApplicationConfiguration) DependencyResolver.Current.GetService(typeof(IApplicationConfiguration));
 
             // store the application configuration object in session cache (for the application scope) ...
             _sessionCacheProvider.SaveForApplication(_applicationConfiguration, "ApplicationConfiguration");
 
 
             _loggingFactory =
-                (ISerilogLoggingFactory)DependencyResolver.Current.GetService(typeof(ISerilogLoggingFactory));
+                (ISerilogLoggingFactory) DependencyResolver.Current.GetService(typeof(ISerilogLoggingFactory));
             var loggingContext = new LoggingContextProvider();
             _logger = new SerilogErrorLogProvider(_loggingFactory, loggingContext);
         }
@@ -94,7 +94,7 @@ namespace IdentityProvider.UI.Web.MVC5
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             // unfortunately, this one is needed everywhere
-            _helper = (IGlobalAsaxHelpers)DependencyResolver.Current.GetService(typeof(IGlobalAsaxHelpers));
+            _helper = (IGlobalAsaxHelpers) DependencyResolver.Current.GetService(typeof(IGlobalAsaxHelpers));
 
             _controllerRouteAction =
                 _helper?.PopulateControllerRouteActionFromContext(ExtractContextFromSender(sender));
@@ -156,14 +156,14 @@ namespace IdentityProvider.UI.Web.MVC5
                 }
 
             if (_controllerRouteAction.CurrentController.Equals("Account") &&
-                _controllerRouteAction.CurrentAction.Equals("Login") && ((HttpException)ex).GetHttpCode() == 500 &&
+                _controllerRouteAction.CurrentAction.Equals("Login") && ((HttpException) ex).GetHttpCode() == 500 &&
                 ex.Message.Contains("anti-forgery"))
                 Response.Redirect(UrlConfigHelper.GetRoot() + "Account/Login", true);
 
             httpContext.ClearError();
             httpContext.Response.Clear();
             if (httpContext.Response.StatusCode != 302)
-                httpContext.Response.StatusCode = ex is HttpException ? ((HttpException)ex).GetHttpCode() : 500;
+                httpContext.Response.StatusCode = ex is HttpException ? ((HttpException) ex).GetHttpCode() : 500;
             httpContext.Response.TrySkipIisCustomErrors = true;
 
             routeData.Values["controller"] = "Error";
@@ -172,14 +172,12 @@ namespace IdentityProvider.UI.Web.MVC5
             controller.ViewData.Model = new ErrorViewModel(ex, _controllerRouteAction.CurrentController,
                 _controllerRouteAction.CurrentAction);
 
-            ((IController)controller).Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
+            ((IController) controller).Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
 
             #endregion requires this way of error handling
         }
 
         #region Global.asax helpers
-
-
 
         #endregion Global.asax helpers
     }

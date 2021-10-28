@@ -1,8 +1,8 @@
-﻿using log4net;
-using System;
+﻿using System;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
+using log4net;
 
 namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
 {
@@ -34,11 +34,10 @@ namespace HAC.Helpdesk.Services.Logging.WCF.StructureMap
             }
             catch (Exception ex)
             {
-                ILog logger = LogManager.GetLogger(this.GetType());
+                var logger = LogManager.GetLogger(GetType());
                 logger.Fatal(ex);
                 throw;
             }
-
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace IdentityProvider.Infrastructure.Email
 {

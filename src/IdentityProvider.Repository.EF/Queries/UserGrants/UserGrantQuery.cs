@@ -1,7 +1,7 @@
-﻿using IdentityProvider.Infrastructure.Logging.Serilog;
-using IdentityProvider.Repository.EF.EFDataContext;
-using System;
+﻿using System;
 using System.Diagnostics;
+using IdentityProvider.Infrastructure.Logging.Serilog;
+using IdentityProvider.Repository.EF.EFDataContext;
 
 namespace IdentityProvider.Repository.EF.Queries.UserGrants
 {
@@ -28,7 +28,7 @@ namespace IdentityProvider.Repository.EF.Queries.UserGrants
             var retVal = new UserGrantQueryResponse
             {
                 Succes = false,
-                Message = string.Empty,
+                Message = string.Empty
             };
 
             try

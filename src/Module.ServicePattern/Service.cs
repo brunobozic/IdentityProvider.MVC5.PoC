@@ -1,10 +1,10 @@
-﻿using Module.Repository.EF.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Module.Repository.EF.Repositories;
 using TrackableEntities;
 
 namespace Module.ServicePattern
@@ -107,7 +107,8 @@ namespace Module.ServicePattern
             return await _repository.DeleteAsync(cancellationToken, keyValues);
         }
 
-        public async Task<bool> DeleteAsyncSoftDeletedAsync(CancellationToken cancellationToken, bool softDeleted, params object[] keyValues)
+        public async Task<bool> DeleteAsyncSoftDeletedAsync(CancellationToken cancellationToken, bool softDeleted,
+            params object[] keyValues)
         {
             return await _repository.DeleteAsync(cancellationToken, true, keyValues);
         }

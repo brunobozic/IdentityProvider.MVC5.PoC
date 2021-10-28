@@ -1,10 +1,10 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using System.Web.Mvc;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Services.ApplicationRoleService;
 using IdentityProvider.Services.DbSeed;
 using StructureMap;
-using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -16,10 +16,10 @@ namespace IdentityProvider.Controllers.Controllers
             , IErrorLogService errorLogService
             , IApplicationConfiguration applicationConfiguration)
             : base(
-            cookieStorageService
-                  , errorLogService
-                  , applicationConfiguration
-                  )
+                cookieStorageService
+                , errorLogService
+                , applicationConfiguration
+            )
         {
         }
 
@@ -40,17 +40,10 @@ namespace IdentityProvider.Controllers.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Seed()
         {
-            var dBSeeder = (DoSeed)DependencyResolver.Current.GetService(typeof(IDoSeed));
-            bool seedSuccessfull = false;
+            var dBSeeder = (DoSeed) DependencyResolver.Current.GetService(typeof(IDoSeed));
+            var seedSuccessfull = false;
 
-            try
-            {
-                seedSuccessfull = dBSeeder.Seed();
-            }
-            catch (System.Exception)
-            {
-                throw;
-            }
+            seedSuccessfull = dBSeeder.Seed();
 
             ViewBag.Message = "Your seeding process went well.";
 
@@ -80,7 +73,7 @@ namespace IdentityProvider.Controllers.Controllers
             ViewBag.Message = "Protected Action For Testing.";
 
             var rolsService =
-                (ApplicationRoleService)DependencyResolver.Current.GetService(typeof(IApplicationRoleService));
+                (ApplicationRoleService) DependencyResolver.Current.GetService(typeof(IApplicationRoleService));
 
             var results = rolsService.FetchReasourseAndOperationsGraph();
 

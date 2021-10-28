@@ -1,10 +1,10 @@
-﻿using IdentityProvider.Infrastructure.Email;
+﻿using System;
+using IdentityProvider.Infrastructure.Email;
 using IdentityProvider.Infrastructure.SMS;
 using IdentityProvider.Models.Domain.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
-using System;
 
 namespace IdentityProvider.Services
 {
@@ -17,7 +17,7 @@ namespace IdentityProvider.Services
             IUserStore<ApplicationUser> store
             , IEmailService emailService
             , IIdentityMessageService identityEmailMessageService
-            ) : base(store)
+        ) : base(store)
         {
             _emailService = emailService;
 
@@ -66,8 +66,6 @@ namespace IdentityProvider.Services
             //    UserTokenProvider =
             //        new DataProtectorTokenProvider<ApplicationUser , string>(_provider.Create("ASP.NET Identity"))
             //};
-
-
         }
 
         //public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,

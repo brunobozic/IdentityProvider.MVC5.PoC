@@ -1,20 +1,20 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ControllerAlertHelpers;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Repository.EF.EFDataContext;
 using StructureMap;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
     public class BaseController : Controller, IController
     {
+        private readonly IApplicationConfiguration _applicationConfiguration;
         private readonly ICookieStorageService _cookieStorageService;
         protected IErrorLogService _errorLogService;
-        private readonly IApplicationConfiguration _applicationConfiguration;
 
         [DefaultConstructor]
         public BaseController(
@@ -38,10 +38,11 @@ namespace IdentityProvider.Controllers.Controllers
                 if (!string.IsNullOrEmpty(username))
                 {
                     var user = context.Users.SingleOrDefault(u => u.UserName == username);
-                    string fullName = string.Concat(new string[] { user.FirstName, " ", user.LastName });
+                    var fullName = string.Concat(new[] {user.FirstName, " ", user.LastName});
                     ViewData.Add("FullName", fullName);
                 }
             }
+
             base.OnActionExecuted(filterContext);
         }
 
@@ -68,7 +69,7 @@ namespace IdentityProvider.Controllers.Controllers
         private void AddAlert(string alertStyle, string message, bool dismissable)
         {
             var alerts = TempData.ContainsKey(Alert.TempDataKey)
-                ? (List<Alert>)TempData[Alert.TempDataKey]
+                ? (List<Alert>) TempData[Alert.TempDataKey]
                 : new List<Alert>();
 
             alerts.Add(new Alert
@@ -89,7 +90,7 @@ namespace IdentityProvider.Controllers.Controllers
 
             if (_errorLogService == null)
                 _errorLogService =
-                    (RollingFileErrorLogProvider)DependencyResolver.Current.GetService(typeof(IErrorLogService));
+                    (RollingFileErrorLogProvider) DependencyResolver.Current.GetService(typeof(IErrorLogService));
 
             if (errorLogService == null) errorLogService = _errorLogService;
 

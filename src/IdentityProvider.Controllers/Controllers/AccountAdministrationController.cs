@@ -1,4 +1,8 @@
-﻿using IdentityProvider.Controllers.Helpers;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using IdentityProvider.Controllers.Helpers;
 using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
@@ -8,20 +12,16 @@ using IdentityProvider.Services.UserProfileService;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using StructureMap;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Controllers
 {
     public class AccountAdministrationController : BaseController
     {
         private readonly IUserProfileAdministrationService _administrationService;
-        private IAuthenticationManager _authenticationManager;
         private readonly ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
         private readonly IWebSecurity _webSecurity;
+        private IAuthenticationManager _authenticationManager;
+        private ApplicationUserManager _userManager;
 
         [DefaultConstructor]
         public AccountAdministrationController(
@@ -35,10 +35,10 @@ namespace IdentityProvider.Controllers.Controllers
             , IAuthenticationManager authenticationManager
         )
             : base(
-                  cookieStorageService
-                  , errorLogService
-                  , applicationConfiguration
-                  )
+                cookieStorageService
+                , errorLogService
+                , applicationConfiguration
+            )
         {
             _administrationService = administrationService;
             _webSecurity = webSecurity;
@@ -85,7 +85,8 @@ namespace IdentityProvider.Controllers.Controllers
                 };
                 await _userManager.SmsService.SendAsync(message);
             }
-            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+
+            return RedirectToAction("VerifyPhoneNumber", new {PhoneNumber = model.Number});
         }
 
         //
@@ -110,8 +111,9 @@ namespace IdentityProvider.Controllers.Controllers
                 var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                     await _signInManager.SignInAsync(user, false, false);
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return RedirectToAction("Index", new {Message = ManageMessageId.ChangePasswordSuccess});
             }
+
             AddErrors(result);
             return View(model);
         }
@@ -161,7 +163,13 @@ namespace IdentityProvider.Controllers.Controllers
 
                 return PartialView("Partial/_accountAdministrationLanding", retVal);
             }
-            else { return PartialView("Partial/_accountAdministrationLanding", new AccountAdministrationLandingViewModel { HasPassword = false, BrowserRemembered = false, Logins = null, PhoneNumber = string.Empty, TwoFactor = false }); }
+
+            return PartialView("Partial/_accountAdministrationLanding",
+                new AccountAdministrationLandingViewModel
+                {
+                    HasPassword = false, BrowserRemembered = false, Logins = null, PhoneNumber = string.Empty,
+                    TwoFactor = false
+                });
         }
 
         //
@@ -180,11 +188,11 @@ namespace IdentityProvider.Controllers.Controllers
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
-                return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+                return RedirectToAction("ManageLogins", new {Message = ManageMessageId.Error});
             var result = await _userManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded
                 ? RedirectToAction("ManageLogins")
-                : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+                : RedirectToAction("ManageLogins", new {Message = ManageMessageId.Error});
         }
 
         //
@@ -231,7 +239,8 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 message = ManageMessageId.Error;
             }
-            return RedirectToAction("ManageLogins", new { Message = message });
+
+            return RedirectToAction("ManageLogins", new {Message = message});
         }
 
         //
@@ -242,11 +251,11 @@ namespace IdentityProvider.Controllers.Controllers
         {
             var result = await _userManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
             if (!result.Succeeded)
-                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
+                return RedirectToAction("Index", new {Message = ManageMessageId.Error});
             var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
                 await _signInManager.SignInAsync(user, false, false);
-            return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+            return RedirectToAction("Index", new {Message = ManageMessageId.RemovePhoneSuccess});
         }
 
         //
@@ -270,8 +279,9 @@ namespace IdentityProvider.Controllers.Controllers
                     var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
                     if (user != null)
                         await _signInManager.SignInAsync(user, false, false);
-                    return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
+                    return RedirectToAction("Index", new {Message = ManageMessageId.SetPasswordSuccess});
                 }
+
                 AddErrors(result);
             }
 
@@ -303,7 +313,7 @@ namespace IdentityProvider.Controllers.Controllers
             // Send an SMS through the SMS provider to verify the phone number
             return phoneNumber == null
                 ? View("Error")
-                : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
+                : View(new VerifyPhoneNumberViewModel {PhoneNumber = phoneNumber});
         }
 
         //
@@ -321,8 +331,9 @@ namespace IdentityProvider.Controllers.Controllers
                 var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                     await _signInManager.SignInAsync(user, false, false);
-                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
+                return RedirectToAction("Index", new {Message = ManageMessageId.AddPhoneSuccess});
             }
+
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError(string.Empty, "Failed to verify phone");
             return View(model);

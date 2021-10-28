@@ -18,8 +18,6 @@ namespace Logging.WCF.Repository.EF
             builder.Property(e => e.Name);
 
             builder.Property(e => e.Description);
-
-
         }
     }
 

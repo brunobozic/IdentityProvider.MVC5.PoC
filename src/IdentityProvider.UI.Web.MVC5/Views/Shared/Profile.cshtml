@@ -13,7 +13,7 @@
             </p>
         </li>
         <!-- Menu Body -->
-       <li class="user-body">
+        <li class="user-body">
             <div class="row">
                 <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -32,7 +32,7 @@
                 <a href="#" class="btn btn-default btn-flat"><i class="fa fa-user"></i>&nbsp;Footer</a>
             </div>
             <div class="pull-right">
-                @using (Html.BeginForm("LogOff", "Log off",new{Area =""}))
+                @using (Html.BeginForm("LogOff", "Log off", new {Area = ""}))
                 {
                     @Html.AntiForgeryToken()
                     <button class="btn btn-default btn-flat" type="submit"><i class="fa fa-sign-out"></i>&nbsp;Log off</button>

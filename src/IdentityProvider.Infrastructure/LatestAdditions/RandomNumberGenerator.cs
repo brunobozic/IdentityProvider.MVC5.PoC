@@ -7,12 +7,12 @@ namespace IdentityProvider.Infrastructure.LatestAdditions
     {
         private static int Seed = Environment.TickCount;
 
-        private static ThreadLocal<Random> randomWrapper = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref Seed)));
+        private static readonly ThreadLocal<Random> randomWrapper =
+            new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref Seed)));
 
         public static Random GetThreadRandom()
         {
             return randomWrapper.Value;
         }
-
     }
 }

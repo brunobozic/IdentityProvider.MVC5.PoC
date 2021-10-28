@@ -1,5 +1,5 @@
-﻿using IdentityProvider.Models.Domain.Account;
-using System;
+﻿using System;
+using IdentityProvider.Models.Domain.Account;
 
 namespace IdentityProvider.Models.ViewModels.Operations.Extensions
 {
@@ -30,6 +30,5 @@ namespace IdentityProvider.Models.ViewModels.Operations.Extensions
 
             return vm;
         }
-
     }
 }

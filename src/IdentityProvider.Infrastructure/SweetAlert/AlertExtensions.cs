@@ -11,7 +11,7 @@ namespace IdentityProvider.Infrastructure.SweetAlert
         {
             if (!tempData.ContainsKey(Alerts))
                 tempData[Alerts] = new List<Alert>();
-            return (List<Alert>)tempData[Alerts];
+            return (List<Alert>) tempData[Alerts];
         }
 
         public static ActionResult WithSuccess(this ActionResult result, string message)

@@ -1,6 +1,4 @@
-﻿
-
-namespace Logging.WCF.Infrastructure.Contracts
+﻿namespace Logging.WCF.Infrastructure.Contracts
 {
     public interface IApplicationConfiguration
     {

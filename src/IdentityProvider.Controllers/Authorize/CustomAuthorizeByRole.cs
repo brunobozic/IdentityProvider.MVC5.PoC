@@ -6,21 +6,20 @@ using System.Web.Mvc;
 
 namespace IdentityProvider.Controllers.Authorize
 {
-
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class CustomAuthorizeByRole : AuthorizeAttribute
     {
+        private readonly string _role;
+
         public CustomAuthorizeByRole(string role)
         {
             _role = role;
         }
 
-        private string _role;
-
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             // Get the roles from the claims
-            var identity = (ClaimsIdentity)httpContext.User.Identity;
+            var identity = (ClaimsIdentity) httpContext.User.Identity;
 
             // Make sure they are authenticated
             if (!identity.IsAuthenticated)
@@ -29,10 +28,7 @@ namespace IdentityProvider.Controllers.Authorize
             var roles = identity.Claims.Where(claim => claim.Value == _role);
 
             // Check if they are authorized based on found claims
-            if (identity.Claims.Any(i => i.Value == _role))
-            {
-                return true;
-            }
+            if (identity.Claims.Any(i => i.Value == _role)) return true;
 
             // Check if they are authorized
             // return RoleService.Authorize(_role , roles);

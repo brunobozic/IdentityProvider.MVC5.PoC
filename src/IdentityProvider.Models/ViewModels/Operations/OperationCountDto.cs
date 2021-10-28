@@ -1,7 +1,5 @@
-﻿
-namespace IdentityProvider.Models.ViewModels.Operations
+﻿namespace IdentityProvider.Models.ViewModels.Operations
 {
-
     public class OperationCountsDto
     {
         public int ActiveItemCount { get; set; }

@@ -16,18 +16,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using CommonServiceLocator;
+using StructureMap;
 
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 {
-    using CommonServiceLocator;
-    using StructureMap;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
-
     /// <summary>
-    /// The structure map dependency scope.
+    ///     The structure map dependency scope.
     /// </summary>
     public class StructureMapDependencyScope : ServiceLocatorImplBase
     {
@@ -41,29 +40,8 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 
         public StructureMapDependencyScope(IContainer container)
         {
-            if (container == null)
-            {
-                throw new ArgumentNullException("container");
-            }
+            if (container == null) throw new ArgumentNullException("container");
             Container = container;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        public IContainer Container { get; set; }
-
-        public IContainer CurrentNestedContainer
-        {
-            get
-            {
-                return (IContainer)HttpContext.Items[NestedContainerKey];
-            }
-            set
-            {
-                HttpContext.Items[NestedContainerKey] = value;
-            }
         }
 
         #endregion
@@ -81,14 +59,23 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 
         #endregion
 
+        #region Public Properties
+
+        public IContainer Container { get; set; }
+
+        public IContainer CurrentNestedContainer
+        {
+            get => (IContainer) HttpContext.Items[NestedContainerKey];
+            set => HttpContext.Items[NestedContainerKey] = value;
+        }
+
+        #endregion
+
         #region Public Methods and Operators
 
         public void CreateNestedContainer()
         {
-            if (CurrentNestedContainer != null)
-            {
-                return;
-            }
+            if (CurrentNestedContainer != null) return;
             CurrentNestedContainer = Container.GetNestedContainer();
         }
 
@@ -123,14 +110,12 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
 
         protected override object DoGetInstance(Type serviceType, string key)
         {
-            IContainer container = (CurrentNestedContainer ?? Container);
+            var container = CurrentNestedContainer ?? Container;
 
             if (string.IsNullOrEmpty(key))
-            {
                 return serviceType.IsAbstract || serviceType.IsInterface
                     ? container.TryGetInstance(serviceType)
                     : container.GetInstance(serviceType);
-            }
 
             return container.GetInstance(serviceType, key);
         }

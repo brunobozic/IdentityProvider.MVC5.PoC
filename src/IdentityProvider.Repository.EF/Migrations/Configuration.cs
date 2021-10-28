@@ -1,15 +1,16 @@
-﻿namespace IdentityProvider.Repository.EF.Migrations
-{
-    using System.Data.Entity.Migrations;
+﻿using System.Data.Entity.Migrations;
+using IdentityProvider.Repository.EF.EFDataContext;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<IdentityProvider.Repository.EF.EFDataContext.AppDbContext>
+namespace IdentityProvider.Repository.EF.Migrations
+{
+    internal sealed class Configuration : DbMigrationsConfiguration<AppDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(IdentityProvider.Repository.EF.EFDataContext.AppDbContext context)
+        protected override void Seed(AppDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

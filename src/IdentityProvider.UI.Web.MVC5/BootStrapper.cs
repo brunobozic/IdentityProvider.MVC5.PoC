@@ -1,9 +1,9 @@
-﻿using IdentityProvider.Infrastructure.Cookies;
+﻿using System.Data.Entity;
+using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Email;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Data.Entity;
-using Registry = StructureMap.Registry;
+using StructureMap;
 
 namespace IdentityProvider.UI.Web.MVC5
 {
@@ -70,8 +70,9 @@ namespace IdentityProvider.UI.Web.MVC5
                 For<IUserStore<IdentityUser>>()
                     .Use<UserStore<IdentityUser>>()
                     .Ctor<DbContext>()
-                    .Is<IdentityDbContext>(cfg => cfg.SelectConstructor(() => new IdentityDbContext("DefaultConnection")).Ctor<string>()
-                    .Is("IdentitySetupWithStructureMap"));
+                    .Is<IdentityDbContext>(cfg => cfg
+                        .SelectConstructor(() => new IdentityDbContext("DefaultConnection")).Ctor<string>()
+                        .Is("IdentitySetupWithStructureMap"));
 
                 ForConcreteType<UserManager<IdentityUser>>()
                     .Configure
@@ -79,7 +80,8 @@ namespace IdentityProvider.UI.Web.MVC5
                     {
                         RequiredLength = 6
                     })
-                    .SetProperty(userManager => userManager.UserValidator = new UserValidator<IdentityUser>(userManager));
+                    .SetProperty(
+                        userManager => userManager.UserValidator = new UserValidator<IdentityUser>(userManager));
                 //For<ICustomerService>().Use
                 //		<CustomerService>();
 

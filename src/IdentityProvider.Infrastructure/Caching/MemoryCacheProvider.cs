@@ -16,7 +16,7 @@ namespace IdentityProvider.Infrastructure.Caching
         public T Get<T>(string key)
         {
             Initialize();
-            return (T)_internalMemoryCache.Get(key);
+            return (T) _internalMemoryCache.Get(key);
         }
 
         public void Save<T>(T item, string key)

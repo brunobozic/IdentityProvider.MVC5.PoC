@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Logging.WCF.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Logging.WCF.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:61234/LogWCF.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Logging.WCF.Models.DTOs" />
+
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Logging.WCF.Models" elementFormDefault="qualified"
+           targetNamespace="http://schemas.datacontract.org/2004/07/Logging.WCF.Models"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:61234/LogWCF.svc?xsd=xsd3"
+             namespace="http://schemas.datacontract.org/2004/07/Logging.WCF.Models.DTOs" />
   <xs:complexType name="LogToWCFServiceRequest">
     <xs:sequence>
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Logging.WCF.Models.DTOs" minOccurs="0" name="LoggingEventDto" nillable="true" type="q1:LoggingEventDto" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Logging.WCF.Models.DTOs" minOccurs="0"
+                  name="LoggingEventDto" nillable="true" type="q1:LoggingEventDto" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="LogToWCFServiceRequest" nillable="true" type="tns:LogToWCFServiceRequest" />

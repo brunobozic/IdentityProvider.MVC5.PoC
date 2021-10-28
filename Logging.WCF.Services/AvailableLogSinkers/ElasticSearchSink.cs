@@ -1,10 +1,10 @@
-﻿using Logging.WCF.Infrastructure.Contracts;
-using Logging.WCF.Models.DTOs;
-using System;
+﻿using System;
 using System.Threading.Tasks;
-using Serilog;
-using Logging.WCF.Repository.EF.ExtensionMethods;
 using log4net;
+using Logging.WCF.Infrastructure.Contracts;
+using Logging.WCF.Models.DTOs;
+using Logging.WCF.Repository.EF.ExtensionMethods;
+using Serilog;
 using Serilog.Sinks.Elasticsearch;
 
 namespace Logging.WCF.Services.AvailableLogSinkers
@@ -12,7 +12,7 @@ namespace Logging.WCF.Services.AvailableLogSinkers
     public class ElasticSearchSink : ILogSinkerService
     {
         private readonly ILogger _serilog;
-        public bool Disposed { get; set; }
+
         public ElasticSearchSink(ILogger serilog)
         {
             _serilog = serilog;
@@ -26,13 +26,16 @@ namespace Logging.WCF.Services.AvailableLogSinkers
                 .CreateLogger();
 
             _serilog = log;
-
         }
+
+        public bool Disposed { get; set; }
+
         public void Dispose()
         {
             if (_serilog != null && !Disposed)
             {
-                IDisposable d = (IDisposable)_serilog; d.Dispose();
+                var d = (IDisposable) _serilog;
+                d.Dispose();
                 Disposed = true;
             }
         }
@@ -46,7 +49,6 @@ namespace Logging.WCF.Services.AvailableLogSinkers
             try
             {
                 _serilog.Fatal("{0}", myLog);
-
             }
             catch (Exception dbException)
             {
@@ -55,7 +57,7 @@ namespace Logging.WCF.Services.AvailableLogSinkers
                         dbException.Message, dbException.InnerException);
 
                 // LogToWCF to file...
-                ILog logger = LogManager.GetLogger(this.GetType());
+                var logger = LogManager.GetLogger(GetType());
                 logger.Fatal("", dbException);
 
                 logger = null;

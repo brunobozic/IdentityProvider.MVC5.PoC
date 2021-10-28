@@ -1,11 +1,10 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-using StructureMap;
-using System;
+﻿using System;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using StructureMap;
 
 namespace Logging.WCF.Repository.EF.EFDataContext
 {
@@ -17,10 +16,14 @@ namespace Logging.WCF.Repository.EF.EFDataContext
             // Database.Migrate();
             _connectionString = connectionString;
         }
+
         public MyAppDbContext(string connectionString)
         {
             _connectionString = connectionString;
         }
+
+        public DbSet<DatabaseLog> DbLog { get; set; }
+        public string _connectionString { get; }
 
         //public MyAppDbContext(string connectionString)
         //{
@@ -68,10 +71,7 @@ namespace Logging.WCF.Repository.EF.EFDataContext
 
             try
             {
-
                 changes = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-
-
             }
 
             catch (DbUpdateConcurrencyException ex
@@ -106,8 +106,5 @@ namespace Logging.WCF.Repository.EF.EFDataContext
 
             return changes;
         }
-
-        public DbSet<DatabaseLog> DbLog { get; set; }
-        public string _connectionString { get; }
     }
 }

@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using System;
+﻿using System;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AutoMapper;
 
 namespace IdentityProvider.Infrastructure.GlobalAsaxHelpers
 {
@@ -16,7 +16,7 @@ namespace IdentityProvider.Infrastructure.GlobalAsaxHelpers
         public GlobalAsaxHelpers()
         {
             _configurationRepository =
-                (IConfigurationProvider)DependencyResolver.Current.GetService(typeof(IConfigurationProvider));
+                (IConfigurationProvider) DependencyResolver.Current.GetService(typeof(IConfigurationProvider));
             if (_configurationRepository == null) throw new ArgumentNullException(nameof(IConfigurationProvider));
         }
 

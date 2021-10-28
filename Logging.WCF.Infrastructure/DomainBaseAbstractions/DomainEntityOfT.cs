@@ -7,7 +7,6 @@ using System.Text;
 using Logging.WCF.Infrastructure.BusinessRules;
 using Logging.WCF.Infrastructure.DomainCoreInterfaces;
 using TrackableEntities;
-using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
 namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
 {
@@ -67,10 +66,10 @@ namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
         public static bool operator ==(DomainEntity<TK> entity1,
             DomainEntity<TK> entity2)
         {
-            if ((object)entity1 == null && (object)entity2 == null)
+            if ((object) entity1 == null && (object) entity2 == null)
                 return true;
 
-            if ((object)entity1 == null || (object)entity2 == null)
+            if ((object) entity1 == null || (object) entity2 == null)
                 return false;
 
             if (entity1.Id.ToString() == entity2.Id.ToString())
@@ -118,9 +117,24 @@ namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
         [NotMapped] public TrackingState TrackingState { get; set; }
 
         [NotMapped] public ICollection<string> ModifiedProperties { get; set; }
-        public long DeletedBy { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public long ModifiedBy { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public long CreatedBy { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public long DeletedBy
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        public long ModifiedBy
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        public long CreatedBy
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
 
         #endregion ITrackable
 
@@ -166,6 +180,5 @@ namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
         }
 
         #endregion Business rules
-
     }
 }

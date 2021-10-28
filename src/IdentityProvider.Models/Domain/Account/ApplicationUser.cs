@@ -1,11 +1,11 @@
-﻿using IdentityProvider.Infrastructure.Domain;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using IdentityProvider.Infrastructure.Domain;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using TrackableEntities;
 
 namespace IdentityProvider.Models.Domain.Account
@@ -42,15 +42,8 @@ namespace IdentityProvider.Models.Domain.Account
 
         public bool IsDeleted { get; set; }
 
-        #region IsActive
-
-        public bool Active { get; set; }
-        [DisplayName("Record is active from (date)")]
-        public DateTime? ActiveFrom { get; set; }
-        [DisplayName("Record is active to (date)")]
-        public DateTime? ActiveTo { get; set; }
-
-        #endregion IsActive
+        public virtual UserProfile UserProfile { get; set; }
+        public Employee Employee { get; set; }
 
         public string ModifiedById { get; set; }
         public DateTime? ModifiedDate { get; set; }
@@ -62,7 +55,7 @@ namespace IdentityProvider.Models.Domain.Account
 
         public ICollection<string> ModifiedProperties { get; set; }
 
-        public virtual UserProfile UserProfile { get; set; }
+        public TrackingState TrackingState { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -72,7 +65,16 @@ namespace IdentityProvider.Models.Domain.Account
             return userIdentity;
         }
 
-        public TrackingState TrackingState { get; set; }
-        public Employee Employee { get; set; }
+        #region IsActive
+
+        public bool Active { get; set; }
+
+        [DisplayName("Record is active from (date)")]
+        public DateTime? ActiveFrom { get; set; }
+
+        [DisplayName("Record is active to (date)")]
+        public DateTime? ActiveTo { get; set; }
+
+        #endregion IsActive
     }
 }

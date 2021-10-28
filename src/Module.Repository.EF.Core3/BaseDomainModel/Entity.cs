@@ -7,13 +7,10 @@ namespace Module.Repository.EF.Core3.BaseDomainModel
 {
     public abstract class Entity : ITrackable, IMergeable
     {
-        [NotMapped]
-        public TrackingState TrackingState { get; set; }
+        [NotMapped] public Guid EntityIdentifier { get; set; }
 
-        [NotMapped]
-        public ICollection<string> ModifiedProperties { get; set; }
+        [NotMapped] public TrackingState TrackingState { get; set; }
 
-        [NotMapped]
-        public Guid EntityIdentifier { get; set; }
+        [NotMapped] public ICollection<string> ModifiedProperties { get; set; }
     }
 }

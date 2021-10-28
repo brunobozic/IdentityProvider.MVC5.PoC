@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNet.Identity.EntityFramework;
 using TrackableEntities;
 
 namespace IdentityProvider.Infrastructure.Domain
 {
     public abstract class DomainEntity<TK> : IFullAudit, ISoftDeletable, IHandlesConcurrency, ITrackable
     {
-
         public TK Id { get; set; }
 
         public string ModifiedById { get; set; }
@@ -22,10 +21,9 @@ namespace IdentityProvider.Infrastructure.Domain
 
         public bool IsDeleted { get; set; }
 
-        [NotMapped]
-        public TrackingState TrackingState { get; set; }
-        [NotMapped]
-        public ICollection<string> ModifiedProperties { get; set; }
+        [NotMapped] public TrackingState TrackingState { get; set; }
+
+        [NotMapped] public ICollection<string> ModifiedProperties { get; set; }
 
         public override bool Equals(object entity)
         {
@@ -40,10 +38,10 @@ namespace IdentityProvider.Infrastructure.Domain
         public static bool operator ==(DomainEntity<TK> entity1,
             DomainEntity<TK> entity2)
         {
-            if ((object)entity1 == null && (object)entity2 == null)
+            if ((object) entity1 == null && (object) entity2 == null)
                 return true;
 
-            if ((object)entity1 == null || (object)entity2 == null)
+            if ((object) entity1 == null || (object) entity2 == null)
                 return false;
 
             if (entity1.Id.ToString() == entity2.Id.ToString())
@@ -129,10 +127,10 @@ namespace IdentityProvider.Infrastructure.Domain
         public static bool operator ==(ApplicationUserDomainEntity<TK> entity1,
             ApplicationUserDomainEntity<TK> entity2)
         {
-            if ((object)entity1 == null && (object)entity2 == null)
+            if ((object) entity1 == null && (object) entity2 == null)
                 return true;
 
-            if ((object)entity1 == null || (object)entity2 == null)
+            if ((object) entity1 == null || (object) entity2 == null)
                 return false;
 
             if (entity1.UserId.ToString() == entity2.UserId.ToString())

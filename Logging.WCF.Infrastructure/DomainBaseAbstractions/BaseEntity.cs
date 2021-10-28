@@ -23,6 +23,10 @@ namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
         public long CreatedBy { get; set; }
 
         [Required]
+        [Column("DateCreated", Order = 1005)]
+        public DateTimeOffset DateCreated { get; set; } = DateTimeOffset.UtcNow;
+
+        [Required]
         [Column("IsActive", Order = 990)]
         public bool IsActive { get; set; } = true;
 
@@ -36,15 +40,11 @@ namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        [Required]
-        [Column("DateCreated", Order = 1005)]
-        public DateTimeOffset DateCreated { get; set; } = DateTimeOffset.UtcNow;
-
         [Column("DateModified", Order = 1010)] public DateTimeOffset? DateModified { get; set; }
 
-        [Column("DateDeleted", Order = 1020)] public DateTimeOffset? DateDeleted { get; set; }
-
         public long ModifiedBy { get; set; }
+
+        [Column("DateDeleted", Order = 1020)] public DateTimeOffset? DateDeleted { get; set; }
 
         [Required]
         [Column("Deleted", Order = 996)]
@@ -55,7 +55,5 @@ namespace Logging.WCF.Infrastructure.DomainBaseAbstractions
         [NotMapped] public TrackingState TrackingState { get; set; }
 
         [NotMapped] public ICollection<string> ModifiedProperties { get; set; }
-
-
     }
 }
