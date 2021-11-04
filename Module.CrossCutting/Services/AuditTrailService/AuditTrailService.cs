@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Abp.Linq.Expressions;
-
+using IdentityProvider.Infrastructure.DatabaseAudit;
 using IdentityProvider.Models.ViewModels;
 using LinqKit;
-using Module.Repository.EF.Repositories;
-using Module.ServicePattern;
 using StructureMap;
-using PredicateBuilder = LinqKit.PredicateBuilder;
+using URF.Core.Services;
 
 namespace IdentityProvider.Services.AuditTrailService
 {

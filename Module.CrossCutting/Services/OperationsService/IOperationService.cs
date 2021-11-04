@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Models.ViewModels.Operations;
-using Module.ServicePattern;
+
+using URF.Core.Abstractions.Services;
 
 namespace IdentityProvider.Services.OperationsService
 {

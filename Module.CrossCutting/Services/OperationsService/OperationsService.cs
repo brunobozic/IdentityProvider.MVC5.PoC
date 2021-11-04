@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Abp.Linq.Expressions;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Models.ViewModels.Operations;
 using LinqKit;
-using Module.Repository.EF.Repositories;
-using Module.ServicePattern;
 using StructureMap;
+using URF.Core.Services;
 
 namespace IdentityProvider.Services.OperationsService
 {
@@ -128,7 +126,7 @@ namespace IdentityProvider.Services.OperationsService
         )
         {
             // simple method to dynamically plugin a where clause
-            var predicate = LinqKit.PredicateBuilder.New<Operation>(true); // true -where(true) return all
+            var predicate = PredicateBuilder.New<Operation>(true); // true -where(true) return all
 
             if (string.IsNullOrWhiteSpace(searchValue) == false)
             {

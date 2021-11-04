@@ -1,5 +1,25 @@
 ﻿
+using IdentityProvider.Infrastructure;
+using IdentityProvider.Infrastructure.DatabaseAudit;
+using IdentityProvider.Infrastructure.Domain;
+using IdentityProvider.Models.Domain.Account;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using StructureMap;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace IdentityProvider.Repository.EF.EFDataContext
 {

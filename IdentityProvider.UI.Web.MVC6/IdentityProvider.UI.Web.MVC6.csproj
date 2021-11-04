@@ -87,4 +87,8 @@
     <Folder Include="wwwroot\img\image-gallery\thumb\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Module.CrossCutting\Module.CrossCutting.csproj" />
+  </ItemGroup>
+
 </Project>

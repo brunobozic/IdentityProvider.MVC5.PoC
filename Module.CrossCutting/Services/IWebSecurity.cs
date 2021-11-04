@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using IdentityProvider.Models.Domain.Account;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNetCore.Identity;
 
 namespace IdentityProvider.Services
 {

@@ -9,11 +9,9 @@ using IdentityProvider.Repository.EF.EFDataContext;
 using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.RoleOperationResource;
 using IdentityProvider.Repository.EF.Queries.UserRolesResourcesOperations.UserRoleResourcesOperations;
 using Microsoft.AspNet.Identity;
-using Module.Repository.EF.Repositories;
-using Module.Repository.EF.UnitOfWorkInterfaces;
-using Module.ServicePattern;
 using StructureMap;
 using TrackableEntities;
+using URF.Core.Services;
 
 namespace IdentityProvider.Services.ApplicationRoleService
 {
@@ -58,22 +56,9 @@ namespace IdentityProvider.Services.ApplicationRoleService
             });
         }
 
-        public IEnumerable<RoleOperationResourceDto> FetchUserRoleResourceAndOperationsGraph()
-        {
-            var context = (AppDbContext) DependencyResolver.Current.GetService(typeof(AppDbContext));
-            var q = new RoleOperationResourceQuery(context);
+ 
 
-            return q.Execute();
-        }
 
-        public async Task<IEnumerable<UserRoleResourcesOperationsDto>> FetchResourceAndOperationsGraphAsync()
-        {
-            var queryObject = new UserRoleResourcesOperationsQuery();
-
-            var result = await _repository.Query(queryObject.Query()).SelectAsync();
-
-            return null;
-        }
 
         public bool Exists(string roleName)
         {

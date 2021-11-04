@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PagedList;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using PagedList;
+
 
 namespace IdentityProvider.Models.ViewModels.Resources
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using IdentityProvider.Models.Domain.Account;
-using Module.Repository.EF;
 
 namespace IdentityProvider.Repository.EF.Queries.UserProfile
 {

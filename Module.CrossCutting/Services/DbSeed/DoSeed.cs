@@ -5,7 +5,6 @@ using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.EFDataContext;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNetCore.Identity;
 using StructureMap;
 using TrackableEntities;
 

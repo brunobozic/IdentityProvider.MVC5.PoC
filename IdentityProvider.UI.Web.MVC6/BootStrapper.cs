@@ -1,9 +1,10 @@
-﻿using System.Data.Entity;
-using IdentityProvider.Infrastructure.Cookies;
+﻿using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Email;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using StructureMap;
+using System.Data.Entity;
+
 
 namespace IdentityProvider.UI.Web.MVC5
 {
@@ -58,10 +59,7 @@ namespace IdentityProvider.UI.Web.MVC5
                 //For<IProductCatalogueService>().Use<CachedProductCatalogueService>()
                 //    .CtorDependency<IProductCatalogueService>().Is(x => x.TheInstanceNamed("RealProductCatalogueService"));
 
-                //For<IBasketService>().Use
-                //         <BasketService>();
-                For<ICookieStorageService>().Use<CookieStorageService>();
-
+       
 
                 // Email Service                 
                 For<IEmailService>().Use<TextLoggingEmailService>();

@@ -10,13 +10,10 @@ using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Repository.EF.Factories;
-
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Module.Repository.EF;
-using Module.Repository.EF.RowLevelSecurity;
-using Module.Repository.EF.UnitOfWorkInterfaces;
 using TrackableEntities;
+using URF.Core.EF;
 
 namespace IdentityProvider.Services
 {

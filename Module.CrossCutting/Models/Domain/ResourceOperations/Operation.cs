@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using IdentityProvider.Infrastructure;
 using IdentityProvider.Infrastructure.Domain;
+using TrackableEntities;
 
 namespace IdentityProvider.Models.Domain.Account
 {
     [Table("Operations", Schema = "Resource")]
-    public class Operation : DomainEntity<int>, IActive, IAuditTrail
+    public class Operation : DomainEntity<int>, IActive, IAuditTrail,ITrackable
     {
         public Operation()
         {

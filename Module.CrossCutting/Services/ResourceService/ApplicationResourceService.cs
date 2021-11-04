@@ -1,7 +1,6 @@
 ﻿using IdentityProvider.Models.Domain.Account;
-using Module.Repository.EF.Repositories;
-using Module.ServicePattern;
 using StructureMap;
+using URF.Core.Services;
 
 namespace IdentityProvider.Services.ResourceService
 {
