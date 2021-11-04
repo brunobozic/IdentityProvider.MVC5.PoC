@@ -1,33 +1,85 @@
-﻿using System.Diagnostics;
-using IdentityProvider.UI.Web.MVC6.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using System.Web.Mvc;
+using IdentityProvider.Infrastructure.ApplicationConfiguration;
+using IdentityProvider.Infrastructure.Cookies;
+using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
+using IdentityProvider.Repository.EF.Queries.UserProfile;
+using IdentityProvider.Services.ApplicationRoleService;
+using IdentityProvider.Services.DbSeed;
+using StructureMap;
 
-namespace IdentityProvider.UI.Web.MVC6.Controllers
+namespace IdentityProvider.Controllers.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        [DefaultConstructor]
+        public HomeController(
+            ICookieStorageService cookieStorageService
+            , IErrorLogService errorLogService
+            , IApplicationConfiguration applicationConfiguration)
+            : base(
+                cookieStorageService
+                , errorLogService
+                , applicationConfiguration
+            )
         {
-            _logger = logger;
         }
 
-        public IActionResult Index()
+
+        public ActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+
+        public ActionResult About()
         {
+            ViewBag.Message = "Your application description page.";
+
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Seed()
         {
-            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+            var dBSeeder = (DoSeed) DependencyResolver.Current.GetService(typeof(IDoSeed));
+            var seedSuccessfull = false;
+
+            seedSuccessfull = dBSeeder.Seed();
+
+            ViewBag.Message = "Your seeding process went well.";
+
+            return View();
+        }
+
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            Response.Redirect(string.Empty);
+
+            return View();
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult ProtectedActionForTesting()
+        {
+            ViewBag.Message = "Protected Action For Testing.";
+
+            return View();
+        }
+
+        public ActionResult TestRepostoryQueries()
+        {
+            ViewBag.Message = "Protected Action For Testing.";
+
+            var roleService =
+                (ApplicationRoleService) DependencyResolver.Current.GetService(typeof(IApplicationRoleService));
+
+            roleService.Query();
+
+            return null;
+            // return View(results);
         }
     }
 }

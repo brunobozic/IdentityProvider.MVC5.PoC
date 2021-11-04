@@ -1,9 +1,6 @@
-﻿using System;
+﻿
+
 using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
-using IdentityProvider.Infrastructure.Logging.Serilog.PerformanceLogger;
-using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog;
-using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;
 
 namespace IdentityProvider.UI.Web.MVC5
 {

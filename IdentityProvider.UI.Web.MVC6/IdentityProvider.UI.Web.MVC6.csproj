@@ -82,6 +82,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Authorize\" />
+    <Folder Include="Controllers\Controllers\" />
     <Folder Include="wwwroot\img\image-gallery\thumb\" />
   </ItemGroup>
 

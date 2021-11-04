@@ -1,51 +1,3 @@
-using System;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using AutoMapper;
-using IdentityProvider.Infrastructure;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
-using IdentityProvider.Infrastructure.ApplicationContext;
-using IdentityProvider.Infrastructure.Caching;
-using IdentityProvider.Infrastructure.Certificates.ExpiryValidation;
-using IdentityProvider.Infrastructure.Certificates.FromEmbeddedResource;
-using IdentityProvider.Infrastructure.Certificates.FromStore;
-using IdentityProvider.Infrastructure.Certificates.Manager;
-using IdentityProvider.Infrastructure.ConfigurationProvider;
-using IdentityProvider.Infrastructure.Cookies;
-using IdentityProvider.Infrastructure.DatabaseAudit;
-using IdentityProvider.Infrastructure.Email;
-using IdentityProvider.Infrastructure.GlobalAsaxHelpers;
-using IdentityProvider.Infrastructure.Logging.Serilog;
-using IdentityProvider.Infrastructure.Logging.Serilog.AuditLog;
-using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
-using IdentityProvider.Models.Domain.Account;
-using IdentityProvider.Repository.EF.EFDataContext;
-using IdentityProvider.Services;
-using IdentityProvider.Services.ApplicationRoleService;
-using IdentityProvider.Services.AuditTrailService;
-using IdentityProvider.Services.Log4Net;
-using IdentityProvider.Services.OperationsService;
-using IdentityProvider.Services.ResourceService;
-using IdentityProvider.Services.RowLeveLSecurityUserGrantService;
-using IdentityProvider.Services.UserProfileService;
-using Logging.WCF.Infrastructure.Contracts;
-using Logging.WCF.Models.Log4Net;
-using Logging.WCF.Services.SampleManagerCode;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.DataProtection;
-using Module.Repository.EF;
-using Module.Repository.EF.Repositories;
-using Module.Repository.EF.UnitOfWorkInterfaces;
-using StructureMap;
-using StructureMap.Graph;
-using StructureMap.Pipeline;
-using IAddLoggingContextProvider = IdentityProvider.Infrastructure.ApplicationContext.IAddLoggingContextProvider;
-using IApplicationConfiguration = IdentityProvider.Infrastructure.ApplicationConfiguration.IApplicationConfiguration;
-using IConfigurationProvider = IdentityProvider.Infrastructure.ConfigurationProvider.IConfigurationProvider;
 
 
 namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
@@ -185,10 +137,10 @@ namespace IdentityProvider.UI.Web.MVC5.DependencyResolution
             For<IEmailService>().Use<TextLoggingEmailService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IConfigurationProvider>().Use<ConfigFileConfigurationProvider>()
                 .LifecycleIs<UniquePerRequestLifecycle>();
-            For<IWcfLoggingManager>().Use<WCFLoggingManager>().LifecycleIs<UniquePerRequestLifecycle>();
+            //For<IWcfLoggingManager>().Use<WCFLoggingManager>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IIdentityMessageService>().Use<GmailEmailService>().LifecycleIs<UniquePerRequestLifecycle>();
 
-            For<ILog4NetLoggingService>().Use<Log4NetLoggingService>().LifecycleIs<UniquePerRequestLifecycle>();
+            //For<ILog4NetLoggingService>().Use<Log4NetLoggingService>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IContextProvider>().Use<HttpContextProvider>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IApplicationConfiguration>().Use<ApplicationConfiguration>().LifecycleIs<UniquePerRequestLifecycle>();
             For<IGlobalAsaxHelpers>().Use<GlobalAsaxHelpers>().LifecycleIs<UniquePerRequestLifecycle>();

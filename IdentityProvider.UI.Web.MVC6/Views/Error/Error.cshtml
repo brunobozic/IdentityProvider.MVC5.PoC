@@ -1,0 +1,156 @@
+﻿@{
+    var configurationRepository = (IConfigurationProvider) DependencyResolver.Current.GetService(typeof(IConfigurationProvider));
+}
+@using IdentityProvider.Infrastructure.ConfigurationProvider
+@using IdentityProvider.Infrastructure.Logging.Serilog
+@model IdentityProvider.Models.ViewModels.Error.ErrorViewModel
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>ErrorView</title>
+</head>
+
+
+<body>
+<style>
+    .imageContent {
+        background: url('../../Content/img/quiet-forest-background.jpg') no-repeat center center;
+        background-size: auto 100%;
+        height: 500px;
+        padding-bottom: 3%;
+        padding-top: 3%;
+    }
+
+    h1 {
+        color: white;
+        font-family: 'Cardo', serif;
+        font-size: 0.7em;
+        font-style: italic;
+        font-weight: normal;
+        letter-spacing: 0.1em;
+        line-height: 1.2em;
+    }
+
+    em {
+        display: block;
+        font-family: 'Cardo', serif;
+        font-size: 1.5em;
+        font-style: normal;
+        letter-spacing: 0.1em;
+        /*padding-top: 0.1em;*/
+        text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.1);
+        text-transform: uppercase;
+    }
+</style>
+<div>
+    <div class="imageContent">
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="row text-center">
+                <p style="color: white; padding: 8px;">
+                    <b> You are not logged in.</b>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <span class="glyphicon glyphicon-warning-sign" style="font-size: 22px; width: 16px;"></span> <span style="padding: 10px"> Dogodila se greška prilikom procesiranja vašeg zahtjeva:</span>
+
+    @if (configurationRepository.GetConfigurationValueOrDefaultAndNotifyIfPropertyNotFound("ShowErrorsOnPage", false))
+    {
+        if (Model?.Exception != null)
+        {
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 letter">
+                    <div>
+
+                        <div class="col-md-12">
+                            <h3>Error location:</h3>
+                        </div>
+
+                        <p>
+                            <b>Exception:</b> @Model.Exception.Message<br/>
+                            <b>Controller:</b> @Model.ControllerName<br/>
+                            <b>Action:</b> @Model.ActionName<br/>
+
+                            @if (!string.IsNullOrEmpty(Model.Exception.InnerException?.Message))
+                            {
+                                <div class="col-md-12">
+                                    <h3>Inner:</h3>
+                                </div>
+
+                                if (Model.Exception.InnerException != null)
+                                {
+                                    <pre>
+                                               @Model.Exception.InnerException.Message<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        </pre>
+                                }
+                            }
+                        </p>
+                        @if (configurationRepository.GetConfigurationValueOrDefaultAndNotifyIfPropertyNotFound("ShowStackTraceOnPage", false))
+                        {
+                            if (!string.IsNullOrEmpty(Model?.Exception.StackTrace))
+                            {
+                                <div class="col-md-12">
+                                    <h3>Stack:</h3>
+                                </div>
+                                <div>
+                                    <pre>
+                                           @Model.Exception.StackTrace
+                                        </pre>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        try
+        {
+            var loggingFactory = (ISerilogLoggingFactory) DependencyResolver.Current.GetService(typeof(ISerilogLoggingFactory));
+            var logger = loggingFactory.GetLogger(SerilogLogTypesEnum.ErrorRollingLog);
+            logger?.Information("Kontroler: [ " + Model?.ControllerName + " ], akcija: [ " + Model?.ActionName + " ], err: [ " + Model?.Exception.Message + " ]");
+        }
+        catch (Exception ex)
+        {
+            // ignored
+        }
+    }
+</div>
+
+<a href="@Url.Action("Index", "Home")" class="btn btn-sm btn-primary">
+    <span class="glyphicon glyphicon-home" style="font-size: 16px" ; aria-hidden="true"></span><span style="padding: 10px">Početna</span>
+</a>
+</body>
+</html>

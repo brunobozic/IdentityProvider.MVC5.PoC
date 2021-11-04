@@ -1,5 +1,15 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-  "libraries": []
+  "libraries": [
+    {
+      "library": "node-waves@0.7.6",
+      "destination": "wwwroot/lib/node-waves/"
+    }
+  ,
+{
+  "library": "materialize@1.0.0",
+  "destination": "wwwroot/lib/materialize/"
+}
+]
 }

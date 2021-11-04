@@ -1,0 +1,73 @@
+﻿<style>
+    canvas {
+        max-width: 400px;
+    }
+</style>
+<script src="~/Scripts/Charts/charts.utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!doctype html>
+<html>
+
+<head>
+    <title>Stacked Bar Chart</title>
+</head>
+
+<body>
+    @*<canvas id="myStackedBarChart" width="768" height="384" style="display: block; box-sizing: border-box; height: 384px; width: 768px;"></canvas>*@
+    <canvas id="myStackedBarChart" width="400" height="400"></canvas>
+</body>
+
+</html>
+
+<script>
+    var ctx = document.getElementById("myStackedBarChart").getContext('2d');
+
+    const DATA_COUNT = 7;
+    const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 };
+
+    const labels = Samples.utils.months({ count: 12 });
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Dataset 1',
+                data: Samples.utils.numbers(NUMBER_CFG),
+                backgroundColor: chartColors.red,
+            },
+            {
+                label: 'Dataset 2',
+                data: Samples.utils.numbers(NUMBER_CFG),
+                backgroundColor: chartColors.blue,
+            },
+            {
+                label: 'Dataset 3',
+                data: Samples.utils.numbers(NUMBER_CFG),
+                backgroundColor: chartColors.green,
+            },
+        ]
+    };
+
+    const chartConfig = {
+        type: 'bar',
+        data: data,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Chart.js Bar Chart - Stacked'
+                },
+            },
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        }
+    };
+
+    var myStackedBarChart = new Chart(ctx, chartConfig);
+</script>
