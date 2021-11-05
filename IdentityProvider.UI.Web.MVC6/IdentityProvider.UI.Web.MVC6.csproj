@@ -83,7 +83,8 @@
 
   <ItemGroup>
     <Folder Include="Authorize\" />
-    <Folder Include="Controllers\Controllers\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\Resource\" />
     <Folder Include="wwwroot\img\image-gallery\thumb\" />
   </ItemGroup>
 

@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.ViewModels.Error;
@@ -15,11 +14,10 @@ namespace IdentityProvider.Controllers.Controllers
         public ErrorController(
             ICookieStorageService cookieStorageService
             , IErrorLogService errorLogService
-            , IApplicationConfiguration applicationConfiguration)
+        )
             : base(
                 cookieStorageService
                 , errorLogService
-                , applicationConfiguration
             )
         {
             _cookieStorageService = cookieStorageService;

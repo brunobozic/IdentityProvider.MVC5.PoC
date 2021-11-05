@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Email;
 using IdentityProvider.Infrastructure.Enums;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
@@ -13,17 +12,16 @@ namespace IdentityProvider.Infrastructure.Certificates.ExpiryValidation
 
         public CertificateExpirationValidator(
             IErrorLogService errorLog,
-            IEmailSender emailSender,
-            IApplicationConfiguration applicationConfiguration
-        )
+            IEmailSender emailSender
+            
+            )
         {
             _errorLog = errorLog;
             _emailSender = emailSender;
-            _applicationConfiguration = applicationConfiguration;
+
 
             if (_errorLog == null) throw new ArgumentNullException(nameof(errorLog));
             if (_emailSender == null) throw new ArgumentNullException(nameof(emailSender));
-            if (_applicationConfiguration == null) throw new ArgumentNullException(nameof(applicationConfiguration));
         }
 
         #endregion Ctor
@@ -49,10 +47,10 @@ namespace IdentityProvider.Infrastructure.Certificates.ExpiryValidation
             {
                 _errorLog.LogWarning(this, certificateExpiryMessage);
 
-                // TODO: mail goes to multiple people in for each or something...
-                if (_applicationConfiguration.ShouldSendEmailWhenCertificateExpiryDateValidationFails())
-                    _emailSender.SendMailToAdminsAsync(AdminEmail.Bruno, "Pending certificate expiry",
-                        certificateExpiryMessage);
+                //// TODO: mail goes to multiple people in for each or something...
+                //if (_applicationConfiguration.ShouldSendEmailWhenCertificateExpiryDateValidationFails())
+                //    _emailSender.SendMailToAdminsAsync(AdminEmail.Bruno, "Pending certificate expiry",
+                //        certificateExpiryMessage);
             }
 
             if (daysLeftUntilCertificateExpires < 40)
@@ -67,7 +65,6 @@ namespace IdentityProvider.Infrastructure.Certificates.ExpiryValidation
 
         private readonly IErrorLogService _errorLog;
         private readonly IEmailSender _emailSender;
-        private readonly IApplicationConfiguration _applicationConfiguration;
 
         #endregion Private Properties
     }

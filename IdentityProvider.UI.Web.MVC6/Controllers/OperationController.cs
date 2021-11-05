@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Datatables;
@@ -15,7 +14,6 @@ using IdentityProvider.Models.ViewModels;
 using IdentityProvider.Models.ViewModels.Operations;
 using IdentityProvider.Models.ViewModels.Operations.Extensions;
 using IdentityProvider.Services.OperationsService;
-using Module.Repository.EF.UnitOfWorkInterfaces;
 using StructureMap;
 using TrackableEntities;
 
@@ -32,12 +30,10 @@ namespace IdentityProvider.Controllers.Controllers
             , IErrorLogService errorLogService
             , IUnitOfWorkAsync unitOfWorkAsync
             , IOperationService operationService
-            , IApplicationConfiguration applicationConfiguration
         )
             : base(
                 cookieStorageService
                 , errorLogService
-                , applicationConfiguration
             )
         {
             _unitOfWorkAsync = unitOfWorkAsync;
@@ -455,7 +451,7 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 retVal.Success = true;
 
-                if (Request.IsAjaxRequest()) retVal.Operation = result.ConvertToViewModel();
+                retVal.Operation = result.ConvertToViewModel();
             }
             else
             {

@@ -36,7 +36,6 @@
     <Folder Include="Logging\Serilog\Enrichers\" />
     <Folder Include="Models\" />
     <Folder Include="EF\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

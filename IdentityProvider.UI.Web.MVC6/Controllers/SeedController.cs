@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Services.DbSeed;
@@ -18,12 +17,10 @@ namespace IdentityProvider.Controllers.Controllers
             , ICookieStorageService cookieStorageService
             , IErrorLogService errorLogService
             , ICookieStorageService cookieStorageService1
-            , IApplicationConfiguration applicationConfiguration
         )
             : base(
                 cookieStorageService
                 , errorLogService
-                , applicationConfiguration
             )
         {
             _doSeed = doSeed;

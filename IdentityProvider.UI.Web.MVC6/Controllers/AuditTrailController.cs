@@ -2,8 +2,12 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using IdentityProvider.Infrastructure;
+using IdentityProvider.Infrastructure.Cookies;
+using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
+using IdentityProvider.Models.Datatables;
+using IdentityProvider.Models.ViewModels;
 using IdentityProvider.Services.AuditTrailService;
-using Module.Repository.EF.UnitOfWorkInterfaces;
 using StructureMap;
 
 namespace IdentityProvider.Controllers.Controllers
@@ -19,10 +23,8 @@ namespace IdentityProvider.Controllers.Controllers
             , ICookieStorageService cookieStorageService
             , IErrorLogService errorLogService
             , IUnitOfWorkAsync unitOfWorkAsync
-            , IApplicationConfiguration applicationConfiguration
         ) : base(cookieStorageService
             , errorLogService
-            , applicationConfiguration
         )
         {
             _unitOfWorkAsync = unitOfWorkAsync;

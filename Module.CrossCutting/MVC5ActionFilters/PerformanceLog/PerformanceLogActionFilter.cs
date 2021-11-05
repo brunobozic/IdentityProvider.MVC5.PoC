@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Extensions;
 using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Model;
 using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;

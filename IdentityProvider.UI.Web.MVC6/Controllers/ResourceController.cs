@@ -6,14 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
 using IdentityProvider.Models.ViewModels.Resources;
 using IdentityProvider.Models.ViewModels.Resources.Extensions;
 using IdentityProvider.Services.ResourceService;
-using Module.Repository.EF.UnitOfWorkInterfaces;
 using PagedList;
 using StructureMap;
 
@@ -30,12 +28,10 @@ namespace IdentityProvider.Controllers.Controllers
             , IErrorLogService errorLogService
             , IUnitOfWorkAsync unitOfWorkAsync
             , IApplicationResourceService resourceService
-            , IApplicationConfiguration applicationConfiguration
         )
             : base(
                 cookieStorageService
                 , errorLogService
-                , applicationConfiguration
             )
         {
             _unitOfWorkAsync = unitOfWorkAsync;
@@ -430,7 +426,7 @@ namespace IdentityProvider.Controllers.Controllers
             {
                 retVal.Success = true;
 
-                if (Request.IsAjaxRequest()) retVal.Resource = result.ConvertToViewModel();
+                retVal.Resource = result.ConvertToViewModel();
             }
             else
             {

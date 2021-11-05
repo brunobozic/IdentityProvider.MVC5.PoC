@@ -3,8 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using IdentityProvider.Controllers.Helpers;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.Domain.Account;
@@ -12,8 +10,12 @@ using IdentityProvider.Models.ViewModels.Account;
 using IdentityProvider.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Owin.Security;
 using StructureMap;
+using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
+using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
+using ValidateAntiForgeryTokenAttribute = Microsoft.AspNetCore.Mvc.ValidateAntiForgeryTokenAttribute;
 
 namespace IdentityProvider.Controllers.Controllers
 {
@@ -34,12 +36,10 @@ namespace IdentityProvider.Controllers.Controllers
             , ApplicationSignInManager signInManager
             , IAuthenticationManager authenticationManager
             , IErrorLogService errorLogService
-            , IApplicationConfiguration applicationConfiguration
         )
             : base(
                 cookieStorageService
                 , errorLogService
-                , applicationConfiguration
             )
         {
             _webSecurity = webSecurity ?? throw new ArgumentNullException(nameof(webSecurity));

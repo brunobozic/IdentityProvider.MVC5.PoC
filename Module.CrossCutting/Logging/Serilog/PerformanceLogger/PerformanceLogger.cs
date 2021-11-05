@@ -1,5 +1,5 @@
 ﻿using System;
-using IdentityProvider.Infrastructure.ConfigurationProvider;
+
 using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provider;
 
 namespace IdentityProvider.Infrastructure.Logging.Serilog.PerformanceLogger
@@ -8,9 +8,9 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.PerformanceLogger
     {
         #region Ctor
 
-        public PerformanceLogger(IConfigurationProvider configurationProvider, IPerformanceLogProvider logger)
+        public PerformanceLogger( IPerformanceLogProvider logger)
         {
-            _configurationProvider = configurationProvider;
+           
             _logger = logger;
         }
 
@@ -22,8 +22,8 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.PerformanceLogger
 
             try
             {
-                retVal = _configurationProvider.GetConfigurationValueOrDefaultAndNotifyIfPropertyNotFound(
-                    "PerformanceLogging", false);
+                //retVal = _configurationProvider.GetConfigurationValueOrDefaultAndNotifyIfPropertyNotFound(
+                //    "PerformanceLogging", false);
             }
             catch (Exception)
             {
@@ -34,7 +34,7 @@ namespace IdentityProvider.Infrastructure.Logging.Serilog.PerformanceLogger
 
         #region Private Props
 
-        private readonly IConfigurationProvider _configurationProvider;
+   
         private readonly IPerformanceLogProvider _logger;
 
         #endregion Private Props

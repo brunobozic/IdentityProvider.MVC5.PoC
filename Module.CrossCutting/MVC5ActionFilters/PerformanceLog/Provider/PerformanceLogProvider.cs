@@ -1,5 +1,4 @@
 ﻿using System;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.ApplicationContext;
 using IdentityProvider.Infrastructure.Logging.Serilog;
 using IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Model;
@@ -12,20 +11,20 @@ namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provi
         private const string Pattern =
             "{CurrentEnvironment}{ApplicationId}{InstanceId}{Action}{Url}{Status}{StatusCode}{Browser}{Request}{Response}{Miliseconds}{CorrelationId}{Exception}";
 
-        private readonly IApplicationConfiguration _applicationConfiguration;
+      
         private readonly ILogger _loggingService;
         private IAddLoggingContextProvider _loggingContext;
 
         public PerformanceLogProvider(
             ISerilogLoggingFactory loggingFactory,
-            IAddLoggingContextProvider addLoggingContext,
-            IApplicationConfiguration applicationConfiguration
+            IAddLoggingContextProvider addLoggingContext
+      
         )
         {
             var loggingFactory1 = loggingFactory ?? throw new ArgumentNullException(nameof(loggingFactory));
             _loggingContext = addLoggingContext ?? throw new ArgumentNullException(nameof(addLoggingContext));
-            _applicationConfiguration = applicationConfiguration ??
-                                        throw new ArgumentNullException(nameof(applicationConfiguration));
+      
+         
             _loggingService = loggingFactory1.GetLogger(SerilogLogTypesEnum.PerformanceLog);
         }
 
@@ -37,9 +36,9 @@ namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provi
 
                 _loggingService.Information(
                     Pattern,
-                    _applicationConfiguration.GetCurrentEnvironment().ToString(),
-                    _applicationConfiguration.GetApplicationId() ?? string.Empty,
-                    _applicationConfiguration.GetInstanceId() ?? string.Empty,
+                    //_applicationConfiguration.GetCurrentEnvironment().ToString(),
+                    //_applicationConfiguration.GetApplicationId() ?? string.Empty,
+                    //_applicationConfiguration.GetInstanceId() ?? string.Empty,
                     t.Action ?? string.Empty,
                     t.Url ?? string.Empty,
                     t.HttpResponse ?? string.Empty,
@@ -56,9 +55,9 @@ namespace IdentityProvider.Infrastructure.MVC5ActionFilters.PerformanceLog.Provi
             {
                 _loggingService.Information(
                     Pattern,
-                    _applicationConfiguration.GetCurrentEnvironment().ToString(),
-                    _applicationConfiguration.GetApplicationId() ?? string.Empty,
-                    _applicationConfiguration.GetInstanceId() ?? string.Empty,
+                    //_applicationConfiguration.GetCurrentEnvironment().ToString(),
+                    //_applicationConfiguration.GetApplicationId() ?? string.Empty,
+                    //_applicationConfiguration.GetInstanceId() ?? string.Empty,
                     t.Action ?? string.Empty,
                     t.Url ?? string.Empty,
                     t.HttpResponse ?? string.Empty,

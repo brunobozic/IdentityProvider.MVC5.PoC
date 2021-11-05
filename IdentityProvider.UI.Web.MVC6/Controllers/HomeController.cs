@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using IdentityProvider.Infrastructure.ApplicationConfiguration;
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Repository.EF.Queries.UserProfile;
@@ -15,11 +14,10 @@ namespace IdentityProvider.Controllers.Controllers
         public HomeController(
             ICookieStorageService cookieStorageService
             , IErrorLogService errorLogService
-            , IApplicationConfiguration applicationConfiguration)
+)
             : base(
                 cookieStorageService
                 , errorLogService
-                , applicationConfiguration
             )
         {
         }
@@ -47,16 +45,6 @@ namespace IdentityProvider.Controllers.Controllers
             seedSuccessfull = dBSeeder.Seed();
 
             ViewBag.Message = "Your seeding process went well.";
-
-            return View();
-        }
-
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            Response.Redirect(string.Empty);
 
             return View();
         }

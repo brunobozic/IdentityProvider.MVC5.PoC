@@ -1,4 +1,4 @@
-﻿using IdentityProvider.Infrastructure.ApplicationConfiguration;
+﻿
 using IdentityProvider.Infrastructure.Cookies;
 using IdentityProvider.Infrastructure.Logging.Serilog.Providers;
 using IdentityProvider.Models.ViewModels.Account;
@@ -375,7 +375,7 @@ namespace IdentityProvider.Controllers.Controllers
         //    }
 
         //    #endregion
-        public AccountAdministrationController(ICookieStorageService cookieStorageService, IErrorLogService errorLogService, IApplicationConfiguration applicationConfiguration) : base(cookieStorageService, errorLogService, applicationConfiguration)
+        public AccountAdministrationController(ICookieStorageService cookieStorageService, IErrorLogService errorLogService) : base(cookieStorageService, errorLogService)
         {
         }
     }
