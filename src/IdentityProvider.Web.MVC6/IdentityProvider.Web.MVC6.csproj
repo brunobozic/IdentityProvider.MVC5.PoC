@@ -1,0 +1,411 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>aspnet-IdentityProvider.Web.MVC6-A13132DD-BEBE-41E3-B4E6-C4FB202D16F1</UserSecretsId>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\css\font-awesome.css" />
+    <Content Remove="wwwroot\css\font-awesome.min.css" />
+    <Content Remove="wwwroot\css\MakeTableResponsive.css" />
+    <Content Remove="wwwroot\css\PagedList.css" />
+    <Content Remove="wwwroot\css\popover-overrides.css" />
+    <Content Remove="wwwroot\css\site.css" />
+    <Content Remove="wwwroot\fonts\fontawesome-webfont.eot" />
+    <Content Remove="wwwroot\fonts\fontawesome-webfont.svg" />
+    <Content Remove="wwwroot\fonts\fontawesome-webfont.ttf" />
+    <Content Remove="wwwroot\fonts\fontawesome-webfont.woff" />
+    <Content Remove="wwwroot\fonts\fontawesome-webfont.woff2" />
+    <Content Remove="wwwroot\fonts\FontAwesome.otf" />
+    <Content Remove="wwwroot\fonts\SourceSansPro-Bold.woff2" />
+    <Content Remove="wwwroot\fonts\SourceSansPro-It.woff2" />
+    <Content Remove="wwwroot\fonts\SourceSansPro-Light.woff2" />
+    <Content Remove="wwwroot\fonts\SourceSansPro-LightIt.woff2" />
+    <Content Remove="wwwroot\fonts\SourceSansPro-Regular.woff2" />
+    <Content Remove="wwwroot\fonts\SourceSansPro-Semibold.woff2" />
+    <Content Remove="wwwroot\fonts\SourceSansPro-SemiboldIt.woff2" />
+    <Content Remove="wwwroot\img\abstract-grey-geometric-background-01.jpg" />
+    <Content Remove="wwwroot\img\abstract-grey-geometric-background-02.jpg" />
+    <Content Remove="wwwroot\img\ajaxloading.gif" />
+    <Content Remove="wwwroot\img\android-material-1.jpg" />
+    <Content Remove="wwwroot\img\android-material-2.jpg" />
+    <Content Remove="wwwroot\img\android-material-3-down.jpg" />
+    <Content Remove="wwwroot\img\android-material-3.jpg" />
+    <Content Remove="wwwroot\img\android-material-4.jpg" />
+    <Content Remove="wwwroot\img\android-material-5.jpg" />
+    <Content Remove="wwwroot\img\animation-bg.jpg" />
+    <Content Remove="wwwroot\img\avatar.png" />
+    <Content Remove="wwwroot\img\avatar04.png" />
+    <Content Remove="wwwroot\img\avatar2.png" />
+    <Content Remove="wwwroot\img\avatar3.png" />
+    <Content Remove="wwwroot\img\avatar5.png" />
+    <Content Remove="wwwroot\img\background-gray1.jpg" />
+    <Content Remove="wwwroot\img\background-mesh.jpg" />
+    <Content Remove="wwwroot\img\boxed-bg.jpg" />
+    <Content Remove="wwwroot\img\boxed-bg.png" />
+    <Content Remove="wwwroot\img\credit\american-express.png" />
+    <Content Remove="wwwroot\img\credit\cirrus.png" />
+    <Content Remove="wwwroot\img\credit\mastercard.png" />
+    <Content Remove="wwwroot\img\credit\mestro.png" />
+    <Content Remove="wwwroot\img\credit\paypal.png" />
+    <Content Remove="wwwroot\img\credit\paypal2.png" />
+    <Content Remove="wwwroot\img\credit\visa.png" />
+    <Content Remove="wwwroot\img\default-50x50.gif" />
+    <Content Remove="wwwroot\img\guest-image.jpg" />
+    <Content Remove="wwwroot\img\guest-image2.png" />
+    <Content Remove="wwwroot\img\guest-image3.png" />
+    <Content Remove="wwwroot\img\guest-image4.jpg" />
+    <Content Remove="wwwroot\img\guest-image4.png" />
+    <Content Remove="wwwroot\img\icons.png" />
+    <Content Remove="wwwroot\img\image-gallery\1.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\10.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\11.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\12.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\13.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\14.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\15.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\16.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\17.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\18.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\19.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\2.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\20.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\3.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\4.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\5.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\6.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\7.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\8.jpg" />
+    <Content Remove="wwwroot\img\image-gallery\9.jpg" />
+    <Content Remove="wwwroot\img\iwa-sport-bg-image-light-medium.jpg" />
+    <Content Remove="wwwroot\img\photo1.png" />
+    <Content Remove="wwwroot\img\photo2.png" />
+    <Content Remove="wwwroot\img\photo3.jpg" />
+    <Content Remove="wwwroot\img\photo4.jpg" />
+    <Content Remove="wwwroot\img\quiet-forest-background.jpg" />
+    <Content Remove="wwwroot\img\screenshot.png" />
+    <Content Remove="wwwroot\img\thumbs-up.png" />
+    <Content Remove="wwwroot\img\user-img-background.jpg" />
+    <Content Remove="wwwroot\img\user.jpg" />
+    <Content Remove="wwwroot\img\user.png" />
+    <Content Remove="wwwroot\img\user1-128x128.jpg" />
+    <Content Remove="wwwroot\img\user2-160x160.jpg" />
+    <Content Remove="wwwroot\img\user3-128x128.jpg" />
+    <Content Remove="wwwroot\img\user4-128x128.jpg" />
+    <Content Remove="wwwroot\img\user5-128x128.jpg" />
+    <Content Remove="wwwroot\img\user6-128x128.jpg" />
+    <Content Remove="wwwroot\img\user7-128x128.jpg" />
+    <Content Remove="wwwroot\img\user8-128x128.jpg" />
+    <Content Remove="wwwroot\iwa-sport-bg-image-light-medium.jpg" />
+    <Content Remove="wwwroot\js\admin.js" />
+    <Content Remove="wwwroot\js\Charts\charts.utils.js" />
+    <Content Remove="wwwroot\js\CommonCRUDScripts\commonAccountAdministrationScripts.js" />
+    <Content Remove="wwwroot\js\CommonCRUDScripts\commonDelete.js" />
+    <Content Remove="wwwroot\js\CommonCRUDScripts\commonDetails.js" />
+    <Content Remove="wwwroot\js\CommonCRUDScripts\commonEdit.js" />
+    <Content Remove="wwwroot\js\CommonCRUDScripts\commonSubmitEditForm.js" />
+    <Content Remove="wwwroot\js\demo.js" />
+    <Content Remove="wwwroot\js\jQueryOverride-boolean-checkboxes.js" />
+    <Content Remove="wwwroot\js\makeTableResponsive.js" />
+    <Content Remove="wwwroot\js\Muuri\muuriWireup.js" />
+    <Content Remove="wwwroot\js\Operations\Dashboard\AuditTrailDatatableWireup.js" />
+    <Content Remove="wwwroot\js\Operations\Dashboard\AuditTrailWidgetDateRangePicker.js" />
+    <Content Remove="wwwroot\js\Operations\Dashboard\BootstrapMultipleSelect.js" />
+    <Content Remove="wwwroot\js\Operations\Dashboard\OperationsCommonScripts.js" />
+    <Content Remove="wwwroot\js\Operations\Dashboard\OperationsCreate.js" />
+    <Content Remove="wwwroot\js\Operations\Dashboard\OperationsDatatableWireup.js" />
+    <Content Remove="wwwroot\js\Operations\Dashboard\OperationsWidgetDateRangePicker.js" />
+    <Content Remove="wwwroot\js\Select2\select2Wireup.js" />
+    <Content Remove="wwwroot\tether\tether-theme-arrows-dark.css" />
+    <Content Remove="wwwroot\tether\tether-theme-arrows-dark.min.css" />
+    <Content Remove="wwwroot\tether\tether-theme-arrows.css" />
+    <Content Remove="wwwroot\tether\tether-theme-arrows.min.css" />
+    <Content Remove="wwwroot\tether\tether-theme-basic.css" />
+    <Content Remove="wwwroot\tether\tether-theme-basic.min.css" />
+    <Content Remove="wwwroot\tether\tether.css" />
+    <Content Remove="wwwroot\tether\tether.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="iwa-sport-bg-image-light-medium.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="iwa-sport-bg-image-light-medium.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\all-themes.css" />
+    <None Include="wwwroot\css\all-themes.min.css" />
+    <None Include="wwwroot\css\font-awesome.css" />
+    <None Include="wwwroot\css\font-awesome.min.css" />
+    <None Include="wwwroot\css\MakeTableResponsive.css" />
+    <None Include="wwwroot\css\PagedList.css" />
+    <None Include="wwwroot\css\popover-overrides.css" />
+    <None Include="wwwroot\css\site.css" />
+    <None Include="wwwroot\css\skins\skin-black-light.css" />
+    <None Include="wwwroot\css\skins\skin-black-light.min.css" />
+    <None Include="wwwroot\css\skins\skin-black.css" />
+    <None Include="wwwroot\css\skins\skin-black.min.css" />
+    <None Include="wwwroot\css\skins\skin-blue-light.css" />
+    <None Include="wwwroot\css\skins\skin-blue-light.min.css" />
+    <None Include="wwwroot\css\skins\skin-blue.css" />
+    <None Include="wwwroot\css\skins\skin-blue.min.css" />
+    <None Include="wwwroot\css\skins\skin-green-light.css" />
+    <None Include="wwwroot\css\skins\skin-green-light.min.css" />
+    <None Include="wwwroot\css\skins\skin-green.css" />
+    <None Include="wwwroot\css\skins\skin-green.min.css" />
+    <None Include="wwwroot\css\skins\skin-purple-light.css" />
+    <None Include="wwwroot\css\skins\skin-purple-light.min.css" />
+    <None Include="wwwroot\css\skins\skin-purple.css" />
+    <None Include="wwwroot\css\skins\skin-purple.min.css" />
+    <None Include="wwwroot\css\skins\skin-red-light.css" />
+    <None Include="wwwroot\css\skins\skin-red-light.min.css" />
+    <None Include="wwwroot\css\skins\skin-red.css" />
+    <None Include="wwwroot\css\skins\skin-red.min.css" />
+    <None Include="wwwroot\css\skins\skin-yellow-light.css" />
+    <None Include="wwwroot\css\skins\skin-yellow-light.min.css" />
+    <None Include="wwwroot\css\skins\skin-yellow.css" />
+    <None Include="wwwroot\css\skins\skin-yellow.min.css" />
+    <None Include="wwwroot\css\skins\_all-skins.css" />
+    <None Include="wwwroot\css\skins\_all-skins.min.css" />
+    <None Include="wwwroot\css\theme-amber.css" />
+    <None Include="wwwroot\css\theme-amber.min.css" />
+    <None Include="wwwroot\css\theme-black.css" />
+    <None Include="wwwroot\css\theme-black.min.css" />
+    <None Include="wwwroot\css\theme-blue-grey.css" />
+    <None Include="wwwroot\css\theme-blue-grey.min.css" />
+    <None Include="wwwroot\css\theme-blue.css" />
+    <None Include="wwwroot\css\theme-blue.min.css" />
+    <None Include="wwwroot\css\theme-brown.css" />
+    <None Include="wwwroot\css\theme-brown.min.css" />
+    <None Include="wwwroot\css\theme-cyan.css" />
+    <None Include="wwwroot\css\theme-cyan.min.css" />
+    <None Include="wwwroot\css\theme-deep-orange.css" />
+    <None Include="wwwroot\css\theme-deep-orange.min.css" />
+    <None Include="wwwroot\css\theme-deep-purple.css" />
+    <None Include="wwwroot\css\theme-deep-purple.min.css" />
+    <None Include="wwwroot\css\theme-green.css" />
+    <None Include="wwwroot\css\theme-green.min.css" />
+    <None Include="wwwroot\css\theme-grey.css" />
+    <None Include="wwwroot\css\theme-grey.min.css" />
+    <None Include="wwwroot\css\theme-indigo.css" />
+    <None Include="wwwroot\css\theme-indigo.min.css" />
+    <None Include="wwwroot\css\theme-light-blue.css" />
+    <None Include="wwwroot\css\theme-light-blue.min.css" />
+    <None Include="wwwroot\css\theme-lime.css" />
+    <None Include="wwwroot\css\theme-lime.min.css" />
+    <None Include="wwwroot\css\theme-orange.css" />
+    <None Include="wwwroot\css\theme-orange.min.css" />
+    <None Include="wwwroot\css\theme-pink.css" />
+    <None Include="wwwroot\css\theme-pink.min.css" />
+    <None Include="wwwroot\css\theme-purple.css" />
+    <None Include="wwwroot\css\theme-purple.min.css" />
+    <None Include="wwwroot\css\theme-red.css" />
+    <None Include="wwwroot\css\theme-red.min.css" />
+    <None Include="wwwroot\css\theme-teal.css" />
+    <None Include="wwwroot\css\theme-teal.min.css" />
+    <None Include="wwwroot\css\theme-yellow.css" />
+    <None Include="wwwroot\css\theme-yellow.min.css" />
+    <None Include="wwwroot\css\themed-buttons-amber.css" />
+    <None Include="wwwroot\css\themed-buttons-black.css" />
+    <None Include="wwwroot\css\themed-buttons-blue.css" />
+    <None Include="wwwroot\css\themed-buttons-brown.css" />
+    <None Include="wwwroot\css\themed-buttons-bue-grey.css" />
+    <None Include="wwwroot\css\themed-buttons-cyan.css" />
+    <None Include="wwwroot\css\themed-buttons-deep-orange.css" />
+    <None Include="wwwroot\css\themed-buttons-deep-purple.css" />
+    <None Include="wwwroot\css\themed-buttons-green.css" />
+    <None Include="wwwroot\css\themed-buttons-grey.css" />
+    <None Include="wwwroot\css\themed-buttons-indigo.css" />
+    <None Include="wwwroot\css\themed-buttons-light-blue.css" />
+    <None Include="wwwroot\css\themed-buttons-light-green.css" />
+    <None Include="wwwroot\css\themed-buttons-lime.css" />
+    <None Include="wwwroot\css\themed-buttons-orange.css" />
+    <None Include="wwwroot\css\themed-buttons-pink.css" />
+    <None Include="wwwroot\css\themed-buttons-purple.css" />
+    <None Include="wwwroot\css\themed-buttons-red.css" />
+    <None Include="wwwroot\css\themed-buttons-teal.css" />
+    <None Include="wwwroot\css\themed-buttons-yellow.css" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.eot" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\fonts\FontAwesome.otf" />
+    <None Include="wwwroot\fonts\SourceSansPro-Bold.woff2" />
+    <None Include="wwwroot\fonts\SourceSansPro-It.woff2" />
+    <None Include="wwwroot\fonts\SourceSansPro-Light.woff2" />
+    <None Include="wwwroot\fonts\SourceSansPro-LightIt.woff2" />
+    <None Include="wwwroot\fonts\SourceSansPro-Regular.woff2" />
+    <None Include="wwwroot\fonts\SourceSansPro-Semibold.woff2" />
+    <None Include="wwwroot\fonts\SourceSansPro-SemiboldIt.woff2" />
+    <None Include="wwwroot\img\abstract-grey-geometric-background-01.jpg" />
+    <None Include="wwwroot\img\abstract-grey-geometric-background-02.jpg" />
+    <None Include="wwwroot\img\ajaxloading.gif" />
+    <None Include="wwwroot\img\android-material-1.jpg" />
+    <None Include="wwwroot\img\android-material-2.jpg" />
+    <None Include="wwwroot\img\android-material-3-down.jpg" />
+    <None Include="wwwroot\img\android-material-3.jpg" />
+    <None Include="wwwroot\img\android-material-4.jpg" />
+    <None Include="wwwroot\img\android-material-5.jpg" />
+    <None Include="wwwroot\img\animation-bg.jpg" />
+    <None Include="wwwroot\img\avatar.png" />
+    <None Include="wwwroot\img\avatar04.png" />
+    <None Include="wwwroot\img\avatar2.png" />
+    <None Include="wwwroot\img\avatar3.png" />
+    <None Include="wwwroot\img\avatar5.png" />
+    <None Include="wwwroot\img\background-gray1.jpg" />
+    <None Include="wwwroot\img\background-mesh.jpg" />
+    <None Include="wwwroot\img\boxed-bg.jpg" />
+    <None Include="wwwroot\img\boxed-bg.png" />
+    <None Include="wwwroot\img\credit\american-express.png" />
+    <None Include="wwwroot\img\credit\cirrus.png" />
+    <None Include="wwwroot\img\credit\mastercard.png" />
+    <None Include="wwwroot\img\credit\mestro.png" />
+    <None Include="wwwroot\img\credit\paypal.png" />
+    <None Include="wwwroot\img\credit\paypal2.png" />
+    <None Include="wwwroot\img\credit\visa.png" />
+    <None Include="wwwroot\img\default-50x50.gif" />
+    <None Include="wwwroot\img\guest-image.jpg" />
+    <None Include="wwwroot\img\guest-image2.png" />
+    <None Include="wwwroot\img\guest-image3.png" />
+    <None Include="wwwroot\img\guest-image4.jpg" />
+    <None Include="wwwroot\img\guest-image4.png" />
+    <None Include="wwwroot\img\icons.png" />
+    <None Include="wwwroot\img\image-gallery\1.jpg" />
+    <None Include="wwwroot\img\image-gallery\10.jpg" />
+    <None Include="wwwroot\img\image-gallery\11.jpg" />
+    <None Include="wwwroot\img\image-gallery\12.jpg" />
+    <None Include="wwwroot\img\image-gallery\13.jpg" />
+    <None Include="wwwroot\img\image-gallery\14.jpg" />
+    <None Include="wwwroot\img\image-gallery\15.jpg" />
+    <None Include="wwwroot\img\image-gallery\16.jpg" />
+    <None Include="wwwroot\img\image-gallery\17.jpg" />
+    <None Include="wwwroot\img\image-gallery\18.jpg" />
+    <None Include="wwwroot\img\image-gallery\19.jpg" />
+    <None Include="wwwroot\img\image-gallery\2.jpg" />
+    <None Include="wwwroot\img\image-gallery\20.jpg" />
+    <None Include="wwwroot\img\image-gallery\3.jpg" />
+    <None Include="wwwroot\img\image-gallery\4.jpg" />
+    <None Include="wwwroot\img\image-gallery\5.jpg" />
+    <None Include="wwwroot\img\image-gallery\6.jpg" />
+    <None Include="wwwroot\img\image-gallery\7.jpg" />
+    <None Include="wwwroot\img\image-gallery\8.jpg" />
+    <None Include="wwwroot\img\image-gallery\9.jpg" />
+    <None Include="wwwroot\img\iwa-sport-bg-image-light-medium.jpg" />
+    <None Include="wwwroot\img\photo1.png" />
+    <None Include="wwwroot\img\photo2.png" />
+    <None Include="wwwroot\img\photo3.jpg" />
+    <None Include="wwwroot\img\photo4.jpg" />
+    <None Include="wwwroot\img\quiet-forest-background.jpg" />
+    <None Include="wwwroot\img\screenshot.png" />
+    <None Include="wwwroot\img\thumbs-up.png" />
+    <None Include="wwwroot\img\user-img-background.jpg" />
+    <None Include="wwwroot\img\user.jpg" />
+    <None Include="wwwroot\img\user.png" />
+    <None Include="wwwroot\img\user1-128x128.jpg" />
+    <None Include="wwwroot\img\user2-160x160.jpg" />
+    <None Include="wwwroot\img\user3-128x128.jpg" />
+    <None Include="wwwroot\img\user4-128x128.jpg" />
+    <None Include="wwwroot\img\user5-128x128.jpg" />
+    <None Include="wwwroot\img\user6-128x128.jpg" />
+    <None Include="wwwroot\img\user7-128x128.jpg" />
+    <None Include="wwwroot\img\user8-128x128.jpg" />
+    <None Include="wwwroot\js\admin.js" />
+    <None Include="wwwroot\js\Charts\charts.utils.js" />
+    <None Include="wwwroot\js\CommonCRUDScripts\commonAccountAdministrationScripts.js" />
+    <None Include="wwwroot\js\CommonCRUDScripts\commonDelete.js" />
+    <None Include="wwwroot\js\CommonCRUDScripts\commonDetails.js" />
+    <None Include="wwwroot\js\CommonCRUDScripts\commonEdit.js" />
+    <None Include="wwwroot\js\CommonCRUDScripts\commonSubmitEditForm.js" />
+    <None Include="wwwroot\js\demo.js" />
+    <None Include="wwwroot\js\jQueryOverride-boolean-checkboxes.js" />
+    <None Include="wwwroot\js\makeTableResponsive.js" />
+    <None Include="wwwroot\js\Muuri\muuriWireup.js" />
+    <None Include="wwwroot\js\Operations\Dashboard\AuditTrailDatatableWireup.js" />
+    <None Include="wwwroot\js\Operations\Dashboard\AuditTrailWidgetDateRangePicker.js" />
+    <None Include="wwwroot\js\Operations\Dashboard\BootstrapMultipleSelect.js" />
+    <None Include="wwwroot\js\Operations\Dashboard\OperationsCommonScripts.js" />
+    <None Include="wwwroot\js\Operations\Dashboard\OperationsCreate.js" />
+    <None Include="wwwroot\js\Operations\Dashboard\OperationsDatatableWireup.js" />
+    <None Include="wwwroot\js\Operations\Dashboard\OperationsWidgetDateRangePicker.js" />
+    <None Include="wwwroot\js\Select2\select2Wireup.js" />
+    <None Include="wwwroot\tether\tether-theme-arrows-dark.css" />
+    <None Include="wwwroot\tether\tether-theme-arrows-dark.min.css" />
+    <None Include="wwwroot\tether\tether-theme-arrows.css" />
+    <None Include="wwwroot\tether\tether-theme-arrows.min.css" />
+    <None Include="wwwroot\tether\tether-theme-basic.css" />
+    <None Include="wwwroot\tether\tether-theme-basic.min.css" />
+    <None Include="wwwroot\tether\tether.css" />
+    <None Include="wwwroot\tether\tether.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspectCore.Abstractions" Version="2.2.0" />
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="FluentAssertions" Version="6.7.0" />
+    <PackageReference Include="FluentValidation" Version="11.0.2" />
+    <PackageReference Include="IdentityModel" Version="6.0.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.20.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.5" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="6.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.5" />
+    <PackageReference Include="Polly" Version="7.2.3" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="1.0.9" />
+    <PackageReference Include="Serilog.Enrichers.Context" Version="4.2.0" />
+    <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+    <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+    <PackageReference Include="Serilog.Exceptions" Version="8.2.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+    <PackageReference Include="Serilog.Formatting.Elasticsearch" Version="8.4.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.Http" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.3.1" />
+    <PackageReference Include="System.Runtime.Caching" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IdentityProvider.Repository.EFCore\IdentityProvider.Repository.EFCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Kafka\" />
+  </ItemGroup>
+
+</Project>

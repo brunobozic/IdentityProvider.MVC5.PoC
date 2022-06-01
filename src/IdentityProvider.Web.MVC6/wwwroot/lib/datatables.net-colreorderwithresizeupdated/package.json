@@ -1,0 +1,19 @@
+{
+  "name": "datatables.net-colreorderwithresizeupdated",
+  "description": "Now with NPM Support - ColReorderResize adds the ability for the end user to click and drag column headers to reorder and resize a table as they see fit",
+  "version": "1.0.8",
+  "main": "ColReorderWithResize.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/RishabhSachan/ColReorderWithResizeNPM.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/RishabhSachan/ColReorderWithResizeNPM/issues"
+  },
+  "homepage": "https://github.com/RishabhSachan/ColReorderWithResizeNPM#readme",
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

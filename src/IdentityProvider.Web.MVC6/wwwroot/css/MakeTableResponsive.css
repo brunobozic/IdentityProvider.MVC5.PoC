@@ -1,0 +1,81 @@
+﻿.container {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto 1rem auto;
+    max-width: 100%;
+}
+
+    table thead {
+        background-color: lightgray;
+        color: gray;
+        text-align: left;
+    }
+
+        table thead th {
+            padding: .5rem 1rem;
+        }
+
+    table tbody {
+        /*background-color: lightgray;*/
+        color: grey;
+    }
+
+        table tbody tr {
+            border-bottom: 1px solid lightblue;
+        }
+
+            table tbody tr:hover {
+                background-color: lightgray;
+                color: black;
+            }
+
+        table tbody td {
+            padding: .25rem 1rem;
+        }
+
+.mobile-tables {
+    margin: 2rem auto;
+}
+
+.mobile-table {
+    width: 100%;
+}
+
+    .mobile-table .mobile-table-key {
+        background-color: lightgrey;
+        color: darkmagenta;
+        padding: .25rem .5rem;
+        text-align: left;
+    }
+
+    .mobile-table a {
+        color: darkmagenta;
+        padding: .25rem .5rem;
+        text-align: right;
+    }
+
+    .mobile-table .mobile-table-value {
+        padding: .25rem .5rem;
+        width: 100%;
+    }
+
+        .mobile-table .mobile-table-value:hover {
+            background-color: lightsteelblue;
+            color: black;
+        }
+
+@media only screen and (min-width: 768px) {
+    .hidden-medium-up {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .hidden-small-down {
+        display: none;
+    }
+}

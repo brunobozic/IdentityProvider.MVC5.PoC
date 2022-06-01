@@ -1,0 +1,469 @@
+﻿@{
+    ViewBag.Layout = null;
+}
+
+<style>
+    .nav.nav-center {
+        display: inline-block;
+        float: none;
+        margin: 0 auto;
+    }
+
+    @@import url(https://fonts.googleapis.com/css?family=Roboto|Roboto:400italic);
+
+    .sandbox {
+        margin: 2px;
+    }
+
+    .heading {
+        margin-bottom: 0px;
+        margin-left: 0px;
+        margin-top: 0px;
+        text-align: center;
+    }
+
+    h1 {
+        color: white;
+        font-family: 'Cardo', serif;
+        font-size: 0.7em;
+        font-style: italic;
+        font-weight: normal;
+        letter-spacing: 0.1em;
+        line-height: 1.2em;
+    }
+
+    em {
+        display: block;
+        font-family: 'Cardo', serif;
+        font-size: 1.5em;
+        font-style: normal;
+        letter-spacing: 0.1em;
+        /*padding-top: 0.1em;*/
+        text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.1);
+        text-transform: uppercase;
+    }
+
+    .bottom {
+        display: block;
+        font-size: 1.5em;
+        font-size: 1em;
+        letter-spacing: 0.07em;
+    }
+
+    .avatar:hover {
+        /*-moz-transform: scale(1.2);
+                    -ms-transform: scale(1.2);
+                    -o-transform: scale(1.2);
+                    -webkit-transform: scale(1.2);
+                    transform: scale(1.2);*/
+    }
+
+    .avatar {
+        -moz-border-radius: 99em;
+        /*-moz-box-shadow: 1px 4px 4px 0px black;*/
+        -moz-transform: scale(0.9);
+        -moz-transition: All 0.5s ease;
+        -ms-transform: scale(0.9);
+        -o-transform: scale(0.9);
+        -o-transition: All 0.5s ease;
+        -webkit-border-radius: 99em;
+        /*-webkit-box-shadow: 1px 4px 4px 0px black;*/
+        -webkit-transform: scale(0.9);
+        -webkit-transition: All 0.5s ease;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: 1px solid darkred;
+        border-radius: 99em;
+        /*box-shadow: 1px 4px 4px 0px black;*/
+        height: 35px;
+        margin-left: 0px;
+        transform: scale(0.9);
+        transition: All 0.5s ease;
+        width: 35px;
+    }
+
+    .avatar-profile {
+        -moz-border-radius: 99em;
+        -webkit-border-radius: 99em;
+        background-position: center center;
+        border-radius: 99em;
+        bottom: 0;
+        height: 110px;
+        margin-top: 10px;
+        overflow: hidden;
+        position: inherit;
+        width: 110px;
+    }
+
+    .profile-circle {
+        align-content: center;
+        align-items: center;
+        background: grey;
+        /*-webkit-animation: animix 2s 1;
+                    -webkit-animation-fill-mode: forwards;
+                    -moz-animation: animix 2s 1;
+                    -moz-animation-fill-mode: forwards;
+                    animation: animix 2s 1;
+                    animation-iteration-count: infinite;
+                    animation-fill-mode: forwards;*/
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b5bdc8+0,828c95+36,28343b+100;Grey+Black+3D */
+        background: rgb(181, 189, 200); /* Old browsers */
+        background: -moz-radial-gradient(center, ellipse cover, rgba(181, 189, 200, 1) 0%, rgba(130, 140, 149, 1) 36%, rgba(40, 52, 59, 1) 100%); /* FF3.6-15 */
+        background: -webkit-radial-gradient(center, ellipse cover, rgba(181, 189, 200, 1) 0%, rgba(130, 140, 149, 1) 36%, rgba(40, 52, 59, 1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: radial-gradient(ellipse at center, rgba(181, 189, 200, 1) 0%, rgba(130, 140, 149, 1) 36%, rgba(40, 52, 59, 1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        border: 20px solid transparent;
+        border-bottom-color: grey;
+        border-left-color: grey;
+        border-radius: 50%;
+        border-right-color: grey;
+        border-top-color: grey;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b5bdc8', endColorstr='#28343b', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+        height: 18em;
+        margin: 2em auto;
+        text-align: center;
+        /*-webkit-transition: .5s;
+                    -moz-transition: .5s;
+                    transition: .5s;*/
+        transition: ease-in-out 2s;
+        vertical-align: central;
+        width: 18em;
+    }
+
+    @@keyframes slidein {
+        from {
+            transform: rotate(45deg) skewX(30deg);
+        }
+
+        to {
+            transform: rotate(405deg) skewX(30deg);
+        }
+    }
+
+    .spinner {
+        align-content: center;
+        align-items: center;
+        left: 36px;
+        position: absolute;
+        top: 0px;
+    }
+
+    .spinner-block {
+        align-content: center;
+        align-items: center;
+        display: block;
+        position: relative;
+    }
+
+    .spinner:before {
+        display: block;
+        position: relative;
+    }
+
+    .spinner:after {
+        border-radius: 50%;
+        border-style: dotted;
+        border-width: 20px;
+        content: "";
+        display: block;
+        position: relative;
+    }
+
+    @@-webkit-keyframes rotate-animation {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @@keyframes rotate-animation {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @@-webkit-keyframes anti-rotate-animation {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+        }
+    }
+
+    @@keyframes anti-rotate-animation {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+        }
+    }
+
+    .spinner.spinner-1:before {
+        /*top: 0.8em;
+                    left: 0.8em;*/
+        -webkit-animation: rotate-animation 2s linear 0s infinite;
+        animation: rotate-animation 2s linear 0s infinite;
+        border-bottom-color: red;
+        border-left-color: rgba(33, 33, 33, 0);
+        border-right-color: red;
+        border-top-color: rgba(33, 33, 33, 0);
+        height: 14em;
+        width: 14em;
+    }
+
+    .spinner.spinner-1:after {
+        /*top: 0.2em;
+                    left: 0.2em;*/
+        -webkit-animation: anti-rotate-animation 2s linear 0s infinite;
+        animation: anti-rotate-animation 2s linear 0s infinite;
+        border-bottom-color: red;
+        border-left-color: rgba(33, 33, 33, 0);
+        border-right-color: red;
+        border-top-color: rgba(33, 33, 33, 0);
+        height: 18em;
+        width: 18em;
+    }
+
+    @@-webkit-keyframes animix {
+        0% {
+            border-bottom-color: grey;
+            border-left-color: grey;
+            border-right-color: grey;
+            border-top-color: grey;
+        }
+
+        25% {
+            border-bottom-color: grey;
+            border-left-color: grey;
+            border-right-color: grey;
+            border-top-color: red;
+        }
+
+        50% {
+            border-bottom-color: grey;
+            border-left-color: grey;
+            border-right-color: red;
+            border-top-color: grey;
+        }
+
+        75% {
+            border-bottom-color: red;
+            border-left-color: grey;
+            border-right-color: grey;
+            border-top-color: grey;
+        }
+
+        100% {
+            border-bottom-color: grey;
+            border-left-color: red;
+            border-right-color: grey;
+            border-top-color: grey;
+        }
+    }
+
+    @@keyframes animix {
+        0% {
+            border-bottom-color: grey;
+            border-left-color: grey;
+            border-right-color: grey;
+            border-top-color: grey;
+        }
+
+        25% {
+            border-bottom-color: grey;
+            border-left-color: grey;
+            border-right-color: grey;
+            border-top-color: red;
+        }
+
+        50% {
+            border-bottom-color: grey;
+            border-left-color: grey;
+            border-right-color: red;
+            border-top-color: grey;
+        }
+
+        75% {
+            border-bottom-color: red;
+            border-left-color: grey;
+            border-right-color: grey;
+            border-top-color: grey;
+        }
+
+        100% {
+            border-bottom-color: grey;
+            border-left-color: red;
+            border-right-color: grey;
+            border-top-color: grey;
+        }
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark flex-grow-1 text-right">
+    <div class="container-fluid flex-grow-1 text-right">
+        <a class="navbar-brand flex-grow-1 text-right" href="#">
+            <h1 class="sandbox">
+                <em>Material Design</em>
+            </h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main_nav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active"> <a class="nav-link" href="#">Home </a> </li>
+                <li class="nav-item"><a class="nav-link" href="#"> About </a></li>
+                <li>
+                    <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button">
+                        <img src="~/img/guest-image.jpg" alt="User" class="avatarCustomSmall" style="margin-bottom:15px" />
+                    </a>
+                    <ul class="dropdown-menu" style="padding-top: 10px; width: 270px">
+
+                        <!-- User image -->
+                        <li class="user-header">
+                        </li>
+
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                            <div class="spinner-block">
+                                <div class="profile-circle">
+                                    <img src="~/img/guest-image.jpg" class="avatar-profile" alt="User Image" />
+                                    <p style="color: white; padding: 8px;">
+                                        <b> You are not logged in.</b>
+                                    </p>
+                                    <div class="spinner spinner-1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Other items -->
+
+                        </li>
+
+                        <!-- Menu Footer-->
+                        <li class="user-footer box" style="padding: 5px">
+                            <div class="pull-left">
+                                <a href="@Url.Action("Login", "Account")" class="btn bg-pink m-t-15 waves-effect">
+                                    <i class="material-icons">account_circle</i>
+                                    <span>
+                                        <strong>Log In</strong>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="pull-right">
+                                <a href="@Url.Action("Register", "Account")" class="btn bg-pink m-t-15 waves-effect">
+                                    <i class="material-icons">create</i>
+                                    <span>
+                                        <strong>Register</strong>
+                                    </span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- User Info -->
+                @* @Html.Partial("_AdminBSBUserInfo")*@
+                <!-- #User Info -->
+
+                <li class="nav-item white-dots">
+                    <a href="javascript:void(0);" class="js-right-sidebar nav-link fa-pull-right" data-close="true" style="">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- navbar-collapse.// -->
+    </div>
+    <!-- container-fluid.// -->
+</nav>
+
+
+
+<style>
+
+    .white-dots {
+       margin-left:190px;
+       color: white !important;
+    }
+
+    .avatarCustomSmall {
+        border: solid 2px #54BE69;
+        border-left-color: #D5EDDA;
+        padding: 2px;
+        display: inline-block;
+        border-radius: 50%;
+        position: relative;
+        height: 28px;
+        width: 28px;
+    }
+
+    .avatarCustom {
+        border: solid 4px #54BE69;
+        border-left-color: #D5EDDA;
+        padding: 6px;
+        display: inline-block;
+        border-radius: 50%;
+        position: relative;
+        height: 180px;
+        width: 180px;
+        transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+    }
+
+        .avatarCustom img {
+            display: block;
+            border-radius: 50%;
+            transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+
+        .avatarCustom:before, .avatarCustom:after {
+            content: '';
+            position: absolute;
+            background: #fff;
+            z-index: -1;
+            transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+
+        .avatarCustom:before {
+            height: 4px;
+            top: 50%;
+            left: 4px;
+            right: -10px;
+            margin-top: -2px;
+        }
+
+        .avatarCustom:after {
+            width: 4px;
+            left: 50%;
+            top: 4px;
+            bottom: -10px;
+            margin-left: -2px;
+        }
+</style>

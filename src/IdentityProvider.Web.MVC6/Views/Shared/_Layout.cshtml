@@ -1,0 +1,758 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - IdentityProvider.Web.MVC6</title>
+
+    <!-- Favicon-->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!--------------------------
+    | Stylesheets here |
+    -------------------------->
+    <!-- Bootstrap Core Css -->
+    <!-- Optional Bootstrap theme -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    @*    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />*@
+    @*    <link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />*@
+
+    <!-- Bootstrap Datepicker  -->
+    <link href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" />
+
+    <!-- Datatables Css -->
+    <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/select/1.2.7/css/select.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/colreorder/1.5.0/css/colReorder.bootstrap.min.css" />
+
+    <!-- Waves Effect Css -->
+    @*<link href="~/lib/node-waves/dist/waves.css" rel="stylesheet" />*@
+    <link href="~/lib/adminbsb-materialdesign/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <!-- font-awesome -->
+    @*<link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />*@
+    <link href="~/lib/font-awesome/css/fontawesome.css" rel="stylesheet" />
+
+    <!-- daterangepicker -->
+    <link href="~/lib/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+
+    <!-- Select2 -->
+    <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/lib/select2-bootstrap-5-theme/select2-bootstrap-5-theme.css" rel="stylesheet" />
+
+    <!-- materialize -->
+
+    <link href="~/lib/materializecss/materialize/dist/css/materialize.css" rel="stylesheet" />
+    @*<link href="~/lib/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />*@
+    <link href="~/lib/adminbsb-materialdesign/css/style.css" rel="stylesheet" />
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="~/css/all-themes.css" rel="stylesheet" />
+    <link href="~/css/skins/_all-skins.css" rel="stylesheet" />
+
+    @* <link href="~/css/site.css" rel="stylesheet" />*@
+
+    <!-- AdminBSB Themes. Recolor buttons (TODO) -->
+    <link href="~/Content/css/themed-buttons-deep-purple.css" rel="stylesheet" />
+    <link href="~/Content/css/themed-buttons-red.css" rel="stylesheet" />
+    <!-- AdminBSB Themes. Recolor buttons (TODO) -->
+    <link href="~/css/themed-buttons-amber.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-black.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-blue.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-brown.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-bue-grey.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-cyan.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-deep-orange.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-deep-purple.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-green.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-grey.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-indigo.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-light-blue.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-light-green.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-lime.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-orange.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-pink.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-purple.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-red.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-teal.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-yellow.css" rel="stylesheet" />
+    <!-- Custom Css -->
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/Content/popover-overrides.css" rel="stylesheet" />
+    <link href="~/lib/pretty-checkbox/pretty-checkbox.css" rel="stylesheet" />
+    <link href="~/lib/adminbsb-materialdesign/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    @*<link href="~/Content/MakeTableResponsive.css" rel="stylesheet" />*@
+
+    <style>
+                .alert {
+                                                            padding: 15px;
+                                                            margin-bottom: 20px;
+                                                            border: 1px solid transparent;
+                                                            border-radius: 4px;
+                                                        }
+
+                                                            .alert h4 {
+                                                                margin-top: 0;
+                                                                color: inherit;
+                                                            }
+
+                                                            .alert .alert-link {
+                                                                font-weight: bold;
+                                                            }
+
+                                                            .alert > p,
+                                                            .alert > ul {
+                                                                margin-bottom: 0;
+                                                            }
+
+                                                                .alert > p + p {
+                                                                    margin-top: 5px;
+                                                                }
+
+                                                        .alert-dismissable,
+                                                        .alert-dismissible {
+                                                            padding-right: 35px;
+                                                        }
+
+                                                            .alert-dismissable .close,
+                                                            .alert-dismissible .close {
+                                                                position: relative;
+                                                                top: -2px;
+                                                                right: -21px;
+                                                                color: inherit;
+                                                            }
+
+                                                        .alert-success {
+                                                            color: #3c763d;
+                                                            background-color: #dff0d8;
+                                                            border-color: #d6e9c6;
+                                                        }
+
+                                                            .alert-success hr {
+                                                                border-top-color: #c9e2b3;
+                                                            }
+
+                                                            .alert-success .alert-link {
+                                                                color: #2b542c;
+                                                            }
+
+                                                        .alert-info {
+                                                            color: #31708f;
+                                                            background-color: #d9edf7;
+                                                            border-color: #bce8f1;
+                                                        }
+
+                                                            .alert-info hr {
+                                                                border-top-color: #a6e1ec;
+                                                            }
+
+                                                            .alert-info .alert-link {
+                                                                color: #245269;
+                                                            }
+
+                                                        .alert-warning {
+                                                            color: #8a6d3b;
+                                                            background-color: #fcf8e3;
+                                                            border-color: #faebcc;
+                                                        }
+
+                                                            .alert-warning hr {
+                                                                border-top-color: #f7e1b5;
+                                                            }
+
+                                                            .alert-warning .alert-link {
+                                                                color: #66512c;
+                                                            }
+
+                                                        .alert-danger {
+                                                            color: #a94442;
+                                                            background-color: #f2dede;
+                                                            border-color: #ebccd1;
+                                                        }
+
+                                                            .alert-danger hr {
+                                                                border-top-color: #e4b9c0;
+                                                            }
+
+                                                            .alert-danger .alert-link {
+                                                                color: #843534;
+                                                            }
+
+                                                        .close {
+                                                            background-color: inherit !important
+                                                        }
+
+                                                        .btn-block {
+                                                            display: block;
+                                                            width: 100%;
+                                                        }
+
+                                                            .btn-block + .btn-block {
+                                                                margin-top: 5px;
+                                                            }
+
+                                                        input[type="submit"].btn-block,
+                                                        input[type="reset"].btn-block,
+                                                        input[type="button"].btn-block {
+                                                            width: 100%;
+                                                        }
+
+                                                        .grid {
+                                                            position: relative;
+                                                        }
+
+                                                        .item-sm {
+                                                            display: block;
+                                                            position: absolute;
+                                                            width: 130px;
+                                                            height: 60px;
+                                                            line-height: 25px;
+                                                            margin: 10px;
+                                                            z-index: 1;
+                                                        }
+
+                                                        .item {
+                                                            display: block;
+                                                            position: absolute;
+                                                            width: 250px;
+                                                            height: 110px;
+                                                            line-height: 25px;
+                                                            margin: 10px;
+                                                            z-index: 1;
+                                                        }
+
+                                                        .item-full-width {
+                                                            display: block;
+                                                            position: absolute;
+                                                            width: 99%;
+                                                            line-height: 25px;
+                                                            margin: 10px;
+                                                            z-index: 1;
+                                                        }
+
+                                                        .item-half-width {
+                                                            display: block;
+                                                            position: absolute;
+                                                            width: 45%;
+                                                            line-height: 25px;
+                                                            margin: 10px;
+                                                            z-index: 1;
+                                                        }
+
+                                                        .item.muuri-item-hidden {
+                                                            z-index: 0;
+                                                        }
+
+                                                        .item.muuri-item-releasing {
+                                                            z-index: 2;
+                                                        }
+
+                                                        .item.muuri-item-dragging {
+                                                            z-index: 3;
+                                                        }
+
+                                                        .item-content {
+                                                            position: relative;
+                                                            width: 99%;
+                                                            height: 99%;
+                                                            /*text-align: center;
+                                                                                                                                                                            background: red;
+                                                                                                                                                                            font-size: 50px;
+                                                                                                                                                                            color: white;*/
+                                                            /*cursor: pointer;*/
+                                                        }
+
+                                                        .handleForDragandDrop {
+                                                            position: relative;
+                                                            cursor: pointer;
+                                                            background: #ffffff; /* Old browsers */
+                                                            background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+                                                            background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+                                                            background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                                                            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+                                                        }
+
+                                                        .item.muuri-item-dragging .item-content {
+                                                            background: blue;
+                                                        }
+
+                                                        .item.muuri-item-releasing .item-content {
+                                                            background: blueViolet;
+                                                        }
+
+                                                        .item-full-width.muuri-item-dragging .item-content {
+                                                            background: blue;
+                                                        }
+
+                                                        .item-full-width.muuri-item-releasing .item-content {
+                                                            background: blueViolet;
+                                                        }
+
+                                                        table {
+                                                            table-layout: auto !important;
+                                                            border-collapse: collapse !important;
+                                                            width: 100% !important;
+                                                        }
+
+                                                        .navbar {
+                                                            position: sticky !important
+                                                        }
+
+                                                        .block-header {
+                                                            padding-top: 65px !important;
+                                                        }
+
+                                                        .dataTables_processing {
+                                                            z-index: 11000 !important;
+                                                            padding-top: 1px !important;
+                                                        }
+
+                                                        .dataTables_loadingRecords {
+                                                            z-index: 11000 !important;
+                                                            padding-top: 1px !important;
+                                                        }
+
+                                                        .select2-results__option {
+                                                            text-align: left !important;
+                                                        }
+
+                                                        table.dataTable thead th {
+                                                            position: relative;
+                                                            background-image: none !important;
+                                                        }
+
+                                                        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+                                                            background-color: #E91E63 !important;
+                                                            color: white !important;
+                                                        }
+
+                                                        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+                                                            color: white !important;
+                                                        }
+
+                                                        body, html {
+                                                            font-size: 11px !important;
+                                                        }
+
+                                                        .btn-link {
+                                                            text-decoration: none !important;
+                                                        }
+
+
+                                                        .btn-icon i {
+                                                            position: inherit !important;
+                                                        }
+
+                                                        .btn-icon-diff i {
+                                                            position: relative !important;
+                                                            top: 3px !important;
+                                                        }
+
+                                                        .panel-group .panel .panel-heading a:hover, .panel-group .panel .panel-heading a:focus, .panel-group .panel .panel-heading a:active {
+                                                            text-decoration: none !important;
+                                                        }
+
+                                                        h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+                                                            margin-bottom: 0.2rem !important;
+                                                        }
+
+                                                        .panel-group .panel-col-pink .panel-title {
+                                                            color: #fff !important;
+                                                        }
+
+                                                        a {
+                                                            color: black;
+                                                            text-decoration: none !important;
+                                                        }
+
+                                                        .panel-body {
+                                                            padding: 15px;
+                                                        }
+
+                                                        .btn-circle-lg i {
+                                                            position: initial !important;
+                                                        }
+
+                                                        .navbar-nav .dropdown-menu {
+                                                            position: absolute !important;
+                                                        }
+
+                                                        .navbar-nav {
+                                                            flex-direction: inherit;
+                                                        }
+
+                                                        .navbar {
+                                                            padding-bottom: 0.1em;
+                                                            padding-top: 0.1em;
+                                                        }
+
+                                                        .btn-default, .btn-default:hover, .btn-default:active, .btn-default:focus {
+                                                            background-color: inherit;
+                                                        }
+
+                                                        .navbar-brand {
+                                                            font-size: 1.75rem;
+                                                        }
+
+                                                        .dropdown-toggle::after {
+                                                            display: none;
+                                                        }
+
+                                                        .dropdown-menu[data-bs-popper] {
+                                                            left: inherit;
+                                                        }
+
+                                                        .navbar-nav > li > a {
+                                                            font-size: 14px;
+                                                        }
+
+                                                        .navbar-collapse {
+                                                            flex-grow: 0;
+                                                        }
+
+                                                        .pull-right {
+                                                            float: right;
+                                                        }
+
+                                                        .pull-left {
+                                                            float: left;
+                                                        }
+
+                                                        .btn-three-dots {
+                                                            color: black;
+                                                            background-color: white;
+                                                            border-color: white;
+                                                            border: none;
+                                                            box-shadow: none !important;
+                                                            position: relative !important;
+                                                            top: -55px !important;
+                                                            right: -20px;
+                                                            margin-left: 10px;
+                                                        }
+
+                                                        .dropdown a:hover {
+                                                            color: black;
+                                                            background-color: white;
+                                                        }
+
+                                                        .form-group .form-line .form-label {
+                                                    top: 6px;
+                                                }
+
+                                                .btn:not(.btn-link):not(.btn-circle) i {
+                                            top: 0px;
+                                        }
+
+                                        .btn-circle i {
+                                                left: 0px;
+                                        }
+
+                                        .waves-circle {
+                                                line-height: 0em;
+                                        }
+
+                                        .navbar-nav > li > a {
+                                            padding-top: 1px !important;
+                                                padding-bottom: 1px !important;
+                                                    padding-left: 2px !important;
+                                                        padding-right: 4px !important;
+                                            margin-top: 23px;
+                                            margin-left: 5px;
+                                        }
+
+                                        .label {
+                                    display: inline;
+                                    padding: 0.2em 0.6em 0.3em;
+                                    font-size: 75%;
+                                    font-weight: bold;
+                                    line-height: 1;
+                                    color: #fff;
+                                    text-align: center;
+                                    white-space: nowrap;
+                                    vertical-align: baseline;
+                                    border-radius: 0.25em;
+                                }
+
+
+                        table.dataTable tr.dtrg-level-0 td {
+                            font-size: 0.8em;
+                        }
+
+                        table.dataTable td {
+                            font-size: 0.8em;
+                        }
+
+                        table.dataTable th {
+                            font-size: 0.8em;
+                        }
+                        .dataTables_wrapper .dt-buttons {
+            float: left;
+        }
+
+         .dt-buttons {
+                           box-shadow: none !important;
+                        }
+
+
+
+    </style>
+
+
+    <!------------------------------
+    | Very important scripts here |
+    ------------------------------->
+    <!-- Jquery Core -->
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- DateRangePicker -->
+    <script src="~/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- Moment -->
+    <script src="~/lib/moment.js/moment.min.js"></script>
+    <!-- Muuri -->
+    <script src="https://unpkg.com/web-animations-js@2.3.1/web-animations.min.js"></script>
+    <script src="https://unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
+    <script src="https://unpkg.com/muuri@0.7.0/dist/muuri.min.js"></script>
+
+
+</head>
+<body class="theme-red">
+    <!-- Page Loader -->
+    <partial name="_AdminBSBPageLoader" />
+    <!-- #END# Page Loader -->
+    <!-- Overlay For Sidebars -->
+    <!-- #END# Overlay For Sidebars -->
+    <!-- Search Bar -->
+    <partial name="_AdminBSBSearchBar" />
+    <!-- #END# Search Bar -->
+    <!-- Top Bar -->
+    <partial name="_AdminBSBTopBar" />
+    <!-- #Top Bar -->
+
+    <section>
+
+        <!-- Left Sidebar -->
+        <partial name="_AdminBSBLeftSidebar" />
+        <!-- #END# Left Sidebar -->
+
+        <div class="overlay">
+            <!-- Right Sidebar -->
+            <partial name="_AdminBSBRightSidebar" />
+            <!-- #END# Right Sidebar -->
+        </div>
+    </section>
+
+    <div class="clearfix">
+        <section class="content" style="margin-top:35px !important">
+
+            @*@Html.Partial("_AdminBSBMain")*@
+
+            <!--------------------------
+            | Your Page Content Here |
+            -------------------------->
+            @RenderBody()
+
+            <div class="modal fade in" id="mdModal" tabindex="-1" role="dialog" style="display: none;">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="largeModalLabel"></h4>
+                        </div>
+                        <div class="modal-body">
+                            @*  guess what, this is where you put your ajax fetched content  *@
+                        </div>
+                        <div class="modal-footer">
+                            @*<button type="button" class="btn bg-pink waves-effect" data-dismiss="modal">CLOSE</button>*@
+                            <button type="button" class="btn bg-pink waves-effect" data-bs-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="right" title="" data-original-title="Close">
+                                <i class="material-icons">close</i>
+                                <span>
+                                    Close
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Default Size -->
+            <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan
+                            vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper.
+                            Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus
+                            nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla.
+                            Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Large Size -->
+            <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="largeModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan
+                            vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper.
+                            Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus
+                            nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla.
+                            Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Small Size -->
+            <div class="modal fade" id="smallModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="smallModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan
+                            vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper.
+                            Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus
+                            nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla.
+                            Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    @* <script src="~/js/site.js" asp-append-version="true"></script>*@
+
+    <!--------------------------
+    ----| Javascript here  |----
+    --------------------------->
+    <!-- ========== -->
+    <!-- DataTables -->
+    <!-- ========== -->
+
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <link href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <link href="https://cdn.datatables.net/colreorder/1.5.6/css/colReorder.bootstrap5.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/colreorder/1.5.6/js/dataTables.colReorder.min.js"></script>
+    <link href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+    <link href="https://cdn.datatables.net/staterestore/1.1.1/css/stateRestore.dataTables.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/staterestore/1.1.1/js/dataTables.stateRestore.min.js"></script>
+
+    @*@Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")*@
+
+    <!-- Lodash -->
+    <script src="~/lib/lodash.js/lodash.js"></script>
+
+    <!-- SWAL -->
+    <script src="~/lib/adminbsb-materialdesign/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="~/lib/jQuery-slimScroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    @* <script src="~/lib/node-waves/dist/waves.js"></script>*@
+    <script src="~/lib/adminbsb-materialdesign/plugins/node-waves/waves.js"></script>
+
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="~/lib/jquery-countto/jquery.countTo.js"></script>
+
+    <!-- ChartJs -->
+    <script src="~/lib/Chart.js/chart.min.js"></script>
+
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="~/lib/jquery-sparklines/jquery.sparkline.js"></script>
+
+    <!-- Select2 Js -->
+    <script src="~/lib/select2/js/select2.js"></script>
+
+    <!-- Bootstrap Datepicker Js -->
+    <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+    <script src="~/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.hr.min.js"></script>
+
+    <script src="~/lib/adminbsb-materialdesign/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+
+    @*<script src="~/bower_components/datatables-responsive/js/responsive.dataTables.js"></script>
+        <script src="~/bower_components/datatables-responsive/js/responsive.bootstrap.js"></script>*@
+    <script src="~/lib/datatables.net-buttons/js/dataTables.buttons.js"></script>
+    <script src="~/lib/jszip/jszip.js"></script>
+    <script src="~/lib/pdfmake/pdfmake.js"></script>
+    <script src="~/lib/pdfmake/vfs_fonts.js"></script>
+    <script src="~/lib/datatables.net-colreorderwithresizeupdated/ColReorderWithResize.js"></script>
+
+    <!-- ========== -->
+    <!-- ========== -->
+    <!-- ========== -->
+    <!-- Tooltip popovers Js -->
+    @*<script src="~/bower_components/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>
+        <script src="~/bower_components/moment/min/moment-with-locales.js"></script>*@
+
+    <!-- Custom Js -->
+    <!-- Application specific stuff -->
+    <script src="~/js/Operations/Dashboard/OperationsCreate.js"></script>
+    <script src="~/js/CommonCRUDScripts/commonDelete.js"></script>
+    <script src="~/js/CommonCRUDScripts/commonDetails.js"></script>
+    <script src="~/js/CommonCRUDScripts/commonEdit.js"></script>
+    @*<script src="~/js/Muuri/muuriWireup.js"></script>*@
+    <script src="~/js/admin.js"></script>
+    <script src="~/js/demo.js"></script>
+    <script src="~/js/Select2/select2Wireup.js"></script>
+    <!-- Boolean checkboxes jQuery override -->
+    <script src="~/js/jQueryOverride-boolean-checkboxes.js"></script>
+    <!-- Make tables responsive -->
+    @*<script src="~/js/makeTableResponsive.js"></script>*@
+    @* <script src="~/lib/adminbsb-materialdesign/plugins/materialize-css/js/materialize.js"></script>*@
+    <script src="~/lib/materializecss/materialize/dist/js/materialize.js"></script>
+
+    <script>
+        // SWAL message styling
+        swal.setDefaults({
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-success w-25 mr-05',
+            cancelButtonClass: 'btn btn-secondary w-25 ml-05'
+        });
+    </script>
+    @* @RenderSection("Scripts", false)*@
+</body>
+</html>

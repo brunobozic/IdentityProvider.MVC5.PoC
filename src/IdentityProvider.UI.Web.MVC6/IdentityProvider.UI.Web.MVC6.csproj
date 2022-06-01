@@ -1,0 +1,92 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <UserSecretsId>4fd24939-5d28-49c8-bbad-3364df5ddbae</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <SignAssembly>false</SignAssembly>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DefineConstants>DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\adminbsb-materialdesign\**" />
+    <Compile Remove="wwwroot\themes\**" />
+    <Content Remove="wwwroot\adminbsb-materialdesign\**" />
+    <Content Remove="wwwroot\themes\**" />
+    <EmbeddedResource Remove="wwwroot\adminbsb-materialdesign\**" />
+    <EmbeddedResource Remove="wwwroot\themes\**" />
+    <None Remove="wwwroot\adminbsb-materialdesign\**" />
+    <None Remove="wwwroot\themes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-black-light.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-black-light.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-black.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-black.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-blue-light.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-blue-light.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-blue.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-blue.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-green-light.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-green-light.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-green.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-green.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-purple-light.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-purple-light.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-purple.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-purple.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-red-light.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-red-light.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-red.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-red.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-yellow-light.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-yellow-light.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-yellow.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\skin-yellow.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\_all-skins.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\skins\_all-skins.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="Autofac.Configuration" Version="6.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.8" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.3.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.76" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Authorize\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+    <Folder Include="wwwroot\img\image-gallery\thumb\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IdentityProvider.Repository.EFCore\IdentityProvider.Repository.EFCore.csproj" />
+    <ProjectReference Include="..\Module.CrossCutting\Module.CrossCutting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\img\iwa-sport-bg-image-light-medium.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

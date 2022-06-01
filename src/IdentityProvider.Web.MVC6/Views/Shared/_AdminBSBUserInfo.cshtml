@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Layout = null;
+}
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+  
+
+
+        <ul class="dropdown-menu" style="padding-top: 10px; width: 270px">
+
+            <!-- User image -->
+            <li class="user-header">
+            </li>
+
+            <!-- Menu Body -->
+            <li class="user-body">
+                <div class="spinner-block">
+                    <div class="profile-circle">
+                        <img src="~/img/guest-image.jpg" class="avatar-profile" alt="User Image" />
+                        <p style="color: white; padding: 8px;">
+                            <b> You are not logged in.</b>
+                        </p>
+                        <div class="spinner spinner-1">
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other items -->
+            
+            </li>
+
+            <!-- Menu Footer-->
+            <li class="user-footer box" style="padding: 5px">
+                <div class="pull-left">
+                    <a href="@Url.Action("Login", "Account")" class="btn btn-default bg-pink m-t-15 waves-effect">
+                        <i class="material-icons">account_circle</i>
+                        <span>
+                            <strong>Log In</strong>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="pull-right">
+                    <a href="@Url.Action("Register", "Account")" class="btn btn-default bg-pink m-t-15 waves-effect">
+                        <i class="material-icons">create</i>
+                        <span>
+                            <strong>Register</strong>
+                        </span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    
+
+
+<script>
+
+    var accountAdministrationUrl = "@Url.Action("Index", "AccountAdministration")";
+
+    console.log('accountAdministrationUrl: ' + accountAdministrationUrl);
+
+    $(document).ready(function () {
+        $(".dropdown-menu").click(function (event) {
+
+           // event.preventDefault();
+
+            var options = { /*'backdrop': 'static',*/ keyboard: true, focus: true };
+
+            console.log('fetching data from: ' + accountAdministrationUrl);
+
+            //$.ajax({
+            //    type: "GET",
+            //    url: accountAdministrationUrl,
+            //    contentType: "application/json; charset=utf-8",
+            //    dataType: "html",
+            //    success: function (response) {
+            //        $('#mdModal').modal(options);
+            //        $('#mdModal').find('.modal-body').html("");
+            //        $('#mdModal').modal('show');
+            //        $('#mdModal').find('.modal-body').html(response);
+            //    },
+            //    failure: function (response) {
+            //        $('#mdModal').modal(options);
+            //        $('#mdModal').find('.modal-body').html("");
+            //        $('#mdModal').modal('show');
+            //        $('#mdModal').find('.modal-body').html("Problem loading your data...");
+            //    },
+            //    error: function (response) {
+            //        $('#mdModal').modal(options);
+            //        $('#mdModal').find('.modal-body').html("");
+            //        $('#mdModal').modal('show');
+            //        $('#mdModal').find('.modal-body').html("Problem loading your data...");
+            //    }
+            //});
+        });
+    });
+</script>
+
+<style>
+    .avatarCustomSmall {
+        border: solid 2px #54BE69;
+        border-left-color: #D5EDDA;
+        padding: 2px;
+        display: inline-block;
+        border-radius: 50%;
+        position: relative;
+        height: 28px;
+        width: 28px;
+    }
+
+    .avatarCustom {
+        border: solid 4px #54BE69;
+        border-left-color: #D5EDDA;
+        padding: 6px;
+        display: inline-block;
+        border-radius: 50%;
+        position: relative;
+        height: 180px;
+        width: 180px;
+        transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+    }
+
+        .avatarCustom img {
+            display: block;
+            border-radius: 50%;
+            transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+
+        .avatarCustom:before, .avatarCustom:after {
+            content: '';
+            position: absolute;
+            background: #fff;
+            z-index: -1;
+            transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+
+        .avatarCustom:before {
+            height: 4px;
+            top: 50%;
+            left: 4px;
+            right: -10px;
+            margin-top: -2px;
+        }
+
+        .avatarCustom:after {
+            width: 4px;
+            left: 50%;
+            top: 4px;
+            bottom: -10px;
+            margin-left: -2px;
+        }
+</style>

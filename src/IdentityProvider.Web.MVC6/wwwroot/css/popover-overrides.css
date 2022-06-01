@@ -1,0 +1,32 @@
+﻿/* Tooltip */
+.tooltip > .tooltip-inner {
+    background-color: darkgrey;
+    border: 1px solid grey;
+    color: black;
+    font-size: 12px;
+    padding: 8px;
+}
+
+/* Tooltip on top */
+
+.tooltip.top > .tooltip-arrow {
+    border-top: 5px solid black;
+}
+
+/* Tooltip on bottom */
+
+.tooltip.bottom > .tooltip-arrow {
+    border-bottom: 5px solid black;
+}
+
+/* Tooltip on left */
+
+.tooltip.left > .tooltip-green {
+    border-left: 5px solid black;
+}
+
+/* Tooltip on right */
+
+.tooltip.right > .tooltip-arrow {
+    border-right: 5px solid black;
+}

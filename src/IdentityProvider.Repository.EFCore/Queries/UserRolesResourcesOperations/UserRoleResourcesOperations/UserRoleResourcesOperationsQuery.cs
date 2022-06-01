@@ -1,0 +1,3 @@
+﻿namespace IdentityProvider.Repository.EFCore.Queries.UserRolesResourcesOperations.UserRoleResourcesOperations
+{
+}
