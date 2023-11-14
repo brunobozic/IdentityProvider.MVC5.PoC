@@ -122,12 +122,12 @@ $.AdminBSB.leftSideBar = {
             delay: 200
         };
 
-        Waves.ripple(".dropdown-menu li a", null);
-        Waves.init(config);
+        //Waves.ripple(".dropdown-menu li a", null);
+        //Waves.init(config);
 
         //Set Waves
-        Waves.attach('.menu .list a', ['waves-block']);
-        Waves.init();
+        //Waves.attach('.menu .list a', ['waves-block']);
+        //Waves.init();
     },
     setMenuHeight: function (isFirstTime) {
         if (typeof $.fn.slimScroll != "undefined") {

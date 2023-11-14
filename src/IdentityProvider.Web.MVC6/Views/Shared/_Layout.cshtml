@@ -94,416 +94,415 @@
     @*<link href="~/Content/MakeTableResponsive.css" rel="stylesheet" />*@
 
     <style>
-                .alert {
-                                                            padding: 15px;
-                                                            margin-bottom: 20px;
-                                                            border: 1px solid transparent;
-                                                            border-radius: 4px;
-                                                        }
-
-                                                            .alert h4 {
-                                                                margin-top: 0;
-                                                                color: inherit;
-                                                            }
-
-                                                            .alert .alert-link {
-                                                                font-weight: bold;
-                                                            }
-
-                                                            .alert > p,
-                                                            .alert > ul {
-                                                                margin-bottom: 0;
-                                                            }
-
-                                                                .alert > p + p {
-                                                                    margin-top: 5px;
-                                                                }
-
-                                                        .alert-dismissable,
-                                                        .alert-dismissible {
-                                                            padding-right: 35px;
-                                                        }
-
-                                                            .alert-dismissable .close,
-                                                            .alert-dismissible .close {
-                                                                position: relative;
-                                                                top: -2px;
-                                                                right: -21px;
-                                                                color: inherit;
-                                                            }
-
-                                                        .alert-success {
-                                                            color: #3c763d;
-                                                            background-color: #dff0d8;
-                                                            border-color: #d6e9c6;
-                                                        }
-
-                                                            .alert-success hr {
-                                                                border-top-color: #c9e2b3;
-                                                            }
-
-                                                            .alert-success .alert-link {
-                                                                color: #2b542c;
-                                                            }
-
-                                                        .alert-info {
-                                                            color: #31708f;
-                                                            background-color: #d9edf7;
-                                                            border-color: #bce8f1;
-                                                        }
-
-                                                            .alert-info hr {
-                                                                border-top-color: #a6e1ec;
-                                                            }
-
-                                                            .alert-info .alert-link {
-                                                                color: #245269;
-                                                            }
-
-                                                        .alert-warning {
-                                                            color: #8a6d3b;
-                                                            background-color: #fcf8e3;
-                                                            border-color: #faebcc;
-                                                        }
-
-                                                            .alert-warning hr {
-                                                                border-top-color: #f7e1b5;
-                                                            }
-
-                                                            .alert-warning .alert-link {
-                                                                color: #66512c;
-                                                            }
-
-                                                        .alert-danger {
-                                                            color: #a94442;
-                                                            background-color: #f2dede;
-                                                            border-color: #ebccd1;
-                                                        }
-
-                                                            .alert-danger hr {
-                                                                border-top-color: #e4b9c0;
-                                                            }
-
-                                                            .alert-danger .alert-link {
-                                                                color: #843534;
-                                                            }
-
-                                                        .close {
-                                                            background-color: inherit !important
-                                                        }
-
-                                                        .btn-block {
-                                                            display: block;
-                                                            width: 100%;
-                                                        }
-
-                                                            .btn-block + .btn-block {
-                                                                margin-top: 5px;
-                                                            }
-
-                                                        input[type="submit"].btn-block,
-                                                        input[type="reset"].btn-block,
-                                                        input[type="button"].btn-block {
-                                                            width: 100%;
-                                                        }
-
-                                                        .grid {
-                                                            position: relative;
-                                                        }
-
-                                                        .item-sm {
-                                                            display: block;
-                                                            position: absolute;
-                                                            width: 130px;
-                                                            height: 60px;
-                                                            line-height: 25px;
-                                                            margin: 10px;
-                                                            z-index: 1;
-                                                        }
-
-                                                        .item {
-                                                            display: block;
-                                                            position: absolute;
-                                                            width: 250px;
-                                                            height: 110px;
-                                                            line-height: 25px;
-                                                            margin: 10px;
-                                                            z-index: 1;
-                                                        }
-
-                                                        .item-full-width {
-                                                            display: block;
-                                                            position: absolute;
-                                                            width: 99%;
-                                                            line-height: 25px;
-                                                            margin: 10px;
-                                                            z-index: 1;
-                                                        }
-
-                                                        .item-half-width {
-                                                            display: block;
-                                                            position: absolute;
-                                                            width: 45%;
-                                                            line-height: 25px;
-                                                            margin: 10px;
-                                                            z-index: 1;
-                                                        }
-
-                                                        .item.muuri-item-hidden {
-                                                            z-index: 0;
-                                                        }
-
-                                                        .item.muuri-item-releasing {
-                                                            z-index: 2;
-                                                        }
-
-                                                        .item.muuri-item-dragging {
-                                                            z-index: 3;
-                                                        }
-
-                                                        .item-content {
-                                                            position: relative;
-                                                            width: 99%;
-                                                            height: 99%;
-                                                            /*text-align: center;
-                                                                                                                                                                            background: red;
-                                                                                                                                                                            font-size: 50px;
-                                                                                                                                                                            color: white;*/
-                                                            /*cursor: pointer;*/
-                                                        }
-
-                                                        .handleForDragandDrop {
-                                                            position: relative;
-                                                            cursor: pointer;
-                                                            background: #ffffff; /* Old browsers */
-                                                            background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
-                                                            background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
-                                                            background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-                                                            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-                                                        }
-
-                                                        .item.muuri-item-dragging .item-content {
-                                                            background: blue;
-                                                        }
-
-                                                        .item.muuri-item-releasing .item-content {
-                                                            background: blueViolet;
-                                                        }
-
-                                                        .item-full-width.muuri-item-dragging .item-content {
-                                                            background: blue;
-                                                        }
-
-                                                        .item-full-width.muuri-item-releasing .item-content {
-                                                            background: blueViolet;
-                                                        }
-
-                                                        table {
-                                                            table-layout: auto !important;
-                                                            border-collapse: collapse !important;
-                                                            width: 100% !important;
-                                                        }
-
-                                                        .navbar {
-                                                            position: sticky !important
-                                                        }
-
-                                                        .block-header {
-                                                            padding-top: 65px !important;
-                                                        }
-
-                                                        .dataTables_processing {
-                                                            z-index: 11000 !important;
-                                                            padding-top: 1px !important;
-                                                        }
-
-                                                        .dataTables_loadingRecords {
-                                                            z-index: 11000 !important;
-                                                            padding-top: 1px !important;
-                                                        }
-
-                                                        .select2-results__option {
-                                                            text-align: left !important;
-                                                        }
-
-                                                        table.dataTable thead th {
-                                                            position: relative;
-                                                            background-image: none !important;
-                                                        }
-
-                                                        .select2-container--default .select2-selection--multiple .select2-selection__choice {
-                                                            background-color: #E91E63 !important;
-                                                            color: white !important;
-                                                        }
-
-                                                        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-                                                            color: white !important;
-                                                        }
-
-                                                        body, html {
-                                                            font-size: 11px !important;
-                                                        }
-
-                                                        .btn-link {
-                                                            text-decoration: none !important;
-                                                        }
-
-
-                                                        .btn-icon i {
-                                                            position: inherit !important;
-                                                        }
-
-                                                        .btn-icon-diff i {
-                                                            position: relative !important;
-                                                            top: 3px !important;
-                                                        }
-
-                                                        .panel-group .panel .panel-heading a:hover, .panel-group .panel .panel-heading a:focus, .panel-group .panel .panel-heading a:active {
-                                                            text-decoration: none !important;
-                                                        }
-
-                                                        h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
-                                                            margin-bottom: 0.2rem !important;
-                                                        }
-
-                                                        .panel-group .panel-col-pink .panel-title {
-                                                            color: #fff !important;
-                                                        }
-
-                                                        a {
-                                                            color: black;
-                                                            text-decoration: none !important;
-                                                        }
-
-                                                        .panel-body {
-                                                            padding: 15px;
-                                                        }
-
-                                                        .btn-circle-lg i {
-                                                            position: initial !important;
-                                                        }
-
-                                                        .navbar-nav .dropdown-menu {
-                                                            position: absolute !important;
-                                                        }
-
-                                                        .navbar-nav {
-                                                            flex-direction: inherit;
-                                                        }
-
-                                                        .navbar {
-                                                            padding-bottom: 0.1em;
-                                                            padding-top: 0.1em;
-                                                        }
-
-                                                        .btn-default, .btn-default:hover, .btn-default:active, .btn-default:focus {
-                                                            background-color: inherit;
-                                                        }
-
-                                                        .navbar-brand {
-                                                            font-size: 1.75rem;
-                                                        }
-
-                                                        .dropdown-toggle::after {
-                                                            display: none;
-                                                        }
-
-                                                        .dropdown-menu[data-bs-popper] {
-                                                            left: inherit;
-                                                        }
-
-                                                        .navbar-nav > li > a {
-                                                            font-size: 14px;
-                                                        }
-
-                                                        .navbar-collapse {
-                                                            flex-grow: 0;
-                                                        }
-
-                                                        .pull-right {
-                                                            float: right;
-                                                        }
-
-                                                        .pull-left {
-                                                            float: left;
-                                                        }
-
-                                                        .btn-three-dots {
-                                                            color: black;
-                                                            background-color: white;
-                                                            border-color: white;
-                                                            border: none;
-                                                            box-shadow: none !important;
-                                                            position: relative !important;
-                                                            top: -55px !important;
-                                                            right: -20px;
-                                                            margin-left: 10px;
-                                                        }
-
-                                                        .dropdown a:hover {
-                                                            color: black;
-                                                            background-color: white;
-                                                        }
-
-                                                        .form-group .form-line .form-label {
-                                                    top: 6px;
-                                                }
-
-                                                .btn:not(.btn-link):not(.btn-circle) i {
-                                            top: 0px;
-                                        }
-
-                                        .btn-circle i {
-                                                left: 0px;
-                                        }
-
-                                        .waves-circle {
-                                                line-height: 0em;
-                                        }
-
-                                        .navbar-nav > li > a {
-                                            padding-top: 1px !important;
-                                                padding-bottom: 1px !important;
-                                                    padding-left: 2px !important;
-                                                        padding-right: 4px !important;
-                                            margin-top: 23px;
-                                            margin-left: 5px;
-                                        }
-
-                                        .label {
-                                    display: inline;
-                                    padding: 0.2em 0.6em 0.3em;
-                                    font-size: 75%;
-                                    font-weight: bold;
-                                    line-height: 1;
-                                    color: #fff;
-                                    text-align: center;
-                                    white-space: nowrap;
-                                    vertical-align: baseline;
-                                    border-radius: 0.25em;
-                                }
-
-
-                        table.dataTable tr.dtrg-level-0 td {
-                            font-size: 0.8em;
-                        }
-
-                        table.dataTable td {
-                            font-size: 0.8em;
-                        }
-
-                        table.dataTable th {
-                            font-size: 0.8em;
-                        }
-                        .dataTables_wrapper .dt-buttons {
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+            .alert h4 {
+                margin-top: 0;
+                color: inherit;
+            }
+
+            .alert .alert-link {
+                font-weight: bold;
+            }
+
+            .alert > p,
+            .alert > ul {
+                margin-bottom: 0;
+            }
+
+                .alert > p + p {
+                    margin-top: 5px;
+                }
+
+        .alert-dismissable,
+        .alert-dismissible {
+            padding-right: 35px;
+        }
+
+            .alert-dismissable .close,
+            .alert-dismissible .close {
+                position: relative;
+                top: -2px;
+                right: -21px;
+                color: inherit;
+            }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+            .alert-success hr {
+                border-top-color: #c9e2b3;
+            }
+
+            .alert-success .alert-link {
+                color: #2b542c;
+            }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+            .alert-info hr {
+                border-top-color: #a6e1ec;
+            }
+
+            .alert-info .alert-link {
+                color: #245269;
+            }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+            .alert-warning hr {
+                border-top-color: #f7e1b5;
+            }
+
+            .alert-warning .alert-link {
+                color: #66512c;
+            }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+            .alert-danger hr {
+                border-top-color: #e4b9c0;
+            }
+
+            .alert-danger .alert-link {
+                color: #843534;
+            }
+
+        .close {
+            background-color: inherit !important
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+            .btn-block + .btn-block {
+                margin-top: 5px;
+            }
+
+        input[type="submit"].btn-block,
+        input[type="reset"].btn-block,
+        input[type="button"].btn-block {
+            width: 100%;
+        }
+
+        .grid {
+            position: relative;
+        }
+
+        .item-sm {
+            display: block;
+            position: absolute;
+            width: 130px;
+            height: 60px;
+            line-height: 25px;
+            margin: 10px;
+            z-index: 1;
+        }
+
+        .item {
+            display: block;
+            position: absolute;
+            width: 250px;
+            height: 110px;
+            line-height: 25px;
+            margin: 10px;
+            z-index: 1;
+        }
+
+        .item-full-width {
+            display: block;
+            position: absolute;
+            width: 99%;
+            line-height: 25px;
+            margin: 10px;
+            z-index: 1;
+        }
+
+        .item-half-width {
+            display: block;
+            position: absolute;
+            width: 45%;
+            line-height: 25px;
+            margin: 10px;
+            z-index: 1;
+        }
+
+        .item.muuri-item-hidden {
+            z-index: 0;
+        }
+
+        .item.muuri-item-releasing {
+            z-index: 2;
+        }
+
+        .item.muuri-item-dragging {
+            z-index: 3;
+        }
+
+        .item-content {
+            position: relative;
+            width: 99%;
+            height: 99%;
+            /*text-align: center;
+                                                                                                                                                                                    background: red;
+                                                                                                                                                                                    font-size: 50px;
+                                                                                                                                                                                    color: white;*/
+            /*cursor: pointer;*/
+        }
+
+        .handleForDragandDrop {
+            position: relative;
+            cursor: pointer;
+            background: #ffffff; /* Old browsers */
+            background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+        }
+
+        .item.muuri-item-dragging .item-content {
+            background: blue;
+        }
+
+        .item.muuri-item-releasing .item-content {
+            background: blueViolet;
+        }
+
+        .item-full-width.muuri-item-dragging .item-content {
+            background: blue;
+        }
+
+        .item-full-width.muuri-item-releasing .item-content {
+            background: blueViolet;
+        }
+
+        table {
+            table-layout: auto !important;
+            border-collapse: collapse !important;
+            width: 100% !important;
+        }
+
+        .navbar {
+            position: sticky !important
+        }
+
+        .block-header {
+            padding-top: 65px !important;
+        }
+
+        .dataTables_processing {
+            z-index: 11000 !important;
+            padding-top: 1px !important;
+        }
+
+        .dataTables_loadingRecords {
+            z-index: 11000 !important;
+            padding-top: 1px !important;
+        }
+
+        .select2-results__option {
+            text-align: left !important;
+        }
+
+        table.dataTable thead th {
+            position: relative;
+            background-image: none !important;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #E91E63 !important;
+            color: white !important;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            color: white !important;
+        }
+
+        body, html {
+            font-size: 11px !important;
+        }
+
+        .btn-link {
+            text-decoration: none !important;
+        }
+
+
+        .btn-icon i {
+            position: inherit !important;
+        }
+
+        .btn-icon-diff i {
+            position: relative !important;
+            top: 3px !important;
+        }
+
+        .panel-group .panel .panel-heading a:hover, .panel-group .panel .panel-heading a:focus, .panel-group .panel .panel-heading a:active {
+            text-decoration: none !important;
+        }
+
+        h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+            margin-bottom: 0.2rem !important;
+        }
+
+        .panel-group .panel-col-pink .panel-title {
+            color: #fff !important;
+        }
+
+        a {
+            color: black;
+            text-decoration: none !important;
+        }
+
+        .panel-body {
+            padding: 15px;
+        }
+
+        .btn-circle-lg i {
+            position: initial !important;
+        }
+
+        .navbar-nav .dropdown-menu {
+            position: absolute !important;
+        }
+
+        .navbar-nav {
+            flex-direction: inherit;
+        }
+
+        .navbar {
+            padding-bottom: 0.1em;
+            padding-top: 0.1em;
+        }
+
+        .btn-default, .btn-default:hover, .btn-default:active, .btn-default:focus {
+            background-color: inherit;
+        }
+
+        .navbar-brand {
+            font-size: 1.75rem;
+        }
+
+        .dropdown-toggle::after {
+            display: none;
+        }
+
+        .dropdown-menu[data-bs-popper] {
+            left: inherit;
+        }
+
+        .navbar-nav > li > a {
+            font-size: 14px;
+        }
+
+        .navbar-collapse {
+            flex-grow: 0;
+        }
+
+        .pull-right {
+            float: right;
+        }
+
+        .pull-left {
             float: left;
         }
 
-         .dt-buttons {
-                           box-shadow: none !important;
-                        }
+        .btn-three-dots {
+            color: black;
+            background-color: white;
+            border-color: white;
+            border: none;
+            box-shadow: none !important;
+            position: relative !important;
+            top: -55px !important;
+            right: -20px;
+            margin-left: 10px;
+        }
+
+        .dropdown a:hover {
+            color: black;
+            background-color: white;
+        }
+
+        .form-group .form-line .form-label {
+            top: 6px;
+        }
+
+        .btn:not(.btn-link):not(.btn-circle) i {
+            top: 0px;
+        }
+
+        .btn-circle i {
+            left: 0px;
+        }
+
+        .waves-circle {
+            line-height: 0em;
+        }
+
+        .navbar-nav > li > a {
+            padding-top: 1px !important;
+            padding-bottom: 1px !important;
+            padding-left: 2px !important;
+            padding-right: 4px !important;
+            margin-top: 23px;
+            margin-left: 5px;
+        }
+
+        .label {
+            display: inline;
+            padding: 0.2em 0.6em 0.3em;
+            font-size: 75%;
+            font-weight: bold;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25em;
+        }
 
 
+        table.dataTable tr.dtrg-level-0 td {
+            font-size: 0.8em;
+        }
+
+        table.dataTable td {
+            font-size: 0.8em;
+        }
+
+        table.dataTable th {
+            font-size: 0.8em;
+        }
+
+        .dataTables_wrapper .dt-buttons {
+            float: left;
+        }
+
+        .dt-buttons {
+            box-shadow: none !important;
+        }
 
     </style>
 
@@ -713,20 +712,20 @@
 
     <script src="~/lib/adminbsb-materialdesign/plugins/bootstrap-notify/bootstrap-notify.js"></script>
 
-    @*<script src="~/bower_components/datatables-responsive/js/responsive.dataTables.js"></script>
-        <script src="~/bower_components/datatables-responsive/js/responsive.bootstrap.js"></script>*@
+    <script src="~/bower_components/datatables-responsive/js/responsive.dataTables.js"></script>
+    <script src="~/bower_components/datatables-responsive/js/responsive.bootstrap.js"></script>
     <script src="~/lib/datatables.net-buttons/js/dataTables.buttons.js"></script>
     <script src="~/lib/jszip/jszip.js"></script>
     <script src="~/lib/pdfmake/pdfmake.js"></script>
     <script src="~/lib/pdfmake/vfs_fonts.js"></script>
     <script src="~/lib/datatables.net-colreorderwithresizeupdated/ColReorderWithResize.js"></script>
-
+    <script src="~/lib/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- ========== -->
     <!-- ========== -->
     <!-- ========== -->
     <!-- Tooltip popovers Js -->
-    @*<script src="~/bower_components/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>
-        <script src="~/bower_components/moment/min/moment-with-locales.js"></script>*@
+    <script src="~/bower_components/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>
+    <script src="~/bower_components/moment/min/moment-with-locales.js"></script>
 
     <!-- Custom Js -->
     <!-- Application specific stuff -->
@@ -734,7 +733,7 @@
     <script src="~/js/CommonCRUDScripts/commonDelete.js"></script>
     <script src="~/js/CommonCRUDScripts/commonDetails.js"></script>
     <script src="~/js/CommonCRUDScripts/commonEdit.js"></script>
-    @*<script src="~/js/Muuri/muuriWireup.js"></script>*@
+    <script src="~/js/Muuri/muuriWireup.js"></script>
     <script src="~/js/admin.js"></script>
     <script src="~/js/demo.js"></script>
     <script src="~/js/Select2/select2Wireup.js"></script>
@@ -742,7 +741,7 @@
     <script src="~/js/jQueryOverride-boolean-checkboxes.js"></script>
     <!-- Make tables responsive -->
     @*<script src="~/js/makeTableResponsive.js"></script>*@
-    @* <script src="~/lib/adminbsb-materialdesign/plugins/materialize-css/js/materialize.js"></script>*@
+    <script src="~/lib/adminbsb-materialdesign/plugins/materialize-css/js/materialize.js"></script>
     <script src="~/lib/materializecss/materialize/dist/js/materialize.js"></script>
 
     <script>
