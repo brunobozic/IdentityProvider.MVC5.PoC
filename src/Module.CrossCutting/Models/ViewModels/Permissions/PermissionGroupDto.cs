@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Module.CrossCutting.Models.ViewModels.Permissions
+﻿namespace Module.CrossCutting.Models.ViewModels.Permissions
 {
     public class PermissionGroupDto
     {

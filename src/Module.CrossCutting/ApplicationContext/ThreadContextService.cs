@@ -1,7 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.IO;
-using System.Threading;
 
 namespace Module.CrossCutting.ApplicationContext
 {

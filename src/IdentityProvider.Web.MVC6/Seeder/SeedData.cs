@@ -2,6 +2,7 @@
 using IdentityProvider.Repository.EFCore.Domain.Account.Employees;
 using IdentityProvider.Repository.EFCore.Domain.Roles;
 using IdentityProvider.Repository.EFCore.EFDataContext;
+using IdentityProvider.Web.MVC6.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,12 +26,12 @@ public class SeedData
 
         // Basic roles are the indentity framework roles - so we only have a "standard" and "admin" roles here
         // The admin role is basically a super user / developer role
-        await EnsureBasicRole(scope, adminId, IdentityProvider.Web.MVC6.IdentityHelpingConstants.SuperUser);
-        await EnsureBasicRole(scope, adminId, IdentityProvider.Web.MVC6.IdentityHelpingConstants.StandardRole);
-         dbContext.SaveChanges();
+        await EnsureBasicRole(scope, adminId, IdentityHelpingConstants.SuperUser);
+        await EnsureBasicRole(scope, adminId, IdentityHelpingConstants.StandardRole);
+        dbContext.SaveChanges();
         // The roles mentioned after this line are the application roles (not part of the identity framework)
-        await EnsureRole(scope, adminId, IdentityProvider.Web.MVC6.IdentityHelpingConstants.ContactManagersRole);
-        await EnsureRole(scope, adminId, IdentityProvider.Web.MVC6.IdentityHelpingConstants.ContactAdministratorsRole);
+        await EnsureRole(scope, adminId, IdentityHelpingConstants.ContactManagersRole);
+        await EnsureRole(scope, adminId, IdentityHelpingConstants.ContactAdministratorsRole);
         dbContext.SaveChanges();
         var managerId = await EnsureUser(scope, testUserPw, "bruno.bozicmanager@gmail.com");
         var guestId = await EnsureUser(scope, testUserPw, "guest.user31337@gmail.com");
@@ -203,7 +204,7 @@ public class SeedData
         }
 
         var anotherIdentityResult = await userManager.AddToRoleAsync(user, role);
-        
+
         return anotherIdentityResult;
     }
 
@@ -221,9 +222,9 @@ public class SeedData
             dbContext.Role.Add(new AppRole
             {
                 Active = true,
-               // IsDeleted = false,
+                // IsDeleted = false,
                 Name = role,
-               // CreatedById = uid,
+                // CreatedById = uid,
                 ActiveFrom = DateTime.UtcNow,
                 ActiveTo = DateTime.UtcNow.AddYears(3)
             });

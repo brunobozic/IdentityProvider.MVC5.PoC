@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Module.CrossCutting.Models.ViewModels.Account
@@ -54,7 +53,7 @@ namespace Module.CrossCutting.Models.ViewModels.Account
 
     public class VerifyPhoneNumberViewModel
     {
-        [Required] [Display(Name = "Code")] public string Code { get; set; }
+        [Required][Display(Name = "Code")] public string Code { get; set; }
 
         [Required]
         [Phone]

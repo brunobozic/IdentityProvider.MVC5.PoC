@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Module.CrossCutting.Models.ViewModels.Account
 {
     public class ExternalLoginConfirmationViewModel
     {
-        [Required] [Display(Name = "Email")] public string Email { get; set; }
+        [Required][Display(Name = "Email")] public string Email { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -26,7 +25,7 @@ namespace Module.CrossCutting.Models.ViewModels.Account
     {
         [Required] public string Provider { get; set; }
 
-        [Required] [Display(Name = "Code")] public string Code { get; set; }
+        [Required][Display(Name = "Code")] public string Code { get; set; }
 
         public string ReturnUrl { get; set; }
 
@@ -38,7 +37,7 @@ namespace Module.CrossCutting.Models.ViewModels.Account
 
     public class ForgotViewModel
     {
-        [Required] [Display(Name = "Email")] public string Email { get; set; }
+        [Required][Display(Name = "Email")] public string Email { get; set; }
     }
 
     public class LoginViewModel

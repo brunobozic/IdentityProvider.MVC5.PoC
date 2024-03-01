@@ -3,8 +3,6 @@ using Serilog;
 using Serilog.Configuration;
 using Serilog.Debugging;
 using Serilog.Events;
-using System;
-using System.IO;
 using System.Reflection;
 
 namespace Module.CrossCutting.Logging.Serilog

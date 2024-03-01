@@ -1,7 +1,6 @@
 ﻿using Module.CrossCutting.Certificates.ExpiryValidation;
 using Module.CrossCutting.Enums;
 using Module.CrossCutting.Logging.Serilog.Providers;
-using System;
 using System.Data;
 using System.Security.Cryptography.X509Certificates;
 

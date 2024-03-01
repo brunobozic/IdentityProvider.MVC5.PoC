@@ -7,7 +7,6 @@ using IdentityProvider.Repository.EFCore.Domain.Permissions;
 using IdentityProvider.Repository.EFCore.Domain.ResourceOperations;
 using IdentityProvider.Repository.EFCore.Domain.Roles;
 using IdentityProvider.Repository.EFCore.Mapping;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -27,10 +26,7 @@ using System.Threading.Tasks;
 
 namespace IdentityProvider.Repository.EFCore.EFDataContext
 {
-    public class AppDbContext : IdentityDbContext<
-        ApplicationUser, AppRole, string,
-        AppUserClaim, AppUserRole, AppUserLogin,
-        AppRoleClaim, AppUserToken>, IDbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser, AppRole, string, AppUserClaim, AppUserRole, AppUserLogin, AppRoleClaim, AppUserToken>, IDbContext
     {
         private readonly List<DbAuditTrail> _auditList = new List<DbAuditTrail>();
         private readonly List<EntityEntry> _list = new List<EntityEntry>();
@@ -47,7 +43,7 @@ namespace IdentityProvider.Repository.EFCore.EFDataContext
             // DbInterception.Add(new DatabaseInterceptor());
         }
 
-        public DbSet<Resource> ApplicationResource { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Resource> ApplicationResource { get; set; }
         public DbSet<Operation> Operation { get; set; }
         public DbSet<RoleGroup> RoleGroup { get; set; }
         public DbSet<AppRole> Role { get; set; }
@@ -237,7 +233,7 @@ namespace IdentityProvider.Repository.EFCore.EFDataContext
 
                 throw new ModelValidationException(result.ToString(), entityException, allErrors);
             }
-            catch (DbUpdateConcurrencyException ex
+            catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex
             ) // This will fire only for entities that have the [RowVersion] property implemented...
             {
                 var entry = ex.Entries.Single();
@@ -283,7 +279,7 @@ namespace IdentityProvider.Repository.EFCore.EFDataContext
                               + "edit operation was canceled and the current values in the database "
                               + "have been displayed.");
 
-                throw new DbUpdateConcurrencyException(result.ToString(), ex);
+                throw new System.Data.Entity.Infrastructure.DbUpdateConcurrencyException(result.ToString(), ex);
             }
             catch (Exception ex)
             {
@@ -465,7 +461,7 @@ namespace IdentityProvider.Repository.EFCore.EFDataContext
 
                 throw new ModelValidationException(result.ToString(), entityException, allErrors);
             }
-            catch (DbUpdateConcurrencyException ex
+            catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex
             ) // This will fire only for entities that have the [RowVersion] property implemented...
             {
                 var entry = ex.Entries.Single();
@@ -511,7 +507,7 @@ namespace IdentityProvider.Repository.EFCore.EFDataContext
                               + "edit operation was canceled and the current values in the database "
                               + "have been displayed.");
 
-                throw new DbUpdateConcurrencyException(result.ToString(), ex);
+                throw new System.Data.Entity.Infrastructure.DbUpdateConcurrencyException(result.ToString(), ex);
             }
 
             return changes;

@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Serilog.Events;
-using System;
-using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
 
 namespace Module.CrossCutting.Logging.Serilog.SQLite.Sinks.Extensions
 {

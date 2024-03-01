@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Threading;
+﻿using System.Collections;
 
 namespace Module.CrossCutting.SessionStorageFactories
 {

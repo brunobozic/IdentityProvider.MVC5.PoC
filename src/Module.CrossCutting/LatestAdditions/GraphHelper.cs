@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Module.CrossCutting.LatestAdditions
+﻿namespace Module.CrossCutting.LatestAdditions
 {
     public static class GraphHeper
     {

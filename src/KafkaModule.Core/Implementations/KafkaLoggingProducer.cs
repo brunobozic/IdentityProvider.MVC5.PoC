@@ -1,5 +1,4 @@
 ﻿using Confluent.Kafka;
-using IdentityProvider.Web.MVC6;
 using KafkaModule.Core.Contracts;
 using KafkaModule.Core.DTOs;
 using KafkaModule.Core.Enums;

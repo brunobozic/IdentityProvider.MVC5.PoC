@@ -1,7 +1,6 @@
 ﻿using Module.CrossCutting.Email;
 using Module.CrossCutting.Enums;
 using Module.CrossCutting.Logging.Serilog.Providers;
-using System;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Module.CrossCutting.Certificates.ExpiryValidation

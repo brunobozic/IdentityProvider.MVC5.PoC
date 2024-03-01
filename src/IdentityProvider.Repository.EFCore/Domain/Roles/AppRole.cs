@@ -1,7 +1,6 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.Account.Employees;
 using IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits;
 using Microsoft.AspNetCore.Identity;
-using Module.CrossCutting.Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -64,6 +63,6 @@ namespace IdentityProvider.Repository.EFCore.Domain.Roles
 
         #endregion IsActive
 
-   
+
     }
 }

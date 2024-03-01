@@ -1,5 +1,4 @@
 ﻿using IdentityProvider.Repository.EFCore.Queries.UserGrants;
-using System.Collections.Generic;
 
 namespace IdentityProvider.ServiceLayer.Services.RowLeveLSecurityUserGrantService
 {

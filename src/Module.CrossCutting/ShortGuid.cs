@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Module.CrossCutting
+﻿namespace Module.CrossCutting
 {
     /// <summary>
     ///     Represents a globally unique identifier (GUID) with a

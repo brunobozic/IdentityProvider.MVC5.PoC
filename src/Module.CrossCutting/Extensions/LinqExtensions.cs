@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Module.CrossCutting.Extensions
+﻿namespace Module.CrossCutting.Extensions
 {
     public static class LinqExtensions
     {

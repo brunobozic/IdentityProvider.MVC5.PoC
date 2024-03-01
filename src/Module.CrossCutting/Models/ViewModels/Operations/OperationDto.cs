@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Module.CrossCutting.Models.ViewModels.Operations
+﻿namespace Module.CrossCutting.Models.ViewModels.Operations
 {
     public class OperationDto
     {

@@ -1,5 +1,4 @@
 ﻿using Module.CrossCutting.Logging.Serilog.Providers;
-using System;
 using System.Data;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;

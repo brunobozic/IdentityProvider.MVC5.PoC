@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Module.CrossCutting.Domain
+﻿namespace Module.CrossCutting.Domain
 {
     public interface IFullAudit
     {

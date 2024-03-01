@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-
-namespace Module.CrossCutting.LatestAdditions
+﻿namespace Module.CrossCutting.LatestAdditions
 {
     public static class RandomNumberGenerator
     {

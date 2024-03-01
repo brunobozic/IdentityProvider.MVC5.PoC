@@ -52,8 +52,8 @@
 
     <!-- materialize -->
 
-    <link href="~/lib/materializecss/materialize/dist/css/materialize.css" rel="stylesheet" />
-    @*<link href="~/lib/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" />*@
+   @*<link href="~/css/materialize.css" rel="stylesheet" />*@
+   @*  <link href="~/lib/adminbsb-materialdesign/plugins/materialize-css/css/materialize.css" rel="stylesheet" /> *@
     <link href="~/lib/adminbsb-materialdesign/css/style.css" rel="stylesheet" />
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="~/css/all-themes.css" rel="stylesheet" />
@@ -62,8 +62,8 @@
     @* <link href="~/css/site.css" rel="stylesheet" />*@
 
     <!-- AdminBSB Themes. Recolor buttons (TODO) -->
-    <link href="~/Content/css/themed-buttons-deep-purple.css" rel="stylesheet" />
-    <link href="~/Content/css/themed-buttons-red.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-deep-purple.css" rel="stylesheet" />
+    <link href="~/css/themed-buttons-red.css" rel="stylesheet" />
     <!-- AdminBSB Themes. Recolor buttons (TODO) -->
     <link href="~/css/themed-buttons-amber.css" rel="stylesheet" />
     <link href="~/css/themed-buttons-black.css" rel="stylesheet" />
@@ -87,11 +87,13 @@
     <link href="~/css/themed-buttons-yellow.css" rel="stylesheet" />
     <!-- Custom Css -->
     <link href="~/css/site.css" rel="stylesheet" />
-    <link href="~/Content/popover-overrides.css" rel="stylesheet" />
+    <link href="~/css/popover-overrides.css" rel="stylesheet" />
     <link href="~/lib/pretty-checkbox/pretty-checkbox.css" rel="stylesheet" />
     <link href="~/lib/adminbsb-materialdesign/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
-    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
     @*<link href="~/Content/MakeTableResponsive.css" rel="stylesheet" />*@
+
+    
 
     <style>
         .alert {
@@ -371,7 +373,12 @@
         }
 
         a {
-            color: black;
+            color: white;
+            text-decoration: none !important;
+        }
+
+        a:hover {
+            color: white;
             text-decoration: none !important;
         }
 
@@ -560,11 +567,6 @@
 
             @*@Html.Partial("_AdminBSBMain")*@
 
-            <!--------------------------
-            | Your Page Content Here |
-            -------------------------->
-            @RenderBody()
-
             <div class="modal fade in" id="mdModal" tabindex="-1" role="dialog" style="display: none;">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -576,7 +578,7 @@
                         </div>
                         <div class="modal-footer">
                             @*<button type="button" class="btn bg-pink waves-effect" data-dismiss="modal">CLOSE</button>*@
-                            <button type="button" class="btn bg-pink waves-effect" data-bs-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="right" title="" data-original-title="Close">
+                            <button type="button" class="btn bg-pink waves-effect" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="tooltip" data-bs-placement="right" title="" data-original-title="Close">
                                 <i class="material-icons">close</i>
                                 <span>
                                     Close
@@ -603,7 +605,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-bs-dismiss="modal">CLOSE</button>
                         </div>
                     </div>
                 </div>
@@ -625,7 +627,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-bs-dismiss="modal">CLOSE</button>
                         </div>
                     </div>
                 </div>
@@ -647,11 +649,19 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
-                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-bs-dismiss="modal">CLOSE</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            <!--------------------------
+            | Your Page Content Here |
+            -------------------------->
+            @RenderBody()
+
+      
         </section>
     </div>
 
@@ -678,6 +688,29 @@
     <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
     <link href="https://cdn.datatables.net/staterestore/1.1.1/css/stateRestore.dataTables.min.css" rel="stylesheet" />
     <script src="https://cdn.datatables.net/staterestore/1.1.1/js/dataTables.stateRestore.min.js"></script>
+
+
+
+
+   @*  <link href="https://cdn.datatables.net/buttons/3.0.0/css/buttons.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/colreorder/2.0.0/css/colReorder.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/fixedcolumns/5.0.0/css/fixedColumns.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/fixedheader/4.0.0/css/fixedHeader.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.bootstrap5.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/2.0.1/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/2.0.0/js/dataTables.colReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/5.0.0/js/dataTables.fixedColumns.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/4.0.0/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.0/js/responsive.bootstrap5.js"></script> *@
+
+
 
     @*@Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")*@
 
@@ -712,8 +745,8 @@
 
     <script src="~/lib/adminbsb-materialdesign/plugins/bootstrap-notify/bootstrap-notify.js"></script>
 
-    <script src="~/bower_components/datatables-responsive/js/responsive.dataTables.js"></script>
-    <script src="~/bower_components/datatables-responsive/js/responsive.bootstrap.js"></script>
+    <script src="~/lib/datatables-responsive/dataTables.responsive.js"></script>
+@*     <script src="~/lib/datatables-responsive/js/responsive.bootstrap.js"></script> *@
     <script src="~/lib/datatables.net-buttons/js/dataTables.buttons.js"></script>
     <script src="~/lib/jszip/jszip.js"></script>
     <script src="~/lib/pdfmake/pdfmake.js"></script>
@@ -723,9 +756,13 @@
     <!-- ========== -->
     <!-- ========== -->
     <!-- ========== -->
+
     <!-- Tooltip popovers Js -->
-    <script src="~/bower_components/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>
-    <script src="~/bower_components/moment/min/moment-with-locales.js"></script>
+    @*<script src="~/lib/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>*@
+
+
+
+    <script src="~/lib/moment.js/moment-with-locales.js"></script>
 
     <!-- Custom Js -->
     <!-- Application specific stuff -->
@@ -742,7 +779,7 @@
     <!-- Make tables responsive -->
     @*<script src="~/js/makeTableResponsive.js"></script>*@
     <script src="~/lib/adminbsb-materialdesign/plugins/materialize-css/js/materialize.js"></script>
-    <script src="~/lib/materializecss/materialize/dist/js/materialize.js"></script>
+    @*<script src="~/lib/materializecss/materialize/dist/js/materialize.js"></script>*@
 
     <script>
         // SWAL message styling
@@ -751,7 +788,11 @@
             confirmButtonClass: 'btn btn-success w-25 mr-05',
             cancelButtonClass: 'btn btn-secondary w-25 ml-05'
         });
+
+      
     </script>
     @* @RenderSection("Scripts", false)*@
+
+
 </body>
 </html>

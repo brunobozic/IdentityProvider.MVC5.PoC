@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Module.CrossCutting.LatestAdditions
+﻿namespace Module.CrossCutting.LatestAdditions
 {
     public static class StringExtensions
     {

@@ -1,7 +1,7 @@
-﻿using EFModule.Core.Abstractions.Services;
+﻿
 using IdentityProvider.Repository.EFCore.Domain;
 using Module.CrossCutting.Models.ViewModels;
-using System.Collections.Generic;
+using URF.Core.Abstractions.Services;
 
 namespace IdentityProvider.ServiceLayer.Services.AuditTrailService
 {

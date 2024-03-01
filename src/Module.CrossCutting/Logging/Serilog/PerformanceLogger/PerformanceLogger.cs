@@ -1,5 +1,4 @@
 ﻿using Module.CrossCutting.MVCActionFilters.PerformanceLog.Provider;
-using System;
 
 namespace Module.CrossCutting.Logging.Serilog.PerformanceLogger
 {

@@ -45,21 +45,21 @@ namespace KafkaModule.Core.Implementations
             _config = new ConsumerConfig
             {
                 BootstrapServers = config.BootstrapServers,
-                // SslCaLocation = "./Certificates/donat-gadm.test.client/dsptest-root-ca.pem",
-                // SslCertificateLocation = "./Certificates/donat-gadm.test.client/donat-gadm.test.client-ca1-signed.crt",
+                // SslCaLocation = "./Certificates/idp.test.client/dsptest-root-ca.pem",
+                // SslCertificateLocation = "./Certificates/idp.test.client/donat-gadm.test.client-ca1-signed.crt",
                 SecurityProtocol = SecurityProtocol.Plaintext,
                 SaslMechanism = SaslMechanism.Plain,
                 SaslUsername = "admin",
                 SaslPassword = "admin012",
-                GroupId = "CG_TEST_GADM_DONAT-GADM_ADDRESS-CHANGE-EVENTS",
+                GroupId = "CG_TEST_IDP-IDP_ADDRESS-CHANGE-EVENTS",
                 Debug = "consumer,topic",
-                ClientId = "test_donat-gadm",
+                ClientId = "test_idp",
                 AutoOffsetReset = AutoOffsetReset.Latest,
                 EnablePartitionEof = config.EnablePartitionEof,
                 EnableAutoOffsetStore = config.EnableAutoOffsetStore,
                 //MetadataRequestTimeoutMs = config.MetadataRequestTimeoutMs,
                 // SslKeyPem = "==",
-                // SslCertificatePem = "./Certificates/donat-gadm.test.client/donat-gadm.test.client.certificate.pem",
+                // SslCertificatePem = "./Certificates/idp.test.client/donat-gadm.test.client.certificate.pem",
 
                 MaxPollIntervalMs = config.MaxPollIntervalMs
                 // ======> TODO: ======> increase maximum poll interval!!!!!!!

@@ -30,7 +30,7 @@ namespace IdentityProvider.Repository.EFCore.Mapping
                 //.HasForeignKey("UserId")
                 ;
 
-            
+
         }
     }
 }

@@ -2,7 +2,6 @@
 using Module.CrossCutting.Logging.Serilog;
 using Module.CrossCutting.MVCActionFilters.PerformanceLog.Model;
 using Serilog;
-using System;
 
 namespace Module.CrossCutting.MVCActionFilters.PerformanceLog.Provider
 {

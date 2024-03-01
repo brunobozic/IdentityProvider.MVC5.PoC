@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Module.CrossCutting.Logging.Serilog.AuditLog
+﻿namespace Module.CrossCutting.Logging.Serilog.AuditLog
 {
     public interface IAuditLogService : IDisposable
     {

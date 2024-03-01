@@ -2120,12 +2120,12 @@ if (typeof jQuery === 'undefined') {
         .find('> .dropdown-menu > .active')
           .removeClass('active')
         .end()
-        .find('[data-bs-toggle="tab"]')
+        .find('[data-toggle="tab"]')
           .attr('aria-expanded', false)
 
       element
         .addClass('active')
-        .find('[data-bs-toggle="tab"]')
+        .find('[data-toggle="tab"]')
           .attr('aria-expanded', true)
 
       if (transition) {
@@ -2140,7 +2140,7 @@ if (typeof jQuery === 'undefined') {
           .closest('li.dropdown')
             .addClass('active')
           .end()
-          .find('[data-bs-toggle="tab"]')
+          .find('[data-toggle="tab"]')
             .attr('aria-expanded', true)
       }
 
@@ -2194,7 +2194,7 @@ if (typeof jQuery === 'undefined') {
   }
 
   $(document)
-    .on('click.bs.tab.data-api', '[data-bs-toggle="tab"]', clickHandler)
+    .on('click.bs.tab.data-api', '[data-toggle="tab"]', clickHandler)
     .on('click.bs.tab.data-api', '[data-toggle="pill"]', clickHandler)
 
 }(jQuery);

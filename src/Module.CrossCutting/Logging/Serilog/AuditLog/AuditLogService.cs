@@ -1,7 +1,6 @@
 ﻿using Module.CrossCutting.ApplicationContext;
 using Module.CrossCutting.Enums;
 using Serilog;
-using System;
 
 namespace Module.CrossCutting.Logging.Serilog.AuditLog
 {

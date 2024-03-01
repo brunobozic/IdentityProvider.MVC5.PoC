@@ -1,5 +1,5 @@
 ﻿/* Navbar ====================================== */
-@import url(materialize.css);
+@import url(../css/materialize.css);
 
 .navbar {
     font-family: "Roboto", sans-serif;
@@ -130,7 +130,7 @@
 }
 
 .navbar-nav .dropdown-menu {
-    margin-top: -40px !important;
+    margin-top: -47px !important;
 }
 
 .label-count {
@@ -9229,7 +9229,7 @@ fieldset[disabled] .form-control {
 }
 
 .navbar-nav .dropdown-menu {
-    margin-top: -40px !important;
+    margin-top: -45px !important;
 }
 
 .label-count {

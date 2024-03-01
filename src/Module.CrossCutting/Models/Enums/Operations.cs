@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Module.CrossCutting.Models.Enums
+﻿namespace Module.CrossCutting.Models.Enums
 {
     [Flags]
     public enum Operations

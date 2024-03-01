@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using PagedList;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Module.CrossCutting.Models.ViewModels.Operations

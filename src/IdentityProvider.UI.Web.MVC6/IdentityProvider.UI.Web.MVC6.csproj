@@ -82,11 +82,6 @@
     <ProjectReference Include="..\Module.CrossCutting\Module.CrossCutting.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="wwwroot\img\iwa-sport-bg-image-light-medium.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
+
 
 </Project>

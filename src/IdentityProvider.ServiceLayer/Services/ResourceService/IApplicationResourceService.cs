@@ -1,5 +1,6 @@
-﻿using EFModule.Core.Abstractions.Services;
+﻿
 using IdentityProvider.Repository.EFCore.Domain.ResourceOperations;
+using URF.Core.Abstractions.Services;
 
 namespace IdentityProvider.ServiceLayer.Services.ResourceService
 {

@@ -34,7 +34,7 @@ namespace KafkaModule.Core.Contracts
         IConsumer<string, string> Instance();
 
         /// <summary>
-        /// Store the last message that was successfuly read and persisted to the Donat database.
+        /// Store the last message that was successfuly read and persisted to the the database.
         /// </summary>
         void StoreOffsetFor(ConsumeResult<string, string> msg);
 

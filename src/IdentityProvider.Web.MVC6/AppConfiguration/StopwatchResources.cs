@@ -1,4 +1,4 @@
-﻿namespace IdentityProvider.Web.MVC6
+﻿namespace IdentityProvider.Web.MVC6.AppConfiguration
 {
     internal class StopwatchResources
     {

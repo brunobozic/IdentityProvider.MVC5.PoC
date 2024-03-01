@@ -1,6 +1,5 @@
 ﻿using Module.CrossCutting.ApplicationContext;
 using Serilog;
-using System;
 
 namespace Module.CrossCutting.Logging.Serilog.Providers
 {

@@ -1,30 +1,35 @@
-﻿using IdentityProvider.Repository.EFCore.Domain.Account;
+﻿using AutoMapper;
+using HealthChecks.UI.Client;
+using IdentityProvider.Repository.EFCore.Domain.Account;
 using IdentityProvider.Repository.EFCore.Domain.Roles;
 using IdentityProvider.Repository.EFCore.EFDataContext;
-using IdentityProvider.Web.MVC6;
+using IdentityProvider.Web.MVC6.Controllers;
+using IdentityProvider.Web.MVC6.Identity;
+using IdentityProvider.Web.MVC6.Middleware;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Module.CrossCutting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 using System;
-using Microsoft.AspNetCore.Http.Features;
-using System.Diagnostics;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Server.Kestrel.Https;
+using System.Diagnostics;
 using System.IO;
-using EFModule.Core.Abstractions.Services;
-using EFModule.Core.Services;
+using System.Net.Mime;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
@@ -32,17 +37,8 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
     ApplicationName = typeof(Program).Assembly.FullName,
     ContentRootPath = Directory.GetCurrentDirectory(),
     EnvironmentName = Environments.Staging
-  //  , WebRootPath = "customwwwroot"
 });
 
-//builder.WebHost.UseKestrel(options =>
-//{
-//    options.ConfigureHttpsDefaults(adapterOptions =>
-//    {
-//        //adapterOptions.ClientCertificateMode = ClientCertificateMode.DelayCertificate;
-//        //adapterOptions.SslProtocols = System.Security.Authentication.SslProtocols.None;
-//    });
-//});
 
 builder.Host.UseSerilog();
 builder.Logging.AddSerilog();
@@ -51,11 +47,18 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // Add services to the container.
 builder.Services.AddLogging();
+#region Mediatr
 
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
+builder.Services.AddTransient<IMediator, Mediator>();
+builder.Services.AddTransient<IMediator, NoMediator>();
+
+#endregion Mediatr
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+builder.Services.AddProblemDetails();
+builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddHealthChecks();
 
 builder.Services.AddHttpContextAccessor();
@@ -83,7 +86,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.AllowedForNewUsers = true;
 
     // User settings.
-    options.User.AllowedUserNameCharacters ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = false;
 });
 
@@ -129,6 +132,51 @@ builder.Services.AddSingleton(typeof(RoleManager<AppRole>));
 //    logging.RequestBodyLogLimit = 4096;
 //    logging.ResponseBodyLogLimit = 4096;
 //});
+
+builder.Services.AddMvc(opt =>
+{
+    // opt.Filters.Add(typeof(ValidateFilterAttribute));
+})
+//.AddFluentValidation(fv =>
+//{
+//    fv.RegisterValidatorsFromAssembly(Assembly.Load("StrippedDownSkeleton.Services")); // the assembly that houses the implemented validators
+//  //fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false; // dont run MVC validators after having run the fluent ones
+//    fv.ImplicitlyValidateChildProperties = true; // fall through and validate all child elements and their child elementes
+//})
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.Converters.Add(new StringEnumConverter(new CamelCaseNamingStrategy()));
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+    })
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            var result = new BadRequestObjectResult(context.ModelState);
+
+            // TODO: add `using System.Net.Mime;` to resolve MediaTypeNames
+            result.ContentTypes.Add(MediaTypeNames.Application.Json);
+            result.ContentTypes.Add(MediaTypeNames.Application.Xml);
+
+            return result;
+        };
+        options.SuppressConsumesConstraintForFormFileParameters = false;
+        options.SuppressInferBindingSourcesForParameters = false;
+        options.SuppressModelStateInvalidFilter = true;
+        options.SuppressMapClientErrors = true;
+        options.ClientErrorMapping[404].Link = "https://httpstatuses.com/404";
+    });
+
+#region Automapper
+
+var config = new MapperConfiguration(cfg => { cfg.AddMaps("EFModule.Core.Services"); });
+
+var mapper = config.CreateMapper();
+// config.AssertConfigurationIsValid();
+builder.Services.AddSingleton(mapper);
+
+#endregion Automapper
 
 var app = builder.Build();
 
@@ -190,40 +238,31 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-//app.UseHealthChecks("/hc", new HealthCheckOptions
-//{
-//    Predicate = _ => true,
-//    // ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-//});
+#region Health check
 
-//app.UseHealthChecks("/liveness", new HealthCheckOptions
-//{
-//    Predicate = r => r.Name.Contains("self")
-//});
+app.UseHealthChecks("/hc", new HealthCheckOptions
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
-// TODO: use swagger here!
-//app.Use(async (context, next) =>
-//{
-//    var hostHeader = context.Request.Headers.Host;
-//    app.Logger.LogInformation("Host header: {host}", hostHeader);
-//    context.Response.Headers.XPoweredBy = "ASP.NET Core 6.0";
-//    await next.Invoke(context);
-//    var dateHeader = context.Response.Headers.Date;
-//    app.Logger.LogInformation("Response date: {date}", dateHeader);
-//});
+app.UseHealthChecks("/liveness", new HealthCheckOptions
+{
+    Predicate = r => r.Name.Contains("self")
+});
+
+#endregion Health check
 
 try
 {
     app.Run();
     return 0;
 }
-catch (Exception ex )
+catch (Exception ex)
 {
     Log.Error(ex.Message, typeof(Program).Namespace);
     return 1;
 }
-
-
 
 static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
 {
@@ -236,26 +275,17 @@ static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
         .ReadFrom.Configuration(configuration)
         .Enrich.WithProperty("Application", appInstanceName)
         .Enrich.WithProperty("Environment", environment)
-        .Enrich.WithAssemblyName()
-        .Enrich.WithAssemblyVersion()
-        .Enrich.WithEnvironmentUserName() // environments are tricky when using a windows service
-                                          //.Enrich.WithExceptionData()
-                                          //.Enrich.WithExceptionStackTraceHash()
-                                          // .Enrich.WithMemoryUsage()
-        .Enrich.WithThreadId()
-        .Enrich.WithThreadName()
         .Enrich.FromLogContext()
+        .Enrich.WithAssemblyVersion()
+        .Enrich.WithEnvironmentName()
         .Enrich.WithProcessName()
         .Enrich.WithEnvironmentUserName()
         .Enrich.WithEnvironment(environment)
         .Enrich.WithProperty("DebuggerAttached", Debugger.IsAttached)
-        .ReadFrom.ConfigurationSection(configuration.GetSection("Serilog"))
-        //    .WriteTo.Kafka(kafkaProducerForLogging, new EcsTextFormatter()) // this is how we make the sink use a custom text formatter, in this case, we needed the Elastic compatible formatter
         .WriteTo.Console(theme: AnsiConsoleTheme.Code,
             outputTemplate:
-            "{Timestamp:HH:mm} [{Level}] [{Address}] {Site}: {Message} || CommandType: [{Command_Type}], CommandId: [{Command_Id}], Application: [{Application}], Machine: [{MachineName}], User: [{EnvironmentUserName}], CorrelationId: [{CorrelationId}], DebuggerAttached: [{DebuggerAttached}] {NewLine}")
-        .WriteTo.File(appInstanceName + ".log", rollingInterval: RollingInterval.Day,
-            retainedFileCountLimit: null)
+            "{Timestamp:HH:mm} [{Level}] [{Address}] {Site}: {Message} || Application: [{Application}], Machine: [{MachineName}], User: [{EnvironmentUserName}], CorrelationId: [{CorrelationId}], DebuggerAttached: [{DebuggerAttached}] {NewLine}")
+        .WriteTo.File(appInstanceName + ".log", rollingInterval: RollingInterval.Day, retainedFileCountLimit: null)
         .CreateLogger();
 }
 class BadRequestEventListener : IObserver<KeyValuePair<string, object>>, IDisposable

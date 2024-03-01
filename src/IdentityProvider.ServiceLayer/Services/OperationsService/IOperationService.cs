@@ -1,8 +1,7 @@
-﻿using EFModule.Core.Abstractions.Services;
+﻿
 using IdentityProvider.Repository.EFCore.Domain.ResourceOperations;
 using Module.CrossCutting.Models.ViewModels.Operations;
-using System;
-using System.Collections.Generic;
+using URF.Core.Abstractions.Services;
 
 namespace IdentityProvider.ServiceLayer.Services.OperationsService
 {

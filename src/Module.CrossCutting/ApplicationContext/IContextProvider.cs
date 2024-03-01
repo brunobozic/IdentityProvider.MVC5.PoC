@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Module.CrossCutting.ApplicationContext
+﻿namespace Module.CrossCutting.ApplicationContext
 {
     public interface IContextProvider : IDisposable
     {

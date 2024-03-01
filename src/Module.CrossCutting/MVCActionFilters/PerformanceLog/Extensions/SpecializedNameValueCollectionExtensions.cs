@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Specialized;
-using System.Linq;
 
 namespace Module.CrossCutting.MVCActionFilters.PerformanceLog.Extensions
 {

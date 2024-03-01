@@ -1,1 +1,78 @@
-﻿
+﻿using AutoMapper;
+using IdentityProvider.Repository.EFCore.Domain.Roles;
+using IdentityProvider.ServiceLayer.Services.ApplicationRoleService;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using StructureMap;
+using TrackableEntities.Common.Core;
+using URF.Core.Abstractions;
+using URF.Core.Abstractions.Trackable;
+using URF.Core.Services;
+
+public class ApplicationRoleService : Service<AppRole>, IRoleService
+{
+
+    private readonly IMapper _mapper;
+    private readonly ApplicationRoleManager _roleManager;
+    private readonly IUnitOfWork _unitOfWorkAsync;
+
+
+
+    [DefaultConstructor]  // This is the attribute you need to add on the constructor
+    public ApplicationRoleService(
+        IUnitOfWork unitOfWorkAsync
+        , IMapper mapper
+        , ITrackableRepository<AppRole> repository
+             , ApplicationRoleManager roleManager
+
+    ) : base(repository)
+    {
+        _unitOfWorkAsync = unitOfWorkAsync;
+        _mapper = mapper;
+        _roleManager = roleManager;
+
+    }
+
+    public Task<IdentityResult> AddRoleAsync(string roleName, string optionalDescription, bool startAsNonActive = false)
+    {
+        return _roleManager.CreateAsync(new AppRole(roleName)
+        {
+            Name = roleName,
+            Description = optionalDescription,
+            Active = !startAsNonActive,
+            ActiveFrom = DateTime.Now,
+            TrackingState = TrackingState.Added
+        });
+    }
+
+    public async Task<bool> ExistsAsync(string roleName)
+    {
+        return await _roleManager.RoleExistsAsync(roleName);
+    }
+
+
+    public async Task<AppRole> FetchRoleAsync(string byRoleName)
+    {
+        return await _roleManager.FindByNameAsync(byRoleName);
+    }
+
+    /// <summary>
+    /// Get all active application roles.
+    /// </summary>
+    /// <returns></returns>
+    public async Task<List<AppRole>> GetList()
+    {
+        return await Queryable().Where(i => i.Active).ToListAsync();
+    }
+
+    /// <summary>
+    /// Get all deactivated application roles.
+    /// </summary>
+    /// <returns></returns>
+    public async Task<List<AppRole>> GetListOfDeactivated()
+    {
+        return await Queryable().Where(i => i.Active == false).ToListAsync();
+    }
+
+
+}

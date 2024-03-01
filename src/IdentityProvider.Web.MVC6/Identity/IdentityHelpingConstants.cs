@@ -1,4 +1,4 @@
-﻿namespace IdentityProvider.Web.MVC6
+﻿namespace IdentityProvider.Web.MVC6.Identity
 {
     internal class IdentityHelpingConstants
     {

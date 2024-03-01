@@ -1,7 +1,4 @@
 ﻿using Serilog.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Module.CrossCutting.Logging.Serilog.SQLite.Sinks.Batch
 {

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Module.CrossCutting.Email
+﻿namespace Module.CrossCutting.Email
 {
     public interface IEmailSender
     {

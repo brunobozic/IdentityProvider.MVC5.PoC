@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Version>3.1.3</Version>
     <Authors>Long Le, Tony Sneed</Authors>
@@ -16,11 +16,6 @@
 
   <ItemGroup>
     <PackageReference Include="TrackableEntities.Common.Core" Version="3.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\EFModule.Core.Abstractions.Services\EFModule.Core.Abstractions.Services.csproj" />
-    <ProjectReference Include="..\EFModule.Core.Abstractions\EFModule.Core.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

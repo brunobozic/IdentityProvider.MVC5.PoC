@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Module.CrossCutting.Models.ViewModels
+﻿namespace Module.CrossCutting.Models.ViewModels
 {
     public class YourCustomSearchClass
     {

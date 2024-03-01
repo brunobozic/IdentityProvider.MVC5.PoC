@@ -88,7 +88,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.Account
 
 
         public virtual ICollection<AppUserAppRole> UserRoles { get; set; }
-        public virtual ICollection<AppUserClaim> Claims { get;  set; }
+        public virtual ICollection<AppUserClaim> Claims { get; set; }
         public virtual ICollection<AppUserLogin> Logins { get; set; }
         public virtual ICollection<AppUserToken> Tokens { get; set; }
     }

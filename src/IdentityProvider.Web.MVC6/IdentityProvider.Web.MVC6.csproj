@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>aspnet-IdentityProvider.Web.MVC6-A13132DD-BEBE-41E3-B4E6-C4FB202D16F1</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -81,7 +81,7 @@
     <Content Remove="wwwroot\img\image-gallery\7.jpg" />
     <Content Remove="wwwroot\img\image-gallery\8.jpg" />
     <Content Remove="wwwroot\img\image-gallery\9.jpg" />
-    <Content Remove="wwwroot\img\iwa-sport-bg-image-light-medium.jpg" />
+
     <Content Remove="wwwroot\img\photo1.png" />
     <Content Remove="wwwroot\img\photo2.png" />
     <Content Remove="wwwroot\img\photo3.jpg" />
@@ -100,7 +100,7 @@
     <Content Remove="wwwroot\img\user6-128x128.jpg" />
     <Content Remove="wwwroot\img\user7-128x128.jpg" />
     <Content Remove="wwwroot\img\user8-128x128.jpg" />
-    <Content Remove="wwwroot\iwa-sport-bg-image-light-medium.jpg" />
+
     <Content Remove="wwwroot\js\admin.js" />
     <Content Remove="wwwroot\js\Charts\charts.utils.js" />
     <Content Remove="wwwroot\js\CommonCRUDScripts\commonAccountAdministrationScripts.js" />
@@ -130,16 +130,7 @@
     <Content Remove="wwwroot\tether\tether.min.css" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="iwa-sport-bg-image-light-medium.jpg" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="iwa-sport-bg-image-light-medium.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\css\all-themes.css" />
@@ -300,7 +291,7 @@
     <None Include="wwwroot\img\image-gallery\7.jpg" />
     <None Include="wwwroot\img\image-gallery\8.jpg" />
     <None Include="wwwroot\img\image-gallery\9.jpg" />
-    <None Include="wwwroot\img\iwa-sport-bg-image-light-medium.jpg" />
+
     <None Include="wwwroot\img\photo1.png" />
     <None Include="wwwroot\img\photo2.png" />
     <None Include="wwwroot\img\photo3.jpg" />
@@ -349,59 +340,63 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspectCore.Abstractions" Version="2.2.0" />
+    <PackageReference Include="AspectCore.Abstractions" Version="2.4.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Core" Version="7.0.0" />
     <PackageReference Include="AutoMapper" Version="11.0.1" />
-    <PackageReference Include="FluentAssertions" Version="6.7.0" />
-    <PackageReference Include="FluentValidation" Version="11.0.2" />
-    <PackageReference Include="IdentityModel" Version="6.0.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.20.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.5" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="6.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.5" />
-    <PackageReference Include="Polly" Version="7.2.3" />
-    <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.22.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.16" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.16" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.16" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.16" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.12" />
+    <PackageReference Include="Polly" Version="8.3.0" />
+    <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
-    <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="1.0.9" />
-    <PackageReference Include="Serilog.Enrichers.Context" Version="4.2.0" />
+    <PackageReference Include="Serilog.Enrichers.AssemblyName" Version="2.0.0" />
+    <PackageReference Include="Serilog.Enrichers.Context" Version="4.6.5" />
     <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
-    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.3.0" />
     <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
-    <PackageReference Include="Serilog.Exceptions" Version="8.2.0" />
+    <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
-    <PackageReference Include="Serilog.Formatting.Elasticsearch" Version="8.4.1" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
-    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />
+    <PackageReference Include="Serilog.Formatting.Elasticsearch" Version="9.0.3" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="9.0.3" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="Serilog.Sinks.Http" Version="8.0.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.3.1" />
-    <PackageReference Include="System.Runtime.Caching" Version="6.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+    <PackageReference Include="System.Runtime.Caching" Version="8.0.0" />
+    <PackageReference Include="URF.Core.Abstractions" Version="7.0.0" />
+    <PackageReference Include="URF.Core.Abstractions.Services" Version="7.0.0" />
+    <PackageReference Include="URF.Core.Abstractions.Trackable" Version="7.0.0" />
+    <PackageReference Include="URF.Core.EF" Version="7.0.0" />
+    <PackageReference Include="URF.Core.EF.Trackable" Version="7.0.0" />
+    <PackageReference Include="URF.Core.Services" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IdentityProvider.Repository.EFCore\IdentityProvider.Repository.EFCore.csproj" />
+    <ProjectReference Include="..\IdentityProvider.ServiceLayer\IdentityProvider.ServiceLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

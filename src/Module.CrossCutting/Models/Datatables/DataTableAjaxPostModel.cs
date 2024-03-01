@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Module.CrossCutting.Models.Datatables
+﻿namespace Module.CrossCutting.Models.Datatables
 {
     public class DataTableAjaxPostModel
     {
-        public string alsoinactive { get; set; }
-        public string alsodeleted { get; set; }
+        public bool alsoinactive { get; set; }
+        public bool alsodeleted { get; set; }
         public List<string> tables { get; set; }
 
         public List<string> actions { get; set; }

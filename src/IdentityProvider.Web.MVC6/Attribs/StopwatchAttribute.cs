@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using IdentityProvider.Web.MVC6.AppConfiguration;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Serilog;
 using System.Diagnostics;
 
-namespace IdentityProvider.Web.MVC6
+namespace IdentityProvider.Web.MVC6.Attribs
 {
-    public class StopWatchActionFilter : Microsoft.AspNetCore.Mvc.Filters.IActionFilter
+    public class StopWatchActionFilter : IActionFilter
     {
         public void OnActionExecuted(ActionExecutedContext context)
         {

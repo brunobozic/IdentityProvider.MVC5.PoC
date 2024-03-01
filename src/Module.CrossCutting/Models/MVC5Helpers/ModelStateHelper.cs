@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections;
-using System.Linq;
 
 namespace Module.CrossCutting.Models.MVC5Helpers
 {

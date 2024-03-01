@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Module.CrossCutting.LatestAdditions
+﻿namespace Module.CrossCutting.LatestAdditions
 {
     public static class StringHelper
     {

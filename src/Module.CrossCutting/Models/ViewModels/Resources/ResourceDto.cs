@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Module.CrossCutting.Models.ViewModels.Resources
+﻿namespace Module.CrossCutting.Models.ViewModels.Resources
 {
     public class ResourceDto
     {

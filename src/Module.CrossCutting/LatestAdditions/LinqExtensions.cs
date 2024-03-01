@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Module.CrossCutting.LatestAdditions
+﻿namespace Module.CrossCutting.LatestAdditions
 {
     public static class LinqExtensions
     {

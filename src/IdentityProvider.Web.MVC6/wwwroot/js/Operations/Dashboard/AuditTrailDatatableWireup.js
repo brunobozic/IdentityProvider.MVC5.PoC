@@ -109,9 +109,9 @@ $(document).ready(function () {
             "search": "",
             "searchPlaceholder": " Search...",
             loadingRecords:
-                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="/Content/img/ajaxloading.gif"></div>', // The loading gif is hardcoded in this manner
+                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="/img/ajaxloading.gif"></div>', // The loading gif is hardcoded in this manner
             processing:
-                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="/Content/img/ajaxloading.gif"></div>'  // The loading gif is hardcoded in this manner
+                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="/img/ajaxloading.gif"></div>'  // The loading gif is hardcoded in this manner
         },
         "columns": [
             { "data": "Id", "name": "Id", "autoWidth": false, "responsivePriority": 1000 },

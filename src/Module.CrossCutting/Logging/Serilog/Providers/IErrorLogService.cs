@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Module.CrossCutting.Logging.Serilog.Providers
+﻿namespace Module.CrossCutting.Logging.Serilog.Providers
 {
     public interface IErrorLogService : IDisposable
     {

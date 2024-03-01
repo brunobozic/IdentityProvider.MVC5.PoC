@@ -36,7 +36,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits
         [MinLength(2)]
         public string Description { get; set; }
 
-        [Required] [Range(0, 50)] public int SecurityWeight { get; set; }
+        [Required][Range(0, 50)] public int SecurityWeight { get; set; }
 
         public ICollection<EmployeeBelongsToOrgUnit> Employees { get; set; }
         public ICollection<IdentityFrameworkRole> Roles { get; set; }

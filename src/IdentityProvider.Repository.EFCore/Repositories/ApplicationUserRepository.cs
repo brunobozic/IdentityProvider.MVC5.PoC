@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace IdentityProvider.Repository.EFCore
+namespace IdentityProvider.Repository.EFCore.Repositories
 {
     public class ApplicationUserRepository : UserManager<ApplicationUser>, IApplicationUserRepository
     {

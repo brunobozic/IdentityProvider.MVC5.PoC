@@ -1,6 +1,5 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.ResourceOperations;
 using Module.CrossCutting.Models.ViewModels.Resources;
-using System;
 
 namespace IdentityProvider.ServiceLayer.Services.ResourceService
 {

@@ -87,9 +87,9 @@ $(document).ready(function () {
             "search": "",
             "searchPlaceholder": "Search...",
             loadingRecords:
-                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="/Content/img/ajaxloading.gif"></div>',
+                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="/img/ajaxloading.gif"></div>',
             processing:
-                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="/Content/img/ajaxloading.gif"></div>'
+                '<div style="width:100%; z-index: 11000 !important; text-align: center;"><img src="/img/ajaxloading.gif"></div>'
         },
         lengthMenu: [5, 10, 20, 50, 100, 200, 500],
         "columns": [
@@ -114,7 +114,7 @@ $(document).ready(function () {
                 "responsivePriority": 10,
                 "render": function (data, type, row) {
                     return (data === true)
-                        ? '<i class="material-icons" style="color:red" data-toggle="tooltip" data-placement="top" title="This item was deleted by user: [Guest] at [DateDeleted]">delete_forever </i>'
+                        ? '<i class="material-icons" style="color:red" data-bs-toggle="tooltip" data-bs-placement="top" title="This item was deleted by user: [Guest] at [DateDeleted]">delete_forever </i>'
                         : " ";
                 }
             },

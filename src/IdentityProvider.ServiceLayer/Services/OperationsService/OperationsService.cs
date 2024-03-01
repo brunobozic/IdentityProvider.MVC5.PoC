@@ -1,13 +1,12 @@
-﻿using EFModule.Core.Abstractions.Trackable;
-using EFModule.Core.Services;
+﻿
 using IdentityProvider.Repository.EFCore.Domain.ResourceOperations;
 using LinqKit;
+using Microsoft.EntityFrameworkCore;
 using Module.CrossCutting.Models.ViewModels.Operations;
 using StructureMap;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
+using URF.Core.Abstractions.Trackable;
+using URF.Core.Services;
 
 namespace IdentityProvider.ServiceLayer.Services.OperationsService
 {
@@ -22,31 +21,30 @@ namespace IdentityProvider.ServiceLayer.Services.OperationsService
         }
 
         public IList<OperationsDatatableSearchClass> GetDataFromDbase(
-            int userId
-            , string searchBy
-            , int take
-            , int skip
-            , string sortBy
-            , bool sortDir
-            , DateTime? from
-            , DateTime? to
-            , bool also_active
-            , bool also_deleted
-            , out int filteredResultsCount
-            , out int totalResultsCount
-        )
+         int userId, string searchBy, int take, int skip,
+         string sortBy, bool sortDir, DateTime? from, DateTime? to,
+         bool alsoActive, bool alsoDeleted, out int filteredResultsCount,
+         out int totalResultsCount)
         {
-            var whereClause = BuildDynamicWhereClause(searchBy, from, to, also_active, also_deleted);
+            var whereClause = BuildDynamicWhereClause(searchBy, from, to, alsoActive, alsoDeleted);
 
-            if (string.IsNullOrEmpty(searchBy))
+            // Start with a base query
+            var query = _repository.Queryable().Where(whereClause);
+
+            // Apply sorting
+            query = sortBy switch
             {
-                // if we have an empty search then just order the results by Id ascending
-                // sortBy = "Id";
-                // sortDir = true;
-            }
+                "Id" => sortDir ? query.OrderBy(x => x.Id) : query.OrderByDescending(x => x.Id),
+                "Name" => sortDir ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name),
+                "Description" => sortDir ? query.OrderBy(x => x.Description) : query.OrderByDescending(x => x.Description),
+                "Active" => sortDir ? query.OrderBy(x => x.Active) : query.OrderByDescending(x => x.Active),
+                "CreatedDate" => sortDir ? query.OrderBy(x => x.CreatedDate) : query.OrderByDescending(x => x.CreatedDate),
+                "ModifiedDate" => sortDir ? query.OrderBy(x => x.ModifiedDate) : query.OrderByDescending(x => x.ModifiedDate),
+                _ => query.OrderBy(x => x.Id) // Default sorting
+            };
 
-            var query = Queryable()
-                .Where(whereClause)
+            // Project to DTO and paginate
+            var result = query
                 .Select(m => new OperationsDatatableSearchClass
                 {
                     Id = m.Id,
@@ -56,116 +54,43 @@ namespace IdentityProvider.ServiceLayer.Services.OperationsService
                     Deleted = m.IsDeleted,
                     CreatedDate = m.CreatedDate,
                     ModifiedDate = m.ModifiedDate,
-                    Actions = string.Empty
-                });
-
-            switch (sortBy)
-            {
-                case "Id":
-                    query = sortDir ? query.OrderBy(x => x.Id) : query.OrderByDescending(x => x.Id);
-                    break;
-
-                case "Name":
-                    query = sortDir ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name);
-                    break;
-
-                case "Description":
-                    query = sortDir ? query.OrderBy(x => x.Description) : query.OrderByDescending(x => x.Description);
-                    break;
-
-                case "Active":
-                    query = sortDir ? query.OrderBy(x => x.Active) : query.OrderByDescending(x => x.Active);
-                    break;
-
-                case "CreatedDate":
-                    query = sortDir ? query.OrderBy(x => x.CreatedDate) : query.OrderByDescending(x => x.CreatedDate);
-                    break;
-
-                case "ModifiedDate":
-                    query = sortDir ? query.OrderBy(x => x.ModifiedDate) : query.OrderByDescending(x => x.ModifiedDate);
-                    break;
-
-                default:
-                    query = query.OrderBy(x => x.Id);
-                    break;
-            }
-
-            var result = query
+                    Actions = string.Empty // This should be set according to your UI logic
+                })
                 .Skip(skip)
                 .Take(take)
                 .ToList();
 
-            // now just get the count of items (without the skip and take) - eg how many could be returned with filtering
-            // "Entity Framework's query processing pipeline cannot handle invocation expressions, which is why you need to call AsExpandable on the first object in the query.
-            // By calling AsExpandable, you activate LINQKit's expression visitor class which substitutes invocation expressions with simpler constructs that Entity Framework can understand."
-            // ~Josef Albahary
-            filteredResultsCount = _repository
-                .Queryable()
-                .AsExpandable()
-                .Where(whereClause)
-                .Count();
-
-            totalResultsCount = _repository
-                .Queryable()
-                .Count();
-
-            // _loggingService.LogInfo(this, "Test", null, true);
+            // Counts
+            filteredResultsCount = query.Count(); // Apply the same whereClause but without pagination
+            totalResultsCount = _repository.Queryable().Count();
 
             return result;
         }
 
-        private Expression<Func<Operation, bool>> BuildDynamicWhereClause(
-            string searchValue
-            , DateTime? from
-            , DateTime? to
-            , bool alsoInActive
-            , bool alsoDeleted
-        )
-        {
-            // simple method to dynamically plugin a where clause
-            var predicate = PredicateBuilder.New<Operation>(true); // true -where(true) return all
 
-            if (string.IsNullOrWhiteSpace(searchValue) == false)
+        private Expression<Func<Operation, bool>> BuildDynamicWhereClause(
+            string searchValue, DateTime? from, DateTime? to,
+            bool alsoInActive, bool alsoDeleted)
+        {
+            var predicate = PredicateBuilder.New<Operation>(true);
+
+            if (!string.IsNullOrWhiteSpace(searchValue))
             {
-                var searchTerms = searchValue.Split(' ').ToList().ConvertAll(x => x.ToLower());
-                predicate = predicate.Or(s => searchTerms.Any(srch => s.Description.ToLower().Contains(srch)));
-                predicate = predicate.Or(s => searchTerms.Any(srch => s.Name.ToLower().Contains(srch)));
+                predicate = predicate.And(s => EF.Functions.Like(s.Name.ToLower(), $"%{searchValue.ToLower()}%")
+                    || EF.Functions.Like(s.Description.ToLower(), $"%{searchValue.ToLower()}%"));
             }
 
             if (from.HasValue && to.HasValue)
+            {
                 predicate = predicate.And(s => s.ModifiedDate <= to && s.ModifiedDate >= from);
-
-            if (alsoInActive && alsoDeleted)
-            {
-                // show all
             }
 
-            ;
-
-            if (!alsoInActive && !alsoDeleted)
-            {
-                // show only non deleted and inactive ones
-                predicate = predicate.And(s => s.IsDeleted == false);
-                predicate = predicate.And(s => s.Active == false);
-            }
-
-            ;
-
-            if (alsoInActive && !alsoDeleted)
-                // show active but deleted ones
-                predicate = predicate.And(s => s.IsDeleted == false);
-            ;
-
-            if (!alsoInActive && alsoDeleted)
-            {
-                // show deleted but active ones
-                predicate = predicate.And(s => s.IsDeleted);
-                predicate = predicate.And(s => s.Active == false);
-            }
-
-            ;
+            // Adjust the logic here based on actual requirements
+            predicate = predicate.And(s => (!alsoInActive || s.Active) && (!alsoDeleted || s.IsDeleted));
 
             return predicate;
         }
+
+
     }
 }

@@ -4,12 +4,9 @@ using Module.CrossCutting.Logging.Serilog.SQLite.Sinks.Extensions;
 using Serilog.Core;
 using Serilog.Debugging;
 using Serilog.Events;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
-using System.Linq;
 
 namespace Module.CrossCutting.Logging.Serilog.SQLite.Sinks.SQLite
 {

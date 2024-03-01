@@ -1,7 +1,9 @@
-﻿using EFModule.Core.Abstractions.Trackable;
-using EFModule.Core.Services;
+﻿
 using IdentityProvider.Repository.EFCore.Domain.ResourceOperations;
 using StructureMap;
+using URF.Core.Abstractions.Trackable;
+using URF.Core.Services;
+
 
 namespace IdentityProvider.ServiceLayer.Services.ResourceService
 {

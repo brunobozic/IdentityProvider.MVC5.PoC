@@ -4,7 +4,7 @@ using Serilog;
 using System;
 using System.Threading.Tasks;
 
-namespace IdentityProvider.Web.MVC6
+namespace IdentityProvider.Web.MVC6.Middleware
 {
     public class UnhandledExceptionMiddleware
     {

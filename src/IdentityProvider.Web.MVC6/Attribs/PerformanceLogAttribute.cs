@@ -3,7 +3,7 @@ using System;
 
 using System.Threading.Tasks;
 
-namespace IdentityProvider.Web.MVC6
+namespace IdentityProvider.Web.MVC6.Attribs
 {
     public class PerformanceLogAttribute : AbstractInterceptorAttribute
     {

@@ -3,7 +3,6 @@ using Module.CrossCutting.Certificates.FromStore;
 using Module.CrossCutting.Email;
 using Module.CrossCutting.Enums;
 using Module.CrossCutting.Logging.Serilog.Providers;
-using System;
 using System.Data;
 using System.Security.Cryptography.X509Certificates;
 

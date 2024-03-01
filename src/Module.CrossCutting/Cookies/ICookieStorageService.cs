@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Module.CrossCutting.Cookies
+﻿namespace Module.CrossCutting.Cookies
 {
     public interface ICookieStorageService
     {
