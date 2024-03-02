@@ -11,26 +11,27 @@ namespace IdentityProvider.Repository.EFCore.Mapping
             // Primary Key
             modelBuilder.HasKey(e => e.Id);
 
-            // Properties
+            // Property Configurations
             modelBuilder.Property(e => e.Id)
-                .IsRequired()
-                .ValueGeneratedOnAdd()
-                ;
+                .ValueGeneratedOnAdd();
 
-            // Concurrency
             modelBuilder.Property(a => a.RowVersion)
                 .IsConcurrencyToken()
                 .ValueGeneratedOnAddOrUpdate();
 
-            modelBuilder.HasOne(bc => bc.Employee)
+            // Relationship Configurations
+            modelBuilder.HasOne(e => e.Employee)
                 .WithMany(b => b.RoleGroups)
-                .HasForeignKey(bc => bc.EmployeeId)
-                .IsRequired();
+                .HasForeignKey(e => e.EmployeeId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade); // Adjust the delete behavior according to your domain requirements
 
-            modelBuilder.HasOne(bc => bc.RoleGroup)
+            modelBuilder.HasOne(e => e.RoleGroup)
                 .WithMany(c => c.Employees)
-                .HasForeignKey(bc => bc.RoleGroupId)
-                .IsRequired();
+                .HasForeignKey(e => e.RoleGroupId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade); // Adjust the delete behavior according to your domain requirements
         }
     }
+
 }

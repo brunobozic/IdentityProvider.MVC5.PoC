@@ -1,5 +1,6 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.Account;
 using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace IdentityProvider.Repository.EFCore.Domain.Roles
 {
@@ -19,7 +20,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.Roles
         public virtual ApplicationUser User { get; set; }
     }
 
-    public class AppRoleClaim : IdentityRoleClaim<string>
+    public class AppRoleClaim : IdentityRoleClaim<Guid>
     {
         public virtual AppRole Role { get; set; }
     }

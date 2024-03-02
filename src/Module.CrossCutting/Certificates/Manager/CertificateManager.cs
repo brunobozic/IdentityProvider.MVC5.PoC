@@ -2,7 +2,7 @@
 using Module.CrossCutting.Certificates.FromStore;
 using Module.CrossCutting.Email;
 using Module.CrossCutting.Enums;
-using Module.CrossCutting.Logging.Serilog.Providers;
+using Serilog;
 using System.Data;
 using System.Security.Cryptography.X509Certificates;
 
@@ -15,20 +15,20 @@ namespace Module.CrossCutting.Certificates.Manager
         public CertificateManager(
             ICertificateFromStoreProvider certificateProvider
             , ICertificateFromEmbededResourceProvider embeddedResourceCertificateProvider
-            , IErrorLogService errorLog
+
             , IEmailSender emailSender
             , ICertificateFromStoreProvider certificateFromStoreProvider
         )
         {
             _certificateProvider = certificateProvider;
-            _errorLog = errorLog;
+
             _emailSender = emailSender;
             _embeddedResourceCertificateProvider = embeddedResourceCertificateProvider;
             _certificateFromStoreProvider = certificateFromStoreProvider;
 
             if (_certificateProvider == null) throw new ArgumentNullException(nameof(certificateProvider));
             if (_emailSender == null) throw new ArgumentNullException(nameof(emailSender));
-            if (_errorLog == null) throw new ArgumentNullException(nameof(errorLog));
+
 
             if (_embeddedResourceCertificateProvider == null)
                 throw new ArgumentNullException(nameof(embeddedResourceCertificateProvider));
@@ -53,8 +53,8 @@ namespace Module.CrossCutting.Certificates.Manager
                 if (string.IsNullOrEmpty(certificateThumbprint))
                     throw new NoNullAllowedException(nameof(certificateThumbprint));
 
-                _errorLog.LogInfo(
-                    this,
+                Log.Information(
+
                     string.Format(ReceivedApplicationThumbprintFromProviderDebugMessage,
                         certificateThumbprint)
                 );
@@ -76,7 +76,7 @@ namespace Module.CrossCutting.Certificates.Manager
         private readonly IEmailSender _emailSender;
         private readonly ICertificateFromEmbededResourceProvider _embeddedResourceCertificateProvider;
         private readonly ICertificateFromStoreProvider _certificateFromStoreProvider;
-        private readonly IErrorLogService _errorLog;
+
         private readonly bool takeCertificatesFromLocalMachineStore = false; // might use this one at a later date...
 
         #endregion Private properties

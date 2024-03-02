@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Module.CrossCutting.Cookies;
-using Module.CrossCutting.Logging.Serilog.Providers;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -20,7 +19,7 @@ using URF.Core.Abstractions;
 namespace IdentityProvider.Web.MVC6.Controllers
 {
     [ApiController]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/[controller]")]
     public class BaseController : Controller
     {
         protected readonly ICookieStorageService _cookieStorageService;
@@ -92,7 +91,7 @@ namespace IdentityProvider.Web.MVC6.Controllers
             TempData[Alert.TempDataKey] = alerts;
         }
 
-        public ViewResult HandleException(ExceptionContext filterContext, IErrorLogService errorLogService = null)
+        public ViewResult HandleException(ExceptionContext filterContext)
         {
             filterContext.ExceptionHandled = true;
             var exception = filterContext.Exception;

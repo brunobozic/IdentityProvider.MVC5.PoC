@@ -1,6 +1,6 @@
 ﻿using Module.CrossCutting.Certificates.ExpiryValidation;
 using Module.CrossCutting.Enums;
-using Module.CrossCutting.Logging.Serilog.Providers;
+using Serilog;
 using System.Data;
 using System.Security.Cryptography.X509Certificates;
 
@@ -10,7 +10,7 @@ namespace Module.CrossCutting.Certificates.FromEmbeddedResource
     {
         #region Private properties
 
-        private readonly IErrorLogService _errorLog;
+
         private readonly ICertificateExpirationValidator _certificateExpirationValidator;
         private X509Certificate2 certificate;
 
@@ -23,15 +23,15 @@ namespace Module.CrossCutting.Certificates.FromEmbeddedResource
         #region Ctor
 
         public CertificateFromEmbeddedResourceProvider(
-            IErrorLogService errorLog,
+
             ICertificateExpirationValidator certificateExpirationValidator
         )
         {
-            _errorLog = errorLog;
+
             _certificateExpirationValidator = certificateExpirationValidator;
 
 
-            if (_errorLog == null) throw new ArgumentNullException(nameof(_errorLog));
+
             if (_certificateExpirationValidator == null)
                 throw new ArgumentNullException(nameof(_certificateExpirationValidator));
         }
@@ -142,8 +142,8 @@ namespace Module.CrossCutting.Certificates.FromEmbeddedResource
                     break;
             }
 
-            _errorLog.LogInfo(
-                this,
+            Log.Information(
+
                 string.Format(
                     "APP_CERT_FOUND_MATCHING_CERT_BY_EMBEDDED_RESOURCE_NAME",
                     certificateType,

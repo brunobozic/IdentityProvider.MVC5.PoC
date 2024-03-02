@@ -35,7 +35,7 @@ namespace IdentityProvider.Repository.EFCore.Repositories
                   )
         { }
 
-        public override Task<ApplicationUser> FindByIdAsync(string userId)
+        public Task<ApplicationUser> FindByIdAsync(Guid userId)
         {
             return Users
                   .Include(c => c.Employee)

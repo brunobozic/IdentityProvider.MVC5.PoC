@@ -8,29 +8,26 @@ namespace IdentityProvider.Repository.EFCore.Mapping
     {
         public void Configure(EntityTypeBuilder<Employee> modelBuilder)
         {
-            // Primary Key
+            // Simplified key configuration with assumptions on EF Core's conventions.
             modelBuilder.HasKey(e => e.Id);
 
-            // Properties
+            // Streamlining property configuration with EF Core's convention-based approach.
             modelBuilder.Property(e => e.Id)
-                .IsRequired()
-                .ValueGeneratedOnAdd()
-                ;
+                .ValueGeneratedOnAdd();
 
-            // Table & Column Mappings
-
-            // Concurrency
+            // Configuration for concurrency token to ensure data integrity.
             modelBuilder.Property(a => a.RowVersion)
                 .IsConcurrencyToken()
                 .ValueGeneratedOnAddOrUpdate();
 
+            // Refined relationship configuration to ensure clarity and enforce constraints.
             modelBuilder.HasOne(e => e.ApplicationUser)
                 .WithOne(u => u.Employee)
-                .IsRequired(false)
-                //.HasForeignKey("UserId")
-                ;
-
+                .HasForeignKey<Employee>(e => e.ApplicationUserId) // Correcting the foreign key property name
+                .IsRequired(false) // Assuming optional relationship
+                .OnDelete(DeleteBehavior.ClientSetNull); // Choosing an appropriate delete behavior
 
         }
     }
+
 }

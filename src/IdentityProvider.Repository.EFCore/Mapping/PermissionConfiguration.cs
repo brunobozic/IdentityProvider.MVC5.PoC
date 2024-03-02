@@ -8,34 +8,27 @@ namespace IdentityProvider.Repository.EFCore.Mapping
     {
         public void Configure(EntityTypeBuilder<Permission> modelBuilder)
         {
-            // Primary Key
             modelBuilder.HasKey(e => e.Id);
 
-            // Properties
             modelBuilder.Property(e => e.Id)
                 .IsRequired()
-                .ValueGeneratedOnAdd()
-                ;
+                .ValueGeneratedOnAdd();
 
-            // Concurrency
             modelBuilder.Property(a => a.RowVersion)
                 .IsConcurrencyToken()
                 .ValueGeneratedOnAddOrUpdate();
 
             modelBuilder.Property(e => e.Name)
-
-                // .HasMaxLength(100)
                 .IsRequired();
 
-            // Table & Column Mappings
-            modelBuilder.Property(t => t.RowVersion)
-                .IsRowVersion()
-                .ValueGeneratedOnAddOrUpdate()
-                ;
+            // Relationship with Resource
+            modelBuilder.HasOne(i => i.Resource)
+                .WithMany(i => i.Permissions)
+                .IsRequired();
 
-            modelBuilder.HasOne(i => i.Resource).WithMany(i => i.Permissions).IsRequired();
-
-            modelBuilder.HasIndex(t => t.Name).IsUnique().HasName("IDX_Permission_Name");
+            // Unique Index for Permission Name
+            modelBuilder.HasIndex(t => t.Name).IsUnique().HasDatabaseName("IDX_Permission_Name");
         }
     }
+
 }

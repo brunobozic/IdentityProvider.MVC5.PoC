@@ -13,7 +13,7 @@ namespace IdentityProvider.ServiceLayer.Services.OperationsService
                 Active = operation?.Active ?? false,
                 ActiveFrom = operation?.ActiveFrom ?? DateTime.MinValue,
                 ActiveTo = operation?.ActiveFrom ?? DateTime.MinValue,
-                CreatedBy = operation?.CreatedById ?? string.Empty,
+                CreatedBy = operation?.CreatedById ?? Guid.Empty,
                 DeletedBy = operation?.DeletedById ?? string.Empty,
                 ModifiedBy = operation?.ModifiedById ?? string.Empty,
                 DateCreated = operation?.CreatedDate ?? DateTime.MinValue,

@@ -13,7 +13,7 @@ namespace Module.CrossCutting.Domain
         public DateTime? ModifiedDate { get; set; }
         public string DeletedById { get; set; }
         public DateTime? DeletedDate { get; set; }
-        public string CreatedById { get; set; }
+        public Guid CreatedById { get; set; }
         public DateTime? CreatedDate { get; set; }
         public byte[] RowVersion { get; set; }
 
@@ -22,6 +22,8 @@ namespace Module.CrossCutting.Domain
         [NotMapped] public TrackingState TrackingState { get; set; }
 
         [NotMapped] public ICollection<string> ModifiedProperties { get; set; }
+
+        string IFullAudit.CreatedById { get; set; }
 
         public override bool Equals(object entity)
         {

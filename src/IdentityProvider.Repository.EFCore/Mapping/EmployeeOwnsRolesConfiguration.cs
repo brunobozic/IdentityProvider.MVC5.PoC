@@ -8,16 +8,12 @@ namespace IdentityProvider.Repository.EFCore.Mapping
     {
         public void Configure(EntityTypeBuilder<EmployeeOwnsRoles> modelBuilder)
         {
-            // Primary Key
             modelBuilder.HasKey(e => e.Id);
 
-            // Properties
             modelBuilder.Property(e => e.Id)
                 .IsRequired()
-                .ValueGeneratedOnAdd()
-                ;
+                .ValueGeneratedOnAdd();
 
-            // Concurrency
             modelBuilder.Property(a => a.RowVersion)
                 .IsConcurrencyToken()
                 .ValueGeneratedOnAddOrUpdate();
@@ -33,4 +29,5 @@ namespace IdentityProvider.Repository.EFCore.Mapping
                 .IsRequired();
         }
     }
+
 }

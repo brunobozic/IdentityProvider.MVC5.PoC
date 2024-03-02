@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IdentityProvider.Repository.EFCore.Domain.Account
 {
     [Table("UserProfile", Schema = "Account")]
-    public class UserProfile : DomainEntity<int>, IActive
+    public class UserProfile : DomainEntity<Guid>, IActive
     {
         public UserProfile()
         {
@@ -37,6 +37,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.Account
 
         [DisplayName("Record is active to (date)")]
         public DateTime? ActiveTo { get; set; }
+        public Guid UserId { get; set; }
 
         #endregion IsActive
     }

@@ -12,22 +12,24 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityProvider.Repository.EFCore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220601132206_Fixed_rogue_FK")]
-    partial class Fixed_rogue_FK
+    [Migration("20240302153949_stuffs2")]
+    partial class stuffs2
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "7.0.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -67,8 +69,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -142,8 +144,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int?>("UserProfileId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UserProfileId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserUid")
                         .HasColumnType("uniqueidentifier");
@@ -167,11 +169,9 @@ namespace IdentityProvider.Repository.EFCore.Migrations
 
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Account.Employees.Employee", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -182,11 +182,11 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("ApplicationUserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -217,11 +217,13 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId")
-                        .IsUnique()
-                        .HasFilter("[ApplicationUserId] IS NOT NULL");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Employee", "Organization");
                 });
@@ -232,7 +234,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -243,8 +245,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -255,8 +257,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -290,7 +292,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -301,8 +303,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -313,8 +315,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -348,7 +350,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -359,8 +361,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -374,8 +376,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -412,7 +414,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -423,8 +425,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -438,12 +440,9 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EmployeeId")
+                    b.Property<Guid?>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<string>("IdentityFrameworkRoleId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -457,9 +456,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -470,8 +468,6 @@ namespace IdentityProvider.Repository.EFCore.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("IdentityFrameworkRoleId");
-
                     b.HasIndex("RoleId");
 
                     b.ToTable("EmployeeOwnsRoles", "Account");
@@ -479,11 +475,9 @@ namespace IdentityProvider.Repository.EFCore.Migrations
 
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Account.UserProfile", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -494,8 +488,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -523,6 +517,9 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.ToTable("UserProfile", "Account");
@@ -534,54 +531,51 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Actions")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Actions");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("NewData")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("NewData");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OldData")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("OldData");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("TableIdValue")
                         .HasColumnType("bigint");
 
                     b.Property<string>("TableName")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TableName");
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("UpdatedAt");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("UserId");
+                        .HasColumnType("int");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("UserName");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
                     b.ToTable("DbAuditTrail", "Audit");
                 });
 
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits.OrganizationalUnit", b =>
+            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits.OrgUnitContainsRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -592,8 +586,120 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedById")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("OrganizationalUnitId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationalUnitId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("OrgUnitContainsRole", "Organization");
+                });
+
+            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits.OrgUnitContainsRoleGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ActiveFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ActiveTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OrganizationalUnitId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleGroupId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("RowVersion")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationalUnitId");
+
+                    b.HasIndex("RoleGroupId");
+
+                    b.ToTable("OrgUnitContainsRoleGroup", "Organization");
+                });
+
+            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits.OrganizationalUnit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ActiveFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ActiveTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -639,128 +745,13 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.ToTable("Unit", "Organization");
                 });
 
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits.OrgUnitContainsRole", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ActiveFrom")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ActiveTo")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("OrganizationalUnitId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RoleId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<byte[]>("RowVersion")
-                        .HasColumnType("varbinary(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizationalUnitId");
-
-                    b.HasIndex("RoleId1");
-
-                    b.ToTable("OrgUnitContainsRole", "Organization");
-                });
-
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits.OrgUnitContainsRoleGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ActiveFrom")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ActiveTo")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OrganizationalUnitId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleGroupId")
-                        .HasColumnType("int");
-
-                    b.Property<byte[]>("RowVersion")
-                        .HasColumnType("varbinary(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizationalUnitId");
-
-                    b.HasIndex("RoleGroupId");
-
-                    b.ToTable("OrgUnitContainsRoleGroup", "Organization");
-                });
-
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Permissions.Permission", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -771,8 +762,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -831,7 +822,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -842,8 +833,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -886,7 +877,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -897,8 +888,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -942,7 +933,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -953,8 +944,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -1003,7 +994,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -1014,8 +1005,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -1058,8 +1049,9 @@ namespace IdentityProvider.Repository.EFCore.Migrations
 
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -1079,7 +1071,6 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .HasColumnType("nvarchar(260)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -1087,43 +1078,24 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int?>("OrganizationalUnitId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique()
-                        .HasDatabaseName("IDX_Role_Name");
+                        .HasDatabaseName("IDX_Role_Name")
+                        .HasFilter("[Name] IS NOT NULL");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
+                    b.HasIndex("OrganizationalUnitId");
+
                     b.ToTable("AspNetRoles", (string)null);
-                });
-
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppRoleClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppUserAppRole", b =>
@@ -1132,15 +1104,13 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -1151,171 +1121,13 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.ToTable("AppUserAppRole");
                 });
 
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppUserClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims", (string)null);
-                });
-
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppUserLogin", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins", (string)null);
-                });
-
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppUserRole", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoleId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("AspNetUserRoles", (string)null);
-                });
-
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppUserToken", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.IdentityFrameworkRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ActiveFrom")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ActiveTo")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(260)
-                        .HasColumnType("nvarchar(260)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("OrganizationUnitId")
-                        .HasColumnType("int");
-
-                    b.Property<byte[]>("RowVersion")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizationUnitId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("IdentityFrameworkRole");
-                });
-
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.RoleContainsPermissionGroup", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -1326,8 +1138,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -1350,8 +1162,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<int>("PermissionGroupId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("RowVersion")
                         .HasColumnType("varbinary(max)");
@@ -1371,7 +1183,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -1382,8 +1194,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -1393,9 +1205,6 @@ namespace IdentityProvider.Repository.EFCore.Migrations
 
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("IdentityFrameworkRoleId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -1413,9 +1222,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -1423,8 +1231,6 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .HasColumnType("rowversion");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdentityFrameworkRoleId");
 
                     b.HasIndex("PermissionGroupId");
 
@@ -1441,7 +1247,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -1452,8 +1258,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -1502,7 +1308,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
@@ -1513,8 +1319,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<DateTime?>("ActiveTo")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -1524,9 +1330,6 @@ namespace IdentityProvider.Repository.EFCore.Migrations
 
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("IdentityFrameworkRoleId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -1541,9 +1344,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
@@ -1552,13 +1354,129 @@ namespace IdentityProvider.Repository.EFCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdentityFrameworkRoleId");
-
                     b.HasIndex("RoleGroupId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("RoleGroupContainsRole", "Organization");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRoleClaim<Guid>");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppRoleClaim", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasDiscriminator().HasValue("AppRoleClaim");
                 });
 
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", b =>
@@ -1574,7 +1492,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", "ApplicationUser")
                         .WithOne("Employee")
-                        .HasForeignKey("IdentityProvider.Repository.EFCore.Domain.Account.Employees.Employee", "ApplicationUserId");
+                        .HasForeignKey("IdentityProvider.Repository.EFCore.Domain.Account.Employees.Employee", "UserId");
 
                     b.Navigation("ApplicationUser");
                 });
@@ -1644,10 +1562,6 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.IdentityFrameworkRole", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("IdentityFrameworkRoleId");
-
                     b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", "Role")
                         .WithMany("Employees")
                         .HasForeignKey("RoleId")
@@ -1667,7 +1581,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
 
                     b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", "Role")
                         .WithMany("OrganizationUnits")
-                        .HasForeignKey("RoleId1");
+                        .HasForeignKey("RoleId");
 
                     b.Navigation("OrganizationalUnit");
 
@@ -1731,15 +1645,11 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Navigation("PermissionGroup");
                 });
 
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppRoleClaim", b =>
+            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", b =>
                 {
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", "Role")
-                        .WithMany("RoleClaims")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
+                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits.OrganizationalUnit", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("OrganizationalUnitId");
                 });
 
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppUserAppRole", b =>
@@ -1751,87 +1661,12 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .IsRequired();
 
                     b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", "User")
-                        .WithMany("UserRoles")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Role");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppUserClaim", b =>
-                {
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", "User")
-                        .WithMany("Claims")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppUserLogin", b =>
-                {
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", "User")
-                        .WithMany("Logins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppUserRole", b =>
-                {
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId1");
-
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppUserToken", b =>
-                {
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", "User")
-                        .WithMany("Tokens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.IdentityFrameworkRole", b =>
-                {
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits.OrganizationalUnit", "OrganizationUnit")
-                        .WithMany("Roles")
-                        .HasForeignKey("OrganizationUnitId");
-
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("OrganizationUnit");
 
                     b.Navigation("User");
                 });
@@ -1846,7 +1681,9 @@ namespace IdentityProvider.Repository.EFCore.Migrations
 
                     b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", "Role")
                         .WithMany()
-                        .HasForeignKey("RoleId");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("PermissionGroup");
 
@@ -1855,10 +1692,6 @@ namespace IdentityProvider.Repository.EFCore.Migrations
 
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.RoleContainsPermissions", b =>
                 {
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.IdentityFrameworkRole", null)
-                        .WithMany("Permissions")
-                        .HasForeignKey("IdentityFrameworkRoleId");
-
                     b.HasOne("IdentityProvider.Repository.EFCore.Domain.Permissions.PermissionGroup", "PermissionGroup")
                         .WithMany("Roles")
                         .HasForeignKey("PermissionGroupId");
@@ -1884,10 +1717,6 @@ namespace IdentityProvider.Repository.EFCore.Migrations
 
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.RoleGroupContainsRole", b =>
                 {
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.IdentityFrameworkRole", null)
-                        .WithMany("RoleGroups")
-                        .HasForeignKey("IdentityFrameworkRoleId");
-
                     b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.RoleGroup", "RoleGroup")
                         .WithMany("Roles")
                         .HasForeignKey("RoleGroupId")
@@ -1905,17 +1734,62 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Navigation("RoleGroup");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppRoleClaim", b =>
+                {
+                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", "Role")
+                        .WithMany("RoleClaims")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", b =>
                 {
-                    b.Navigation("Claims");
-
                     b.Navigation("Employee");
-
-                    b.Navigation("Logins");
-
-                    b.Navigation("Tokens");
-
-                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Account.Employees.Employee", b =>
@@ -1982,15 +1856,6 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Navigation("RoleGroups");
 
                     b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.IdentityFrameworkRole", b =>
-                {
-                    b.Navigation("Employees");
-
-                    b.Navigation("Permissions");
-
-                    b.Navigation("RoleGroups");
                 });
 
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.RoleGroup", b =>

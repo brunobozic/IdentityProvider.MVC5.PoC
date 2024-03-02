@@ -3,7 +3,6 @@ using IdentityProvider.Repository.EFCore.Domain.ResourceOperations;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using Module.CrossCutting.Models.ViewModels.Operations;
-using StructureMap;
 using System.Linq.Expressions;
 using URF.Core.Abstractions.Trackable;
 using URF.Core.Services;
@@ -12,13 +11,22 @@ namespace IdentityProvider.ServiceLayer.Services.OperationsService
 {
     public class OperationsService : Service<Operation>, IOperationService
     {
+        #region Private props
+
         private readonly ITrackableRepository<Operation> _repository;
 
-        [DefaultConstructor] // Set Default Constructor for StructureMap
+        #endregion Private props
+
+        #region Ctor
+
         public OperationsService(ITrackableRepository<Operation> repository) : base(repository)
         {
             _repository = repository;
         }
+
+        #endregion Ctor
+
+        #region CRUD
 
         public IList<OperationsDatatableSearchClass> GetDataFromDbase(
          int userId, string searchBy, int take, int skip,
@@ -54,7 +62,7 @@ namespace IdentityProvider.ServiceLayer.Services.OperationsService
                     Deleted = m.IsDeleted,
                     CreatedDate = m.CreatedDate,
                     ModifiedDate = m.ModifiedDate,
-                    Actions = string.Empty // This should be set according to your UI logic
+                    Actions = string.Empty // TODO: This should be set according to your UI logic
                 })
                 .Skip(skip)
                 .Take(take)
@@ -91,6 +99,7 @@ namespace IdentityProvider.ServiceLayer.Services.OperationsService
             return predicate;
         }
 
+        #endregion CRUD
 
     }
 }

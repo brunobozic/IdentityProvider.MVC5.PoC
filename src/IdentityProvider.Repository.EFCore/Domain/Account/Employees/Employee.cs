@@ -11,7 +11,7 @@ using System.Linq;
 namespace IdentityProvider.Repository.EFCore.Domain.Account.Employees
 {
     [Table("Employee", Schema = "Organization")]
-    public class Employee : DomainEntity<int>, IActive
+    public class Employee : DomainEntity<Guid>, IActive
     {
         public Employee()
         {
@@ -30,6 +30,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.Account.Employees
 
         [PersonalData]
         public string Name { get; set; }
+        public ICollection<EmployeeOwnsPermissionGroup> PermissionGroups { get; set; }
 
         [PersonalData]
         public string Surname { get; set; }
@@ -37,7 +38,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.Account.Employees
         [ForeignKey("ApplicationUserId")]
         public ApplicationUser ApplicationUser { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public Guid ApplicationUserId { get; set; }
 
         #region IValidatable Entity contract implementation
 
@@ -78,8 +79,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.Account.Employees
         [DisplayName("Record is active to (date)")]
         public DateTime? ActiveTo { get; set; }
 
-        public ICollection<EmployeeOwnsPermissionGroup> PermissionGroups { get; set; }
-
         #endregion IsActive
     }
+
 }

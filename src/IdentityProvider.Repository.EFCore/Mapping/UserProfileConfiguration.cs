@@ -11,22 +11,25 @@ namespace IdentityProvider.Repository.EFCore.Mapping
             // Primary Key
             modelBuilder.HasKey(e => e.Id);
 
-            // Properties
+            // Property Configurations
             modelBuilder.Property(e => e.Id)
                 .IsRequired()
-                .ValueGeneratedOnAdd()
-                ;
+                .ValueGeneratedOnAdd();
 
-            // Concurrency
+            // Concurrency Token
             modelBuilder.Property(a => a.RowVersion)
                 .IsConcurrencyToken()
                 .ValueGeneratedOnAddOrUpdate();
 
-            // Table & Column Mappings
-            modelBuilder
-                .HasOne(up => up.User)
-                .WithOne(up => up.UserProfile)
+            // One-To-One Relationship Configuration
+            modelBuilder.HasOne(up => up.User)
+                .WithOne(u => u.UserProfile)
+                .HasForeignKey<ApplicationUser>(u => u.UserProfileId)
                 .IsRequired(false);
         }
     }
+
+
+
+
 }

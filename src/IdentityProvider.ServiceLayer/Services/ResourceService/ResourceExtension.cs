@@ -11,7 +11,7 @@ namespace IdentityProvider.ServiceLayer.Services.ResourceService
             {
                 Deleted = resource?.IsDeleted ?? false,
                 Active = resource?.Active ?? false,
-                CreatedBy = resource?.CreatedById ?? string.Empty,
+                CreatedBy = resource?.CreatedById ?? Guid.Empty,
                 DeletedBy = resource?.DeletedById ?? string.Empty,
                 ModifiedBy = resource?.ModifiedById ?? string.Empty,
                 DateCreated = resource?.CreatedDate ?? DateTime.MinValue,

@@ -8,27 +8,26 @@ namespace IdentityProvider.Repository.EFCore.Mapping
     {
         public void Configure(EntityTypeBuilder<EmployeeOwnsPermissionGroup> modelBuilder)
         {
-            // Primary Key
-            modelBuilder.HasKey(t => t.Id);
+            modelBuilder.HasKey(e => e.Id);
 
-            // Properties
             modelBuilder.Property(e => e.Id)
-                .IsRequired().ValueGeneratedOnAdd();
+                .ValueGeneratedOnAdd();
 
-            // Concurrency
             modelBuilder.Property(a => a.RowVersion)
                 .IsConcurrencyToken()
                 .ValueGeneratedOnAddOrUpdate();
 
-            modelBuilder.HasOne(bc => bc.Employee)
-                .WithMany(b => b.PermissionGroups)
-                .HasForeignKey(bc => bc.EmployeeId)
-                .IsRequired();
+            // Establishing clear relationships with fluent API to ensure referential integrity and navigation properties are correctly configured.
+            modelBuilder.HasOne(e => e.Employee)
+                .WithMany(e => e.PermissionGroups)
+                .HasForeignKey(e => e.EmployeeId)
+                .OnDelete(DeleteBehavior.Cascade); // Assuming cascade delete is desired, adjust as necessary.
 
-            modelBuilder.HasOne(bc => bc.PermissionGroup)
-                .WithMany(c => c.Employees)
-                .HasForeignKey(bc => bc.PermissionGroupId)
-                .IsRequired();
+            modelBuilder.HasOne(e => e.PermissionGroup)
+                .WithMany(pg => pg.Employees)
+                .HasForeignKey(e => e.PermissionGroupId)
+                .OnDelete(DeleteBehavior.Cascade); // Assuming cascade delete is desired, adjust as necessary.
         }
     }
+
 }

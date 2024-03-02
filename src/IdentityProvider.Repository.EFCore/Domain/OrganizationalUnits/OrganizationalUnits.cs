@@ -20,7 +20,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits
             ActiveFrom = DateTime.UtcNow;
             Employees = new HashSet<EmployeeBelongsToOrgUnit>();
             RoleGroups = new HashSet<OrgUnitContainsRoleGroup>();
-            Roles = new HashSet<IdentityFrameworkRole>();
+            Roles = new HashSet<AppRole>();
             SecurityWeight = 0; // Guest
         }
 
@@ -38,9 +38,9 @@ namespace IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits
 
         [Required][Range(0, 50)] public int SecurityWeight { get; set; }
 
-        public ICollection<EmployeeBelongsToOrgUnit> Employees { get; set; }
-        public ICollection<IdentityFrameworkRole> Roles { get; set; }
-        public ICollection<OrgUnitContainsRoleGroup> RoleGroups { get; set; }
+        public ICollection<EmployeeBelongsToOrgUnit>? Employees { get; set; }
+        public ICollection<AppRole>? Roles { get; set; }
+        public ICollection<OrgUnitContainsRoleGroup>? RoleGroups { get; set; }
 
         #region IValidatable Entity contract implementation
 

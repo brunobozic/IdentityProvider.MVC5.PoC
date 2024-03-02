@@ -1,6 +1,9 @@
-﻿namespace IdentityProvider.ServiceLayer.Services.ApplicationRoleService
+﻿using IdentityProvider.Repository.EFCore.Domain.Roles;
+using URF.Core.Abstractions.Services;
+
+namespace IdentityProvider.ServiceLayer.Services.ApplicationRoleService
 {
-    public interface IRoleService
+    public interface IRoleService : IService<AppRole>
     {
 
     }

@@ -8,20 +8,17 @@ namespace IdentityProvider.Repository.EFCore.Mapping
     {
         public void Configure(EntityTypeBuilder<PermissionGroupOwnsPermission> modelBuilder)
         {
-            // Primary Key
             modelBuilder.HasKey(e => e.Id);
 
-            // Properties
             modelBuilder.Property(e => e.Id)
                 .IsRequired()
-                .ValueGeneratedOnAdd()
-                ;
+                .ValueGeneratedOnAdd();
 
-            // Concurrency
             modelBuilder.Property(a => a.RowVersion)
                 .IsConcurrencyToken()
                 .ValueGeneratedOnAddOrUpdate();
 
+            // Establishing many-to-many relationship between PermissionGroup and Permission
             modelBuilder.HasOne(bc => bc.PermissionGroup)
                 .WithMany(b => b.Permissions)
                 .HasForeignKey(bc => bc.PermissionGroupId)
@@ -33,4 +30,5 @@ namespace IdentityProvider.Repository.EFCore.Mapping
                 .IsRequired();
         }
     }
+
 }

@@ -1,5 +1,4 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.Account.Employees;
-using IdentityProvider.Repository.EFCore.Domain.Roles;
 using Microsoft.AspNetCore.Identity;
 using Module.CrossCutting.Domain;
 using System;
@@ -11,11 +10,11 @@ using TrackableEntities.Common.Core;
 namespace IdentityProvider.Repository.EFCore.Domain.Account
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser, IFullAudit, ITrackable
+    public class ApplicationUser : IdentityUser<Guid>, IFullAudit, ITrackable
     {
         public ApplicationUser()
         {
-            Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid();
             Active = true;
             ActiveFrom = DateTime.UtcNow;
         }
@@ -52,12 +51,12 @@ namespace IdentityProvider.Repository.EFCore.Domain.Account
         public bool IsDeleted { get; set; }
 
         public virtual UserProfile UserProfile { get; set; }
-        public virtual int? UserProfileId { get; set; }
+        public virtual Guid? UserProfileId { get; set; }
 
         [ForeignKey("EmployeeId")]
         public virtual Employee Employee { get; set; }
 
-        public virtual int? EmployeeId { get; set; }
+        public virtual Guid? EmployeeId { get; set; }
 
         public string ModifiedById { get; set; }
         public DateTime? ModifiedDate { get; set; }
@@ -87,9 +86,6 @@ namespace IdentityProvider.Repository.EFCore.Domain.Account
         #endregion IsActive
 
 
-        public virtual ICollection<AppUserAppRole> UserRoles { get; set; }
-        public virtual ICollection<AppUserClaim> Claims { get; set; }
-        public virtual ICollection<AppUserLogin> Logins { get; set; }
-        public virtual ICollection<AppUserToken> Tokens { get; set; }
+
     }
 }

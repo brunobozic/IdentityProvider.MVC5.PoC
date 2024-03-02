@@ -4,6 +4,7 @@ using IdentityProvider.Repository.EFCore.EFDataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityProvider.Repository.EFCore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240302155609_stuffs6")]
+    partial class stuffs6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,9 +217,12 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId")
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Employee", "Organization");
@@ -1468,7 +1474,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", "ApplicationUser")
                         .WithOne("Employee")
-                        .HasForeignKey("IdentityProvider.Repository.EFCore.Domain.Account.Employees.Employee", "ApplicationUserId");
+                        .HasForeignKey("IdentityProvider.Repository.EFCore.Domain.Account.Employees.Employee", "UserId");
 
                     b.Navigation("ApplicationUser");
                 });

@@ -1,5 +1,8 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.Account;
 using IdentityProvider.Repository.EFCore.Domain.Account.Employees;
+using IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits;
+using IdentityProvider.Repository.EFCore.Domain.Permissions;
+using IdentityProvider.Repository.EFCore.Domain.ResourceOperations;
 using IdentityProvider.Repository.EFCore.Domain.Roles;
 using IdentityProvider.Repository.EFCore.EFDataContext;
 using IdentityProvider.Web.MVC6.Identity;
@@ -7,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TrackableEntities.Common.Core;
@@ -15,172 +19,44 @@ public class SeedData
 {
     public static async Task Initialize(AppDbContext dbContext, IServiceScope scope, string testUserPw)
     {
-        // Password is set using the following:
-        // dotnet myIdentityUser-secrets set SeedUserPW <pw>
-
-        // Ensure users are created and the roles have been assigned to these users.
-        // In short the admin myIdentityUser has priviliges to do anything and everything
-        // the guest myIdentityUser has read-only priviliges on certain resources
-        // the standard myIdentityUser has r/w on certain resources
-        var adminId = await EnsureUser(scope, testUserPw, "bruno.bozic@gmail.com");
-
-        // Basic roles are the indentity framework roles - so we only have a "standard" and "admin" roles here
-        // The admin role is basically a super user / developer role
-        await EnsureBasicRole(scope, adminId, IdentityHelpingConstants.SuperUser);
-        await EnsureBasicRole(scope, adminId, IdentityHelpingConstants.StandardRole);
-        dbContext.SaveChanges();
-        // The roles mentioned after this line are the application roles (not part of the identity framework)
-        await EnsureRole(scope, adminId, IdentityHelpingConstants.ContactManagersRole);
-        await EnsureRole(scope, adminId, IdentityHelpingConstants.ContactAdministratorsRole);
-        dbContext.SaveChanges();
-        var managerId = await EnsureUser(scope, testUserPw, "bruno.bozicmanager@gmail.com");
-        var guestId = await EnsureUser(scope, testUserPw, "guest.user31337@gmail.com");
-        dbContext.SaveChanges();
-        // Now we need employees, one for each identity user, the employee entity holds information relevant to the business domain
-        // while the identity user is used only for logon/authentication/authorization
-        var employeeId1 = await EnsureSuperEmployee(scope, adminId, adminId, "bruno.bozic@gmail.com", "Bruno", "Bozic");
-        var employeeId2 = await EnsureSuperEmployee(scope, adminId, managerId, "bruno.bozicmanager@gmail.com", "Manager", "Manager");
-        var employeeId3 = await EnsureSuperEmployee(scope, adminId, guestId, "guest.user31337@gmail.com", "Guest", "Guest");
-        dbContext.SaveChanges();
-        // Proceed seeding the rest of the database
-        SeedDB(dbContext, adminId);
-        dbContext.SaveChanges();
-    }
-
-    private static async Task<int> EnsureSuperEmployee(IServiceScope scope, string adminUID, string applicationUserId, string employeeName, string userName, string userSurname)
-    {
-        if (string.IsNullOrEmpty(applicationUserId)) { throw new Exception("EnsureSuperEmployee applicationUserId null"); }
-        if (string.IsNullOrEmpty(adminUID)) { throw new Exception("EnsureSuperEmployee adminUID null"); }
-        if (string.IsNullOrEmpty(employeeName)) { throw new Exception("EnsureSuperEmployee employeeName null"); }
-        if (string.IsNullOrEmpty(userName)) { throw new Exception("EnsureSuperEmployee userName null"); }
-        if (string.IsNullOrEmpty(userSurname)) { throw new Exception("EnsureSuperEmployee userSurname null"); }
-
-        var employeeId = -1;
         try
         {
-            var dbContext = scope.ServiceProvider.GetService<AppDbContext>();
+            await SeedOrganizationUnits(dbContext);
+            var numSaved0 = dbContext.SaveChanges();
 
-            if (dbContext == null)
-            {
-                throw new Exception("dbContext null");
-            }
+            await EnsureRoles(scope);
+            await EnsureUsers(scope, testUserPw);
+            await AddRolesToUsers(scope, testUserPw);
+            var numSaved = dbContext.SaveChanges();
 
-            if (!dbContext.Employee.Where(r => r.ApplicationUser.UserName == employeeName).Any())
-            {
-                dbContext.Employee.Add(new Employee
-                {
-                    Active = true,
-                    IsDeleted = false,
-                    Name = userName,
-                    Surname = userSurname,
-                    CreatedById = adminUID,
-                    ApplicationUserId = applicationUserId,
-                    ActiveFrom = DateTime.UtcNow,
-                    ActiveTo = DateTime.UtcNow.AddYears(3)
-                });
+            await EnsureEmployees(scope, testUserPw);
+            var numSaved2 = dbContext.SaveChanges();
 
-                dbContext.SaveChanges();
-            }
+            await AttachEmployeeToOrganizationUnitByName(dbContext, "Bruno", "Bozic", "IT Department");
 
-            var postFactoEmployee = await dbContext.Employee.Where(e => e.ApplicationUserId == applicationUserId).SingleOrDefaultAsync();
+            var numSaved3 = dbContext.SaveChanges();
 
-            if (postFactoEmployee != null)
-            {
-                return postFactoEmployee.Id;
-            }
+            await SeedOperationsAndResources(dbContext);
+
+            var numSaved4 = dbContext.SaveChanges();
+
+            await SeedPermissionsAndRoles(scope, dbContext); // Seed permissions and roles
+             
+            var numSaved5 = dbContext.SaveChanges();
+
+            // await SeedEmployeeRoles(dbContext); // Seed employee-role relationship
+            // var numSaved5 = dbContext.SaveChanges();
         }
-        catch
+        catch (Exception seeedingException)
         {
-            return employeeId;
+            throw;
         }
 
-        return employeeId;
     }
 
-    private static void SeedDB(AppDbContext context, string adminID)
+    // EnsureRoles method
+    private static async Task EnsureRoles(IServiceScope scope)
     {
-        if (context.Users.Any())
-        {
-            return; // DB has been seeded
-        }
-
-        context.Users.AddRange(
-            new ApplicationUser()
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserName = "StandardUser",
-                FirstName = "Application",
-                LastName = "Standard User",
-                Active = true,
-                ActiveFrom = DateTime.Now,
-                ActiveTo = DateTime.Now.AddMonths(6),
-                TrackingState = TrackingState.Added
-            }, new ApplicationUser
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserName = "AdminUser",
-                FirstName = "Application",
-                LastName = "Administrator",
-                Active = true,
-                ActiveFrom = DateTime.Now,
-                ActiveTo = DateTime.Now.AddMonths(6),
-                TrackingState = TrackingState.Added
-            }, new ApplicationUser
-            {
-                UserName = "AppAutomation",
-                FirstName = "Application",
-                LastName = "AutomatedTasks",
-                Active = true,
-                ActiveFrom = DateTime.Now,
-                ActiveTo = DateTime.Now.AddMonths(6),
-                TrackingState = TrackingState.Added
-            });
-    }
-
-    private static async Task<string> EnsureUser(IServiceScope scope, string testUserPw, string userName)
-    {
-        if (string.IsNullOrEmpty(testUserPw)) { testUserPw = "adminAdmin123456!"; }
-
-        try
-        {
-            var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
-            var user = await userManager.FindByNameAsync(userName);
-
-            if (user == null)
-            {
-                user = new ApplicationUser
-                {
-                    UserName = userName,
-                    EmailConfirmed = true,
-                    Id = Guid.NewGuid().ToString(),
-                    FirstName = "Bruno",
-                    LastName = "Božić",
-                    Active = true,
-                    ActiveFrom = DateTime.Now,
-                    TrackingState = TrackingState.Added
-                };
-
-                var identityResult = await userManager.CreateAsync(user, testUserPw);
-
-                if (user == null)
-                {
-                    throw new Exception("The password is probably not strong enough!");
-                }
-
-                return user.Id;
-            }
-
-            return user.Id;
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
-    private static async Task<IdentityResult> EnsureBasicRole(IServiceScope scope, string uid, string role)
-    {
-        IdentityResult ir = null;
         var roleManager = scope.ServiceProvider.GetService<RoleManager<AppRole>>();
 
         if (roleManager == null)
@@ -188,78 +64,367 @@ public class SeedData
             throw new Exception("roleManager null");
         }
 
-        if (!await roleManager.RoleExistsAsync(role))
+        var roles = new List<string>
         {
-            var r = new AppRole(role);
-            var identityResult = await roleManager.CreateAsync(r);
+            IdentityHelpingConstants.SuperUser,
+            IdentityHelpingConstants.StandardRole,
+            IdentityHelpingConstants.ContactManagersRole,
+            IdentityHelpingConstants.ContactAdministratorsRole
+        };
+
+        foreach (var roleName in roles)
+        {
+            var roleExists = await roleManager.RoleExistsAsync(roleName);
+            if (!roleExists)
+            {
+                var role = new AppRole(roleName)
+                {
+                    Name = roleName
+                };
+
+                var identityResult = await roleManager.CreateAsync(role);
+
+                if (!identityResult.Succeeded)
+                {
+                    throw new Exception($"Failed to create role: {roleName}");
+                }
+            }
+        }
+    }
+    public static async Task SeedEmployeeRoles(AppDbContext dbContext)
+    {
+        var employees = await dbContext.Employee.ToListAsync();
+        var roles = await dbContext.Role.ToListAsync();
+
+        // Assuming each employee is assigned all roles
+        foreach (var employee in employees)
+        {
+            var employeeRoles = roles.Select(role => new EmployeeOwnsRoles
+            {
+                EmployeeId = employee.Id,
+                RoleId = role.Id
+            }).ToList();
+
+            dbContext.EmployeeOwnsRoles.AddRange(employeeRoles);
         }
 
+        await dbContext.SaveChangesAsync();
+    }
+    // EnsureUsers method
+    private static async Task EnsureUsers(IServiceScope scope, string testUserPw)
+    {
         var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
-        var user = await userManager.FindByIdAsync(uid);
-
-        if (user == null)
+        if (userManager == null)
         {
-            throw new Exception("The testUserPw password was probably not strong enough!");
+            throw new Exception("userManager null");
         }
 
-        var anotherIdentityResult = await userManager.AddToRoleAsync(user, role);
+        var users = new List<(string FirstName, string LastName, string Email)>
+        {
+            ("Bruno", "Bozic", "bruno.bozic@gmail.com"),
+            // Add other user data here
+        };
 
-        return anotherIdentityResult;
+        foreach (var (firstName, lastName, email) in users)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                user = new ApplicationUser
+                {
+                    UserName = email,
+                    Email = email,
+                    EmailConfirmed = true,
+                    Id = Guid.NewGuid(),
+                    PasswordHash = "hfhfhfhf",
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Active = true,
+                    ActiveFrom = DateTime.Now,
+                    TrackingState = TrackingState.Added
+                };
+
+                var identityResult = await userManager.CreateAsync(user, testUserPw);
+                if (!identityResult.Succeeded)
+                {
+                    throw new Exception($"Failed to create user: {email}");
+                }
+            }
+        }
     }
 
-    private static async Task<bool> EnsureRole(IServiceScope scope, string uid, string role)
+    private static async Task AddRolesToUsers(IServiceScope scope, string testUserPw)
     {
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
+
+        // Check if user manager and role manager are available
+        if (userManager == null || roleManager == null)
+        {
+            throw new Exception("UserManager or RoleManager is null");
+        }
+
+        // Retrieve other roles
+        var roles = new List<string>
+        {
+            IdentityHelpingConstants.StandardRole,
+            IdentityHelpingConstants.ContactManagersRole,
+            IdentityHelpingConstants.ContactAdministratorsRole
+        };
+
+        // Iterate over each role
+        foreach (var roleName in roles)
+        {
+            // Check if the role exists
+            if (!await roleManager.RoleExistsAsync(roleName))
+            {
+                throw new Exception($"Role {roleName} does not exist");
+            }
+
+            // Get all users
+            var users = await userManager.Users.ToListAsync();
+
+            // Assign roles to users who don't have the role already
+            foreach (var user in users)
+            {
+                // Check if the user already has the role
+                var isInRole = await userManager.IsInRoleAsync(user, roleName);
+                if (!isInRole)
+                {
+                    var identityResult = await userManager.AddToRoleAsync(user, roleName);
+
+                    if (!identityResult.Succeeded)
+                    {
+                        throw new Exception($"Failed to assign role {roleName} to user {user.Email}");
+                    }
+                }
+            }
+        }
+    }
+
+
+    private static async Task EnsureEmployees(IServiceScope scope, string testUserPw)
+    {
+        var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
         var dbContext = scope.ServiceProvider.GetService<AppDbContext>();
 
-        if (dbContext == null)
+        if (userManager == null || dbContext == null)
         {
-            throw new Exception("dbContext null");
+            throw new Exception("userManager or dbContext null");
         }
 
-        if (!dbContext.Role.Where(r => r.Name == role).Any())
+        var users = await userManager.Users.ToListAsync();
+
+        foreach (var user in users)
         {
-            dbContext.Role.Add(new AppRole
+            var existingEmployee = await dbContext.Employee.FirstOrDefaultAsync(e => e.ApplicationUserId == user.Id);
+            if (existingEmployee == null)
             {
-                Active = true,
-                // IsDeleted = false,
-                Name = role,
-                // CreatedById = uid,
-                ActiveFrom = DateTime.UtcNow,
-                ActiveTo = DateTime.UtcNow.AddYears(3)
-            });
-
-            dbContext.SaveChanges();
+                dbContext.Employee.Add(new Employee
+                {
+                    Active = true,
+                    IsDeleted = false,
+                    Name = user.FirstName,
+                    Surname = user.LastName,
+                    CreatedById = user.Id,
+                    ApplicationUserId = user.Id,
+                    ActiveFrom = DateTime.UtcNow,
+                    ActiveTo = DateTime.UtcNow.AddYears(3)
+                });
+            }
         }
 
-        //var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+        var numSave = dbContext.SaveChanges();
 
-        //var myIdentityUser = await userManager.FindByIdAsync(uid);
-
-        //if (myIdentityUser == null)
-        //{
-        //    throw new Exception("The testUserPw password was probably not strong enough!");
-        //}
-
-        //var myRole = await dbContext.Role.Where(r => r.Name == role).SingleOrDefaultAsync();
-
-        //var myEmployee = await dbContext.Employee.Where(e => e.ApplicationUser.Id == myIdentityUser.Id).SingleOrDefaultAsync();
-
-        //var myEmployeeRole = new EmployeeOwnsRoles
-        //{
-        //    Name = "",
-        //    IsDeleted = false,
-        //    Employee = myEmployee,
-        //    Role = myRole,
-        //    Active = true,
-        //    ActiveFrom = DateTime.UtcNow,
-        //    ActiveTo = DateTime.UtcNow.AddYears(3)
-        //};
-
-        //dbContext.EmployeeOwnsRoles.Add(myEmployeeRole);
-
-        //dbContext.SaveChanges();
-
-        return true;
+        if (numSave <= 0)
+        {
+            throw new Exception("Employees not saved");
+        }
     }
+
+
+    public static async Task SeedOrganizationUnits(AppDbContext dbContext)
+    {
+        // Seed Organization Units
+        var organizationUnits = new List<OrganizationalUnit>
+        {
+            new() { Name = "IT Department", Description = "Information Technology Department" },
+            new() { Name = "HR Department", Description = "Human Resources Department" },
+            new() { Name = "Finance Department", Description = "Finance Department" },
+            new() { Name = "Marketing Department", Description = "Marketing Department" },
+            new() { Name = "Operations Department", Description = "Operations Department" }
+        };
+
+        dbContext.OrganisationalUnit.AddRange(organizationUnits);
+        var numSave = dbContext.SaveChanges();
+
+        if (numSave <= 0)
+        {
+            throw new Exception("Organization units not saved");
+        }
+    }
+
+    public static async Task AttachEmployeeToOrganizationUnitByName(AppDbContext dbContext, string firstName, string lastName, string organizationalUnitName)
+    {
+        var employee = await dbContext.Employee.FirstOrDefaultAsync(e => e.Name == firstName && e.Surname == lastName);
+        var organizationalUnit = await dbContext.OrganisationalUnit.FirstOrDefaultAsync(ou => ou.Name == organizationalUnitName);
+
+        if (employee != null && organizationalUnit != null)
+        {
+            var existingRelation = await dbContext.EmployeesBelongToOgranizationalUnits
+                .FirstOrDefaultAsync(e => e.EmployeeId == employee.Id && e.OrganizationalUnitId == organizationalUnit.Id);
+
+            if (existingRelation == null)
+            {
+                var employeeOrgUnit = new EmployeeBelongsToOrgUnit
+                {
+                    EmployeeId = employee.Id,
+                    OrganizationalUnitId = organizationalUnit.Id,
+                    Active = true,
+                    ActiveFrom = DateTime.UtcNow
+                };
+
+                dbContext.EmployeesBelongToOgranizationalUnits.Add(employeeOrgUnit);
+                var numSave = dbContext.SaveChanges();
+
+                if (numSave <= 0)
+                {
+                    throw new Exception("Employee organization unit not saved");
+                }
+            }
+            // else: relation already exists, no need to add again
+        }
+        else
+        {
+            throw new Exception("Employee or organizational unit not found");
+        }
+    }
+
+
+    public static async Task SeedOperationsAndResources(AppDbContext dbContext)
+    {
+        // Seed Operations
+        var operations = new List<Operation>
+        {
+            new() { Name = "Read" },
+            new() { Name = "Delete" },
+            new() { Name = "Create" },
+            new() { Name = "Edit" }
+        };
+
+        dbContext.Operation.AddRange(operations);
+
+        var resources = new List<Resource>
+        {
+            new() { Name = "HomeController/Index" },
+            new() { Name = "UserController/Create" },
+            new() { Name = "ProductController/Details" },
+            new() { Name = "OrderController/View" },
+            new() { Name = "AdminController/Manage" },
+            new() { Name = "ReportController/Generate" }
+
+        };
+
+
+        dbContext.ApplicationResource.AddRange(resources);
+        var numSave = dbContext.SaveChanges();
+
+        if (numSave <= 0)
+        {
+            throw new Exception("Operations and resources not saved");
+        }
+    }
+
+    public static async Task SeedPermissionsAndRoles(IServiceScope scope, AppDbContext dbContext)
+    {
+        // Retrieve existing resources and operations from the database
+        var resources = await dbContext.ApplicationResource.ToListAsync();
+        var operations = await dbContext.Operation.ToListAsync();
+
+        if (!resources.Any() || !operations.Any())
+        {
+            throw new Exception("Resources or operations not found in the database.");
+        }
+
+        // Create permissions by associating each resource with each operation
+        var permissions = new List<Permission>();
+        foreach (var resource in resources)
+        {
+            foreach (var operation in operations)
+            {
+                // Construct permission name based on resource and operation
+                var permissionName = $"Can{operation.Name}{resource.Name.Replace("/", "")}";
+                var permissionDescription = $"Permission to {operation.Name} {resource.Name}";
+
+                permissions.Add(new Permission
+                {
+                    Name = permissionName,
+                    Description = permissionDescription,
+                    ResourceId = resource.Id,
+                    OperationId = operation.Id,
+                    Active = true,
+                    ActiveFrom = DateTime.UtcNow
+                });
+            }
+        }
+
+        dbContext.Permission.AddRange(permissions);
+        var numSave = dbContext.SaveChanges();
+
+        if (numSave <= 0)
+        {
+            throw new Exception("Permissions not saved");
+        }
+
+        // Define roles corresponding to these permissions
+        var rolePermissions = new Dictionary<string, List<string>>
+        {
+            { "StandardRole", permissions.Select(p => p.Name).ToList() }, // Assign all permissions to StandardRole
+            { "AdminRole", new List<string> { "CanCreateUserController", "CanViewOrderController" } },
+            // Add more roles and their associated permissions as needed
+        };
+
+        // Get role manager
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
+
+        foreach (var (roleName, permissionNames) in rolePermissions)
+        {
+            // Check if the role exists
+            var role = await roleManager.FindByNameAsync(roleName);
+            if (role == null)
+            {
+                throw new Exception($"Role {roleName} not found");
+            }
+
+            // Assign permissions to the role
+            foreach (var permissionName in permissionNames)
+            {
+                var permission = await dbContext.Permission.FirstOrDefaultAsync(p => p.Name == permissionName);
+                if (permission == null)
+                {
+                    throw new Exception($"Permission {permissionName} not found");
+                }
+
+                // Create a mapping between the role and the permission
+                dbContext.RoleContainsPermissions.Add(new RoleContainsPermissions
+                {
+                    RoleId = role.Id,
+                    PermissionId = permission.Id,
+                    Active = true,
+                    ActiveFrom = DateTime.UtcNow
+                });
+            }
+        }
+
+        // Save changes
+        numSave = dbContext.SaveChanges();
+
+        if (numSave <= 0)
+        {
+            throw new Exception("Role permissions not saved");
+        }
+    }
+
 }

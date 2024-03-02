@@ -21,7 +21,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.Account.Employees
         public virtual Employee Employee { get; set; }
 
         public int OrganizationalUnitId { get; set; }
-        public int EmployeeId { get; set; }
+        public Guid EmployeeId { get; set; }
 
         #region IValidatable Entity contract implementation
 

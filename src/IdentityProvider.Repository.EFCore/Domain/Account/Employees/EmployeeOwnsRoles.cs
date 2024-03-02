@@ -18,12 +18,12 @@ namespace IdentityProvider.Repository.EFCore.Domain.Account.Employees
         public string Description { get; set; }
 
         public virtual Employee Employee { get; set; }
-        public int? EmployeeId { get; set; }
+        public Guid? EmployeeId { get; set; }
 
         // Many to many with Roles (one RoleGroup will contain many Roles, one role can exist in many groups)
         public AppRole Role { get; set; }
 
-        public string RoleId { get; set; }
+        public Guid RoleId { get; set; }
 
         #region IsActive
 

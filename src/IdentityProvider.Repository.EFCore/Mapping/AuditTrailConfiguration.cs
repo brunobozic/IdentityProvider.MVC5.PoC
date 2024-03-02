@@ -8,56 +8,36 @@ namespace IdentityProvider.Repository.EFCore.Mapping
     {
         public void Configure(EntityTypeBuilder<DbAuditTrail> modelBuilder)
         {
+            modelBuilder.ToTable("DbAuditTrail", "Audit");
+
             // Primary Key
             modelBuilder.HasKey(t => t.Id);
 
-            // Properties
+            // Since EF Core automatically treats non-nullable properties as required,
+            // explicit IsRequired() calls on non-nullable types (like int, DateTime, etc.) are omitted here.
+
             modelBuilder.Property(e => e.Id)
-                .IsRequired().ValueGeneratedOnAdd();
+                .ValueGeneratedOnAdd();
 
-            modelBuilder.Property(t => t.UserId)
-                .IsRequired(false);
+            // Removing .IsRequired(false) for nullable fields as it's the default behavior.
+            // Consider uncommenting and specifying .HasMaxLength() if applicable.
 
-            modelBuilder.Property(t => t.TableName)
-                .IsRequired(false)
-                // .HasMaxLength(250)
-                ;
+            modelBuilder.Property(t => t.TableName);
+            //.HasMaxLength(250);
 
-            modelBuilder.Property(t => t.Actions)
-                .IsRequired(false)
-                // .HasMaxLength(1)
-                ;
+            modelBuilder.Property(t => t.Actions);
+            //.HasMaxLength(1);
 
-            modelBuilder.Property(t => t.UserName)
-                .IsRequired(false);
+            modelBuilder.Property(t => t.OldData);
+            //.HasMaxLength(4000);
 
-            modelBuilder.Property(t => t.OldData)
-                .IsRequired(false)
-                // .HasMaxLength(4000)
-                ;
+            modelBuilder.Property(t => t.NewData);
+            //.HasMaxLength(4000);
 
-            modelBuilder.Property(t => t.NewData)
-                .IsRequired(false)
-                // .HasMaxLength(4000)
-                ;
-
-            modelBuilder.Property(t => t.TableIdValue)
-                .IsRequired(false);
-
-            modelBuilder.Property(t => t.UpdatedAt)
-                .IsRequired(false);
-
-            // Table & Column Mappings
-            modelBuilder.ToTable("DbAuditTrail", "Audit");
-
-            modelBuilder.Property(t => t.UserId).HasColumnName("UserId");
-
-            modelBuilder.Property(t => t.TableName).HasColumnName("TableName");
-            modelBuilder.Property(t => t.Actions).HasColumnName("Actions");
-            modelBuilder.Property(t => t.UserName).HasColumnName("UserName");
-            modelBuilder.Property(t => t.OldData).HasColumnName("OldData");
-            modelBuilder.Property(t => t.NewData).HasColumnName("NewData");
-            modelBuilder.Property(t => t.UpdatedAt).HasColumnName("UpdatedAt");
+            // Column Mappings - only specify if they differ from property names.
+            // modelBuilder.Property(t => t.UserId).HasColumnName("UserId");
+            // The rest of the column mappings have been omitted for brevity, as they are not necessary
+            // if the column names match the property names.
         }
     }
 }

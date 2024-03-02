@@ -3,7 +3,6 @@ using IdentityProvider.Repository.EFCore.Domain.Roles;
 using IdentityProvider.ServiceLayer.Services.ApplicationRoleService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using StructureMap;
 using TrackableEntities.Common.Core;
 using URF.Core.Abstractions;
 using URF.Core.Abstractions.Trackable;
@@ -11,19 +10,21 @@ using URF.Core.Services;
 
 public class ApplicationRoleService : Service<AppRole>, IRoleService
 {
+    #region Private Props
 
     private readonly IMapper _mapper;
-    private readonly ApplicationRoleManager _roleManager;
+    private readonly RoleManager<AppRole> _roleManager;
     private readonly IUnitOfWork _unitOfWorkAsync;
 
+    #endregion Private Props
 
+    #region Ctor
 
-    [DefaultConstructor]  // This is the attribute you need to add on the constructor
     public ApplicationRoleService(
         IUnitOfWork unitOfWorkAsync
         , IMapper mapper
         , ITrackableRepository<AppRole> repository
-             , ApplicationRoleManager roleManager
+        , RoleManager<AppRole> roleManager
 
     ) : base(repository)
     {
@@ -32,6 +33,10 @@ public class ApplicationRoleService : Service<AppRole>, IRoleService
         _roleManager = roleManager;
 
     }
+
+    #endregion Ctor
+
+    #region CRUD
 
     public Task<IdentityResult> AddRoleAsync(string roleName, string optionalDescription, bool startAsNonActive = false)
     {
@@ -74,5 +79,5 @@ public class ApplicationRoleService : Service<AppRole>, IRoleService
         return await Queryable().Where(i => i.Active == false).ToListAsync();
     }
 
-
+    #endregion CRUD
 }

@@ -3,7 +3,7 @@ using Serilog;
 
 namespace Module.CrossCutting.Logging.Serilog.Providers
 {
-    public class SerilogErrorLogProvider : IErrorLogService
+    public class SerilogErrorLogProvider
     {
         private readonly IAddLoggingContextProvider _loggingContext;
         private readonly ISerilogLoggingFactory _loggingFactory;

@@ -14,11 +14,12 @@ namespace IdentityProvider.Repository.EFCore.Domain.Roles
             Active = true;
             ActiveFrom = DateTime.UtcNow;
         }
-
+        [ForeignKey("RoleId")]
         public AppRole Role { get; set; }
+        [ForeignKey("RoleGroupId")]
         public RoleGroup RoleGroup { get; set; }
 
-        public string RoleId { get; set; }
+        public Guid RoleId { get; set; }
         public int? RoleGroupId { get; set; }
 
         #region IValidatable Entity contract implementation

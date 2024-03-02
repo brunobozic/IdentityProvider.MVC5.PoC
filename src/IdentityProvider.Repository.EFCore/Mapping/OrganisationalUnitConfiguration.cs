@@ -1,24 +1,19 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Module.CrossCutting;
 
 namespace IdentityProvider.Repository.EFCore.Mapping
 {
-    public class OrganisationalUnitConfiguration : IEntityTypeConfiguration<OrganizationalUnit>, IAuditTrail
+    public class OrganisationalUnitConfiguration : IEntityTypeConfiguration<OrganizationalUnit>
     {
         public void Configure(EntityTypeBuilder<OrganizationalUnit> modelBuilder)
         {
-            // Primary Key
             modelBuilder.HasKey(e => e.Id);
 
-            // Properties
             modelBuilder.Property(e => e.Id)
                 .IsRequired()
-                .ValueGeneratedOnAdd()
-                ;
+                .ValueGeneratedOnAdd();
 
-            // Concurrency
             modelBuilder.Property(a => a.RowVersion)
                 .IsConcurrencyToken()
                 .ValueGeneratedOnAddOrUpdate();
@@ -26,14 +21,11 @@ namespace IdentityProvider.Repository.EFCore.Mapping
             modelBuilder.Property(e => e.Name)
                 .IsRequired();
 
-            modelBuilder.Property(e => e.Description)
-                ;
+            modelBuilder.Property(e => e.Description);
 
-            //Table & Column Mappings
-
-            modelBuilder.HasIndex(t => t.Name)
-                .IsUnique()
-                .HasName("IDX_Organisation_Name");
+            // Unique Index for Organization Name
+            modelBuilder.HasIndex(t => t.Name).IsUnique().HasDatabaseName("IDX_Organisation_Name");
         }
     }
+
 }

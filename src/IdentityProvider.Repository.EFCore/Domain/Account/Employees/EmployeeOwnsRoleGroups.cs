@@ -23,7 +23,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.Account.Employees
         public bool Active { get; set; }
         public DateTime? ActiveFrom { get; set; }
         public DateTime? ActiveTo { get; set; }
-        public int EmployeeId { get; set; }
+        public Guid EmployeeId { get; set; }
         public int RoleGroupId { get; set; }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

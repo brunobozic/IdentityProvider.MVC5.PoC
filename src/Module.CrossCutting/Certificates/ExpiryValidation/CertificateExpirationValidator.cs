@@ -1,6 +1,6 @@
 ﻿using Module.CrossCutting.Email;
 using Module.CrossCutting.Enums;
-using Module.CrossCutting.Logging.Serilog.Providers;
+using Serilog;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Module.CrossCutting.Certificates.ExpiryValidation
@@ -10,15 +10,15 @@ namespace Module.CrossCutting.Certificates.ExpiryValidation
         #region Ctor
 
         public CertificateExpirationValidator(
-            IErrorLogService errorLog,
+
             IEmailSender emailSender
         )
         {
-            _errorLog = errorLog;
+
             _emailSender = emailSender;
 
 
-            if (_errorLog == null) throw new ArgumentNullException(nameof(errorLog));
+
             if (_emailSender == null) throw new ArgumentNullException(nameof(emailSender));
         }
 
@@ -42,7 +42,7 @@ namespace Module.CrossCutting.Certificates.ExpiryValidation
             certificateExpiryMessage = string.Format("Expiry", willExpireOn);
 
             if (daysLeftUntilCertificateExpires < 60)
-                _errorLog.LogWarning(this, certificateExpiryMessage);
+                Log.Warning(certificateExpiryMessage);
 
             //// TODO: mail goes to multiple people in for each or something...
             //if (_applicationConfiguration.ShouldSendEmailWhenCertificateExpiryDateValidationFails())
@@ -50,7 +50,7 @@ namespace Module.CrossCutting.Certificates.ExpiryValidation
             //        certificateExpiryMessage);
 
             if (daysLeftUntilCertificateExpires < 40)
-                _errorLog.LogFatal(this, certificateExpiryMessage);
+                Log.Fatal(certificateExpiryMessage);
 
             return returnValue;
         }
@@ -59,7 +59,7 @@ namespace Module.CrossCutting.Certificates.ExpiryValidation
 
         #region Private Properties
 
-        private readonly IErrorLogService _errorLog;
+
         private readonly IEmailSender _emailSender;
 
         #endregion Private Properties

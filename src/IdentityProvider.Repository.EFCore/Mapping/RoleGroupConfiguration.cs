@@ -14,10 +14,9 @@ namespace IdentityProvider.Repository.EFCore.Mapping
             // Properties
             modelBuilder.Property(e => e.Id)
                 .IsRequired()
-                .ValueGeneratedOnAdd()
-                ;
+                .ValueGeneratedOnAdd();
 
-            // Concurrency
+            // Concurrency Token
             modelBuilder.Property(a => a.RowVersion)
                 .IsConcurrencyToken()
                 .ValueGeneratedOnAddOrUpdate();
@@ -25,8 +24,9 @@ namespace IdentityProvider.Repository.EFCore.Mapping
             modelBuilder.Property(e => e.Name)
                 .IsRequired();
 
-            // Table & Column Mappings
+            // Unique Index
             modelBuilder.HasIndex(t => t.Name).IsUnique().HasName("IDX_RoleGroup_Name");
         }
     }
+
 }

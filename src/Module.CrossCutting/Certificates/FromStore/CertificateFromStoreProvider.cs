@@ -1,4 +1,4 @@
-﻿using Module.CrossCutting.Logging.Serilog.Providers;
+﻿using Serilog;
 using System.Data;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -10,7 +10,7 @@ namespace Module.CrossCutting.Certificates.FromStore
     {
         #region Private properties
 
-        private readonly IErrorLogService _log;
+
 
         #endregion Private properties
 
@@ -35,7 +35,7 @@ namespace Module.CrossCutting.Certificates.FromStore
             }
             catch (Exception certificateStoreOperationException)
             {
-                _log.LogFatal(certificateStoreOperationException,
+                Log.Fatal(certificateStoreOperationException,
                     string.Format(CertificateStoreExceptionErrorMessage, thumbprint));
             }
             finally
@@ -56,10 +56,7 @@ namespace Module.CrossCutting.Certificates.FromStore
 
         #region Ctor
 
-        public CertificateFromStoreProvider(IErrorLogService logger)
-        {
-            _log = logger;
-        }
+
 
         public CertificateFromStoreProvider()
         {

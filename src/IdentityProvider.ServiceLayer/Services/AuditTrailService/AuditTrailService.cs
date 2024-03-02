@@ -11,12 +11,22 @@ namespace IdentityProvider.ServiceLayer.Services.AuditTrailService
 {
     public class AuditTrailService : Service<DbAuditTrail>, IAuditTrailService
     {
+        #region Private Props
+
         private readonly ITrackableRepository<DbAuditTrail> _repository;
+
+        #endregion Private Props
+
+        #region Ctor
 
         public AuditTrailService(ITrackableRepository<DbAuditTrail> repository) : base(repository)
         {
             _repository = repository;
         }
+
+        #endregion Ctor
+
+        #region CRUD
 
         public List<YourCustomSearchClass> GetDataFromDbase(
             int userId, string searchBy, string searchValueExtra, string searchValueUserName,
@@ -101,6 +111,8 @@ namespace IdentityProvider.ServiceLayer.Services.AuditTrailService
                 predicate = predicate.Or(s => searchTerms.Any(term => EF.Functions.Like(EF.Property<string>(s, propertyName).ToLower(), $"%{term}%")));
             }
         }
+
+        #endregion CRUD
     }
 
 }

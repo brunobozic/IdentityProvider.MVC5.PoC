@@ -12,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Module.CrossCutting;
 using Module.CrossCutting.Domain;
-using StructureMap;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,24 +25,29 @@ using System.Threading.Tasks;
 
 namespace IdentityProvider.Repository.EFCore.EFDataContext
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser, AppRole, string, AppUserClaim, AppUserRole, AppUserLogin, AppRoleClaim, AppUserToken>, IDbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser, AppRole, Guid>
     {
-        private readonly List<DbAuditTrail> _auditList = new List<DbAuditTrail>();
-        private readonly List<EntityEntry> _list = new List<EntityEntry>();
+        #region Private props
+
+        private readonly List<DbAuditTrail> _auditList = new();
+        private readonly List<EntityEntry> _list = new();
         private DbAuditTrailFactory _auditFactory;
 
+        #endregion Private props
+
+        #region Ctor
         public AppDbContext()
         {
         }
 
-        [DefaultConstructor] // Set Default Constructor for StructureMap
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
             InstanceId = Guid.NewGuid();
             // DbInterception.Add(new DatabaseInterceptor());
         }
+        #endregion Ctor
 
-        public Microsoft.EntityFrameworkCore.DbSet<Resource> ApplicationResource { get; set; }
+        public DbSet<Resource> ApplicationResource { get; set; }
         public DbSet<Operation> Operation { get; set; }
         public DbSet<RoleGroup> RoleGroup { get; set; }
         public DbSet<AppRole> Role { get; set; }
@@ -59,6 +63,8 @@ namespace IdentityProvider.Repository.EFCore.EFDataContext
         public DbSet<OrgUnitContainsRoleGroup> OrganizationalUnitsHaveRoleGroups { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<RoleContainsPermissionGroup> RoleContainsPermissionGroupLink { get; set; }
+        public DbSet<RoleContainsPermissions> RoleContainsPermissions { get; set; }
+        
         public DbSet<DbAuditTrail> DbAuditTrail { get; set; }
         public Guid InstanceId { get; set; }
 

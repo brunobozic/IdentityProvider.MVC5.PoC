@@ -20,7 +20,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits
         public virtual AppRole Role { get; set; }
 
         public int? OrganizationalUnitId { get; set; }
-        public int? RoleId { get; set; }
+        public Guid? RoleId { get; set; }
 
         #region IValidatable Entity contract implementation
 

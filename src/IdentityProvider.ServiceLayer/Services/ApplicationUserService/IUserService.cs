@@ -1,6 +1,9 @@
-﻿namespace IdentityProvider.ServiceLayer.Services.ApplicationUserService
+﻿using IdentityProvider.Repository.EFCore.Domain.Account;
+using URF.Core.Abstractions.Services;
+
+namespace IdentityProvider.ServiceLayer.Services.ApplicationUserService
 {
-    internal interface IUserService
+    public interface IUserService : IService<ApplicationUser>
     {
     }
 }

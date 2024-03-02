@@ -4,7 +4,6 @@ using IdentityProvider.Repository.EFCore.Domain.Account;
 using IdentityProvider.Repository.EFCore.Domain.Roles;
 using IdentityProvider.Repository.EFCore.EFDataContext;
 using IdentityProvider.Web.MVC6.Controllers;
-using IdentityProvider.Web.MVC6.Identity;
 using IdentityProvider.Web.MVC6.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -13,10 +12,12 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Module.CrossCutting;
@@ -36,43 +37,57 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
     Args = args,
     ApplicationName = typeof(Program).Assembly.FullName,
     ContentRootPath = Directory.GetCurrentDirectory(),
-    EnvironmentName = Environments.Staging
+    EnvironmentName = Environments.Development
 });
 
-
+// Configure Serilog
 builder.Host.UseSerilog();
 builder.Logging.AddSerilog();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-// Add services to the container.
-builder.Services.AddLogging();
-#region Mediatr
+// Add services to the container
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.ClearProviders();
+    loggingBuilder.AddSerilog(dispose: true);
+});
 
+// Configure Mediatr
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
-
 builder.Services.AddTransient<IMediator, Mediator>();
 builder.Services.AddTransient<IMediator, NoMediator>();
 
-#endregion Mediatr
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+// Configure DbContext
+builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
+{
+    options.UseSqlServer(connectionString, sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null
+        );
+    });
+});
 
-builder.Services.AddProblemDetails();
-builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddHealthChecks();
+//builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<AppDbContext>();
 
-builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<UserManager<ApplicationUser>>();
+builder.Services.AddScoped<RoleManager<AppRole>>();
+builder.Services.AddScoped<IUserStore<ApplicationUser>, UserStore<ApplicationUser, AppRole, AppDbContext, Guid>>();
+builder.Services.AddScoped<IRoleStore<AppRole>, RoleStore<AppRole, AppDbContext, Guid>>();
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddIdentity<ApplicationUser, AppRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-
-builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AdditionalUserClaimsPrincipalFactory>();
+builder.Services.AddIdentity<ApplicationUser, AppRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddRoleManager<RoleManager<AppRole>>()
+    .AddUserManager<UserManager<ApplicationUser>>()
+    .AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    // Password settings.
+    // Password settings
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireNonAlphanumeric = true;
@@ -80,69 +95,28 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 1;
 
-    // Lockout settings.
+    // Lockout settings
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
 
-    // User settings.
+    // User settings
     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = false;
 });
 
-//builder.Services.ConfigureApplicationCookie(options =>
-//{
-//    // Cookie settings
-//    options.Cookie.HttpOnly = true;
-//    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-//    options.LoginPath = "/Identity/Account/Login";
-//    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-//    options.SlidingExpiration = true;
-//});
-builder.Services.AddControllersWithViews();
-//builder.Services.AddControllersWithViews(config =>
-//{
-//    var policy = new AuthorizationPolicyBuilder()
-//        .RequireAuthenticatedUser()
-//        .Build();
-//    config.Filters.Add(new AuthorizeFilter(policy));
-//    config.Filters.Add(new StopWatchActionFilter());
-//});
-
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-});
-
-builder.Services.AddRazorPages();
-
-//builder.Services.AddHealthChecks().AddCheck("self", () => HealthCheckResult.Healthy());
+// Add other services
+builder.Services.AddProblemDetails();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<IMyConfigurationValues, MyConfigurationValues>();
-builder.Services.AddSingleton(typeof(UserManager<ApplicationUser>));
-builder.Services.AddSingleton(typeof(RoleManager<AppRole>));
-//builder.Services.AddHttpLogging(logging =>
-//{
-//    // Customize HTTP logging here.
-//    logging.LoggingFields = HttpLoggingFields.All;
-//    logging.RequestHeaders.Add("My-Request-Header");
-//    logging.ResponseHeaders.Add("My-Response-Header");
-//    logging.MediaTypeOptions.AddText("application/javascript");
-//    logging.RequestBodyLogLimit = 4096;
-//    logging.ResponseBodyLogLimit = 4096;
-//});
 
-builder.Services.AddMvc(opt =>
-{
-    // opt.Filters.Add(typeof(ValidateFilterAttribute));
-})
-//.AddFluentValidation(fv =>
-//{
-//    fv.RegisterValidatorsFromAssembly(Assembly.Load("StrippedDownSkeleton.Services")); // the assembly that houses the implemented validators
-//  //fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false; // dont run MVC validators after having run the fluent ones
-//    fv.ImplicitlyValidateChildProperties = true; // fall through and validate all child elements and their child elementes
-//})
+builder.Services.AddHealthChecks()
+    .AddSqlServer(connectionString)
+    .AddCheck("self", () => HealthCheckResult.Healthy(), tags: new[] { "self" });
+
+// Configure MVC
+builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options =>
     {
         options.SerializerSettings.Converters.Add(new StringEnumConverter(new CamelCaseNamingStrategy()));
@@ -154,11 +128,8 @@ builder.Services.AddMvc(opt =>
         options.InvalidModelStateResponseFactory = context =>
         {
             var result = new BadRequestObjectResult(context.ModelState);
-
-            // TODO: add `using System.Net.Mime;` to resolve MediaTypeNames
             result.ContentTypes.Add(MediaTypeNames.Application.Json);
             result.ContentTypes.Add(MediaTypeNames.Application.Xml);
-
             return result;
         };
         options.SuppressConsumesConstraintForFormFileParameters = false;
@@ -168,18 +139,23 @@ builder.Services.AddMvc(opt =>
         options.ClientErrorMapping[404].Link = "https://httpstatuses.com/404";
     });
 
-#region Automapper
+// Configure Razor Pages and Authorization
+builder.Services.AddRazorPages();
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
 
-var config = new MapperConfiguration(cfg => { cfg.AddMaps("EFModule.Core.Services"); });
-
+// Configure AutoMapper
+var config = new MapperConfiguration(cfg => { cfg.AddMaps("IdentityProvider.ServiceLayer"); });
 var mapper = config.CreateMapper();
-// config.AssertConfigurationIsValid();
 builder.Services.AddSingleton(mapper);
-
-#endregion Automapper
 
 var app = builder.Build();
 
+// Configure logging
 IHostApplicationLifetime lifetime = app.Lifetime;
 IWebHostEnvironment env = app.Environment;
 IMyConfigurationValues service = app.Services.GetRequiredService<IMyConfigurationValues>();
@@ -190,40 +166,39 @@ lifetime.ApplicationStarted.Register(() =>
         $" with injected {service}"));
 
 Log.Logger = CreateSerilogLogger(app.Configuration);
-//var diagnosticSource = app.Services.GetRequiredService<DiagnosticListener>();
-//using var badRequestListener = new BadRequestEventListener(diagnosticSource,
-//    (badRequestExceptionFeature) =>
-//    {
-//        app.Logger.LogError(badRequestExceptionFeature.Error, "Bad request received");
-//    });
 
+// Apply migrations and seed data
 Log.Warning("Applying migrations ({ApplicationContext})...", typeof(Program).Namespace);
-
 var configuration = app.Services.GetRequiredService<IConfiguration>();
-
-// Set password with the Secret Manager tool.
-// dotnet myIdentityUser-secrets set SeedUserPW <pw>
 var testUserPw = configuration["SeedUserPW"];
+if (string.IsNullOrEmpty(testUserPw)) { testUserPw = "theSecret101!"; }
 
 using (var scope = app.Services.CreateScope())
 {
-    var myDbContext = scope.ServiceProvider.GetService<AppDbContext>();
-
-    SeedData.Initialize(myDbContext, scope, testUserPw).Wait();
+    var services = scope.ServiceProvider;
+    try
+    {
+        var dbContext = services.GetRequiredService<AppDbContext>();
+        dbContext.Database.Migrate();
+        SeedData.Initialize(dbContext, scope, testUserPw).Wait();
+    }
+    catch (Exception ex)
+    {
+        var mah_logger = services.GetRequiredService<ILogger<Program>>();
+        mah_logger.LogError(ex, "An error occurred while migrating or seeding the database.");
+    }
 }
-
 Log.Warning("Migrations ({ApplicationContext}) applied...", typeof(Program).Namespace);
 
-// Configure the HTTP request pipeline.
+// Configure HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
-    //app.UseMigrationsEndPoint();
-    //app.UseDeveloperExceptionPage();
+    //  app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -238,8 +213,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-#region Health check
-
+// Configure health checks
 app.UseHealthChecks("/hc", new HealthCheckOptions
 {
     Predicate = _ => true,
@@ -251,8 +225,7 @@ app.UseHealthChecks("/liveness", new HealthCheckOptions
     Predicate = r => r.Name.Contains("self")
 });
 
-#endregion Health check
-
+// Run the application
 try
 {
     app.Run();
@@ -268,8 +241,6 @@ static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
 {
     var appInstanceName = configuration["InstanceName"];
     var environment = configuration["Environment"];
-
-    // var kafkaProducerForLogging = container.Resolve<IKafkaLoggingProducer>();
 
     return new LoggerConfiguration()
         .ReadFrom.Configuration(configuration)
@@ -288,6 +259,7 @@ static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
         .WriteTo.File(appInstanceName + ".log", rollingInterval: RollingInterval.Day, retainedFileCountLimit: null)
         .CreateLogger();
 }
+
 class BadRequestEventListener : IObserver<KeyValuePair<string, object>>, IDisposable
 {
     private readonly IDisposable _subscription;
@@ -299,11 +271,13 @@ class BadRequestEventListener : IObserver<KeyValuePair<string, object>>, IDispos
         _subscription = diagnosticListener.Subscribe(this!, IsEnabled);
         _callback = callback;
     }
+
     private static readonly Predicate<string> IsEnabled = (provider) => provider switch
     {
         "Microsoft.AspNetCore.Server.Kestrel.BadRequest" => true,
         _ => false
     };
+
     public void OnNext(KeyValuePair<string, object> pair)
     {
         if (pair.Value is IFeatureCollection featureCollection)
@@ -316,6 +290,7 @@ class BadRequestEventListener : IObserver<KeyValuePair<string, object>>, IDispos
             }
         }
     }
+
     public void OnError(Exception error) { }
     public void OnCompleted() { }
     public virtual void Dispose() => _subscription.Dispose();

@@ -14,23 +14,26 @@ namespace IdentityProvider.Repository.EFCore.Mapping
             // Properties
             modelBuilder.Property(e => e.Id)
                 .IsRequired()
-                .ValueGeneratedOnAdd()
-                ;
+                .ValueGeneratedOnAdd();
 
-            // Concurrency
+            // Concurrency Token
             modelBuilder.Property(a => a.RowVersion)
                 .IsConcurrencyToken()
                 .ValueGeneratedOnAddOrUpdate();
 
+            // Relationships
+            // Role to Permissions (many-to-many)
             modelBuilder.HasOne(bc => bc.Role)
                 .WithMany(b => b.Permissions)
                 .HasForeignKey(bc => bc.RoleId)
                 .IsRequired();
 
+            // Permission to Roles (many-to-many)
             modelBuilder.HasOne(bc => bc.Permission)
                 .WithMany(c => c.Roles)
                 .HasForeignKey(bc => bc.PermissionId)
                 .IsRequired();
         }
     }
+
 }

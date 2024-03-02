@@ -4,6 +4,7 @@ using IdentityProvider.Repository.EFCore.EFDataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityProvider.Repository.EFCore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240302155048_stuffs3")]
+    partial class stuffs3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,9 +217,12 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId")
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Employee", "Organization");
@@ -1092,6 +1098,29 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
+            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppUserAppRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AppUserAppRole");
+                });
+
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.RoleContainsPermissionGroup", b =>
                 {
                     b.Property<int>("Id")
@@ -1355,8 +1384,6 @@ namespace IdentityProvider.Repository.EFCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("AspNetRoleClaims", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRoleClaim<Guid>");
@@ -1447,10 +1474,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>");
 
-                    b.Property<Guid?>("RoleId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("RoleId1");
+                    b.HasIndex("RoleId");
 
                     b.HasDiscriminator().HasValue("AppRoleClaim");
                 });
@@ -1468,7 +1492,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", "ApplicationUser")
                         .WithOne("Employee")
-                        .HasForeignKey("IdentityProvider.Repository.EFCore.Domain.Account.Employees.Employee", "ApplicationUserId");
+                        .HasForeignKey("IdentityProvider.Repository.EFCore.Domain.Account.Employees.Employee", "UserId");
 
                     b.Navigation("ApplicationUser");
                 });
@@ -1628,6 +1652,25 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .HasForeignKey("OrganizationalUnitId");
                 });
 
+            modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.AppUserAppRole", b =>
+                {
+                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.RoleContainsPermissionGroup", b =>
                 {
                     b.HasOne("IdentityProvider.Repository.EFCore.Domain.Permissions.PermissionGroup", "PermissionGroup")
@@ -1691,15 +1734,6 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Navigation("RoleGroup");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
-                {
-                    b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
                     b.HasOne("IdentityProvider.Repository.EFCore.Domain.Account.ApplicationUser", null)
@@ -1746,7 +1780,9 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     b.HasOne("IdentityProvider.Repository.EFCore.Domain.Roles.AppRole", "Role")
                         .WithMany("RoleClaims")
-                        .HasForeignKey("RoleId1");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Role");
                 });
@@ -1818,6 +1854,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     b.Navigation("RoleClaims");
 
                     b.Navigation("RoleGroups");
+
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("IdentityProvider.Repository.EFCore.Domain.Roles.RoleGroup", b =>

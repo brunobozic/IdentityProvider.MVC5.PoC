@@ -5,8 +5,10 @@ using System;
 
 namespace IdentityProvider.Repository.EFCore.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    /// <inheritdoc />
+    public partial class Initial_Migration : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
@@ -25,7 +27,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(260)", maxLength: 260, nullable: true),
                     Active = table.Column<bool>(type: "bit", nullable: false),
@@ -46,14 +48,14 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TableName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TableName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     OldData = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NewData = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TableIdValue = table.Column<long>(type: "bigint", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Actions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Actions = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -77,7 +79,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -103,7 +105,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -129,7 +131,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -155,7 +157,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -182,7 +184,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -197,17 +199,17 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 schema: "Account",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     ActiveFrom = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ActiveTo = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ModifiedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -223,9 +225,10 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -245,7 +248,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PermissionGroupId = table.Column<int>(type: "int", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     ActiveFrom = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -254,7 +257,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -266,7 +269,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         name: "FK_RoleContainsPermissionGroup_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RoleContainsPermissionGroup_PermissionGroup_PermissionGroupId",
                         column: x => x.PermissionGroupId,
@@ -294,7 +298,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -325,9 +329,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     OrganizationalUnitId = table.Column<int>(type: "int", nullable: true),
-                    RoleId = table.Column<int>(type: "int", nullable: true),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     ActiveFrom = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ActiveTo = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -335,7 +338,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -344,8 +347,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     table.PrimaryKey("PK_OrgUnitContainsRole", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrgUnitContainsRole_AspNetRoles_RoleId1",
-                        column: x => x.RoleId1,
+                        name: "FK_OrgUnitContainsRole_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -372,7 +375,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -400,7 +403,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     ConfirmationToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -413,8 +416,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     UserUid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PasswordResetToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    UserProfileId = table.Column<int>(type: "int", nullable: true),
-                    EmployeeId = table.Column<int>(type: "int", nullable: true),
+                    UserProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ModifiedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -467,7 +470,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -497,8 +500,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -523,7 +526,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -542,10 +545,10 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -562,10 +565,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    RoleId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -577,30 +578,20 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId1",
-                        column: x => x.RoleId1,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -619,19 +610,19 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 schema: "Organization",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     ActiveFrom = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ActiveTo = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ModifiedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -640,8 +631,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     table.PrimaryKey("PK_Employee", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employee_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_Employee_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -653,7 +644,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(260)", maxLength: 260, nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ModifiedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -693,7 +684,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrganizationalUnitId = table.Column<int>(type: "int", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     ActiveFrom = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ActiveTo = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -701,7 +692,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -732,7 +723,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     ActiveFrom = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ActiveTo = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -741,7 +732,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -777,13 +768,13 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     ActiveFrom = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ActiveTo = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoleGroupId = table.Column<int>(type: "int", nullable: false),
                     ModifiedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -816,8 +807,8 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     ActiveFrom = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ActiveTo = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -826,7 +817,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -861,7 +852,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PermissionGroupId = table.Column<int>(type: "int", nullable: true),
                     PermissionId = table.Column<int>(type: "int", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
@@ -872,7 +863,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -913,7 +904,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoleGroupId = table.Column<int>(type: "int", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     ActiveFrom = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -923,7 +914,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedById = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -995,16 +986,6 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_RoleId1",
-                table: "AspNetUserRoles",
-                column: "RoleId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_UserId1",
-                table: "AspNetUserRoles",
-                column: "UserId1");
-
-            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -1024,20 +1005,11 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IDX_Employee_Name",
+                name: "IX_Employee_UserId",
                 schema: "Organization",
                 table: "Employee",
-                column: "Name",
-                unique: true,
-                filter: "[Name] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employee_ApplicationUserId",
-                schema: "Organization",
-                table: "Employee",
-                column: "ApplicationUserId",
-                unique: true,
-                filter: "[ApplicationUserId] IS NOT NULL");
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeBelongsToOrgUnit_EmployeeId",
@@ -1105,10 +1077,10 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 column: "OrganizationalUnitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrgUnitContainsRole_RoleId1",
+                name: "IX_OrgUnitContainsRole_RoleId",
                 schema: "Organization",
                 table: "OrgUnitContainsRole",
-                column: "RoleId1");
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrgUnitContainsRoleGroup_OrganizationalUnitId",
@@ -1235,6 +1207,7 @@ namespace IdentityProvider.Repository.EFCore.Migrations
                 unique: true);
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

@@ -10,25 +10,21 @@ using TrackableEntities.Common.Core;
 
 namespace IdentityProvider.Repository.EFCore.Domain.Roles
 {
-    public class AppRole : IdentityRole, ITrackable
+    public class AppRole : IdentityRole<Guid>, ITrackable
     {
-        public AppRole()
+        public AppRole() : base()
         {
             Active = true;
             ActiveFrom = DateTime.UtcNow;
         }
 
-        public AppRole(string roleName) : base(roleName)
+        public AppRole(string roleName) : this()
         {
+            Active = true;
+            ActiveFrom = DateTime.UtcNow;
+            // Set the role name directly
             Name = roleName;
-            Active = true;
-            ActiveFrom = DateTime.UtcNow;
         }
-
-        [Required]
-        [DisplayName("Name")]
-        [MaxLength(50, ErrorMessage = "The name of the AppRole must be between 2 and 50 characters"), MinLength(2)]
-        public string Name { get; set; }
 
         [DisplayName("Description")]
         [MaxLength(260, ErrorMessage = "The description of the AppRole must be between 2 and 260 characters")]
@@ -41,7 +37,6 @@ namespace IdentityProvider.Repository.EFCore.Domain.Roles
         public ICollection<EmployeeOwnsRoles> Employees { get; set; } // many employees may be assigned this app role
         public ICollection<RoleContainsPermissions> Permissions { get; set; } // this app role contains many permissions
         public ICollection<OrgUnitContainsRole> OrganizationUnits { get; set; } // this app role may be assigned to many org units
-        public virtual ICollection<AppUserAppRole> UserRoles { get; set; }
 
         public virtual ICollection<AppRoleClaim> RoleClaims { get; set; }
         #endregion Navigation props

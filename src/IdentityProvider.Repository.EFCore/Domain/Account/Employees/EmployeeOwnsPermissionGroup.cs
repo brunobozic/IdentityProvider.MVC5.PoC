@@ -20,7 +20,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.Account.Employees
         public PermissionGroup PermissionGroup { get; set; }
         public Employee Employee { get; set; }
 
-        public int EmployeeId { get; set; }
+        public Guid EmployeeId { get; set; }
 
         #region IValidatable Entity contract implementation
 
