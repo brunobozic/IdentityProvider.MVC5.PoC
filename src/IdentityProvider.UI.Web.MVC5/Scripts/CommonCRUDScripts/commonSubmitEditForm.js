@@ -26,7 +26,7 @@
                             "Your item has been editted.",
                             "success"
                         ).then(function() {
-                            location.reload();
+                           // location.reload();
                         });
                     } else {
 
@@ -36,7 +36,7 @@
                                 "Your item has not been editted. Reason(s): " + response.OptimisticConcurrencyErrorMsg,
                                 "error"
                             ).then(function() {
-                                location.reload();
+                               // location.reload();
                             });
                         } else {
                             swal(
@@ -67,7 +67,7 @@
                         "Your item has not been editted. Reason(s): " + response.ValidationIssues,
                         "error"
                     ).then(function() {
-                        location.reload();
+                       // location.reload();
                         $this.closest("");
                     });
                 },
