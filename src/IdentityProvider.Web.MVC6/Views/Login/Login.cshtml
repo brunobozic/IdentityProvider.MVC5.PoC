@@ -1,0 +1,134 @@
+﻿@using Module.CrossCutting.Models.ViewModels.Account
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Sign In | Bootstrap Based Admin Template - Material Design</title>
+    <!-- Favicon-->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <a href="~/lib/bootstrap/dist/css/bootstrap.css.map">~/lib/bootstrap/dist/css/bootstrap.css.map</a>
+    <a href="~/lib/bootstrap/dist/css/bootstrap.min.css.map">~/lib/bootstrap/dist/css/bootstrap.min.css.map</a>
+    <a href="~/lib/bootstrap/dist/css/bootstrap.rtl.css.map">~/lib/bootstrap/dist/css/bootstrap.rtl.css.map</a>
+    <a href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map">~/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map</a>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- Waves Effect Css -->
+    <link href="~/lib/node-waves/waves.min.css" rel="stylesheet" />
+    <link href="~/lib/node-waves/waves.css" rel="stylesheet" />
+    <!-- Animation Css -->
+    <link href="~/lib/animate.css/animate.compat.min.css" rel="stylesheet" />
+    <link href="~/lib/animate.css/animate.compat.css" rel="stylesheet" />
+    <link href="~/lib/animate.css/animate.min.css" rel="stylesheet" />
+    <link href="~/lib/animate.css/animate.css" rel="stylesheet" />
+    <!-- Custom Css -->
+
+    <link href="~/css/site.css" rel="stylesheet" />
+
+    <link href="~/lib/adminbsb-materialdesign/css/themes/all-themes.min.css" rel="stylesheet" />
+
+   @*  <link href="~/lib/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" /> *@
+</head>
+<div class="login-box">
+    <div class="logo">
+        <a href="javascript:void(0);">Material Design<b>MD</b></a>
+        <small>Material Design Proof of Concept</small>
+    </div>
+    <div class="card">
+        <div class="body">
+            <form asp-action="Login" asp-controller="Account" method="post" id="sign_in" novalidate>
+                <input type="hidden" asp-for="__RequestVerificationToken" />
+                <div class="msg">Sign in to start your session</div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">person</i>
+                    </span>
+                    <div class="form-line">
+                        <input asp-for="Username" class="form-control" placeholder="Username" autofocus />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">lock</i>
+                    </span>
+                    <div class="form-line">
+                        <input asp-for="Password" class="form-control" placeholder="Password" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8 p-t-5">
+                        <input asp-for="RememberMe" type="hidden" value="false" />
+                        <input asp-for="RememberMe" class="filled-in chk-col-pink" type="checkbox" />
+                        <label asp-for="RememberMe">Remember Me</label>
+                    </div>
+                    <div class="col-xs-4">
+                        <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+                    </div>
+                </div>
+                <div class="row m-t-15 m-b--20">
+                    <div class="col-xs-6">
+                        <a asp-action="Register" style="padding: 1px">Sign up for an account.</a>
+                    </div>
+                    <div class="col-xs-6 align-right">
+                        <a asp-action="ForgotPassword" style="padding: 1px">Forgot your password?</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Jquery Core Js -->
+<a href="~/lib/jquery/dist/jquery.min.map">~/lib/jquery/dist/jquery.min.map</a>
+<a href="~/lib/jquery/dist/jquery.slim.min.map">~/lib/jquery/dist/jquery.slim.min.map</a>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.slim.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.slim.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/jqueryoverride-boolean-checkboxes.js"></script>
+
+<!-- Jquery client side validation Js -->
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<!-- Bootstrap Core Js -->
+
+<a href="~/lib/bootstrap/dist/js/bootstrap.bundle.js.map">~/lib/bootstrap/dist/js/bootstrap.bundle.js.map</a>
+<a href="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map">~/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map</a>
+<a href="~/lib/bootstrap/dist/js/bootstrap.esm.js.map">~/lib/bootstrap/dist/js/bootstrap.esm.js.map</a>
+<a href="~/lib/bootstrap/dist/js/bootstrap.esm.min.js.map">~/lib/bootstrap/dist/js/bootstrap.esm.min.js.map</a>
+<a href="~/lib/bootstrap/dist/js/bootstrap.js.map">~/lib/bootstrap/dist/js/bootstrap.js.map</a>
+<a href="~/lib/bootstrap/dist/js/bootstrap.min.js.map">~/lib/bootstrap/dist/js/bootstrap.min.js.map</a>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.esm.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.esm.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+<!-- Waves Effect Plugin Js -->
+<a href="~/lib/node-waves/waves.min.js.map">~/lib/node-waves/waves.min.js.map</a>
+<script src="~/lib/node-waves/waves.min.js"></script>
+<script src="~/lib/node-waves/waves.js"></script>
+
+<!-- Custom Js -->
+<script src="~/lib/adminbsb-materialdesign/js/admin.js"></script>
+<script src="~/lib/adminbsb-materialdesign/js/demo.js"></script>
+
+

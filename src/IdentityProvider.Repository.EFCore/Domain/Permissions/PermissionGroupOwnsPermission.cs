@@ -1,4 +1,5 @@
-﻿using Module.CrossCutting.Domain;
+﻿using Module.CrossCutting;
+using Module.CrossCutting.Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IdentityProvider.Repository.EFCore.Domain.Permissions
 {
     [Table("PermissionGroupOwnsPermission", Schema = "Resource")]
-    public class PermissionGroupOwnsPermission : DomainEntity<int>, IActive
+    public class PermissionGroupOwnsPermission : DomainEntity<int>, IActive, IFullAuditTrail
     {
         public PermissionGroupOwnsPermission()
         {

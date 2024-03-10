@@ -2,7 +2,6 @@
     ViewBag.Layout = null;
 }
 
-
 <div class="menu">
     <ul class="list">
         <li class="active">
@@ -12,16 +11,43 @@
             </a>
         </li>
         <li>
-            <a href="@(Url.Action("Index", "Seed"))">
-                <i class="material-icons">build</i>
-                <span>Database Seeder</span>
+            <a href="#" class="menu-toggle dropdown-toggle">
+                <i class="material-icons">admin_panel_settings</i>
+                <span>User and Role Administration</span>
             </a>
+            <ul class="ml-menu collapse list-unstyled" id="userRoleAdminSubmenu">
+                <li>
+                    <a href="@(Url.Action("OperationsGetAllPaged", "Operation"))">
+                        <i class="material-icons">list_alt</i>
+                        <span>List of all operations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@(Url.Action("ResourcesGetAllPaged", "Resource"))">
+                        <i class="material-icons">list_alt</i>
+                        <span>List of all resources</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@(Url.Action("PermissionsGetAllPaged", "Permission"))">
+                        <i class="material-icons">list_alt</i>
+                        <span>List of all permissions</span>
+                    </a>
+                </li>
+                <!-- Add more sub-elements here -->
+            </ul>
         </li>
-        <li>
-            <a href="@(Url.Action("OperationsGetAllPaged", "Operation"))">
-                <i class="material-icons">list_alt</i>
-                <span>List of all operations</span>
-            </a>
-        </li>
+        <!-- Additional main elements can be added here -->
     </ul>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.menu-toggle').click(function (e) {
+                e.preventDefault();
+                $(this).next('.ml-menu').slideToggle();
+            });
+        });
+    </script>
+}

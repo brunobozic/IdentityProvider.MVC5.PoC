@@ -1,5 +1,6 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.ResourceOperations;
 using IdentityProvider.Repository.EFCore.Domain.Roles;
+using Module.CrossCutting;
 using Module.CrossCutting.Domain;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.Permissions
     ///     This is a **link** table between the "Resource" table and the "Operation" table
     /// </summary>
     [Table("Permissions", Schema = "Resource")]
-    public class Permission : DomainEntity<int>, IActive
+    public class Permission : DomainEntity<int>, IActive, IFullAuditTrail
     {
         public Permission()
         {
@@ -23,7 +24,7 @@ namespace IdentityProvider.Repository.EFCore.Domain.Permissions
 
         [Required]
         [DisplayName("Name")]
-        [MaxLength(50, ErrorMessage = "The name of the Operation must be between 2 and 50 characters")]
+        [MaxLength(120, ErrorMessage = "The name of the Operation must be between 2 and 50 characters")]
         [MinLength(2)]
         public string Name { get; set; }
 
@@ -57,8 +58,8 @@ namespace IdentityProvider.Repository.EFCore.Domain.Permissions
         [DisplayName("Record is active to (date)")]
         public DateTime? ActiveTo { get; set; }
 
-        public ICollection<PermissionGroupOwnsPermission> PermissionGroups { get; set; }
-        public ICollection<RoleContainsPermissions> Roles { get; set; }
+        public ICollection<PermissionGroupOwnsPermission>? PermissionGroups { get; set; }
+        public ICollection<RoleContainsPermissions>? Roles { get; set; }
 
         #endregion IsActive
     }

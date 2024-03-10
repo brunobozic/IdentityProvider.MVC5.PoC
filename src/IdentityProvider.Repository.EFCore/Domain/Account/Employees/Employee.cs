@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Module.CrossCutting;
 using Module.CrossCutting.Domain;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Linq;
 namespace IdentityProvider.Repository.EFCore.Domain.Account.Employees
 {
     [Table("Employee", Schema = "Organization")]
-    public class Employee : DomainEntity<Guid>, IActive
+    public class Employee : DomainEntity<Guid>, IActive, IFullAuditTrail
     {
         public Employee()
         {

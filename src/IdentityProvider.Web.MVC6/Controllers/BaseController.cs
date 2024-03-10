@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IdentityProvider.Repository.EFCore;
 using IdentityProvider.Repository.EFCore.Domain.Account;
 using IdentityProvider.Repository.EFCore.EFDataContext;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using URF.Core.Abstractions;
+
 
 namespace IdentityProvider.Web.MVC6.Controllers
 {
@@ -28,10 +29,10 @@ namespace IdentityProvider.Web.MVC6.Controllers
         protected readonly IHttpContextAccessor ContextAccessor;
         protected readonly IMapper Mapper;
         protected readonly IMemoryCache MemCache;
-        protected readonly IUnitOfWork UnitOfWork;
+        protected readonly IMyUnitOfWork UnitOfWork;
         private readonly IOptionsSnapshot<ApplicationSettings> _configurationValues;
 
-        public BaseController(IUnitOfWork unitOfWork, IMapper mapper, IOptionsSnapshot<ApplicationSettings> configurationValues, IMemoryCache memCache, IHttpContextAccessor contextAccessor, IConfiguration configuration, ICookieStorageService cookieStorageService, ILogger<BaseController> logger)
+        public BaseController(IMyUnitOfWork unitOfWork, IMapper mapper, IOptionsSnapshot<ApplicationSettings> configurationValues, IMemoryCache memCache, IHttpContextAccessor contextAccessor, IConfiguration configuration, ICookieStorageService cookieStorageService, ILogger<BaseController> logger)
         {
             UnitOfWork = unitOfWork;
             Mapper = mapper;

@@ -122,7 +122,7 @@ namespace IdentityProvider.Repository.EFCore.DatabaseAudit
         public long? GetKeyValue(EntityEntry entry)
         {
             var objectStateEntry =
-                ((IObjectContextAdapter)_context).ObjectContext.ObjectStateManager.GetObjectStateEntry(entry.Entity);
+                ((IObjectContextAdapter)appDbContext).ObjectContext.ObjectStateManager.GetObjectStateEntry(entry.Entity);
             long id = 0;
             if (objectStateEntry.EntityKey.EntityKeyValues != null)
                 id = Convert.ToInt64(objectStateEntry.EntityKey.EntityKeyValues[0].Value);

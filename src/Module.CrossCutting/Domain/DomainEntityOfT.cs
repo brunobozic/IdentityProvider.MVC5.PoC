@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using TrackableEntities.Common.Core;
 
 namespace Module.CrossCutting.Domain
@@ -24,6 +25,19 @@ namespace Module.CrossCutting.Domain
         [NotMapped] public ICollection<string> ModifiedProperties { get; set; }
 
         string IFullAudit.CreatedById { get; set; }
+        [NotMapped] public IList<DomainEventBase> UncommittedDomainEvents { get; } = new List<DomainEventBase>();
+        protected void RaiseDomainEvent([NotNull] DomainEventBase domainEvent)
+        {
+            if (domainEvent == null) throw new ArgumentNullException(nameof(domainEvent));
+
+            UncommittedDomainEvents.Add(domainEvent);
+        }
+
+        public void ClearDomainEvents()
+        {
+            UncommittedDomainEvents?.Clear();
+        }
+
 
         public override bool Equals(object entity)
         {

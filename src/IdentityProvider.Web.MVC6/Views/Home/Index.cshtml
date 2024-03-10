@@ -41,12 +41,15 @@
                     <partial name="../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial" model="Model" />
 
                     <div class="card">
-                        <div class="header">
-                            <h2>
+                        <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
+                        <div class="header cool-text">
+                            <em style="font-size: 1.7em">
                                 REGISTER AN ACCOUNT
-                                <small>create a new user account</small>
-                            </h2>
-                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
+                            </em>
+                            <em style="font-size: 1.0em">
+                                create a new user account
+                            </em>
+
 
                             <button type="button" class="btn bg-red m-t-15" id="registerButton">Register</button>
 
@@ -55,29 +58,60 @@
                 </div>
             </div>
 
+            <div class="item-sm">
+                <div class="item-content">
+                    <div class="info-box-sm bg-green hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">playlist_add_check</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">ACTIVE</div>
+                            <div class="number count-to" id="activeOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="item-sm">
+                <div class="item-content">
+                    <div class="info-box-sm bg-orange hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">playlist_add_check</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">INACTIVE</div>
+                            <div class="number count-to" id="inactiveOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-sm">
+                <div class="item-content">
+                    <div class="info-box-sm bg-red hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">playlist_add_check</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">DELETED</div>
+                            <div class="number count-to" id="deletedOpsWidget" data-from="0" data-to="0" data-speed="15" data-fresh-interval="20">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="item-half-width">
                 <div class="item-content">
                     <partial name="../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial" model="Model" />
 
                     <div class="card">
-                        <div class="header">
-                            <h2>
+                        <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
+                        <div class="header cool-text">
+                            <em style="font-size: 1.7em">
                                 VERTICAL LAYOUT
-                                <small>With floating label</small>
-                            </h2>
-
-                            <div class="dropdown">
-                                <a class="btn btn-secondary dropdown-toggle fa-pull-right btn-three-dots" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="material-icons">more_vert</i>
-                                </a>
-
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </div>
+                            </em>
+                            <em style="font-size: 1.0em">
+                                With floating label
+                            </em>
                         </div>
 
                         <div class="body">
@@ -113,12 +147,16 @@
                 <div class="item-content">
                     <partial name="../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial" model="Model" />
                     <div class="card">
-                        <div class="header">
-                            <h2>
+                        <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
+                        <div class="header cool-text">
+                            <em style="font-size: 1.7em">
                                 VERTICAL LAYOUT
-                                <small>With floating label</small>
-                            </h2>
-                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
+                            </em>
+                            <em style="font-size: 1.0em">
+                                With floating label
+                            </em>
+
+
                         </div>
                         <!-- CHECKBOX Example -->
                         <div class="body">
@@ -502,24 +540,8 @@
                                 ICON &amp; TEXT BUTTONS
                                 <small>Make icon &amp; text buttons</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
+
                         </div>
                         <div class="body">
                             <div class="icon-and-text-button-demo">
@@ -620,24 +642,8 @@
                                 STYLED BUTTON MATERIAL DESIGN
                                 <small>Use any of the available button classes to quickly create a styled button</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
+
                         </div>
                         <div class="body">
                             <div class="button-demo">
@@ -674,24 +680,8 @@
                     <div class="card">
                         <div class="header">
                             <h2>SWAL EXAMPLES</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
+
                         </div>
                         <div class="body">
                             <div class="row clearfix js-sweetalert">
@@ -751,24 +741,7 @@
                                 BUTTONS WITH MATERIAL DESIGN COLORS
                                 <small>You can use material design colors which examples are <code>.modal-col-pink</code> class</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <div class="button-demo js-modal-buttons">
@@ -807,24 +780,7 @@
                                 ICON BUTTONS
                                 <small>Make icon buttons</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <div class="icon-button-demo">
@@ -1308,24 +1264,7 @@
                                 Notifications WITH MATERIAL DESIGN COLORS
                                 <small>You can use the material design colors which example class are <code>.bg-pink, .bg-green</code></small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <div class="row clearfix jsdemo-notification-button">
@@ -1404,24 +1343,7 @@
                             <h2>
                                 TABS WITH ICON TITLE
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <!-- Nav tabs -->
@@ -1502,24 +1424,7 @@
                             <h2>
                                 FULL BODY COLORFUL PANEL ITEMS WITH ICON
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <div class="row clearfix">
@@ -1631,6 +1536,8 @@
                                 ACCORDION
                                 <small></small>
                             </h2>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
+
                             <div class="accordion" id="accordionExample">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingOne">
@@ -1684,24 +1591,7 @@
                                 MODAL SIZE EXAMPLE
                                 <small>Modals are streamlined, but flexible, dialog prompts with the minimum required functionality and smart defaults.</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:void(0);">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <button type="button" class="btn   m-r-20" data-bs-toggle="modal" data-bs-target="#defaultModal">MODAL - DEFAULT SIZE</button>
@@ -1722,24 +1612,7 @@
                                 WITH MATERIAL DESIGN COLORS
                                 <small>You can use material design colors which examples are <code>.modal-col-pink</code> class</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:void(0);">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <div class="button-demo js-modal-buttons">
@@ -1780,18 +1653,7 @@
                                 INPUT
                                 <small>Different sizes and widths</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <h2 class="card-inside-title">Basic Examples</h2>
@@ -1973,24 +1835,7 @@
                                 WITH MATERIAL DESIGN COLORS
                                 <small>You can use the material design colors which example class are <code>.bg-pink, .bg-green</code></small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <div class="row clearfix jsdemo-notification-button">
@@ -2070,24 +1915,7 @@
                                 NOTIFICATION ANIMATIONS
                                 <small>You can use <a href="https://daneden.github.io/animate.css/" target="_blank">Animate.css</a> class for animating.</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" class="  ">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <div class="row clearfix jsdemo-notification-button">
@@ -2161,18 +1989,7 @@
                                 ADVANCED SELECT
                                 <small>Taken from <a href="https://silviomoreto.github.io/bootstrap-select/" target="_blank">silviomoreto.github.io/bootstrap-select</a></small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <div class="row clearfix">
@@ -2311,18 +2128,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>ADVANCED FORM EXAMPLE WITH VALIDATION</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <form id="wizard_with_validation" method="POST" role="application" class="wizard clearfix" novalidate="novalidate">
@@ -2409,18 +2215,7 @@
                                 TOOLTIPS
                                 <small>Hover over the buttons below to see tooltips:</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <div class="row clearfix">
@@ -2451,18 +2246,7 @@
                                 POPOVERS
                                 <small>Add small overlays of content, like those on the iPad, to any element for housing secondary information. Click over the buttons below to see popovers:</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <div class="row clearfix">
@@ -2500,18 +2284,7 @@
                             <h2>
                                 BUTTON EXAMPLES WITH MATERIAL DESIGN COLORS
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <div class="row clearfix">
@@ -2555,18 +2328,7 @@
                                 LABELS WITH MATERIAL DESIGN COLORS
                                 <small>You can use material design color which examples are <code>.bg-pink, bg-red</code> class</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <span class="label bg-red">Red</span>
@@ -2603,18 +2365,7 @@
                             <h2>
                                 EXPORTABLE TABLE
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                        <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
                         </div>
                         <div class="body">
                             <div class="row clearfix">

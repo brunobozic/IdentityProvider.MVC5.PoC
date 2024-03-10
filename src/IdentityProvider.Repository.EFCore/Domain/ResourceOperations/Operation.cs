@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IdentityProvider.Repository.EFCore.Domain.ResourceOperations
 {
     [Table("Operations", Schema = "Resource")]
-    public class Operation : DomainEntity<int>, IActive, IAuditTrail
+    public class Operation : DomainEntity<int>, IActive, IFullAuditTrail
     {
         public Operation()
         {

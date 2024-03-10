@@ -331,8 +331,8 @@ $(document).ready(function () {
 
             swal.setDefaults({
                 buttonsStyling: false,
-                confirmButtonClass: "btn btn-success w-25 mr-05",
-                cancelButtonClass: "btn btn-secondary w-25 ml-05"
+                confirmButtonClass: "btn btn-success mr-05",
+                cancelButtonClass: "btn btn-secondary ml-05"
             });
             swal({
                 title: "Are you sure?",

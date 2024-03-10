@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{334AA5A3
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityProvider.UI.Web.MVC6", "src\IdentityProvider.UI.Web.MVC6\IdentityProvider.UI.Web.MVC6.csproj", "{51D07E0C-06C5-4B54-94E0-63EA19FFB5DB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Module.CrossCutting", "src\Module.CrossCutting\Module.CrossCutting.csproj", "{6919B6CA-40A5-478D-BA0C-2D6ED82868C1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedModules", "SharedModules", "{36B972C1-BED1-4558-85D7-0CC8E897A8C6}"
@@ -33,10 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{51D07E0C-06C5-4B54-94E0-63EA19FFB5DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51D07E0C-06C5-4B54-94E0-63EA19FFB5DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51D07E0C-06C5-4B54-94E0-63EA19FFB5DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51D07E0C-06C5-4B54-94E0-63EA19FFB5DB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6919B6CA-40A5-478D-BA0C-2D6ED82868C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6919B6CA-40A5-478D-BA0C-2D6ED82868C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6919B6CA-40A5-478D-BA0C-2D6ED82868C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -62,7 +56,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{51D07E0C-06C5-4B54-94E0-63EA19FFB5DB} = {87CD3FC4-F8A8-42AC-B17C-9705B4BB6CA3}
 		{6919B6CA-40A5-478D-BA0C-2D6ED82868C1} = {87CD3FC4-F8A8-42AC-B17C-9705B4BB6CA3}
 		{525B0A8C-02C4-4197-A6C4-8048B79B2DF6} = {87CD3FC4-F8A8-42AC-B17C-9705B4BB6CA3}
 		{FA1DCD59-018B-4323-8583-415637FE0117} = {87CD3FC4-F8A8-42AC-B17C-9705B4BB6CA3}

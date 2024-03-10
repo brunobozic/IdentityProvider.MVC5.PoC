@@ -1,36 +1,34 @@
-﻿using AutoMapper;
-using HealthChecks.UI.Client;
-using IdentityProvider.Repository.EFCore.Domain.Account;
-using IdentityProvider.Repository.EFCore.Domain.Roles;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using IdentityProvider.Repository.EFCore;
 using IdentityProvider.Repository.EFCore.EFDataContext;
-using IdentityProvider.Web.MVC6.Controllers;
+using IdentityProvider.ServiceLayer.Services;
+using IdentityProvider.ServiceLayer.Services.OperationsService;
+using IdentityProvider.Web.MVC6;
 using IdentityProvider.Web.MVC6.Middleware;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Module.CrossCutting;
+using Module.CrossCutting.Cookies;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Mime;
+ILifetimeScope AutofacContainer;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
@@ -40,80 +38,41 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
     EnvironmentName = Environments.Development
 });
 
-// Configure Serilog
-builder.Host.UseSerilog();
-builder.Logging.AddSerilog();
-
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-// Add services to the container
-builder.Services.AddLogging(loggingBuilder =>
-{
-    loggingBuilder.ClearProviders();
-    loggingBuilder.AddSerilog(dispose: true);
-});
+// Configure Serilog with the extension method
+builder.Host.UseSerilogConfiguration();
 
-// Configure Mediatr
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
-builder.Services.AddTransient<IMediator, Mediator>();
-builder.Services.AddTransient<IMediator, NoMediator>();
+// Configure MediatR with the extension method
+builder.Services.AddMediatRConfiguration();
 
-// Configure DbContext
-builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
-{
-    options.UseSqlServer(connectionString, sqlOptions =>
-    {
-        sqlOptions.EnableRetryOnFailure(
-            maxRetryCount: 5,
-            maxRetryDelay: TimeSpan.FromSeconds(30),
-            errorNumbersToAdd: null
-        );
-    });
-});
+// Configure data services with the extension method
+builder.Services.ConfigureDataServices(builder.Configuration);
 
-//builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<AppDbContext>();
+// Assuming 'connectionString' is defined or fetched as shown previously
+builder.Services.AddCustomIdentityConfiguration(connectionString);
 
-builder.Services.AddScoped<UserManager<ApplicationUser>>();
-builder.Services.AddScoped<RoleManager<AppRole>>();
-builder.Services.AddScoped<IUserStore<ApplicationUser>, UserStore<ApplicationUser, AppRole, AppDbContext, Guid>>();
-builder.Services.AddScoped<IRoleStore<AppRole>, RoleStore<AppRole, AppDbContext, Guid>>();
+// Add custom health checks with the extension method
+builder.Services.AddCustomHealthChecks(connectionString);
 
-builder.Services.AddIdentity<ApplicationUser, AppRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddRoleManager<RoleManager<AppRole>>()
-    .AddUserManager<UserManager<ApplicationUser>>()
-    .AddDefaultTokenProviders();
 
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    // Password settings
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 6;
-    options.Password.RequiredUniqueChars = 1;
-
-    // Lockout settings
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.AllowedForNewUsers = true;
-
-    // User settings
-    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    options.User.RequireUniqueEmail = false;
-});
+builder.Services.RegisterRepositories();
+builder.Services.RegisterServices();
 
 // Add other services
 builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton<IMyConfigurationValues, MyConfigurationValues>();
+builder.Services.AddSingleton<ICookieStorageService, CookieStorageService>();
+builder.Services.AddTransient<IDomainEventsDispatcher, IntegrationEventDispatcher>();
+//builder.Services.AddTransient<IMailService, MailService>();
+//builder.Services.AddTransient<IMailkitSendEmailJob, MailkitSendEmailJob>();
+builder.Services.AddScoped<IOperationService, OperationService>();
 
-builder.Services.AddHealthChecks()
-    .AddSqlServer(connectionString)
-    .AddCheck("self", () => HealthCheckResult.Healthy(), tags: new[] { "self" });
+
+#region MVC and razor and authorization
 
 // Configure MVC
 builder.Services.AddControllersWithViews()
@@ -148,12 +107,23 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 
-// Configure AutoMapper
-var config = new MapperConfiguration(cfg => { cfg.AddMaps("IdentityProvider.ServiceLayer"); });
-var mapper = config.CreateMapper();
-builder.Services.AddSingleton(mapper);
+#endregion MVC and razor and authorization
 
+// Add AutoMapper with the extension method
+builder.Services.AddApplicationAutoMapper();
+
+#region Autofac
+AutofacContainer = Bootstrap.BuildContainer(connectionString, builder.Services);
+var serviceProvider = new AutofacServiceProvider(AutofacContainer);
+#endregion Autofac
+
+// ========================================================================================================
+// ========================================================================================================
+// ========================================================================================================
 var app = builder.Build();
+// ========================================================================================================
+// ========================================================================================================
+// ========================================================================================================
 
 // Configure logging
 IHostApplicationLifetime lifetime = app.Lifetime;
@@ -165,7 +135,8 @@ lifetime.ApplicationStarted.Register(() =>
         $"The application {env.ApplicationName} started" +
         $" with injected {service}"));
 
-Log.Logger = CreateSerilogLogger(app.Configuration);
+
+#region Migrations
 
 // Apply migrations and seed data
 Log.Warning("Applying migrations ({ApplicationContext})...", typeof(Program).Namespace);
@@ -180,7 +151,7 @@ using (var scope = app.Services.CreateScope())
     {
         var dbContext = services.GetRequiredService<AppDbContext>();
         dbContext.Database.Migrate();
-        SeedData.Initialize(dbContext, scope, testUserPw).Wait();
+        await SeedData.Initialize(services, testUserPw);
     }
     catch (Exception ex)
     {
@@ -189,6 +160,8 @@ using (var scope = app.Services.CreateScope())
     }
 }
 Log.Warning("Migrations ({ApplicationContext}) applied...", typeof(Program).Namespace);
+
+#endregion Migrations
 
 // Configure HTTP request pipeline
 if (app.Environment.IsDevelopment())
@@ -213,17 +186,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-// Configure health checks
-app.UseHealthChecks("/hc", new HealthCheckOptions
-{
-    Predicate = _ => true,
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-});
-
-app.UseHealthChecks("/liveness", new HealthCheckOptions
-{
-    Predicate = r => r.Name.Contains("self")
-});
+app.UseCustomHealthChecks(); // Apply the health checks middleware configurations
 
 // Run the application
 try
@@ -236,30 +199,9 @@ catch (Exception ex)
     Log.Error(ex.Message, typeof(Program).Namespace);
     return 1;
 }
+finally { await Log.CloseAndFlushAsync(); }
 
-static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
-{
-    var appInstanceName = configuration["InstanceName"];
-    var environment = configuration["Environment"];
-
-    return new LoggerConfiguration()
-        .ReadFrom.Configuration(configuration)
-        .Enrich.WithProperty("Application", appInstanceName)
-        .Enrich.WithProperty("Environment", environment)
-        .Enrich.FromLogContext()
-        .Enrich.WithAssemblyVersion()
-        .Enrich.WithEnvironmentName()
-        .Enrich.WithProcessName()
-        .Enrich.WithEnvironmentUserName()
-        .Enrich.WithEnvironment(environment)
-        .Enrich.WithProperty("DebuggerAttached", Debugger.IsAttached)
-        .WriteTo.Console(theme: AnsiConsoleTheme.Code,
-            outputTemplate:
-            "{Timestamp:HH:mm} [{Level}] [{Address}] {Site}: {Message} || Application: [{Application}], Machine: [{MachineName}], User: [{EnvironmentUserName}], CorrelationId: [{CorrelationId}], DebuggerAttached: [{DebuggerAttached}] {NewLine}")
-        .WriteTo.File(appInstanceName + ".log", rollingInterval: RollingInterval.Day, retainedFileCountLimit: null)
-        .CreateLogger();
-}
-
+#region Error catcher
 class BadRequestEventListener : IObserver<KeyValuePair<string, object>>, IDisposable
 {
     private readonly IDisposable _subscription;
@@ -295,3 +237,4 @@ class BadRequestEventListener : IObserver<KeyValuePair<string, object>>, IDispos
     public void OnCompleted() { }
     public virtual void Dispose() => _subscription.Dispose();
 }
+#endregion Error catcher

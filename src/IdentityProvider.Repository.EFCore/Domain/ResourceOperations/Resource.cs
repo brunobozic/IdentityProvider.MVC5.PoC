@@ -1,4 +1,5 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.Permissions;
+using Module.CrossCutting;
 using Module.CrossCutting.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IdentityProvider.Repository.EFCore.Domain.ResourceOperations
 {
     [Table("Resources", Schema = "Account")]
-    public class Resource : DomainEntity<int>, IActive
+    public class Resource : DomainEntity<int>, IActive, IFullAuditTrail
     {
         public Resource()
         {

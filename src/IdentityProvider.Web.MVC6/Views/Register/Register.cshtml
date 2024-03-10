@@ -1,0 +1,126 @@
+﻿@using Module.CrossCutting.Models.ViewModels.Account
+@model RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] | Your Application Name</title>
+    <!-- Favicon-->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="~/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- Waves Effect Css -->
+    <link href="~/bower_components/Waves/dist/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="~/bower_components/adminbsb-materialdesign/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="~/Content/site.css" rel="stylesheet" />
+
+    <link href="~/lib/adminbsb-materialdesign/css/themes/all-themes.min.css" rel="stylesheet" />
+   
+   @*  <link href="~/lib/adminbsb-materialdesign/css/materialize.css" rel="stylesheet" /> *@
+</head>
+
+<body class="login-page">
+    <div class="login-box">
+        <div class="logo">
+            <a href="javascript:void(0);">Material Design<b>MD</b></a>
+            <small>Material Design Proof of Concept</small>
+        </div>
+        <div class="card">
+            <div class="body">
+                <form asp-action="Register" asp-controller="Account" method="post" class="form-horizontal">
+                    <input asp-for="__RequestVerificationToken" />
+                    <div class="msg">Create a new account.</div>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <input asp-for="FirstName" class="form-control" placeholder="First name" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person_outline</i>
+                        </span>
+                        <input asp-for="LastName" class="form-control" placeholder="Last name" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
+                        <input asp-for="Email" class="form-control" placeholder="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">account_circle</i>
+                        </span>
+                        <input asp-for="DesiredUserName" class="form-control" placeholder="Username you would like to use" />
+                        <span asp-validation-for="DesiredUserName" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock_open</i>
+                        </span>
+                        <input asp-for="Password" class="form-control" placeholder="Password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm password" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-block bg-pink waves-effect">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery Core Js -->
+    <script src="~/bower_components/jquery/dist/jquery.js"></script>
+
+    <!-- Jquery client side validation Js -->
+    <script src="~/bower_components/jquery-validation/dist/jquery.validate.js"></script>
+
+    <script src="~/bower_components/jquery-validation-unobtrusive/src/jquery.validate.unobtrusive.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="~/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="~/bower_components/Waves/dist/waves.js"></script>
+
+    <!-- Validation Plugin Js -->
+    <script src="../../plugins/jquery-validation/jquery.validate.js"></script>
+
+    <!-- Custom Js -->
+    <script src="~/bower_components/adminbsb-materialdesign/js/admin.js"></script>
+    <script src="~/bower_components/adminbsb-materialdesign/js/demo.js"></script>
+</body>
+</html>

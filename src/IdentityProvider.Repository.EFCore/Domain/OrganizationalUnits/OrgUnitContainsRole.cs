@@ -1,4 +1,5 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.Roles;
+using Module.CrossCutting;
 using Module.CrossCutting.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits
 {
     [Table("OrgUnitContainsRole", Schema = "Organization")]
-    public class OrgUnitContainsRole : DomainEntity<int>, IActive
+    public class OrgUnitContainsRole : DomainEntity<int>, IActive, IFullAuditTrail
     {
         public OrgUnitContainsRole()
         {

@@ -1,0 +1,86 @@
+﻿@using Module.CrossCutting.Models.ViewModels
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "_Layout"; // Change the layout file path
+}
+
+<link href="~/lib/pretty-checkbox/pretty-checkbox.css" rel="stylesheet" /> <!-- Adjust the path to the pretty-checkbox CSS file -->
+
+<section class="content">
+    <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">@ViewData["Title"]</h3>
+                </div>
+                <form asp-action="Login" asp-controller="Account" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <div class="col-md-offset-1 col-md-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon bg-light-blue">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                    <input asp-for="Email" class="form-control" placeholder="Email Address" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-1 col-md-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon bg-light-blue">
+                                        <i class="fa fa-user-secret"></i>
+                                    </span>
+                                    <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-1 col-md-11">
+                                <div class="pretty p-svg p-plain p-bigger p-smooth p-pulse">
+                                    <input asp-for="RememberMe" type="checkbox" />
+                                    <div class="state">
+                                        <!-- Adjust the path to the SVG file -->
+                                        <img class="svg" src="~/img/checkmark.svg" alt="Remember me" />
+                                        <label>@Html.DisplayNameFor(m => m.RememberMe)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-offset-8 col-md-12">
+                            <p>
+                                <a asp-action="ForgotPassword">Forgot your password?</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-info" style="margin: 4px">Log in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="box box-comment">
+                <div class="box-body">
+                    <section id="socialLoginForm">
+                        <div class="form-horizontal">
+                            <partial name="_ExternalLoginsListPartial" model="new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl }" />
+                        </div>
+                    </section>
+                </div>
+                <div class="box-footer"></div>
+            </div>
+        </div>
+    </div>
+</section>

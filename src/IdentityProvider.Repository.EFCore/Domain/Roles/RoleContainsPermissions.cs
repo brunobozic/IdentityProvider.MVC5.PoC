@@ -1,4 +1,5 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.Permissions;
+using Module.CrossCutting;
 using Module.CrossCutting.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IdentityProvider.Repository.EFCore.Domain.Roles
 {
     [Table("RoleContainsGroup", Schema = "Organization")]
-    public class RoleContainsPermissions : DomainEntity<int>, IActive
+    public class RoleContainsPermissions : DomainEntity<int>, IActive, IFullAuditTrail
     {
         public RoleContainsPermissions()
         {

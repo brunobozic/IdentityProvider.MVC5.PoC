@@ -1,0 +1,94 @@
+﻿@using Module.CrossCutting.Models.ViewModels.Operations
+@model OperationToInsertVm
+
+@*@Html.Partial("../Shared/CommonInsertItemPartials/_styleSectionPartial")*@
+
+<partial name="../Shared/CommonInsertItemPartials/_javascriptSectionPartial" />
+
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="card">
+            <div class="header cool-text">
+                <em style="font-size: 1.7em">Operation</em>
+                <em style="font-size: 0.9em"><small>Create new</small></em>
+            </div>
+            <div class="body">
+                <form asp-action="Insert" asp-controller="Operation" method="post" id="frmNewItem">
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input asp-for="Name" class="form-control" />
+                            <label asp-for="Name" class="form-label">Enter the name of your item ...</label>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input asp-for="Description" class="form-control" />
+                            <label asp-for="Description" class="form-label">Enter the description of your item ...</label>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-8 p-t-5">
+                                <input asp-for="MakeActive" class="filled-in chk-col-pink" type="checkbox" />
+                                <label asp-for="MakeActive">Item set as active</label>
+                            </div>
+                            <div class="col-xs-8 p-t-5">
+                                <input asp-for="ActiveUntil" class="filled-in chk-col-pink" type="checkbox" />
+                                <label asp-for="ActiveUntil">Define activation expiration date</label>
+                            </div>
+                        </div>
+                        <span asp-validation-for="MakeActive" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group" id="hiddenSegmentDependantOnCheckbox">
+                        <div class="col-xs-3 p-t-5">
+                            <label>Active until: </label>
+                            <div class="form-line">
+                                <input asp-for="ActiveUntil" class="form-control" placeholder="Enter the date ..." />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-8 p-t-5">
+                        <button type="submit" class="btn bg-pink waves-effect">
+                            <i class="material-icons">send</i>
+                            <span>Submit</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $("#loading").hide();
+
+    $('#btnSubmit').click(function () {
+        $('#frmEditItem').submit();
+    });
+
+
+    $(function () {
+        try {
+            $.AdminBSB.dropdownMenu.activate();
+            $.AdminBSB.input.activate();
+            $.AdminBSB.select.activate();
+            skinChanger();
+        } catch (exception) {
+            alert(exception);
+            console.log("operationEditPartial AdminBsb problem", exception);
+        }
+    });
+
+</script>
+
+<partial name="../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial" />
+
+
+

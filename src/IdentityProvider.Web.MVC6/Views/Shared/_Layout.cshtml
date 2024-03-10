@@ -1,10 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Authorization
 @inject IAuthorizationService AuthorizationService
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>@ViewData["Title"] - IdentityProvider.Web.MVC6</title>
 
     <!-- Favicon-->
@@ -19,47 +20,42 @@
     -------------------------->
     <!-- Bootstrap Core Css -->
     <!-- Optional Bootstrap theme -->
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    @*    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.css" rel="stylesheet" />*@
-    @*    <link href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" rel="stylesheet" />*@
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
 
     <!-- Bootstrap Datepicker  -->
     <link href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" />
 
     <!-- Datatables Css -->
-    <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    @*     <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/select/1.2.7/css/select.bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/colreorder/1.5.0/css/colReorder.bootstrap.min.css" />
+    <link href="https://cdn.datatables.net/colreorder/1.5.0/css/colReorder.bootstrap.min.css" rel="stylesheet" /> *@
 
     <!-- Waves Effect Css -->
-    @*<link href="~/lib/node-waves/dist/waves.css" rel="stylesheet" />*@
     <link href="~/lib/adminbsb-materialdesign/plugins/node-waves/waves.css" rel="stylesheet" />
 
     <!-- Animation Css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <!-- font-awesome -->
-    @*<link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />*@
-    <link href="~/lib/font-awesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
 
     <!-- daterangepicker -->
-    <link href="~/lib/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <!-- Select2 -->
-    <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
-    <link href="~/lib/select2-bootstrap-5-theme/select2-bootstrap-5-theme.css" rel="stylesheet" />
+    <link href="~/lib/select2/dist/css/select2.css" rel="stylesheet" />
+
+    <link href="~/lib/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+
+
 
     <!-- materialize -->
-
-   @*<link href="~/css/materialize.css" rel="stylesheet" />*@
-   @*  <link href="~/lib/adminbsb-materialdesign/plugins/materialize-css/css/materialize.css" rel="stylesheet" /> *@
     <link href="~/lib/adminbsb-materialdesign/css/style.css" rel="stylesheet" />
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="~/css/all-themes.css" rel="stylesheet" />
     <link href="~/css/skins/_all-skins.css" rel="stylesheet" />
-
-    @* <link href="~/css/site.css" rel="stylesheet" />*@
 
     <!-- AdminBSB Themes. Recolor buttons (TODO) -->
     <link href="~/css/themed-buttons-deep-purple.css" rel="stylesheet" />
@@ -86,16 +82,24 @@
     <link href="~/css/themed-buttons-teal.css" rel="stylesheet" />
     <link href="~/css/themed-buttons-yellow.css" rel="stylesheet" />
     <!-- Custom Css -->
-    <link href="~/css/site.css" rel="stylesheet" />
-    <link href="~/css/popover-overrides.css" rel="stylesheet" />
-    <link href="~/lib/pretty-checkbox/pretty-checkbox.css" rel="stylesheet" />
-    <link href="~/lib/adminbsb-materialdesign/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
-    <link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
-    @*<link href="~/Content/MakeTableResponsive.css" rel="stylesheet" />*@
 
-    
+    <link href="~/css/popover-overrides.css" rel="stylesheet" />
+    <link href="~/css/maketableresponsive.css" rel="stylesheet" />
+
+    <link href="~/lib/pretty-checkbox/dist/pretty-checkbox.min.css" rel="stylesheet" />
+    <link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/sweetalert2/dist/sweetalert2.css" rel="stylesheet" />
+
+    <link href="~/lib/adminbsb-materialdesign/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
+    <link href="~/css/site.css" rel="stylesheet" />
 
     <style>
+
+        .dropdown-menu {
+            min-width: 20rem !important;
+        }
+
         .alert {
             padding: 15px;
             margin-bottom: 20px;
@@ -268,9 +272,9 @@
             width: 99%;
             height: 99%;
             /*text-align: center;
-                                                                                                                                                                                    background: red;
-                                                                                                                                                                                    font-size: 50px;
-                                                                                                                                                                                    color: white;*/
+                                                                                                                                                                                                    background: red;
+                                                                                                                                                                                                    font-size: 50px;
+                                                                                                                                                                                                    color: white;*/
             /*cursor: pointer;*/
         }
 
@@ -377,10 +381,10 @@
             text-decoration: none !important;
         }
 
-        a:hover {
-            color: white;
-            text-decoration: none !important;
-        }
+            a:hover {
+                color: white;
+                text-decoration: none !important;
+            }
 
         .panel-body {
             padding: 15px;
@@ -511,6 +515,158 @@
             box-shadow: none !important;
         }
 
+        .grid {
+            position: relative;
+        }
+
+        .item-sm {
+            display: block;
+            height: 60px;
+            line-height: 25px;
+            margin: 10px;
+            position: absolute;
+            width: 130px;
+            z-index: 1;
+        }
+
+        .item {
+            display: block;
+            height: 110px;
+            line-height: 25px;
+            margin: 10px;
+            position: absolute;
+            width: 250px;
+            z-index: 1;
+        }
+
+        .item-full-width {
+            display: block;
+            line-height: 25px;
+            margin: 10px;
+            position: absolute;
+            width: 99%;
+            z-index: 1;
+        }
+
+        .item-half-width {
+            display: block;
+            line-height: 25px;
+            margin: 10px;
+            position: absolute;
+            width: 45%;
+            z-index: 1;
+        }
+
+        .item.muuri-item-hidden {
+            z-index: 0;
+        }
+
+        .item.muuri-item-releasing {
+            z-index: 2;
+        }
+
+        .item.muuri-item-dragging {
+            z-index: 3;
+        }
+
+        .item-content {
+            height: 99%;
+            position: relative;
+            width: 99%;
+            /*text-align: center;
+                                    background: red;
+                                    font-size: 50px;
+                                    color: white;*/
+            /*cursor: pointer;*/
+        }
+
+        .handleForDragandDrop {
+            background: #ffffff; /* Old browsers */
+            background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            cursor: pointer;
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0); /* IE6-9 */
+            position: relative;
+        }
+
+        .item.muuri-item-dragging .item-content {
+            background: blue;
+        }
+
+        .item.muuri-item-releasing .item-content {
+            background: blueViolet;
+        }
+
+        .item-full-width.muuri-item-dragging .item-content {
+            background: blue;
+        }
+
+        .item-full-width.muuri-item-releasing .item-content {
+            background: blueViolet;
+        }
+
+        table {
+            border-collapse: collapse !important;
+            table-layout: auto !important;
+            width: 100% !important;
+        }
+
+        .navbar {
+            position: fixed !important
+        }
+
+        .block-header {
+            padding-top: 65px !important;
+        }
+
+        .dataTables_processing {
+            padding-top: 1px !important;
+            z-index: 11000 !important;
+        }
+
+        .dataTables_loadingRecords {
+            padding-top: 1px !important;
+            z-index: 11000 !important;
+        }
+
+        .select2-results__option {
+            text-align: left !important;
+        }
+
+        table.dataTable thead th {
+            background-image: none !important;
+            position: relative;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: grey;
+            color: white !important;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            color: white !important;
+        }
+
+        body, html {
+            font-size: 11px !important;
+        }
+
+        .swal-button--confirm {
+            width: 100% !important;
+        }
+
+        button.swal-button--confirm.btn.btn-success.w25.mr-05 {
+            width: 100% !important;
+        }
+
+        button.swal-button--confirm {
+            width: 100% !important;
+        }
+
+        .swal-button--cancel {
+            width: 100% !important;
+        }
     </style>
 
 
@@ -518,24 +674,32 @@
     | Very important scripts here |
     ------------------------------->
     <!-- Jquery Core -->
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation-engine/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- jQuery steps -->
+    <script src="~/lib/jquery-steps/build/jquery.steps.min.js"></script>
+    <link href="~/lib/jquery-steps/demo/css/jquery.steps.css" rel="stylesheet" />
 
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-    <!-- DateRangePicker -->
-    <script src="~/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <!-- Moment -->
-    <script src="~/lib/moment.js/moment.min.js"></script>
+
     <!-- Muuri -->
     <script src="https://unpkg.com/web-animations-js@2.3.1/web-animations.min.js"></script>
     <script src="https://unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
     <script src="https://unpkg.com/muuri@0.7.0/dist/muuri.min.js"></script>
 
+    <script src="~/lib/adminbsb-materialdesign/plugins/materialize-css/js/materialize.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.min.css" integrity="sha256-VVbO1uqtov1mU6f9qu/q+MfDmrqTfoba0rAE07szS20=" crossorigin="anonymous" />
+    <!-- Moment -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+    <!-- DateRangePicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.min.js" integrity="sha256-zI6VVO07NPmVW11q3RQE42YbRmJIkkunrcQ9LEYxJsQ=" crossorigin="anonymous"></script>
 </head>
+
 <body class="theme-red">
     <!-- Page Loader -->
     <partial name="_AdminBSBPageLoader" />
@@ -661,7 +825,7 @@
             -------------------------->
             @RenderBody()
 
-      
+
         </section>
     </div>
 
@@ -673,26 +837,7 @@
     <!-- ========== -->
     <!-- DataTables -->
     <!-- ========== -->
-
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-    <link href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css" rel="stylesheet" />
-    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
-    <link href="https://cdn.datatables.net/colreorder/1.5.6/css/colReorder.bootstrap5.min.css" rel="stylesheet" />
-    <script src="https://cdn.datatables.net/colreorder/1.5.6/js/dataTables.colReorder.min.js"></script>
-    <link href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css" rel="stylesheet" />
-    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
-    <link href="https://cdn.datatables.net/staterestore/1.1.1/css/stateRestore.dataTables.min.css" rel="stylesheet" />
-    <script src="https://cdn.datatables.net/staterestore/1.1.1/js/dataTables.stateRestore.min.js"></script>
-
-
-
-
-   @*  <link href="https://cdn.datatables.net/buttons/3.0.0/css/buttons.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/3.0.0/css/buttons.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/colreorder/2.0.0/css/colReorder.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/fixedcolumns/5.0.0/css/fixedColumns.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/fixedheader/4.0.0/css/fixedHeader.bootstrap5.min.css" rel="stylesheet">
@@ -708,20 +853,37 @@
     <script src="https://cdn.datatables.net/fixedcolumns/5.0.0/js/dataTables.fixedColumns.min.js"></script>
     <script src="https://cdn.datatables.net/fixedheader/4.0.0/js/dataTables.fixedHeader.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/3.0.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/3.0.0/js/responsive.bootstrap5.js"></script> *@
+    <script src="https://cdn.datatables.net/responsive/3.0.0/js/responsive.bootstrap5.js"></script>
+
+    @*  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <link href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+    <link href="https://cdn.datatables.net/colreorder/1.5.6/css/colReorder.bootstrap5.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/colreorder/1.5.6/js/dataTables.colReorder.min.js"></script>
+    <link href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+    <link href="https://cdn.datatables.net/staterestore/1.1.1/css/stateRestore.dataTables.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/staterestore/1.1.1/js/dataTables.stateRestore.min.js"></script>
+    *@
 
 
 
     @*@Html.Partial("../Shared/CommonInsertItemPartials/_javascriptSectionBottomPartial")*@
 
     <!-- Lodash -->
-    <script src="~/lib/lodash.js/lodash.js"></script>
+    <script src="~/lib/lodash/lodash.min.js"></script>
 
     <!-- SWAL -->
-    <script src="~/lib/adminbsb-materialdesign/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="~/lib/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="~/lib/sweetalert2/dist/sweetalert2.min.js"></script>
 
     <!-- Slimscroll Plugin Js -->
-    <script src="~/lib/jQuery-slimScroll/jquery.slimscroll.js"></script>
+    <script src="~/lib/adminbsb-materialdesign/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
     <!-- Waves Effect Plugin Js -->
     @* <script src="~/lib/node-waves/dist/waves.js"></script>*@
@@ -731,38 +893,30 @@
     <script src="~/lib/jquery-countto/jquery.countTo.js"></script>
 
     <!-- ChartJs -->
-    <script src="~/lib/Chart.js/chart.min.js"></script>
+    <script src="~/lib/adminbsb-materialdesign/plugins/chartjs/chart.min.js"></script>
 
     <!-- Sparkline Chart Plugin Js -->
-    <script src="~/lib/jquery-sparklines/jquery.sparkline.js"></script>
+    <script src="~/lib/adminbsb-materialdesign/plugins/jquery-sparkline/jquery.sparkline.js"></script>
 
     <!-- Select2 Js -->
-    <script src="~/lib/select2/js/select2.js"></script>
+    <script src="~/lib/select2/dist/js/select2.js"></script>
 
     <!-- Bootstrap Datepicker Js -->
     <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
     <script src="~/lib/bootstrap-datepicker/dist/locales/bootstrap-datepicker.hr.min.js"></script>
-
     <script src="~/lib/adminbsb-materialdesign/plugins/bootstrap-notify/bootstrap-notify.js"></script>
 
-    <script src="~/lib/datatables-responsive/dataTables.responsive.js"></script>
-@*     <script src="~/lib/datatables-responsive/js/responsive.bootstrap.js"></script> *@
-    <script src="~/lib/datatables.net-buttons/js/dataTables.buttons.js"></script>
-    <script src="~/lib/jszip/jszip.js"></script>
-    <script src="~/lib/pdfmake/pdfmake.js"></script>
-    <script src="~/lib/pdfmake/vfs_fonts.js"></script>
-    <script src="~/lib/datatables.net-colreorderwithresizeupdated/ColReorderWithResize.js"></script>
-    <script src="~/lib/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-    <!-- ========== -->
-    <!-- ========== -->
-    <!-- ========== -->
+    <script src="~/lib/jszip/dist/jszip.min.js"></script>
+
+    <script src="~/lib/pdfmake/build/pdfmake.min.js"></script>
+    +
+    <script src="~/lib/pdfmake/build/vfs_fonts.js"></script>
+    @*     <script src="~/lib/datatables.net-colreorderwithresizeupdated/ColReorderWithResize.js"></script> *@
+    <script src="~/lib/adminbsb-materialdesign/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
 
     <!-- Tooltip popovers Js -->
-    @*<script src="~/lib/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>*@
-
-
-
-    <script src="~/lib/moment.js/moment-with-locales.js"></script>
+    <script src="~/lib/adminbsb-materialdesign/js/pages/ui/tooltips-popovers.js"></script>
 
     <!-- Custom Js -->
     <!-- Application specific stuff -->
@@ -777,7 +931,7 @@
     <!-- Boolean checkboxes jQuery override -->
     <script src="~/js/jQueryOverride-boolean-checkboxes.js"></script>
     <!-- Make tables responsive -->
-    @*<script src="~/js/makeTableResponsive.js"></script>*@
+    <script src="~/js/maketableresponsive.js"></script>
     <script src="~/lib/adminbsb-materialdesign/plugins/materialize-css/js/materialize.js"></script>
     @*<script src="~/lib/materializecss/materialize/dist/js/materialize.js"></script>*@
 
@@ -785,11 +939,11 @@
         // SWAL message styling
         swal.setDefaults({
             buttonsStyling: false,
-            confirmButtonClass: 'btn btn-success w-25 mr-05',
-            cancelButtonClass: 'btn btn-secondary w-25 ml-05'
+            confirmButtonClass: 'btn btn-success mr-05',
+            cancelButtonClass: 'btn btn-secondary ml-05'
         });
 
-      
+
     </script>
     @* @RenderSection("Scripts", false)*@
 

@@ -1,4 +1,5 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits;
+using Module.CrossCutting;
 using Module.CrossCutting.Domain;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IdentityProvider.Repository.EFCore.Domain.Account.Employees
 {
     [Table("EmployeeBelongsToOrgUnit", Schema = "Organization")]
-    public class EmployeeBelongsToOrgUnit : DomainEntity<int>, IActive
+    public class EmployeeBelongsToOrgUnit : DomainEntity<int>, IActive, IFullAuditTrail
     {
         public EmployeeBelongsToOrgUnit()
         {

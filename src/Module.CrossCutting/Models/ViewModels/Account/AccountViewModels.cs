@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace Module.CrossCutting.Models.ViewModels.Account
@@ -56,6 +57,7 @@ namespace Module.CrossCutting.Models.ViewModels.Account
         public string Password { get; set; }
 
         [Display(Name = "Remember me?")] public bool RememberMe { get; set; }
+        public string __RequestVerificationToken { get; set; }
     }
 
     public class RegisterViewModel
@@ -104,6 +106,7 @@ namespace Module.CrossCutting.Models.ViewModels.Account
         [Display(Name = "User name you would like to use to log in")]
         [StringLength(20, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         public string DesiredUserName { get; set; }
+        public string __RequestVerificationToken { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -134,5 +137,7 @@ namespace Module.CrossCutting.Models.ViewModels.Account
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        public HttpContextAccessor HttpContextAccessor { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.Account.Employees;
 using IdentityProvider.Repository.EFCore.Domain.Roles;
+using Module.CrossCutting;
 using Module.CrossCutting.Domain;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Linq;
 namespace IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits
 {
     [Table("Unit", Schema = "Organization")]
-    public class OrganizationalUnit : DomainEntity<int>, IActive
+    public class OrganizationalUnit : DomainEntity<int>, IActive, IFullAuditTrail
     {
         public OrganizationalUnit()
         {

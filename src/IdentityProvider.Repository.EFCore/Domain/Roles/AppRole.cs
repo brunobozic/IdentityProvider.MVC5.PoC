@@ -1,6 +1,7 @@
 ﻿using IdentityProvider.Repository.EFCore.Domain.Account.Employees;
 using IdentityProvider.Repository.EFCore.Domain.OrganizationalUnits;
 using Microsoft.AspNetCore.Identity;
+using Module.CrossCutting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ using TrackableEntities.Common.Core;
 
 namespace IdentityProvider.Repository.EFCore.Domain.Roles
 {
-    public class AppRole : IdentityRole<Guid>, ITrackable
+    public class AppRole : IdentityRole<Guid>, ITrackable, IFullAuditTrail
     {
         public AppRole() : base()
         {

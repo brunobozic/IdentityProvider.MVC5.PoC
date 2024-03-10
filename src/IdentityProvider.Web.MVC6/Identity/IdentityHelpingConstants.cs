@@ -6,5 +6,6 @@
         public static string ContactManagersRole { get; set; } = "Manager";
         public static string StandardRole { get; set; } = "Standard";
         public static string SuperUser { get; set; } = "SuperUser";
+        public static string ReadOnlyUserRole { get; set; } = "ReadOnlyUser";
     }
 }
