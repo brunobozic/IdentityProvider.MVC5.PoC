@@ -1,8 +1,5 @@
-import { isNodeEnv } from '../isNodeEnv.js'
+import { isNodeEnv } from '../isNodeEnv'
 
-/**
- * @returns {'webkitAnimationEnd' | 'animationend' | false}
- */
 export const animationEndEvent = (() => {
   // Prevent run in Node env
   /* istanbul ignore if */
@@ -12,11 +9,12 @@ export const animationEndEvent = (() => {
 
   const testEl = document.createElement('div')
   const transEndEventNames = {
-    WebkitAnimation: 'webkitAnimationEnd', // Chrome, Safari and Opera
-    animation: 'animationend', // Standard syntax
+    'WebkitAnimation': 'webkitAnimationEnd',
+    'OAnimation': 'oAnimationEnd oanimationend',
+    'animation': 'animationend'
   }
   for (const i in transEndEventNames) {
-    if (Object.prototype.hasOwnProperty.call(transEndEventNames, i) && typeof testEl.style[i] !== 'undefined') {
+    if (transEndEventNames.hasOwnProperty(i) && typeof testEl.style[i] !== 'undefined') {
       return transEndEventNames[i]
     }
   }

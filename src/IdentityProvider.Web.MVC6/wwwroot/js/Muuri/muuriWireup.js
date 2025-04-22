@@ -2,11 +2,11 @@
     myMuuriGrid = new Muuri(".grid",
         {
             layout: {
-                fillGaps: false,
+                fillGaps: true,
                 horizontal: false,
                 alignRight: false,
                 alignBottom: false,
-                rounding: false
+                rounding: true
             },
             dragStartPredicate: function (item, event) {
                 // only allow drag and drop if the handle is being used

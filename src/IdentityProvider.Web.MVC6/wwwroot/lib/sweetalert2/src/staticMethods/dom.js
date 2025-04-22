@@ -1,45 +1,36 @@
-import * as dom from '../utils/dom/index.js'
-import * as domUtils from '../utils/dom/domUtils.js'
+import * as dom from '../utils/dom/index'
 
 export {
   getContainer,
   getPopup,
   getTitle,
-  getHtmlContainer,
+  getContent,
   getImage,
-  getIcon,
-  getInputLabel,
+  getIcons,
   getCloseButton,
+  getButtonsWrapper,
   getActions,
   getConfirmButton,
-  getDenyButton,
   getCancelButton,
-  getLoader,
   getFooter,
-  getTimerProgressBar,
   getFocusableElements,
   getValidationMessage,
-  isLoading,
-} from '../utils/dom/index.js'
+  isLoading
+} from '../utils/dom/index'
 
 /*
- * Global function to determine if SweetAlert2 popup is shown
+ * Global function to determine if swal2 popup is shown
  */
 export const isVisible = () => {
-  return domUtils.isVisible(dom.getPopup())
+  return !!dom.getPopup()
 }
 
 /*
  * Global function to click 'Confirm' button
  */
-export const clickConfirm = () => dom.getConfirmButton() && dom.getConfirmButton().click()
-
-/*
- * Global function to click 'Deny' button
- */
-export const clickDeny = () => dom.getDenyButton() && dom.getDenyButton().click()
+export const clickConfirm = () => dom.getConfirmButton().click()
 
 /*
  * Global function to click 'Cancel' button
  */
-export const clickCancel = () => dom.getCancelButton() && dom.getCancelButton().click()
+export const clickCancel = () => dom.getCancelButton().click()

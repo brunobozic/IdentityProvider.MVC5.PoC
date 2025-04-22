@@ -1,15 +1,28 @@
-import * as dom from '../utils/dom/index.js'
-import privateProps from '../privateProps.js'
+import * as dom from '../utils/dom/index'
+import { swalClasses } from '../utils/classes'
+import privateProps from '../privateProps'
 
-/**
- * Gets the input DOM node, this method works with input parameter.
- * @returns {HTMLElement | null}
- */
-export function getInput(instance) {
-  const innerParams = privateProps.innerParams.get(instance || this)
-  const domCache = privateProps.domCache.get(instance || this)
-  if (!domCache) {
+// Get input element by specified type or, if type isn't specified, by params.input
+export function getInput (inputType) {
+  const innerParams = privateProps.innerParams.get(this)
+  const domCache = privateProps.domCache.get(this)
+  inputType = inputType || innerParams.input
+  if (!inputType) {
     return null
   }
-  return dom.getInput(domCache.popup, innerParams.input)
+  switch (inputType) {
+    case 'select':
+    case 'textarea':
+    case 'file':
+      return dom.getChildByClass(domCache.content, swalClasses[inputType])
+    case 'checkbox':
+      return domCache.popup.querySelector(`.${swalClasses.checkbox} input`)
+    case 'radio':
+      return domCache.popup.querySelector(`.${swalClasses.radio} input:checked`) ||
+        domCache.popup.querySelector(`.${swalClasses.radio} input:first-child`)
+    case 'range':
+      return domCache.popup.querySelector(`.${swalClasses.range} input`)
+    default:
+      return dom.getChildByClass(domCache.content, swalClasses.input)
+  }
 }

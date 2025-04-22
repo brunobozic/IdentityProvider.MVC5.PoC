@@ -1,14 +1,18 @@
-﻿namespace Module.CrossCutting.Models.ViewModels.Operations
+﻿using Newtonsoft.Json;
+using System.Text.Json;
+
+namespace Module.CrossCutting.Models.ViewModels.Operations
 {
+    [Serializable]
     public class OperationsDatatableSearchClass
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public bool Active { get; set; }
-        public DateTime? CreatedDate { get; set; }
-        public DateTime? ModifiedDate { get; set; }
-        public string Actions { get; set; }
-        public bool Deleted { get; set; }
+        [JsonProperty("id")] public int Id { get; set; }
+        [JsonProperty("name")] public string Name { get; set; }
+        [JsonProperty("description")] public string? Description { get; set; }
+        [JsonProperty("active")] public bool Active { get; set; }
+        [JsonProperty("createdDate")] public DateTime? CreatedDate { get; set; }
+        [JsonProperty("modifiedDate")] public DateTime? ModifiedDate { get; set; }
+        [JsonProperty("actions")] public string Actions { get; set; }
+        [JsonProperty("deleted")] public bool Deleted { get; set; }
     }
 }

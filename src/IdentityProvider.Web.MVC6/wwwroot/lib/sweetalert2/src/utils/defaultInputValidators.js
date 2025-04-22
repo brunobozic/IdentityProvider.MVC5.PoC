@@ -1,23 +1,13 @@
 export default {
-  /**
-   * @param {string} string
-   * @param {string} validationMessage
-   * @returns {Promise<void | string>}
-   */
-  email: (string, validationMessage) => {
+  email: (string, extraParams) => {
     return /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9-]{2,24}$/.test(string)
       ? Promise.resolve()
-      : Promise.resolve(validationMessage || 'Invalid email address')
+      : Promise.reject(extraParams && extraParams.validationMessage ? extraParams.validationMessage : 'Invalid email address')
   },
-  /**
-   * @param {string} string
-   * @param {string} validationMessage
-   * @returns {Promise<void | string>}
-   */
-  url: (string, validationMessage) => {
-    // taken from https://stackoverflow.com/a/3809435 with a small change from #1306 and #2013
-    return /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)$/.test(string)
+  url: (string, extraParams) => {
+    // taken from https://stackoverflow.com/a/3809435
+    return /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/.test(string)
       ? Promise.resolve()
-      : Promise.resolve(validationMessage || 'Invalid URL')
-  },
+      : Promise.reject(extraParams && extraParams.validationMessage ? extraParams.validationMessage : 'Invalid URL')
+  }
 }

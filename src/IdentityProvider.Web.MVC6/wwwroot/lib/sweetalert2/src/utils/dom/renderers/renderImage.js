@@ -1,28 +1,31 @@
 import { swalClasses } from '../../classes.js'
-import * as dom from '../../dom/index.js'
+import * as dom from '../../dom/index'
 
-/**
- * @param {SweetAlert2} instance
- * @param {SweetAlertOptions} params
- */
-export const renderImage = (instance, params) => {
+export const renderImage = (params) => {
   const image = dom.getImage()
 
-  if (!params.imageUrl) {
-    return dom.hide(image)
+  if (params.imageUrl) {
+    image.setAttribute('src', params.imageUrl)
+    image.setAttribute('alt', params.imageAlt)
+    dom.show(image)
+
+    if (params.imageWidth) {
+      image.setAttribute('width', params.imageWidth)
+    } else {
+      image.removeAttribute('width')
+    }
+
+    if (params.imageHeight) {
+      image.setAttribute('height', params.imageHeight)
+    } else {
+      image.removeAttribute('height')
+    }
+
+    image.className = swalClasses.image
+    if (params.imageClass) {
+      dom.addClass(image, params.imageClass)
+    }
+  } else {
+    dom.hide(image)
   }
-
-  dom.show(image, '')
-
-  // Src, alt
-  image.setAttribute('src', params.imageUrl)
-  image.setAttribute('alt', params.imageAlt)
-
-  // Width, height
-  dom.applyNumericalStyle(image, 'width', params.imageWidth)
-  dom.applyNumericalStyle(image, 'height', params.imageHeight)
-
-  // Class
-  image.className = swalClasses.image
-  dom.applyCustomClass(image, params, 'image')
 }

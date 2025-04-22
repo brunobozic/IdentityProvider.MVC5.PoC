@@ -1,31 +1,18 @@
-import * as dom from '../../dom/index.js'
-import { renderInput } from './renderInput.js'
+import { swalClasses } from '../../classes.js'
+import * as dom from '../../dom/index'
 
-/**
- * @param {SweetAlert2} instance
- * @param {SweetAlertOptions} params
- */
-export const renderContent = (instance, params) => {
-  const htmlContainer = dom.getHtmlContainer()
-
-  dom.applyCustomClass(htmlContainer, params, 'htmlContainer')
+export const renderContent = (params) => {
+  const content = dom.getContent().querySelector('#' + swalClasses.content)
 
   // Content as HTML
   if (params.html) {
-    dom.parseHtmlToContainer(params.html, htmlContainer)
-    dom.show(htmlContainer, 'block')
-  }
+    dom.parseHtmlToContainer(params.html, content)
 
-  // Content as plain text
-  else if (params.text) {
-    htmlContainer.textContent = params.text
-    dom.show(htmlContainer, 'block')
+    // Content as plain text
+  } else if (params.text) {
+    content.textContent = params.text
+    dom.show(content)
+  } else {
+    dom.hide(content)
   }
-
-  // No content
-  else {
-    dom.hide(htmlContainer)
-  }
-
-  renderInput(instance, params)
 }

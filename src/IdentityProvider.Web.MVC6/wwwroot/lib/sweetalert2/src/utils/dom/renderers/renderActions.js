@@ -1,101 +1,66 @@
 import { swalClasses } from '../../classes.js'
-import * as dom from '../../dom/index.js'
-import { capitalizeFirstLetter } from '../../utils.js'
+import * as dom from '../../dom/index'
 
-/**
- * @param {SweetAlert2} instance
- * @param {SweetAlertOptions} params
- */
-export const renderActions = (instance, params) => {
+export const renderActions = (params) => {
   const actions = dom.getActions()
-  const loader = dom.getLoader()
+  const confirmButton = dom.getConfirmButton()
+  const cancelButton = dom.getCancelButton()
 
   // Actions (buttons) wrapper
-  if (!params.showConfirmButton && !params.showDenyButton && !params.showCancelButton) {
+  if (!params.showConfirmButton && !params.showCancelButton) {
     dom.hide(actions)
   } else {
     dom.show(actions)
   }
 
-  // Custom class
-  dom.applyCustomClass(actions, params, 'actions')
-
-  // Render all the buttons
-  renderButtons(actions, loader, params)
-
-  // Loader
-  dom.setInnerHtml(loader, params.loaderHtml)
-  dom.applyCustomClass(loader, params, 'loader')
-}
-
-/**
- * @param {HTMLElement} actions
- * @param {HTMLElement} loader
- * @param {SweetAlertOptions} params
- */
-function renderButtons(actions, loader, params) {
-  const confirmButton = dom.getConfirmButton()
-  const denyButton = dom.getDenyButton()
-  const cancelButton = dom.getCancelButton()
-
-  // Render buttons
-  renderButton(confirmButton, 'confirm', params)
-  renderButton(denyButton, 'deny', params)
-  renderButton(cancelButton, 'cancel', params)
-  handleButtonsStyling(confirmButton, denyButton, cancelButton, params)
-
-  if (params.reverseButtons) {
-    if (params.toast) {
-      actions.insertBefore(cancelButton, confirmButton)
-      actions.insertBefore(denyButton, confirmButton)
-    } else {
-      actions.insertBefore(cancelButton, loader)
-      actions.insertBefore(denyButton, loader)
-      actions.insertBefore(confirmButton, loader)
-    }
-  }
-}
-
-/**
- * @param {HTMLElement} confirmButton
- * @param {HTMLElement} denyButton
- * @param {HTMLElement} cancelButton
- * @param {SweetAlertOptions} params
- */
-function handleButtonsStyling(confirmButton, denyButton, cancelButton, params) {
-  if (!params.buttonsStyling) {
-    return dom.removeClass([confirmButton, denyButton, cancelButton], swalClasses.styled)
+  // Cancel button
+  if (params.showCancelButton) {
+    cancelButton.style.display = 'inline-block'
+  } else {
+    dom.hide(cancelButton)
   }
 
-  dom.addClass([confirmButton, denyButton, cancelButton], swalClasses.styled)
+  // Confirm button
+  if (params.showConfirmButton) {
+    confirmButton.style.removeProperty('display')
+  } else {
+    dom.hide(confirmButton)
+  }
 
-  // Buttons background colors
-  if (params.confirmButtonColor) {
-    confirmButton.style.backgroundColor = params.confirmButtonColor
-    dom.addClass(confirmButton, swalClasses['default-outline'])
-  }
-  if (params.denyButtonColor) {
-    denyButton.style.backgroundColor = params.denyButtonColor
-    dom.addClass(denyButton, swalClasses['default-outline'])
-  }
-  if (params.cancelButtonColor) {
-    cancelButton.style.backgroundColor = params.cancelButtonColor
-    dom.addClass(cancelButton, swalClasses['default-outline'])
-  }
-}
+  // Edit text on confirm and cancel buttons
+  confirmButton.innerHTML = params.confirmButtonText
+  cancelButton.innerHTML = params.cancelButtonText
 
-/**
- * @param {HTMLElement} button
- * @param {'confirm' | 'deny' | 'cancel'} buttonType
- * @param {SweetAlertOptions} params
- */
-function renderButton(button, buttonType, params) {
-  dom.toggle(button, params[`show${capitalizeFirstLetter(buttonType)}Button`], 'inline-block')
-  dom.setInnerHtml(button, params[`${buttonType}ButtonText`]) // Set caption text
-  button.setAttribute('aria-label', params[`${buttonType}ButtonAriaLabel`]) // ARIA label
+  // ARIA labels for confirm and cancel buttons
+  confirmButton.setAttribute('aria-label', params.confirmButtonAriaLabel)
+  cancelButton.setAttribute('aria-label', params.cancelButtonAriaLabel)
 
   // Add buttons custom classes
-  button.className = swalClasses[buttonType]
-  dom.applyCustomClass(button, params, `${buttonType}Button`)
-  dom.addClass(button, params[`${buttonType}ButtonClass`])
+  confirmButton.className = swalClasses.confirm
+  dom.addClass(confirmButton, params.confirmButtonClass)
+  cancelButton.className = swalClasses.cancel
+  dom.addClass(cancelButton, params.cancelButtonClass)
+
+  // Buttons styling
+  if (params.buttonsStyling) {
+    dom.addClass([confirmButton, cancelButton], swalClasses.styled)
+
+    // Buttons background colors
+    if (params.confirmButtonColor) {
+      confirmButton.style.backgroundColor = params.confirmButtonColor
+    }
+    if (params.cancelButtonColor) {
+      cancelButton.style.backgroundColor = params.cancelButtonColor
+    }
+
+    // Loading state
+    const confirmButtonBackgroundColor = window.getComputedStyle(confirmButton).getPropertyValue('background-color')
+    confirmButton.style.borderLeftColor = confirmButtonBackgroundColor
+    confirmButton.style.borderRightColor = confirmButtonBackgroundColor
+  } else {
+    dom.removeClass([confirmButton, cancelButton], swalClasses.styled)
+
+    confirmButton.style.backgroundColor = confirmButton.style.borderLeftColor = confirmButton.style.borderRightColor = ''
+    cancelButton.style.backgroundColor = cancelButton.style.borderLeftColor = cancelButton.style.borderRightColor = ''
+  }
 }

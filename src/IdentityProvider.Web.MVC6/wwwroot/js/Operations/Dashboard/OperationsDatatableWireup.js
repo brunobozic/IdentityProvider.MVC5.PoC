@@ -72,7 +72,9 @@ $(document).ready(function () {
         "ajax": {
             url: datatablesConStringForOperations,
             type: "POST",
-            datatype: "json",
+            error: function (xhr, status, error) {
+                console.log("Error occurred: " + error);
+            },
             "data": function (data) {
                 var start = $("#DateRangePickerOnOperationsStartHidden").val();
                 var end = $("#DateRangePickerOnOperationsEndHidden").val();
@@ -93,12 +95,12 @@ $(document).ready(function () {
         },
         lengthMenu: [5, 10, 20, 50, 100, 200, 500],
         "columns": [
-            { "data": "Id", "name": "Id", "autoWidth": false, "responsivePriority": 1000 },
-            { "data": "Name", "name": "Name", "autoWidth": false, "responsivePriority": 10 },
-            { "data": "Description", "name": "Description", "autoWidth": false, "responsivePriority": 100 },
+            { "data": "id", "name": "id", "autoWidth": false, "responsivePriority": 1000 },
+            { "data": "name", "name": "name", "autoWidth": false, "responsivePriority": 10 },
+            { "data": "description", "name": "description", "autoWidth": false, "responsivePriority": 100 },
             {
-                "data": "Active",
-                "name": "Active",
+                "data": "active",
+                "name": "active",
                 "autoWidth": false,
                 "responsivePriority": 10,
                 "render": function (data, type, row) {
@@ -108,19 +110,19 @@ $(document).ready(function () {
                 }
             },
             {
-                "data": "Deleted",
-                "name": "Deleted",
+                "data": "deleted",
+                "name": "deleted",
                 "autoWidth": false,
                 "responsivePriority": 10,
                 "render": function (data, type, row) {
                     return (data === true)
-                        ? '<i class="material-icons" style="color:red" data-bs-toggle="tooltip" data-bs-placement="top" title="This item was deleted by user: [Guest] at [DateDeleted]">delete_forever </i>'
-                        : " ";
+                        ? '<i class="material-icons" style="color:red" data-bs-toggle="tooltip" data-bs-placement="top" title="This item was deleted by user: [Guest] at [DateDeleted]">delete_forever</i>'
+                        : '<i class="material-icons" style="color:green" data-bs-toggle="tooltip" data-bs-placement="top" title="This item is OK">search</i>';
                 }
             },
             {
-                "data": "CreatedDate",
-                "name": "CreatedDate",
+                "data": "createdDate",
+                "name": "createdDate",
                 "autoWidth": false,
                 "responsivePriority": 1900,
                 type: "datetime",
@@ -129,8 +131,8 @@ $(document).ready(function () {
                 }
             },
             {
-                "data": "ModifiedDate",
-                "name": "ModifiedDate",
+                "data": "modifiedDate",
+                "name": "modifiedDate",
                 "autoWidth": false,
                 "responsivePriority": 10,
                 type: "datetime",
@@ -138,7 +140,7 @@ $(document).ready(function () {
                     return moment(data).format(dateFormat);
                 }
             },
-            { "data": "Actions", "name": "Actions", "autoWidth": false, "responsivePriority": 2000 },
+            { "data": "actions", "name": "actions", "autoWidth": false, "responsivePriority": 2000 },
             //{
             //    data: null,
             //    className: "center",
@@ -229,7 +231,9 @@ $(document).ready(function () {
         "initComplete": function (settings, json) {
         }
     });
-
+    $(datatableName).on('error.dt', function (e, settings, techNote, message) {
+        console.error('An error occurred in DataTables:', message);
+    });
     $(document).ready(function () {
         $("#SearchResultTable_length").change(function () {
         });

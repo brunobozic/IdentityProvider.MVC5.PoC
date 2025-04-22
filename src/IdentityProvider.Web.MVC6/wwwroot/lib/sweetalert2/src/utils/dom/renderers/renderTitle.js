@@ -1,22 +1,14 @@
-import * as dom from '../../dom/index.js'
+import * as dom from '../../dom/index'
 
-/**
- * @param {SweetAlert2} instance
- * @param {SweetAlertOptions} params
- */
-export const renderTitle = (instance, params) => {
+export const renderTitle = (params) => {
   const title = dom.getTitle()
-
-  dom.toggle(title, params.title || params.titleText, 'block')
-
-  if (params.title) {
-    dom.parseHtmlToContainer(params.title, title)
-  }
 
   if (params.titleText) {
     title.innerText = params.titleText
+  } else if (params.title) {
+    if (typeof params.title === 'string') {
+      params.title = params.title.split('\n').join('<br />')
+    }
+    dom.parseHtmlToContainer(params.title, title)
   }
-
-  // Custom class
-  dom.applyCustomClass(title, params, 'title')
 }

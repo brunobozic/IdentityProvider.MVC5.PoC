@@ -99,7 +99,7 @@
     //    } );
     //});
     // var datatablesConString = "@Url.Action("AuditTrailDatatables", "AuditTrail")";
-    var datatablesConStringForOperations = "@Url.Action("OperationsGetAll", "Operation")";
+    var datatablesConStringForOperations = '@Url.Action("OperationsGetAll", "Operation")';
     var existTheme = $('.right-sidebar .demo-choose-skin li.active').data('theme');
 
 
@@ -125,8 +125,8 @@
                 <div class="item-content">
                     <partial name="../Shared/DragAndDropHandlePartial/_dragAndDropHandlePartial" model="Model" />
                     <div class="card">
-              @*           @Html.Partial("../Shared/DashboardCommons/_headerRightSideActionDropdown", Model.HeaderRightSideActionDropdownList.SingleOrDefault(i => i.WidgetId == "OperationsWidget"))*@       
-               <partial name="../Shared/DashboardCommons/_headerRightSideActionDropdown" />
+                        @Html.Partial("../Shared/DashboardCommons/_headerRightSideActionDropdown", Model.HeaderRightSideActionDropdownList.SingleOrDefault(i => i.WidgetId == "OperationsWidget"))
+
                         <div class="" style="background-color: whitesmoke; height: 450px; padding: 10px">
                             @Html.Partial("ChartPartial/_pieChartPartial", Model)
                         </div>

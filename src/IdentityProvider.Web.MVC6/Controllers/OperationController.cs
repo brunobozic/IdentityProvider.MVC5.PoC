@@ -17,6 +17,7 @@ using Module.CrossCutting.Models.ViewModels.Operations;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -67,7 +68,7 @@ namespace IdentityProvider.Web.MVC6.Controllers
         #region Public Paginated get 
         [AllowAnonymous]
         [HttpGet("OperationsGetAllPaged")]
-        [AcceptVerbs("Get", "Post")]
+
         public IActionResult OperationsGetAllPaged()
         {
             Log.Information("Accessed OperationsGetAllPaged to fetch all operations with pagination.");
@@ -88,41 +89,57 @@ namespace IdentityProvider.Web.MVC6.Controllers
         #endregion Public Paginated get
 
         #region Public get
+
         [AllowAnonymous]
-        [AcceptVerbs("Post")]
-        [HttpPost("OperationsGetAll")]
-        public JsonResult OperationsGetAll(DataTableAjaxPostModel model)
+        [HttpPost]
+        [HttpGet]
+        public JsonResult OperationsGetAll([FromForm] DataTableAjaxPostModel model)
         {
+
             Log.ForContext("Action", "OperationsGetAll")
                    .Information("Fetching operations based on DataTableAjaxPostModel: {@DataTableAjaxPostModel}", model);
 
-            var (result, filteredResultsCount, totalResultsCount) = SearchFunction(model);
+            var res = SearchFunction(model, out var filteredResultsCount, out var totalResultsCount);
 
+            var result = new List<OperationsDatatableSearchClass>(res.Count);
 
-            var data = result.Select(s => new OperationsDatatableSearchClass
+            result.AddRange(res.Select(s => new OperationsDatatableSearchClass
             {
                 Id = s.Id,
                 Name = s.Name,
                 Description = s.Description,
                 Active = s.Active,
+                Deleted = s.Deleted,
                 CreatedDate = s.CreatedDate,
                 ModifiedDate = s.ModifiedDate,
-                Actions = $"<a href=\"\" class=\"OperationsDashboard_OperationsDatatable_edit text-center\" data-id=\"{s.Id}\" custom-middle-align\">Edit</a> / <a href=\"\" class=\"OperationsDashboard_OperationsDatatable_remove\" data-id=\"{s.Id}\">Delete</a>"
-            });
+                Actions = s.Deleted == false
+                    ? string.Format(
+                        "<a href=\"\" class=\"OperationsDashboard_OperationsDatatable_edit text-center\" data-id=\"{0}\" custom-middle-align\">Edit</a> / <a href=\"\" class=\"OperationsDashboard_OperationsDatatable_remove\" data-id=\"{0}\">Delete</a>",
+                        s.Id)
+                    : string.Format(
+                        "<a href=\"\" class=\"OperationsDashboard_OperationsDatatable_edit text-center\" data-id=\"{0}\" custom-middle-align\">Edit</a>",
+                        s.Id)
+            }));
 
             Log.Information("Operations fetched successfully for DataTables. Total Records: {TotalRecords}, Filtered Records: {FilteredRecords}", totalResultsCount, filteredResultsCount);
 
             return Json(new
             {
-                draw = model.draw,
+                // this is what datatables expect to recieve
+                model.draw,
                 recordsTotal = totalResultsCount,
                 recordsFiltered = filteredResultsCount,
                 data = result
             });
+
+
         }
 
-
-        private (IList<OperationsDatatableSearchClass> Result, int FilteredResultsCount, int TotalResultsCount) SearchFunction(DataTableAjaxPostModel model)
+        private IList<OperationsDatatableSearchClass> SearchFunction(
+                  DataTableAjaxPostModel model
+                  , out int filteredResultsCount
+                  , out int totalResultsCount
+              )
         {
             var searchBy = model.search?.value ?? model.search_extra;
             var take = model.length;
@@ -130,60 +147,54 @@ namespace IdentityProvider.Web.MVC6.Controllers
             var userId = model.userid;
             var from = model.from;
             var to = model.to;
-            var alsoinactive = model.alsoinactive;
-            var alsodeleted = model.alsodeleted;
+            var alsoinactive = true;
+            var alsodeleted = false;
+            if (model.alsoinactive)
+                alsoinactive = true;
+            else
+                alsoinactive = false;
+            if (model.alsodeleted) alsodeleted = true;
+
             var sortBy = string.Empty;
             var sortDir = true;
 
-            if (model.order != null && model.order.Any())
+            if (model.order != null)
             {
-                // Assuming model.order is not null and has at least one element.
+                // in this example we just default sort on the 1st column
                 sortBy = model.columns[model.order[0].column].data;
-                sortDir = model.order[0].dir.Equals("asc", StringComparison.OrdinalIgnoreCase);
+                sortDir = model.order[0].dir.ToLower() == "asc";
             }
 
-            int filteredResultsCount, totalResultsCount;
+            if (searchBy == null)
+            {
+                // if any of the columns have server-side search set on them (not all of them should!)
+                // use the search string provided with the column to perform server side searching.
+            }
+
+            // search the dbase taking into consideration table sorting and paging
             var result = _operationService.GetDataFromDbase(
-                userId,
-                searchBy,
-                take,
-                skip,
-                sortBy,
-                sortDir,
-                from,
-                to,
-                alsoinactive,
-                alsodeleted,
-                out filteredResultsCount,
-                out totalResultsCount
+                userId
+                , searchBy
+                , take
+                , skip
+                , sortBy
+                , sortDir
+                , from
+                , to
+                , alsodeleted
+                , alsoinactive
+                , out filteredResultsCount
+                , out totalResultsCount
             );
 
             if (result == null)
-            {
-                // Log this situation as it might indicate an issue or an unexpected state.
-                Log.Warning("SearchFunction returned null. Parameters: {@model}", model);
-                return (new List<OperationsDatatableSearchClass>(), 0, 0);
-            }
+                // empty collection...
+                return new List<OperationsDatatableSearchClass>();
 
-            var mappedResult = result.Select(domainObj => new OperationsDatatableSearchClass
-            {
-
-                Id = domainObj.Id,
-                Name = domainObj.Name,
-                Description = domainObj.Description,
-                Active = domainObj.Active,
-                CreatedDate = domainObj.CreatedDate,
-                ModifiedDate = domainObj.ModifiedDate,
-                // Actions would likely be handled in the frontend, but if needed, could be assembled here.
-                Actions = string.Empty,
-                Deleted = domainObj.Deleted
-            }).ToList();
-
-            return (mappedResult, filteredResultsCount, totalResultsCount);
+            return result;
         }
 
         [AllowAnonymous]
-        [AcceptVerbs("Get")]
         [HttpGet("FetchInfoOnOperations")]
         public async Task<IActionResult> FetchInfoOnOperations()
         {

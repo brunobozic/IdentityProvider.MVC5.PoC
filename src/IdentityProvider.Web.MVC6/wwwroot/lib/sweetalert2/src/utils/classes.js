@@ -1,9 +1,5 @@
 export const swalPrefix = 'swal2-'
 
-/**
- * @param {string[]} items
- * @returns {object}
- */
 export const prefix = (items) => {
   const result = {}
   for (const i in items) {
@@ -20,22 +16,23 @@ export const swalClasses = prefix([
   'popup',
   'modal',
   'no-backdrop',
-  'no-transition',
   'toast',
   'toast-shown',
+  'toast-column',
+  'fade',
   'show',
   'hide',
+  'noanimation',
   'close',
   'title',
-  'html-container',
+  'header',
+  'content',
   'actions',
   'confirm',
-  'deny',
   'cancel',
-  'default-outline',
   'footer',
   'icon',
-  'icon-content',
+  'icon-text',
   'image',
   'input',
   'file',
@@ -46,13 +43,11 @@ export const swalClasses = prefix([
   'label',
   'textarea',
   'inputerror',
-  'input-label',
   'validation-message',
-  'progress-steps',
-  'active-progress-step',
-  'progress-step',
-  'progress-step-line',
-  'loader',
+  'progresssteps',
+  'activeprogressstep',
+  'progresscircle',
+  'progressline',
   'loading',
   'styled',
   'top',
@@ -73,16 +68,13 @@ export const swalClasses = prefix([
   'grow-row',
   'grow-column',
   'grow-fullscreen',
-  'rtl',
-  'timer-progress-bar',
-  'timer-progress-bar-container',
-  'scrollbar-measure',
-  'icon-success',
-  'icon-warning',
-  'icon-info',
-  'icon-question',
-  'icon-error',
-  'no-war',
+  'rtl'
 ])
 
-export const iconTypes = prefix(['success', 'warning', 'info', 'question', 'error'])
+export const iconTypes = prefix([
+  'success',
+  'warning',
+  'info',
+  'question',
+  'error'
+])

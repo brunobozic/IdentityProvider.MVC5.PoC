@@ -1,60 +1,38 @@
 import { swalClasses } from '../../classes.js'
 import { warn } from '../../utils.js'
-import * as dom from '../../dom/index.js'
+import * as dom from '../../dom/index'
+import sweetAlert from '../../../sweetalert2'
 
-/**
- * @param {SweetAlert2} instance
- * @param {SweetAlertOptions} params
- */
-export const renderProgressSteps = (instance, params) => {
-  const progressStepsContainer = dom.getProgressSteps()
-  if (!params.progressSteps || params.progressSteps.length === 0) {
-    return dom.hide(progressStepsContainer)
-  }
-
-  dom.show(progressStepsContainer)
-  progressStepsContainer.textContent = ''
-  if (params.currentProgressStep >= params.progressSteps.length) {
-    warn(
-      'Invalid currentProgressStep parameter, it should be less than progressSteps.length ' +
+export const renderProgressSteps = (params) => {
+  let progressStepsContainer = dom.getProgressSteps()
+  let currentProgressStep = parseInt(params.currentProgressStep === null ? sweetAlert.getQueueStep() : params.currentProgressStep, 10)
+  if (params.progressSteps && params.progressSteps.length) {
+    dom.show(progressStepsContainer)
+    progressStepsContainer.innerHTML = ''
+    if (currentProgressStep >= params.progressSteps.length) {
+      warn(
+        'Invalid currentProgressStep parameter, it should be less than progressSteps.length ' +
         '(currentProgressStep like JS arrays starts from 0)'
-    )
-  }
-
-  params.progressSteps.forEach((step, index) => {
-    const stepEl = createStepElement(step)
-    progressStepsContainer.appendChild(stepEl)
-    if (index === params.currentProgressStep) {
-      dom.addClass(stepEl, swalClasses['active-progress-step'])
+      )
     }
-
-    if (index !== params.progressSteps.length - 1) {
-      const lineEl = createLineElement(params)
-      progressStepsContainer.appendChild(lineEl)
-    }
-  })
-}
-
-/**
- * @param {string} step
- * @returns {HTMLLIElement}
- */
-const createStepElement = (step) => {
-  const stepEl = document.createElement('li')
-  dom.addClass(stepEl, swalClasses['progress-step'])
-  dom.setInnerHtml(stepEl, step)
-  return stepEl
-}
-
-/**
- * @param {SweetAlertOptions} params
- * @returns {HTMLLIElement}
- */
-const createLineElement = (params) => {
-  const lineEl = document.createElement('li')
-  dom.addClass(lineEl, swalClasses['progress-step-line'])
-  if (params.progressStepsDistance) {
-    dom.applyNumericalStyle(lineEl, 'width', params.progressStepsDistance)
+    params.progressSteps.forEach((step, index) => {
+      let circle = document.createElement('li')
+      dom.addClass(circle, swalClasses.progresscircle)
+      circle.innerHTML = step
+      if (index === currentProgressStep) {
+        dom.addClass(circle, swalClasses.activeprogressstep)
+      }
+      progressStepsContainer.appendChild(circle)
+      if (index !== params.progressSteps.length - 1) {
+        let line = document.createElement('li')
+        dom.addClass(line, swalClasses.progressline)
+        if (params.progressStepsDistance) {
+          line.style.width = params.progressStepsDistance
+        }
+        progressStepsContainer.appendChild(line)
+      }
+    })
+  } else {
+    dom.hide(progressStepsContainer)
   }
-  return lineEl
 }

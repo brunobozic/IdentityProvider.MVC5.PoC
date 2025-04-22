@@ -1,13 +1,29 @@
-import privateProps from '../privateProps.js'
+import privateProps from '../privateProps'
 
-function setButtonsDisabled(instance, buttons, disabled) {
-  const domCache = privateProps.domCache.get(instance)
-  buttons.forEach((button) => {
-    domCache[button].disabled = disabled
-  })
+export function enableButtons () {
+  const domCache = privateProps.domCache.get(this)
+  domCache.confirmButton.disabled = false
+  domCache.cancelButton.disabled = false
 }
 
-function setInputDisabled(input, disabled) {
+export function disableButtons () {
+  const domCache = privateProps.domCache.get(this)
+  domCache.confirmButton.disabled = true
+  domCache.cancelButton.disabled = true
+}
+
+export function enableConfirmButton () {
+  const domCache = privateProps.domCache.get(this)
+  domCache.confirmButton.disabled = false
+}
+
+export function disableConfirmButton () {
+  const domCache = privateProps.domCache.get(this)
+  domCache.confirmButton.disabled = true
+}
+
+export function enableInput () {
+  const input = this.getInput()
   if (!input) {
     return false
   }
@@ -15,25 +31,25 @@ function setInputDisabled(input, disabled) {
     const radiosContainer = input.parentNode.parentNode
     const radios = radiosContainer.querySelectorAll('input')
     for (let i = 0; i < radios.length; i++) {
-      radios[i].disabled = disabled
+      radios[i].disabled = false
     }
   } else {
-    input.disabled = disabled
+    input.disabled = false
   }
 }
 
-export function enableButtons() {
-  setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], false)
-}
-
-export function disableButtons() {
-  setButtonsDisabled(this, ['confirmButton', 'denyButton', 'cancelButton'], true)
-}
-
-export function enableInput() {
-  return setInputDisabled(this.getInput(), false)
-}
-
-export function disableInput() {
-  return setInputDisabled(this.getInput(), true)
+export function disableInput () {
+  const input = this.getInput()
+  if (!input) {
+    return false
+  }
+  if (input && input.type === 'radio') {
+    const radiosContainer = input.parentNode.parentNode
+    const radios = radiosContainer.querySelectorAll('input')
+    for (let i = 0; i < radios.length; i++) {
+      radios[i].disabled = true
+    }
+  } else {
+    input.disabled = true
+  }
 }

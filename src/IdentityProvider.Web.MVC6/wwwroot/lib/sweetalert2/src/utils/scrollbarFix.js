@@ -1,4 +1,4 @@
-import * as dom from './dom/index.js'
+import * as dom from './dom/index'
 
 export const fixScrollbar = () => {
   // for queues, do not do this more than once
@@ -9,13 +9,13 @@ export const fixScrollbar = () => {
   if (document.body.scrollHeight > window.innerHeight) {
     // add padding so the content doesn't shift after removal of scrollbar
     dom.states.previousBodyPadding = parseInt(window.getComputedStyle(document.body).getPropertyValue('padding-right'))
-    document.body.style.paddingRight = `${dom.states.previousBodyPadding + dom.measureScrollbar()}px`
+    document.body.style.paddingRight = (dom.states.previousBodyPadding + dom.measureScrollbar()) + 'px'
   }
 }
 
 export const undoScrollbar = () => {
   if (dom.states.previousBodyPadding !== null) {
-    document.body.style.paddingRight = `${dom.states.previousBodyPadding}px`
+    document.body.style.paddingRight = dom.states.previousBodyPadding
     dom.states.previousBodyPadding = null
   }
 }

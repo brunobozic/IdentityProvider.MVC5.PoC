@@ -15,29 +15,40 @@ export const uniqueArray = (arr) => {
 }
 
 /**
- * Capitalize the first letter of a string
- * @param {string} str
- * @returns {string}
- */
-export const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1)
-
-/**
- * @param {NodeList | HTMLCollection | NamedNodeMap | DOMTokenList} nodeList
- * @returns {array}
+ * Convert NodeList to Array
+ * @param nodeList
  */
 export const toArray = (nodeList) => Array.prototype.slice.call(nodeList)
 
 /**
- * Standardize console warnings
- * @param {string | array} message
+ * Converts `inputOptions` into an array of `[value, label]`s
+ * @param inputOptions
  */
-export const warn = (message) => {
-  console.warn(`${consolePrefix} ${typeof message === 'object' ? message.join(' ') : message}`)
+export const formatInputOptions = (inputOptions) => {
+  const result = []
+  if (typeof Map !== 'undefined' && inputOptions instanceof Map) {
+    inputOptions.forEach((value, key) => {
+      result.push([key, value])
+    })
+  } else {
+    Object.keys(inputOptions).forEach(key => {
+      result.push([key, inputOptions[key]])
+    })
+  }
+  return result
 }
 
 /**
- * Standardize console errors
- * @param {string} message
+ * Standardise console warnings
+ * @param message
+ */
+export const warn = (message) => {
+  console.warn(`${consolePrefix} ${message}`)
+}
+
+/**
+ * Standardise console errors
+ * @param message
  */
 export const error = (message) => {
   console.error(`${consolePrefix} ${message}`)
@@ -52,7 +63,7 @@ const previousWarnOnceMessages = []
 
 /**
  * Show a console warning, but only if it hasn't already been shown
- * @param {string} message
+ * @param message
  */
 export const warnOnce = (message) => {
   if (!previousWarnOnceMessages.includes(message)) {
@@ -62,25 +73,10 @@ export const warnOnce = (message) => {
 }
 
 /**
- * Show a one-time console warning about deprecated params/methods
- */
-export const warnAboutDeprecation = (deprecatedParam, useInstead) => {
-  warnOnce(
-    `"${deprecatedParam}" is deprecated and will be removed in the next major release. Please use "${useInstead}" instead.`
-  )
-}
-
-/**
  * If `arg` is a function, call it (with no arguments or context) and return the result.
  * Otherwise, just pass the value through
  * @param arg
  */
-export const callIfFunction = (arg) => (typeof arg === 'function' ? arg() : arg)
+export const callIfFunction = (arg) => typeof arg === 'function' ? arg() : arg
 
-export const hasToPromiseFn = (arg) => arg && typeof arg.toPromise === 'function'
-
-export const asPromise = (arg) => (hasToPromiseFn(arg) ? arg.toPromise() : Promise.resolve(arg))
-
-export const isPromise = (arg) => arg && Promise.resolve(arg) === arg
-
-export const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)]
+export const isThenable = (arg) => arg && typeof arg === 'object' && typeof arg.then === 'function'

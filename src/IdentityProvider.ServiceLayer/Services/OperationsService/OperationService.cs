@@ -29,10 +29,18 @@ namespace IdentityProvider.ServiceLayer.Services.OperationsService
         #region CRUD
 
         public IList<OperationsDatatableSearchClass> GetDataFromDbase(
-         int userId, string searchBy, int take, int skip,
-         string sortBy, bool sortDir, DateTime? from, DateTime? to,
-         bool alsoActive, bool alsoDeleted, out int filteredResultsCount,
-         out int totalResultsCount)
+         int userId
+            , string searchBy
+            , int take
+            , int skip
+            , string sortBy
+            , bool sortDir
+            , DateTime? from
+            , DateTime? to
+            , bool alsoActive
+            , bool alsoDeleted
+            , out int filteredResultsCount
+            , out int totalResultsCount)
         {
             var whereClause = BuildDynamicWhereClause(searchBy, from, to, alsoActive, alsoDeleted);
 
@@ -57,12 +65,12 @@ namespace IdentityProvider.ServiceLayer.Services.OperationsService
                 {
                     Id = m.Id,
                     Name = m.Name,
-                    Description = m.Description,
+                    Description = m.Description ?? "",
                     Active = m.Active,
                     Deleted = m.IsDeleted,
                     CreatedDate = m.CreatedDate,
                     ModifiedDate = m.ModifiedDate,
-                    Actions = string.Empty // TODO: This should be set according to your UI logic
+                    Actions = ""
                 })
                 .Skip(skip)
                 .Take(take)
@@ -77,8 +85,12 @@ namespace IdentityProvider.ServiceLayer.Services.OperationsService
 
 
         private Expression<Func<Operation, bool>> BuildDynamicWhereClause(
-            string searchValue, DateTime? from, DateTime? to,
-            bool alsoInActive, bool alsoDeleted)
+            string searchValue
+            , DateTime? from
+            , DateTime? to
+            , bool alsoInActive
+            , bool alsoDeleted
+            )
         {
             var predicate = PredicateBuilder.New<Operation>(true);
 
